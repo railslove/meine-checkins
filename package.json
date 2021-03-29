@@ -75,8 +75,7 @@
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
-    "typescript": "^3.9.7",
-    "xmlhttprequest": "^1.8.0"
+    "typescript": "^3.9.7"
   },
   "jest": {
     "preset": "react-native",
