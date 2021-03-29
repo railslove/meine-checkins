@@ -6,12 +6,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import StartScreen from 'src/features/navigation/StartScreen';
 import MainBottomNavigation from 'src/features/navigation/MainBottomNavigator';
 
-export enum MainStacRoutes {
+export enum MainStackRoutes {
   Start = 'Start',
   MainNavigation = 'MainNavigation',
 }
 
-const {Navigator, Screen} = createStackNavigator<Record<MainStacRoutes, any>>();
+const {Navigator, Screen} = createStackNavigator<Record<MainStackRoutes, any>>();
 
 const StartStackNavigation: React.FC = () => {
   useEffect(() => {
@@ -20,13 +20,13 @@ const StartStackNavigation: React.FC = () => {
 
   return (
     <Navigator
-      initialRouteName={MainStacRoutes.Start}
+      initialRouteName={MainStackRoutes.Start}
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Screen name={MainStacRoutes.Start} component={StartScreen} />
-      <Screen name={MainStacRoutes.MainNavigation} component={MainBottomNavigation} />
+      <Screen name={MainStackRoutes.Start} component={StartScreen} />
+      <Screen name={MainStackRoutes.MainNavigation} component={MainBottomNavigation} />
     </Navigator>
   );
 };

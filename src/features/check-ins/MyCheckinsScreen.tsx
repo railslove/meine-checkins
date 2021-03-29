@@ -1,16 +1,9 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    marginHorizontal: 12,
-  },
-});
+import Button from 'src/shared/components/Button/Button';
+import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
+import Headline from 'src/shared/components/Typography/Headline';
 
 const MyCheckInsScreen: React.FC = () => {
   const navigate = useNavigation();
@@ -19,13 +12,11 @@ const MyCheckInsScreen: React.FC = () => {
   const goImpressum = () => navigate.navigate(CheckInsRoutes.Impressum);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>MyCheckInsScreen</Text>
-        <Button title="FAQ" onPress={goFAQ} />
-        <Button title="Impressum" onPress={goImpressum} />
-      </View>
-    </SafeAreaView>
+    <ScreenContainer>
+      <Headline>MyCheckInsScreen</Headline>
+      <Button onPress={goFAQ}>FAQ</Button>
+      <Button onPress={goImpressum}>Impressum</Button>
+    </ScreenContainer>
   );
 };
 

@@ -1,30 +1,22 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {MainStacRoutes} from 'src/features/navigation/MainStackNavigator';
+import {useNavigation} from '@react-navigation/core';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    marginHorizontal: 12,
-  },
-});
+import Button from 'src/shared/components/Button/Button';
+import Headline from 'src/shared/components/Typography/Headline';
+import {MainStackRoutes} from 'src/features/navigation/MainStackNavigator';
+import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
 
 const StartScreen: React.FC = () => {
   const navigation = useNavigation();
   const goNext = () => {
-    navigation.navigate(MainStacRoutes.MainNavigation);
+    navigation.navigate(MainStackRoutes.MainNavigation);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>StartScreen</Text>
-        <Button title="Profile" onPress={goNext} />
-      </View>
-    </SafeAreaView>
+    <ScreenContainer>
+      <Headline>StartScreen</Headline>
+      <Button onPress={goNext}>Profile</Button>
+    </ScreenContainer>
   );
 };
 

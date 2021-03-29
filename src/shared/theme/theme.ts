@@ -1,39 +1,53 @@
-const palette = {
-  colors: {
-    black: '#222',
-    white: '#fff',
+import {configureFonts, DefaultTheme} from 'react-native-paper';
+import {Theme} from 'react-native-paper/lib/typescript/types';
+
+const fonts: Parameters<typeof configureFonts>[0] = {
+  ios: {
+    regular: {
+      fontFamily: 'Inter-Regular',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Inter-Medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'Inter-Light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Inter-Thin',
+      fontWeight: 'normal',
+    },
   },
-  fonts: {
-    // For example only.
-    // Fonts must be linked to be used
-    // montserrat: {
-    //   regular: 'montserrat_regular',
-    //   medium: 'montserrat_medium',
-    //   bold: 'montserrat_bold',
-    // },
-    // firasans: {
-    //   regular: 'firasans_regular',
-    //   medium: 'firasans_medium',
-    //   bold: 'firasans_bold',
-    // },
+  android: {
+    regular: {
+      fontFamily: 'Inter-Regular',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Inter-Medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'Inter-Light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Inter-Thin',
+      fontWeight: 'normal',
+    },
   },
 };
 
-export const theme = {
-  background: palette.colors.white,
-  text: palette.colors.black,
-  typography: {
-    header: {
-      fontSize: 20,
-      // fontFamily: palette.fonts.montserrat.bold
-    },
-    subheader: {
-      fontSize: 18,
-      // fontFamily: palette.fonts.firasans.medium
-    },
-    body: {
-      fontSize: 14,
-      // fontFamily: palette.fonts.firasans.regular
-    },
+const theme: Theme = {
+  ...DefaultTheme,
+  fonts: configureFonts(fonts),
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#3772FF',
   },
+  roundness: 7,
 };
+
+export default theme;

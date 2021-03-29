@@ -1,18 +1,10 @@
 import React from 'react';
-
 import {useNavigation} from '@react-navigation/core';
-import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    marginHorizontal: 12,
-  },
-});
+import Button from 'src/shared/components/Button/Button';
+import Headline from 'src/shared/components/Typography/Headline';
+import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
 
 const ScanQRCodeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -20,12 +12,10 @@ const ScanQRCodeScreen: React.FC = () => {
   const goCheckIn = () => navigation.navigate(ScanRoutes.CheckInForm);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>ScanQRCodeScreen</Text>
-        <Button title="CheckIn" onPress={goCheckIn} />
-      </View>
-    </SafeAreaView>
+    <ScreenContainer>
+      <Headline>ScanQRCodeScreen</Headline>
+      <Button onPress={goCheckIn}>CheckIn</Button>
+    </ScreenContainer>
   );
 };
 

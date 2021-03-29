@@ -15,7 +15,7 @@ const {Navigator, Screen} = createBottomTabNavigator<Record<BottomTabsRoutes, an
 
 const MainBottomNavigator: React.FC = () => {
   return (
-    <Navigator>
+    <Navigator initialRouteName={BottomTabsRoutes.Profile}>
       <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />
       <Screen name={BottomTabsRoutes.ScanQRCode} component={ScanStackNavigator} />
       <Screen name={BottomTabsRoutes.MyCheckIns} component={CheckInsNavigator} />

@@ -1,22 +1,12 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    marginHorizontal: 12,
-  },
-});
+import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
+import Headline from 'src/shared/components/Typography/Headline';
 
 const FAQScreen: React.FC = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>FAQScreen</Text>
-      </View>
-    </SafeAreaView>
+    <ScreenContainer>
+      <Headline>FAQScreen</Headline>
+    </ScreenContainer>
   );
 };
 

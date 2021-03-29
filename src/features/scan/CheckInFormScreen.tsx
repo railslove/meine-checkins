@@ -1,29 +1,20 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  innerContainer: {
-    marginHorizontal: 12,
-  },
-});
+import Headline from 'src/shared/components/Typography/Headline';
+import Button from 'src/shared/components/Button/Button';
+import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
 
 const CheckInFormScreen: React.FC = () => {
   const {navigate} = useNavigation();
   const goCheckIn = () => navigate(ScanRoutes.CheckOutForm);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <Text>CheckInFormScreen</Text>
-        <Button title="CheckOut" onPress={goCheckIn} />
-      </View>
-    </SafeAreaView>
+    <ScreenContainer>
+      <Headline>CheckInFormScreen</Headline>
+      <Button onPress={goCheckIn}>CheckOut</Button>
+    </ScreenContainer>
   );
 };
 

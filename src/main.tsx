@@ -9,8 +9,10 @@ import BuildConfig from 'react-native-config';
 import {enableScreens} from 'react-native-screens';
 import {Platform, UIManager} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider as PaperProvider} from 'react-native-paper';
 
 import store from 'src/shared/redux/store';
+import theme from 'src/shared/theme/theme';
 import RootErrorBoundary from 'src/RootErrorBoundary';
 import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
 
@@ -33,9 +35,11 @@ const App: React.FC = () => {
   return (
     <RootErrorBoundary>
       <Provider store={store}>
-        <NavigationContainer>
-          <MainStackNavigator />
-        </NavigationContainer>
+        <PaperProvider theme={theme}>
+          <NavigationContainer>
+            <MainStackNavigator />
+          </NavigationContainer>
+        </PaperProvider>
       </Provider>
     </RootErrorBoundary>
   );
