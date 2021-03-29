@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/core';
+import {StackActions, useNavigation} from '@react-navigation/core';
 
 import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
@@ -9,7 +9,7 @@ import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
 const StartScreen: React.FC = () => {
   const navigation = useNavigation();
   const goNext = () => {
-    navigation.navigate(MainStackRoutes.MainNavigation);
+    navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
   };
 
   return (

@@ -15,7 +15,11 @@ const {Navigator, Screen} = createStackNavigator<Record<ScanRoutes, any>>();
 
 const ScanStackNavigator: React.FC = () => {
   return (
-    <Navigator>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Screen name={ScanRoutes.ScanQRCode} component={ScanQRCodeScreen} />
       <Screen name={ScanRoutes.CheckInForm} component={CheckInFormScreen} />
       <Screen name={ScanRoutes.CheckOutForm} component={CheckOutFormScreen} />
