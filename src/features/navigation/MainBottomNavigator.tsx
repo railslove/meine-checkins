@@ -1,20 +1,24 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {BottomTabs} from 'src/features/navigation/constants';
+import ProfileScreen from 'src/features/navigation/ProfileScreen';
+import CheckInsNavigator from 'src/features/check-ins/CheckInsNavigator';
+import ScanStackNavigator from 'src/features/scan/ScanStackNavigator';
 
-import ProfileScreen from 'src/features/profile/ProfileScreen';
-import MyCheckInsScreen from 'src/features/check-ins/MyCheckinsScreen';
-import ScanQRCodeScreen from 'src/features/scan/ScanQRCodeScreen';
+export enum BottomTabsRoutes {
+  Profile = 'Profile',
+  ScanQRCode = 'ScanQRCode',
+  MyCheckIns = 'MyCheckIns',
+}
 
-const {Navigator, Screen} = createBottomTabNavigator<Record<BottomTabs, any>>();
+const {Navigator, Screen} = createBottomTabNavigator<Record<BottomTabsRoutes, any>>();
 
 const MainBottomNavigator: React.FC = () => {
   return (
     <Navigator>
-      <Screen name={BottomTabs.Profile} component={ProfileScreen} />
-      <Screen name={BottomTabs.MyCheckIns} component={MyCheckInsScreen} />
-      <Screen name={BottomTabs.ScanQRCode} component={ScanQRCodeScreen} />
+      <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />
+      <Screen name={BottomTabsRoutes.ScanQRCode} component={ScanStackNavigator} />
+      <Screen name={BottomTabsRoutes.MyCheckIns} component={CheckInsNavigator} />
     </Navigator>
   );
 };

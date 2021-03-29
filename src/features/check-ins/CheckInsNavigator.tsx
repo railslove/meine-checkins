@@ -5,20 +5,20 @@ import FAQScreen from 'src/features/check-ins/FAQScreen';
 import ImpressumScreen from 'src/features/check-ins/ImpressumScreen';
 import MyCheckInsScreen from 'src/features/check-ins/MyCheckinsScreen';
 
-export enum MyCheckInsStack {
+export enum CheckInsRoutes {
   FAQ = 'FAQ',
   Impressum = 'Impressum',
-  MyCheckIn = 'MyCheckIn',
+  MyCheckIns = 'MyCheckIns',
 }
 
-const {Navigator, Screen} = createStackNavigator<Record<MyCheckInsStack, any>>();
+const {Navigator, Screen} = createStackNavigator<Record<CheckInsRoutes, any>>();
 
 const CheckInsNavigator: React.FC = () => {
   return (
     <Navigator>
-      <Screen name={MyCheckInsStack.MyCheckIn} component={MyCheckInsScreen} />
-      <Screen name={MyCheckInsStack.FAQ} component={FAQScreen} />
-      <Screen name={MyCheckInsStack.Impressum} component={ImpressumScreen} />
+      <Screen name={CheckInsRoutes.MyCheckIns} component={MyCheckInsScreen} />
+      <Screen name={CheckInsRoutes.FAQ} component={FAQScreen} />
+      <Screen name={CheckInsRoutes.Impressum} component={ImpressumScreen} />
     </Navigator>
   );
 };

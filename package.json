@@ -25,7 +25,8 @@
     "detox-build:androidRelease": "detox build -c android.emu.release",
     "run-android:productionRelease": "ENVFILE=.env.prod react-native run-android --variant=release",
     "clear-android": "adb shell pm clear com.helloworld",
-    "uninstall-iOS": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
+    "reset:ios": "yarn uninstall-ios && cd ios && pod install",
+    "uninstall-ios": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
     "uninstall-android": "adb uninstall com.helloworld"
   },
   "dependencies": {
@@ -41,16 +42,13 @@
     "react-native-config": "^1.3.3",
     "react-native-fast-image": "^8.3.2",
     "react-native-gesture-handler": "^1.7.0",
-    "react-native-reanimated": "^1.12.0",
-    "react-native-redash": "^14.2.3",
     "react-native-safe-area-context": "^3.1.4",
     "react-native-screens": "^2.10.1",
     "react-native-svg": "^12.1.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-observable": "^1.2.0",
-    "rxjs": "^6.6.2",
-    "swr": "^0.3.0"
+    "rxjs": "^6.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",

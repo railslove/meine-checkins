@@ -1,18 +1,32 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, {useEffect} from 'react';
+import SplashScreen from 'react-native-bootsplash';
 
-import {MainStack} from 'src/features/navigation/constants';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import StartScreen from 'src/features/navigation/StartScreen';
 import MainBottomNavigation from 'src/features/navigation/MainBottomNavigator';
 
-const {Navigator, Screen} = createStackNavigator<Record<MainStack, any>>();
+export enum MainStacRoutes {
+  Start = 'Start',
+  MainNavigation = 'MainNavigation',
+}
+
+const {Navigator, Screen} = createStackNavigator<Record<MainStacRoutes, any>>();
 
 const StartStackNavigation: React.FC = () => {
+  useEffect(() => {
+    SplashScreen.hide({duration: 250});
+  }, []);
+
   return (
-    <Navigator initialRouteName={MainStack.Start}>
-      <Screen name={MainStack.Start} component={StartScreen} />
-      <Screen name={MainStack.MainNavigation} component={MainBottomNavigation} />
+    <Navigator
+      initialRouteName={MainStacRoutes.Start}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Screen name={MainStacRoutes.Start} component={StartScreen} />
+      <Screen name={MainStacRoutes.MainNavigation} component={MainBottomNavigation} />
     </Navigator>
   );
 };
