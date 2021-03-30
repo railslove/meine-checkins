@@ -16,9 +16,12 @@ import theme from 'src/shared/theme/theme';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Description from 'src/shared/components/Typography/Description';
 import UserService from 'src/shared/services/UserService';
+import {useDispatch} from 'react-redux';
+import {saveUserAction} from 'src/shared/redux/actions/userActions';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [address, setAddress] = useState('');
@@ -50,8 +53,14 @@ const ProfileScreen: React.FC = () => {
       phoneNumber,
     };
 
-    UserService.saveUser(user);
-    navigation.navigate(ScanRoutes.ScanQRCode);
+    dispatch(saveUserAction.request(user));
+
+    UserService.saveUser(user)
+      .then(el => {
+        saveUserAction.success(el);
+        navigation.navigate(ScanRoutes.ScanQRCode);
+      })
+      .catch(error => saveUserAction.failure(error));
   };
 
   return (

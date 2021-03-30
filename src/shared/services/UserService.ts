@@ -5,7 +5,7 @@ const ASYNC_STORAGE_KEY = `@masterCheckingApp:user`;
 
 class UserService {
   saveUser(user: User) {
-    return AsyncStorage.setItem(ASYNC_STORAGE_KEY, JSON.stringify(user));
+    return AsyncStorage.setItem(ASYNC_STORAGE_KEY, JSON.stringify(user)).then(() => user);
   }
   async getUser() {
     const value = await AsyncStorage.getItem(ASYNC_STORAGE_KEY);
