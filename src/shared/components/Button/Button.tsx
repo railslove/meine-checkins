@@ -1,18 +1,25 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button as RPButton} from 'react-native-paper';
 
 const styles = StyleSheet.create({
   root: {
-    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
+  main: {
+    width: '85%',
+  },
+  content: {
+    paddingVertical: 7,
+  },
+
   label: {
     fontSize: 14,
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
-  },
-  content: {
-    paddingVertical: 7,
   },
 });
 
@@ -23,13 +30,16 @@ export type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = props => {
   return (
-    <RPButton
-      mode="contained"
-      style={styles.root}
-      labelStyle={styles.label}
-      contentStyle={styles.content}
-      {...props}
-    />
+    <View style={styles.root}>
+      <RPButton
+        mode="contained"
+        compact={false}
+        style={styles.main}
+        labelStyle={styles.label}
+        contentStyle={styles.content}
+        {...props}
+      />
+    </View>
   );
 };
 

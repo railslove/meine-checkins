@@ -7,15 +7,14 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 1,
     display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'white',
   },
   main: {
     flex: 1,
     padding: 0,
     paddingHorizontal: 22,
-
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
   },
 });
 
