@@ -7,10 +7,12 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import BuildConfig from 'react-native-config';
 import {enableScreens} from 'react-native-screens';
+import {I18nextProvider} from 'react-i18next';
 import {Platform, UIManager} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 
+import i18n from 'src/shared/i18n';
 import store from 'src/shared/redux/store';
 import theme from 'src/shared/theme/theme';
 import RootErrorBoundary from 'src/RootErrorBoundary';
@@ -36,9 +38,11 @@ const App: React.FC = () => {
     <RootErrorBoundary>
       <Provider store={store}>
         <PaperProvider theme={theme}>
-          <NavigationContainer>
-            <MainStackNavigator />
-          </NavigationContainer>
+          <I18nextProvider i18n={i18n}>
+            <NavigationContainer>
+              <MainStackNavigator />
+            </NavigationContainer>
+          </I18nextProvider>
         </PaperProvider>
       </Provider>
     </RootErrorBoundary>
