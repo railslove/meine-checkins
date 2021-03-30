@@ -25,7 +25,7 @@
     "detox-build:androidRelease": "detox build -c android.emu.release",
     "run-android:productionRelease": "ENVFILE=.env.prod react-native run-android --variant=release",
     "clear-android": "adb shell pm clear com.helloworld",
-    "reset:ios": "yarn uninstall-ios && cd ios && pod install",
+    "reset:ios": "yarn uninstall-ios && cd ios && pod deintegrate && pod install",
     "uninstall-ios": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
     "uninstall-android": "adb uninstall com.helloworld"
   },
