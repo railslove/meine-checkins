@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
-import {Alert, Clipboard, Linking, NativeModules, StatusBar, StyleSheet, Text, View} from 'react-native';
-import SplashScreen from 'react-native-bootsplash';
+import {
+  Alert,
+  Clipboard,
+  Linking,
+  NativeModules,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 /**
  * Example UI to show in the case of a JavaScript error.
@@ -17,10 +25,6 @@ export default class RootErrorBoundary extends Component {
 
   static getDerivedStateFromError(error: Error) {
     return {hasError: true, error};
-  }
-
-  componentDidCatch() {
-    SplashScreen.hide({duration: 250});
   }
 
   showError = () => {

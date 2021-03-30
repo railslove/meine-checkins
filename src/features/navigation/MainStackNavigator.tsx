@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import SplashScreen from 'react-native-bootsplash';
+import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -14,10 +13,6 @@ export enum MainStackRoutes {
 const {Navigator, Screen} = createStackNavigator<Record<MainStackRoutes, any>>();
 
 const StartStackNavigation: React.FC = () => {
-  useEffect(() => {
-    SplashScreen.hide({duration: 250});
-  }, []);
-
   return (
     <Navigator
       initialRouteName={MainStackRoutes.Start}

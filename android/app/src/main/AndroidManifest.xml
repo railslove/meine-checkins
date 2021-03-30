@@ -19,17 +19,6 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity
-            android:name="com.zoontek.rnbootsplash.RNBootSplashActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/BootTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
 
