@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {StackActions, useNavigation} from '@react-navigation/core';
 
@@ -6,14 +7,21 @@ import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
 import {MainStackRoutes} from 'src/features/navigation/MainStackNavigator';
 import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
+import {initializeAppAction} from 'src/shared/redux/actions/appActions';
 
 const StartScreen: React.FC = () => {
   const {t} = useTranslation();
-
   const navigation = useNavigation();
+
   const goNext = () => {
     navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAppAction.request());
+  });
 
   return (
     <ScreenContainer>
