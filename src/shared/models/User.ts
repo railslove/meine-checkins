@@ -1,5 +1,8 @@
 type User = {
-  name: string;
+  address: string;
+  lastName: string;
+  firstName: string;
+  phoneNumber: string;
 };
 
 export default User;

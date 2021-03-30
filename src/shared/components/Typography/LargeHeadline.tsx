@@ -9,11 +9,10 @@ const style = StyleSheet.create({
     padding: 0,
     marginBottom: 14,
 
-    fontSize: 22,
+    fontSize: 34,
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
-    lineHeight: 26,
-    textAlign: 'left',
+    lineHeight: 44,
   },
 });
 

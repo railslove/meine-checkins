@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import ProfileScreen from 'src/features/navigation/ProfileScreen';
+import ProfileScreen from 'src/features/profile/ProfileScreen';
 import CheckInsNavigator from 'src/features/check-ins/CheckInsNavigator';
 import ScanStackNavigator from 'src/features/scan/ScanStackNavigator';
 
