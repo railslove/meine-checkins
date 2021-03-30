@@ -6,9 +6,13 @@ const styles = StyleSheet.create({
   root: {
     width: '100%',
   },
-  content: {
+  label: {
     fontSize: 14,
     fontFamily: 'Inter-Bold',
+    fontWeight: '700',
+  },
+  content: {
+    paddingVertical: 7,
   },
 });
 
@@ -18,7 +22,15 @@ export type ButtonProps = {
 };
 
 const Button: React.FC<ButtonProps> = props => {
-  return <RPButton mode="contained" style={styles.root} labelStyle={styles.content} {...props} />;
+  return (
+    <RPButton
+      mode="contained"
+      style={styles.root}
+      labelStyle={styles.label}
+      contentStyle={styles.content}
+      {...props}
+    />
+  );
 };
 
 export default Button;

@@ -3,10 +3,16 @@ import {StyleSheet, Text} from 'react-native';
 
 const style = StyleSheet.create({
   root: {
+    color: '#060606',
+    margin: 0,
     height: 'auto',
+    padding: 0,
+    marginBottom: 14,
+
     fontSize: 34,
     fontFamily: 'Inter-Bold',
-    marginBottom: 10,
+    fontWeight: '700',
+    lineHeight: 44,
   },
 });
 

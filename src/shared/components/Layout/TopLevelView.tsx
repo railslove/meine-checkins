@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    padding: 30,
+    padding: 0,
+    paddingHorizontal: 22,
 
     display: 'flex',
     alignItems: 'center',
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ScreenContainer: React.FC = ({children}) => {
+const TopLevelView: React.FC = ({children}) => {
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.main}>{children}</View>
@@ -26,4 +27,4 @@ const ScreenContainer: React.FC = ({children}) => {
   );
 };
 
-export default ScreenContainer;
+export default TopLevelView;

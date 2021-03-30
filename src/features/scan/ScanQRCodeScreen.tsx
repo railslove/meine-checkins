@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/core';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
-import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
 const ScanQRCodeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -12,10 +12,10 @@ const ScanQRCodeScreen: React.FC = () => {
   const goCheckIn = () => navigation.navigate(ScanRoutes.CheckInForm);
 
   return (
-    <ScreenContainer>
+    <TopLevelView>
       <Headline>ScanQRCodeScreen</Headline>
       <Button onPress={goCheckIn}>CheckIn</Button>
-    </ScreenContainer>
+    </TopLevelView>
   );
 };
 

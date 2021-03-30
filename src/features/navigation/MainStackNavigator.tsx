@@ -2,7 +2,7 @@ import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
-import StartScreen from 'src/features/navigation/StartScreen';
+import StartScreen from 'src/features/start/StartScreen';
 import MainBottomNavigation from 'src/features/navigation/MainBottomNavigator';
 
 export enum MainStackRoutes {

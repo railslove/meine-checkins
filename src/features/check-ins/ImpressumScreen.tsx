@@ -1,12 +1,12 @@
 import React from 'react';
-import ScreenContainer from 'src/shared/components/Screen/ScreenContainer';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import Headline from 'src/shared/components/Typography/Headline';
 
 const ImpressumScreen: React.FC = () => {
   return (
-    <ScreenContainer>
+    <TopLevelView>
       <Headline>ImpressumScreen</Headline>
-    </ScreenContainer>
+    </TopLevelView>
   );
 };
 
