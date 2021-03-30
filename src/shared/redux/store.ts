@@ -1,21 +1,20 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import {combineEpics, createEpicMiddleware, Epic} from 'redux-observable';
+import {configureStore} from '@reduxjs/toolkit';
+import {createEpicMiddleware} from 'redux-observable';
 
-import {userEpics} from 'src/shared/redux/slices/userSlice';
-import {rootReducer, RootStoreType} from 'src/shared/redux/rootReducer';
+import {rootEpic} from 'src/shared/redux/effects/rootEpic';
+import {AppAction} from 'src/shared/redux/actions/types';
+import {rootReducer} from 'src/shared/redux/reducers/rootReducer';
+
+export type StoreState = ReturnType<typeof rootReducer>;
 
 // Redux observable
-export type MyEpic = Epic<any, any, RootStoreType, any>;
-export const rootEpic = combineEpics(...userEpics);
-const epicMiddleware = createEpicMiddleware<any, any, RootStoreType, any>();
+const epicMiddleware = createEpicMiddleware<AppAction, AppAction, StoreState>();
 
 const store = configureStore({
   reducer: rootReducer,
   devTools: __DEV__,
-  middleware: [epicMiddleware, ...getDefaultMiddleware()],
+  middleware: [epicMiddleware],
 });
-
-export type AppDispatch = typeof store.dispatch;
 
 epicMiddleware.run(rootEpic);
 

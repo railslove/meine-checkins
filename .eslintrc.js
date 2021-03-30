@@ -1,5 +1,8 @@
 module.exports = {
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+  },
   extends: [
     'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
 
