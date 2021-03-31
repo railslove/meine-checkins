@@ -4,7 +4,7 @@ module.exports = {
   verbose: true,
   setupFiles: [
     '<rootDir>/src/__mocks__/setupMocks.js',
-    './node_modules/react-native-gesture-handler/jestSetup.js',
+    '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
   ],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   moduleNameMapper: {
@@ -12,5 +12,7 @@ module.exports = {
       '<rootDir>/src/__mocks__/fileMock.js',
     '^src/(.*)': '<rootDir>/src/$1',
   },
-  transformIgnorePatterns: ['node_modules/(?!(jest-)?react-native|@react-navigation/.*)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation/.*)',
+  ],
 };

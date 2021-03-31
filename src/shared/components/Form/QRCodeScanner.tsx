@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
 
 const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle => {

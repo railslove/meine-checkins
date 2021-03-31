@@ -20,7 +20,7 @@ const ScanQRCodeScreen: React.FC = () => {
   const hasCameraPermission = useSelector(cameraPermissionSelector);
 
   const handleSubmit = () => navigation.navigate(ScanRoutes.CheckInForm);
-  const handleSuccess = (value: any) => console.log(value);
+  const handleSuccess = (value: any) => console.log('qr scan success', value);
 
   useEffect(() => {
     if (hasCameraPermission == null) {
