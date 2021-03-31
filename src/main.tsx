@@ -19,11 +19,11 @@ import RootErrorBoundary from 'src/RootErrorBoundary';
 import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
 
 (function setup() {
-  // Log environement variables
-  console.log(BuildConfig);
-
-  // React Navigation, optimize memory usage.
-  enableScreens();
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('BuildConfig', BuildConfig);
+    // React Navigation, optimize memory usage.
+    enableScreens();
+  }
 
   // Layout animation
   if (Platform.OS === 'android') {

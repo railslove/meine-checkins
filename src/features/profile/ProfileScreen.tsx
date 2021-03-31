@@ -1,3 +1,4 @@
+import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback, useState} from 'react';
@@ -9,15 +10,11 @@ import Space from 'src/shared/components/Layout/Space';
 import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
 import TextInput from 'src/shared/components/Form/TextInput';
-import Paragraph from 'src/shared/components/Typography/Paragraph';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
-import theme from 'src/shared/theme/theme';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Description from 'src/shared/components/Typography/Description';
-import UserService from 'src/shared/services/UserService';
-import {useDispatch} from 'react-redux';
-import {saveUserAction} from 'src/shared/redux/actions/userActions';
+import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation();
@@ -53,14 +50,9 @@ const ProfileScreen: React.FC = () => {
       phoneNumber,
     };
 
-    dispatch(saveUserAction.request(user));
-
-    UserService.saveUser(user)
-      .then(el => {
-        saveUserAction.success(el);
-        navigation.navigate(ScanRoutes.ScanQRCode);
-      })
-      .catch(error => saveUserAction.failure(error));
+    dispatch(saveUserThunk({user})).then(() => {
+      navigation.navigate(ScanRoutes.ScanQRCode);
+    });
   };
 
   return (
