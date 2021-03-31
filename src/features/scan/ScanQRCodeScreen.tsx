@@ -35,8 +35,6 @@ const ScanQRCodeScreen: React.FC = () => {
 
   return (
     <TopLevelView backgroundColor="black">
-      <Space.V s={10} />
-
       <QRScanner
         topContent={
           <Box display="flex" alignItems="center" justifyContent="center">
@@ -54,8 +52,6 @@ const ScanQRCodeScreen: React.FC = () => {
           </Box>
         }
       />
-
-      <Space.V s={10} />
       <Button onPress={handleSubmit}>CheckIn</Button>
     </TopLevelView>
   );
