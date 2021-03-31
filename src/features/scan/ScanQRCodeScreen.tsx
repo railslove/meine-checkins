@@ -1,35 +1,32 @@
-import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import React, {useEffect} from 'react';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import Description from 'src/shared/components/Typography/Description';
-import {Platform} from 'react-native';
 import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
+import {useDispatch, useSelector} from 'react-redux';
+import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
+import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [hasCameraPermission, setCameraPermission] = useState<boolean>();
+  const hasCameraPermission = useSelector(cameraPermissionSelector);
 
   const handleSubmit = () => navigation.navigate(ScanRoutes.CheckInForm);
   const handleSuccess = (value: any) => console.log(value);
 
   useEffect(() => {
     if (hasCameraPermission == null) {
-      const value = Platform.OS === 'android' ? PERMISSIONS.ANDROID.CAMERA : PERMISSIONS.IOS.CAMERA;
-      request(value).then(result => {
-        console.log('hasCameraPermission', hasCameraPermission);
-        setCameraPermission(result === 'granted');
-      });
+      dispatch(requestCamerPermissionThunk());
     }
-  }, [hasCameraPermission]);
+  }, [hasCameraPermission, dispatch]);
 
   console.log('hasCameraPermission', hasCameraPermission);
 

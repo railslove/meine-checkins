@@ -8,11 +8,11 @@ export const saveUserThunk = (payload: SaveUserAction['request']) => (dispatch: 
 
   return UserService.saveUser(payload.user)
     .then(user => {
-      saveUserAction.success({user});
+      dispatch(saveUserAction.success({user}));
       return user;
     })
     .catch(error => {
-      saveUserAction.failure({error});
+      dispatch(saveUserAction.failure({error}));
       return payload;
     });
 };
