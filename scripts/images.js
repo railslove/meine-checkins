@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 // Generate PNG Image imports using node.
 // TODO: better handling on different file names.
 

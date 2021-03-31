@@ -1,5 +1,5 @@
 import User from 'src/shared/models/User';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ASYNC_STORAGE_KEY = `@masterCheckingApp:user`;
 

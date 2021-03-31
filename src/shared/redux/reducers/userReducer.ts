@@ -20,7 +20,7 @@ const userReducer = createReducer(getUserInitialState())
     ...state,
     isLoading: true,
   }))
-  .handleAction(saveUserAction.success, (state, {payload: user}) => ({
+  .handleAction(saveUserAction.success, (state, {payload: {user}}) => ({
     ...state,
     item: user,
     isLoading: true,

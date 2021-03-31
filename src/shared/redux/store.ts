@@ -1,21 +1,18 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {createEpicMiddleware} from 'redux-observable';
+import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import {rootEpic} from 'src/shared/redux/effects/rootEpic';
 import {AppAction} from 'src/shared/redux/actions/types';
-import {rootReducer} from 'src/shared/redux/reducers/rootReducer';
+import * as reducers from 'src/shared/redux/reducers';
+
+const rootReducer = combineReducers(reducers);
 
 export type StoreState = ReturnType<typeof rootReducer>;
-
-// Redux observable
-const epicMiddleware = createEpicMiddleware<AppAction, AppAction, StoreState>();
+export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
 const store = configureStore({
   reducer: rootReducer,
   devTools: __DEV__,
-  middleware: [epicMiddleware],
+  middleware: [thunkMiddleware],
 });
-
-epicMiddleware.run(rootEpic);
 
 export default store;
