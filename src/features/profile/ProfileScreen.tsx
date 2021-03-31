@@ -72,21 +72,26 @@ const ProfileScreen: React.FC = () => {
         <TextInput
           value={firstName}
           placeholder={t('profileScreen:firstName')}
+          autoCompleteType="name"
           onChangeText={handleFirstNameChange}
         />
         <TextInput
           value={lastName}
           placeholder={t('profileScreen:lastName')}
+          autoCompleteType="name"
           onChangeText={handleLastNameChange}
         />
         <TextInput
           placeholder={t('profileScreen:address')}
           value={address}
+          autoCompleteType="street-address"
           onChangeText={handleAddressChange}
         />
         <TextInput
           value={phoneNumber}
           placeholder={t('profileScreen:phoneNumber')}
+          keyboardType="phone-pad"
+          autoCompleteType="tel"
           onChangeText={handlePhoneNumberChange}
         />
 
