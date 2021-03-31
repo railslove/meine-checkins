@@ -68,6 +68,7 @@ const useStyles = () => {
 
 export type QRScannerProps = RNQRCodeScannerProps;
 
+// eslint-disable-next-line react/display-name
 const QRScanner: React.FC<QRScannerProps> = props => {
   const styles = useStyles();
 

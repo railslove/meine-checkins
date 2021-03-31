@@ -12,6 +12,8 @@ import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import {useDispatch, useSelector} from 'react-redux';
 import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
 import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
+import {BarCodeReadEvent} from 'react-native-camera';
+import {checkInStartAction} from 'src/shared/redux/actions/checkInActions';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -19,8 +21,14 @@ const ScanQRCodeScreen: React.FC = () => {
   const navigation = useNavigation();
   const hasCameraPermission = useSelector(cameraPermissionSelector);
 
-  const handleSubmit = () => navigation.navigate(ScanRoutes.CheckInForm);
-  const handleSuccess = (value: any) => console.log('qr scan success', value);
+  const handleSubmit = () => {
+    navigation.navigate(ScanRoutes.CheckInForm);
+  };
+
+  const handleSuccess = ({data: url}: BarCodeReadEvent) => {
+    dispatch(checkInStartAction(url));
+    handleSubmit();
+  };
 
   useEffect(() => {
     if (hasCameraPermission == null) {
@@ -28,11 +36,11 @@ const ScanQRCodeScreen: React.FC = () => {
     }
   }, [hasCameraPermission, dispatch]);
 
-  console.log('hasCameraPermission', hasCameraPermission);
-
   return (
     <TopLevelView backgroundColor="black">
       <QRScanner
+        reactivate
+        reactivateTimeout={1000}
         topContent={
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box width="40%">
@@ -40,7 +48,6 @@ const ScanQRCodeScreen: React.FC = () => {
             </Box>
           </Box>
         }
-        onRead={handleSuccess}
         bottomContent={
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box width="60%">
@@ -48,6 +55,7 @@ const ScanQRCodeScreen: React.FC = () => {
             </Box>
           </Box>
         }
+        onRead={handleSuccess}
       />
       <Button onPress={handleSubmit}>CheckIn</Button>
     </TopLevelView>

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
 
-const useStyles = ({color}: Omit<DescriptionProps, 'children'> = {}) =>
+const useStyles = ({color = 'black'}: Omit<DescriptionProps, 'children'> = {}) =>
   StyleSheet.create({
     root: {
       color,
@@ -12,7 +12,6 @@ const useStyles = ({color}: Omit<DescriptionProps, 'children'> = {}) =>
       fontSize: 14,
       lineHeight: 24,
       fontFamily: 'Inter-Regular',
-      flexWrap: 'wrap',
     },
   });
 
