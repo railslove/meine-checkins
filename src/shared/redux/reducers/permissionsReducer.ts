@@ -15,12 +15,13 @@ export type PermissionValue = {
 
 export type PermissionsReducerState = {
   error?: Error;
-  items?: PermissionValue[];
+  items: PermissionValue[];
   isLoading: boolean;
 };
 
 export const getPermissionsInitialState = (): PermissionsReducerState => ({
   error: undefined,
+  items: [],
   isLoading: false,
 });
 
@@ -28,19 +29,28 @@ const userReducer = createReducer(getPermissionsInitialState())
   .handleAction(requestCameraPermissionAction.request, state => {
     return {
       ...state,
+      error: undefined,
       isLoading: true,
     };
   })
   .handleAction(requestCameraPermissionAction.success, (state, {payload: {result}}) => {
     return {
       ...state,
-      item: (state.items || [])
+      items: (state.items || [])
         .filter(el => el.device !== Device.camera)
         .concat({
           result,
           device: Device.camera,
           hasPermission: result === 'granted' || result === 'limited',
         }),
+      isLoading: false,
+    };
+  })
+  .handleAction(requestCameraPermissionAction.failure, (state, {payload: {error}}) => {
+    return {
+      ...state,
+      error,
+      items: (state.items || []).filter(el => el.device !== Device.camera),
       isLoading: false,
     };
   });
