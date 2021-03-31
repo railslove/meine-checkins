@@ -4,15 +4,15 @@ import {createAction} from 'typesafe-actions';
 export const checkInStopAction = createAction(
   '@checkIn/stop',
   (url: string): CheckIn => ({
-    time: Date.now(),
     url,
+    stopTime: Date.now(),
   })
 )();
 
 export const checkInStartAction = createAction(
   '@checkIn/start',
   (url: string): CheckIn => ({
-    time: Date.now(),
     url,
+    startTime: Date.now(),
   })
 )();

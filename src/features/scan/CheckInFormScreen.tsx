@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
