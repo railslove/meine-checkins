@@ -1,0 +1,44 @@
+version: v1.0
+name: WFD MasterApp CI
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Install
+    dependencies: []
+    task:
+      jobs:
+        - name: yarn install
+          commands:
+            - checkout
+            - cache restore
+            - yarn
+            - cache store
+  - name: Tests
+    dependencies:
+      - Install
+    task:
+      prologue:
+        commands:
+          - checkout --use-cache
+          - cache restore
+      jobs:
+        - name: jest
+          commands:
+            - yarn test
+  - name: Static Analysis
+    dependencies:
+      - Install
+    task:
+      prologue:
+        commands:
+          - checkout --use-cache
+          - cache restore
+      jobs:
+        - name: lint
+          commands:
+            - yarn lint
+        - name: typescript
+          commands:
+            - 'yarn check:types'
