@@ -2,23 +2,27 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
 
-const style = StyleSheet.create({
-  root: {
-    margin: 0,
-    padding: 0,
-    height: 'auto',
-    fontSize: 14,
-    lineHeight: 24,
-    fontFamily: 'Inter-Regular',
-    flexWrap: 'wrap',
-  },
-});
+const useStyles = ({color}: Omit<DescriptionProps, 'children'> = {}) =>
+  StyleSheet.create({
+    root: {
+      color,
+      margin: 0,
+      padding: 0,
+      height: 'auto',
+      fontSize: 14,
+      lineHeight: 24,
+      fontFamily: 'Inter-Regular',
+      flexWrap: 'wrap',
+    },
+  });
 
 export type DescriptionProps = {
+  color?: string;
   children: React.ReactNode;
 };
 
-const Description: React.FC<DescriptionProps> = ({children}) => {
+const Description: React.FC<DescriptionProps> = ({color, children}) => {
+  const style = useStyles({color});
   return <RPParagraph style={style.root}>{children}</RPParagraph>;
 };
 
