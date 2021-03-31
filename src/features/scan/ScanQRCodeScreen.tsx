@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
 import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
 import {BarCodeReadEvent} from 'react-native-camera';
-import {checkInStartAction} from 'src/shared/redux/actions/checkInActions';
+import {checkInRegsiterAction} from 'src/shared/redux/actions/checkInActions';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -26,7 +26,7 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   const handleSuccess = ({data: url}: BarCodeReadEvent) => {
-    dispatch(checkInStartAction(url));
+    dispatch(checkInRegsiterAction(url));
     handleSubmit();
   };
 
@@ -40,7 +40,7 @@ const ScanQRCodeScreen: React.FC = () => {
     <TopLevelView backgroundColor="black">
       <QRScanner
         reactivate
-        reactivateTimeout={1000}
+        reactivateTimeout={10000}
         topContent={
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box width="40%">
@@ -57,7 +57,7 @@ const ScanQRCodeScreen: React.FC = () => {
         }
         onRead={handleSuccess}
       />
-      <Button onPress={handleSubmit}>CheckIn</Button>
+      <Button onPress={handleSubmit}>{t('submitScanQRCode')}</Button>
     </TopLevelView>
   );
 };

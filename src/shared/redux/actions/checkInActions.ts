@@ -1,18 +1,25 @@
-import CheckIn from 'src/shared/models/CheckIn';
+import {CheckInBegin, CheckInEnded, CheckInRegister} from 'src/shared/models/CheckIn';
 import {createAction} from 'typesafe-actions';
 
-export const checkInStopAction = createAction(
-  '@checkIn/stop',
-  (url: string): CheckIn => ({
+export const checkInRegsiterAction = createAction(
+  '@checkIn/register',
+  (url: string): CheckInRegister => ({
     url,
-    stopTime: Date.now(),
   })
 )();
 
-export const checkInStartAction = createAction(
+export const checkInBeginAction = createAction(
   '@checkIn/start',
-  (url: string): CheckIn => ({
+  (url: string): CheckInBegin => ({
     url,
-    startTime: Date.now(),
+    startTime: new Date(),
+  })
+)();
+
+export const checkInEndedAction = createAction(
+  '@checkIn/start',
+  (url: string): CheckInEnded => ({
+    url,
+    stopTime: new Date(),
   })
 )();

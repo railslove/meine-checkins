@@ -1,7 +1,7 @@
 import {createReducer} from 'typesafe-actions';
 
 import CheckIn from 'src/shared/models/CheckIn';
-import {checkInStartAction} from 'src/shared/redux/actions/checkInActions';
+import {checkInRegsiterAction} from 'src/shared/redux/actions/checkInActions';
 
 export type CheckInsInitialState = {
   error?: Error;
@@ -16,7 +16,7 @@ export const getCheckInsInitialState = (): CheckInsInitialState => ({
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState()).handleAction(
-  checkInStartAction,
+  checkInRegsiterAction,
   (state, {payload}) => {
     return {
       ...state,
