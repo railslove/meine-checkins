@@ -10,7 +10,7 @@ import {
 } from 'src/shared/redux/actions/supplierActions';
 
 import {injectJSString} from 'src/features/scan/providerFormLib';
-import {TEST_PROVIDER_SITE, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {TEST_PROVIDER, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -28,18 +28,17 @@ const ProviderFormScreen: React.FC = () => {
 
   const user = useSelector(state => state.user.item);
   const provider = useSelector(state => {
-    return state.checkIns.current || {url: TEST_PROVIDER_SITE};
+    return state.checkIns.current || TEST_PROVIDER;
   });
 
   const onMessage = useCallback(
     (ev: WebViewMessageEvent) => {
       const message = ev.nativeEvent.data;
-      const {url} = provider;
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
-        dispatch(supplierCheckInAction(url));
+        dispatch(supplierCheckInAction(provider));
       } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
-        dispatch(supplierCheckOutAction(url));
+        dispatch(supplierCheckOutAction(provider));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
       }
     },

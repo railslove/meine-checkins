@@ -1,7 +1,8 @@
 import WebView from 'react-native-webview';
-import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+
 import User from 'src/shared/models/User';
 import {AutoCompleteValues} from 'src/shared/types/autoComplete';
+import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 declare global {
   interface Window {

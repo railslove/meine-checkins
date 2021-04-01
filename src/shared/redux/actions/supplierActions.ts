@@ -4,22 +4,23 @@ import {SupplierRegister, SupplierCheckIn, SupplierCheckOut} from 'src/shared/mo
 export const supplierRegisterAction = createAction(
   '@provider/register',
   (url: string): SupplierRegister => ({
+    id: Math.random().toString(32).slice(2),
     url,
   })
 )();
 
 export const supplierCheckInAction = createAction(
   '@provider/check-in',
-  (url: string): SupplierCheckIn => ({
-    url,
+  (payload: SupplierRegister): SupplierCheckIn => ({
+    ...payload,
     startTime: new Date(),
   })
 )();
 
 export const supplierCheckOutAction = createAction(
   '@provider/check-out',
-  (url: string): SupplierCheckOut => ({
-    url,
+  (payload: SupplierRegister): SupplierCheckOut => ({
+    ...payload,
     stopTime: new Date(),
   })
 )();

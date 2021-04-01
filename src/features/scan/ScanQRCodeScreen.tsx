@@ -14,6 +14,7 @@ import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {supplierRegisterAction} from 'src/shared/redux/actions/supplierActions';
+import {TEST_PROVIDER} from 'src/features/scan/constants';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -21,13 +22,16 @@ const ScanQRCodeScreen: React.FC = () => {
   const navigation = useNavigation();
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
-  const handleSubmit = () => {
+  const handleTestSubmit = () => {
+    const {url} = TEST_PROVIDER;
+
+    dispatch({...supplierRegisterAction(url), ...TEST_PROVIDER});
     navigation.navigate(ScanRoutes.ProviderForm);
   };
 
   const handleSuccess = ({data: url}: BarCodeReadEvent) => {
     dispatch(supplierRegisterAction(url));
-    handleSubmit();
+    navigation.navigate(ScanRoutes.ProviderForm);
   };
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const ScanQRCodeScreen: React.FC = () => {
           </Box>
         </Box>
         <Space.V s={10} />
-        <Button onPress={handleSubmit}>{t('submitScanQRCode')}</Button>
+        <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
       </Box>
     </TopLevelView>
   );

@@ -36,6 +36,7 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
 
     return {
       ...state,
+      current: undefined,
       items: state.items.map(el => {
         return el.url === url ? {...el, ...supplier} : el;
       }),
