@@ -3,7 +3,7 @@
  * https://github.com/osamaq/react-native-template-osamaq
  *
  */
-import React from 'react';
+import React, {useRef} from 'react';
 import {Provider} from 'react-redux';
 import BuildConfig from 'react-native-config';
 import {enableScreens} from 'react-native-screens';
@@ -15,6 +15,7 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import i18n from 'src/shared/i18n';
 import store from 'src/shared/redux/store';
 import theme from 'src/shared/theme/theme';
+import {navigationRef} from 'src/shared/hooks/navigationHooks';
 import RootErrorBoundary from 'src/RootErrorBoundary';
 import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
 
@@ -39,7 +40,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <PaperProvider theme={theme}>
           <I18nextProvider i18n={i18n}>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
               <MainStackNavigator />
             </NavigationContainer>
           </I18nextProvider>

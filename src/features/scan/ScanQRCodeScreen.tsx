@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
 import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
@@ -11,23 +10,24 @@ import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {checkInRegsiterAction} from 'src/shared/redux/actions/checkInActions';
+import {supplierRegisterAction} from 'src/shared/redux/actions/supplierActions';
 import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
 import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
 import Space from 'src/shared/components/Layout/Space';
+import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useAppNavigation();
   const hasCameraPermission = useSelector(cameraPermissionSelector);
 
   const handleSubmit = () => {
-    navigation.navigate(ScanRoutes.CheckInForm);
+    navigation.navigate(ScanRoutes.ProviderForm);
   };
 
   const handleSuccess = ({data: url}: BarCodeReadEvent) => {
-    dispatch(checkInRegsiterAction(url));
+    dispatch(supplierRegisterAction(url));
     handleSubmit();
   };
 

@@ -16,14 +16,19 @@ export const getUserInitialState = (): UserReducerState => ({
 });
 
 const userReducer = createReducer(getUserInitialState())
-  .handleAction([initializeAppAction.request, saveUserAction.request], state => ({
-    ...state,
-    isLoading: true,
-  }))
-  .handleAction(saveUserAction.success, (state, {payload: {user}}) => ({
-    ...state,
-    item: user,
-    isLoading: true,
-  }));
+  .handleAction([initializeAppAction.request, saveUserAction.request], state => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  })
+  .handleAction(
+    [initializeAppAction.success, saveUserAction.success],
+    (state, {payload: {user}}) => ({
+      ...state,
+      item: user,
+      isLoading: true,
+    })
+  );
 
 export default userReducer;

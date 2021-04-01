@@ -8,7 +8,6 @@ export const requestCamerPermissionThunk = () => (dispatch: Dispatch) => {
 
   return PermissionsService.requestCamera()
     .then(result => {
-      console.log('result', result);
       dispatch(requestCameraPermissionAction.success({result}));
       return result;
     })

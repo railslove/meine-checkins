@@ -1,5 +1,4 @@
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/core';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback, useState} from 'react';
 
@@ -16,16 +15,18 @@ import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
 import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
+import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
+  const user = useSelector(state => state.user.item);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useAppNavigation();
 
-  const [address, setAddress] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState(user?.address || '');
+  const [lastName, setLastName] = useState(user?.lastName || '');
+  const [firstName, setFirstName] = useState(user?.firstName || '');
+  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
 
   const handleAddressChange = useCallback((value: string) => {
     setAddress(value);
