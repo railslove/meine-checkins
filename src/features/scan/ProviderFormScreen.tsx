@@ -1,4 +1,3 @@
-import {StackActions} from '@react-navigation/core';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';

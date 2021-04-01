@@ -1,9 +1,4 @@
-/**
- * Generated from
- * https://github.com/osamaq/react-native-template-osamaq
- *
- */
-import React, {useRef} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import BuildConfig from 'react-native-config';
 import {enableScreens} from 'react-native-screens';
