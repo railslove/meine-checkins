@@ -6,6 +6,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "test:ci": "yarn check:types && yarn lint && yarn test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "android": "react-native run-android",
     "check:types": "tsc --noEmit",

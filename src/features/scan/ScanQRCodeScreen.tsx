@@ -1,26 +1,25 @@
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
-import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
 
 import Box from 'src/shared/components/Layout/Box';
+import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import PermissionsService from 'src/shared/services/PermissionsService';
 import {supplierRegisterAction} from 'src/shared/redux/actions/supplierActions';
-import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
-import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
-import Space from 'src/shared/components/Layout/Space';
-import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
-  const navigation = useAppNavigation();
-  const hasCameraPermission = useSelector(cameraPermissionSelector);
+  const navigation = useNavigation();
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleSubmit = () => {
     navigation.navigate(ScanRoutes.ProviderForm);
@@ -33,9 +32,11 @@ const ScanQRCodeScreen: React.FC = () => {
 
   useEffect(() => {
     if (hasCameraPermission == null) {
-      dispatch(requestCamerPermissionThunk());
+      PermissionsService.requestCamera().then(({hasPermission}) => {
+        setHasCameraPermission(hasPermission);
+      });
     }
-  }, [hasCameraPermission, dispatch]);
+  });
 
   return (
     <TopLevelView backgroundColor="black">
