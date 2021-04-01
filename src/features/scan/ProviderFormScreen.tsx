@@ -10,7 +10,7 @@ import {
 } from 'src/shared/redux/actions/supplierActions';
 
 import {injectJSString} from 'src/features/scan/providerFormLib';
-import {PROVIDER_SITE_TEST_URL, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {TEST_PROVIDER_SITE, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -28,7 +28,7 @@ const ProviderFormScreen: React.FC = () => {
 
   const user = useSelector(state => state.user.item);
   const provider = useSelector(state => {
-    return state.checkIns.current || {url: PROVIDER_SITE_TEST_URL};
+    return state.checkIns.current || {url: TEST_PROVIDER_SITE};
   });
 
   const onMessage = useCallback(
