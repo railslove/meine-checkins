@@ -1,25 +1,24 @@
+import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
-import React, {useEffect} from 'react';
+import {BarCodeReadEvent} from 'react-native-camera';
+import React, {useEffect, useState} from 'react';
 
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import Box from 'src/shared/components/Layout/Box';
 import Button from 'src/shared/components/Button/Button';
 import Headline from 'src/shared/components/Typography/Headline';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import Description from 'src/shared/components/Typography/Description';
-import Box from 'src/shared/components/Layout/Box';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
-import {useDispatch, useSelector} from 'react-redux';
-import {cameraPermissionSelector} from 'src/shared/redux/selectors/permissionsSelector';
-import {requestCamerPermissionThunk} from 'src/shared/redux/effects/permissionThunks';
-import {BarCodeReadEvent} from 'react-native-camera';
+import Description from 'src/shared/components/Typography/Description';
+import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {checkInStartAction} from 'src/shared/redux/actions/checkInActions';
+import PermissionsService from 'src/shared/services/PermissionsService';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const hasCameraPermission = useSelector(cameraPermissionSelector);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleSubmit = () => {
     navigation.navigate(ScanRoutes.CheckInForm);
@@ -32,9 +31,11 @@ const ScanQRCodeScreen: React.FC = () => {
 
   useEffect(() => {
     if (hasCameraPermission == null) {
-      dispatch(requestCamerPermissionThunk());
+      PermissionsService.requestCamera().then(({hasPermission}) => {
+        setHasCameraPermission(hasPermission);
+      });
     }
-  }, [hasCameraPermission, dispatch]);
+  });
 
   return (
     <TopLevelView backgroundColor="black">
