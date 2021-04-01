@@ -3,7 +3,7 @@ import React from 'react';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import Button from 'src/shared/components/Button/Button';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import Headline from 'src/shared/components/Typography/Headline';
+import Title from 'src/shared/components/Typography/Title';
 
 const MyCheckInsScreen: React.FC = () => {
   const navigate = useNavigation();
@@ -13,7 +13,7 @@ const MyCheckInsScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Headline>MyCheckInsScreen</Headline>
+      <Title>MyCheckInsScreen</Title>
       <Button onPress={goFAQ}>FAQ</Button>
       <Button onPress={goImpressum}>Impressum</Button>
     </TopLevelView>

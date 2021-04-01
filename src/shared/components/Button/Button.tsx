@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button as RPButton} from 'react-native-paper';
+import {toDpFromPixel} from 'src/shared/theme/util';
 
 const styles = StyleSheet.create({
   root: {
@@ -12,29 +13,35 @@ const styles = StyleSheet.create({
   main: {
     width: '85%',
   },
-  content: {
-    paddingVertical: 7,
-  },
-
   label: {
-    fontSize: 14,
-    fontFamily: 'Inter-Bold',
     fontWeight: '700',
+    fontFamily: 'Inter-Bold',
+
+    fontSize: toDpFromPixel(14),
+    lineHeight: toDpFromPixel(17),
+    letterSpacing: toDpFromPixel(16 * 0.075),
+  },
+  content: {
+    paddingVertical: toDpFromPixel(7),
+  },
+  fullWidth: {
+    width: '100%',
   },
 });
 
 export type ButtonProps = {
   onPress?: () => void;
   children: React.ReactNode;
+  fullWidth?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = props => {
+const Button: React.FC<ButtonProps> = ({fullWidth, ...props}) => {
   return (
     <View style={styles.root}>
       <RPButton
         mode="contained"
         compact={false}
-        style={styles.main}
+        style={fullWidth ? styles.fullWidth : styles.main}
         labelStyle={styles.label}
         contentStyle={styles.content}
         {...props}

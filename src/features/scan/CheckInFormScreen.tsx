@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
-import Headline from 'src/shared/components/Typography/Headline';
+import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {useSelector} from 'react-redux';
@@ -15,7 +15,7 @@ const CheckInFormScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Headline>CheckInFormScreen</Headline>
+      <Title>CheckInFormScreen</Title>
       <Text>{JSON.stringify(checkIns, null, 2)}</Text>
       <Button onPress={goCheckIn}>CheckOut</Button>
     </TopLevelView>

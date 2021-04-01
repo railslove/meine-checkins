@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 import Button from 'src/shared/components/Button/Button';
-import Headline from 'src/shared/components/Typography/Headline';
+import Title from 'src/shared/components/Typography/Title';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
@@ -12,7 +12,7 @@ const CheckOutFormScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Headline>CheckOutFormScreen</Headline>
+      <Title>CheckOutFormScreen</Title>
       <Button onPress={goCheckIn}>Checkout</Button>
     </TopLevelView>
   );
