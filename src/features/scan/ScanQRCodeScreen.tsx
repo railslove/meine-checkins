@@ -26,6 +26,7 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   const handleSuccess = ({data: url}: BarCodeReadEvent) => {
+    console.log('qr url', url);
     dispatch(supplierRegisterAction(url));
     handleSubmit();
   };

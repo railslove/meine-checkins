@@ -1,111 +1,68 @@
+import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
+import {ProgressBar, useTheme} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
-
-import User from 'src/shared/models/User';
 
 import {
   supplierCheckInAction,
   supplierCheckOutAction,
 } from 'src/shared/redux/actions/supplierActions';
 
+import {injectJSString} from 'src/features/scan/providerFormLib';
+import {PROVIDER_SITE_TEST_URL, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+
 import Box from 'src/shared/components/Layout/Box';
+import Space from 'src/shared/components/Layout/Space';
+import Description from 'src/shared/components/Typography/Description';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
-enum ProviderSiteMessage {
-  checkInSuccess = 'CheckInSuccess',
-  checkInFailure = 'CheckInFailure',
-  checkOutSuccess = 'CheckOutSuccess',
-  checkOutFailure = 'CheckOutFailure',
-}
-
-const INJECTED_JAVASCRIPT = (user: User) => `(function() {
-  const inputs = Array.from(document.body.querySelectorAll('input[name]'));
-  const submit = document.body.querySelector('button[type=submit]');
-
-  function isCheckIn() {
-    return /check-in/i.test(submit.innerText);
-  }
-
-  function isCheckOut() {
-    return /check-out/i.test(submit.innerText);
-  }
-
-  function checkIn() {
-    const user = ${JSON.stringify(user)};
-    const keys = Object.keys(user);
-
-    const filled = inputs
-      .map(el => {
-        const name = el.name;
-        const value = user[name];
-        if (value) {
-          el.focus();
-          el.value = value;
-          return [name, value];
-        }
-        return null;
-      })
-      .filter(v => v)
-    ;
-
-    const wasFillSuccess = filled.length === Object.keys(user).length;
-
-    if (wasFillSuccess) {
-      submit.click();
-      window.ReactNativeWebView.postMessage("${ProviderSiteMessage.checkInSuccess}");
-    } else {
-      window.ReactNativeWebView.postMessage("${ProviderSiteMessage.checkInFailure}");
-    }
-  }
-
-  function checkOut() {
-    window.ReactNativeWebView.postMessage("${ProviderSiteMessage.checkOutSuccess}");
-    submit.removeEventListener('click', checkOut);
-  }
-
-  try {
-    setTimeout(() => {
-      if (isCheckIn()) {
-        checkIn();
-        submit.addEventListener('click', checkOut);
-      }
-    }, 1000);
-  } catch (error) {
-    window.ReactNativeWebView.postMessage(error);
-  }
-})();`;
-
-const uri = 'https://check-in-provider.vercel.app';
-
 const ProviderFormScreen: React.FC = () => {
+  const {t} = useTranslation('providerFormScreen');
+  const theme = useTheme();
+
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
 
   const user = useSelector(state => state.user.item);
+  const provider = useSelector(state => {
+    return state.checkIns.current || {url: PROVIDER_SITE_TEST_URL};
+  });
 
   const onMessage = useCallback(
     (ev: WebViewMessageEvent) => {
       const message = ev.nativeEvent.data;
+      const {url} = provider;
 
-      console.log('message', message);
-
-      if (message === ProviderSiteMessage.checkInSuccess) {
-        dispatch(supplierCheckInAction(uri));
-      } else if (message === ProviderSiteMessage.checkOutSuccess) {
-        dispatch(supplierCheckOutAction(uri));
+      if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
+        dispatch(supplierCheckInAction(url));
+      } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
+        dispatch(supplierCheckOutAction(url));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
       }
     },
-    [dispatch, navigation]
+    [dispatch, navigation, provider]
   );
+
+  if (!provider) {
+    return (
+      <TopLevelView>
+        <Box display="flex" flex={1} alignItems="center" justifyContent="center">
+          <Description>{t('missingProvider')}</Description>
+        </Box>
+      </TopLevelView>
+    );
+  }
 
   return (
     <Box flex={1}>
+      <Space.V s={5} />
       <WebView
-        source={{uri}}
-        injectedJavaScript={user ? INJECTED_JAVASCRIPT(user) : undefined}
+        source={{uri: provider.url}}
+        renderLoading={() => <ProgressBar indeterminate color={theme.colors.primary} />}
+        injectedJavaScript={user ? injectJSString(user) : undefined}
         onMessage={onMessage}
       />
     </Box>

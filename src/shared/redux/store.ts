@@ -9,6 +9,8 @@ const rootReducer = combineReducers(reducers);
 export type StoreState = ReturnType<typeof rootReducer>;
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
+console.log('__DEV__', __DEV__);
+
 const store = configureStore({
   reducer: rootReducer,
   devTools: __DEV__,

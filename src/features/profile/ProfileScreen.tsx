@@ -59,14 +59,14 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Space.V s={15} />
+      <Space.V s={10} />
 
       <Box>
         <Title>{t('title')}</Title>
         <Subtitle>{t('subtitle')}</Subtitle>
       </Box>
 
-      <Space.V s={15} />
+      <Space.V s={10} />
 
       <Box flex={1} flexDirection="column">
         <TextInput
