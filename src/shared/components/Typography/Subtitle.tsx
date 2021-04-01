@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
 const useStyles = ({color = '#060606'}: Omit<SubtitleProps, 'children'> = {}) =>

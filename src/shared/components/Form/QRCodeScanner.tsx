@@ -1,6 +1,7 @@
 import React from 'react';
-import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
+import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
+
 import {toDpFromPixel} from 'src/shared/theme/util';
 
 const borderWidth = toDpFromPixel(3);
@@ -29,7 +30,7 @@ const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle
 };
 
 const useStyles = () => {
-  const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
+  const {width: windowWidth} = Dimensions.get('window');
 
   return StyleSheet.create({
     dimensions: {
