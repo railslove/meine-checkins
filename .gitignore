@@ -61,3 +61,5 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+fastlane/report.xml
+android/gradle/wrapper/gradle-wrapper.jar
