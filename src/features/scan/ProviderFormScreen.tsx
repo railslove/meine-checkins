@@ -69,7 +69,6 @@ const INJECTED_JAVASCRIPT = (user: User) => `(function() {
     setTimeout(() => {
       if (isCheckIn()) {
         checkIn();
-        window.ReactNativeWebView.postMessage('setup listener for check-out');
         submit.addEventListener('click', checkOut);
       }
     }, 1000);
@@ -93,14 +92,10 @@ const ProviderFormScreen: React.FC = () => {
       console.log('message', message);
 
       if (message === ProviderSiteMessage.checkInSuccess) {
-        console.log('check-in success');
         dispatch(supplierCheckInAction(uri));
       } else if (message === ProviderSiteMessage.checkOutSuccess) {
-        console.log('check-out success');
         dispatch(supplierCheckOutAction(uri));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
-      } else {
-        console.log('no another action taken');
       }
     },
     [dispatch, navigation]
