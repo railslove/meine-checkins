@@ -1,11 +1,13 @@
 import React from 'react';
-import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
+import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
+
+import {toDpFromPixel} from 'src/shared/theme/util';
+
+const borderWidth = toDpFromPixel(3);
+const borderRadius = toDpFromPixel(24);
 
 const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle => {
-  const borderWidth = 3;
-  const borderRadius = 24;
-
   return {
     top,
     left,
@@ -28,40 +30,38 @@ const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle
 };
 
 const useStyles = () => {
-  const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
+  const {width: windowWidth} = Dimensions.get('window');
 
   return StyleSheet.create({
-    root: {
-      flex: 1,
-      height: windowHeight * 0.8,
-      display: 'flex',
+    dimensions: {
+      width: windowWidth * 0.6,
+      height: windowWidth * 0.6,
       position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
+      borderRadius,
     },
     marker: {
-      top: 5,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
       zIndex: 100,
-      width: windowWidth,
-      height: windowWidth,
-      padding: 5,
       position: 'absolute',
     },
     markerTopLeft: borderStyleProps({
-      top: '15%',
-      left: '15%',
+      top: '2.5%',
+      left: '2.5%',
     }),
     markerTopRight: borderStyleProps({
-      top: '15%',
-      right: '15%',
+      top: '2.5%',
+      right: '2.5%',
     }),
     markerBottomLeft: borderStyleProps({
-      left: '15%',
-      bottom: '15%',
+      left: '2.5%',
+      bottom: '2.5%',
     }),
     markerBottomRight: borderStyleProps({
-      right: '15%',
-      bottom: '15%',
+      right: '2.5%',
+      bottom: '2.5%',
     }),
   });
 };
@@ -73,20 +73,23 @@ const QRScanner: React.FC<QRScannerProps> = props => {
   const styles = useStyles();
 
   return (
-    <View style={styles.root}>
-      <QRCodeScanner
-        showMarker={true}
-        customMarker={
-          <View style={styles.marker}>
-            <View style={styles.markerTopLeft} />
-            <View style={styles.markerTopRight} />
-            <View style={styles.markerBottomLeft} />
-            <View style={styles.markerBottomRight} />
-          </View>
-        }
-        {...props}
-      />
-    </View>
+    <QRCodeScanner
+      reactivate
+      reactivateTimeout={10000}
+      showMarker={true}
+      customMarker={
+        <View style={styles.marker}>
+          <View style={styles.markerTopLeft} />
+          <View style={styles.markerTopRight} />
+          <View style={styles.markerBottomLeft} />
+          <View style={styles.markerBottomRight} />
+        </View>
+      }
+      cameraStyle={styles.dimensions}
+      topViewStyle={styles.dimensions}
+      containerStyle={styles.dimensions}
+      {...props}
+    />
   );
 };
 

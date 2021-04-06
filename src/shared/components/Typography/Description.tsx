@@ -1,27 +1,32 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextStyle} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
+import {toDpFromPixel} from 'src/shared/theme/util';
 
-const useStyles = ({color = 'black'}: Omit<DescriptionProps, 'children'> = {}) =>
+const useStyles = ({
+  color = 'black',
+  textAlign = 'left',
+}: Omit<DescriptionProps, 'children'> = {}) =>
   StyleSheet.create({
     root: {
       color,
+      textAlign,
+
       margin: 0,
       padding: 0,
       height: 'auto',
-      fontSize: 14,
-      lineHeight: 24,
+      fontSize: toDpFromPixel(16),
+      lineHeight: toDpFromPixel(24),
       fontFamily: 'Inter-Regular',
     },
   });
 
 export type DescriptionProps = {
-  color?: string;
   children: React.ReactNode;
-};
+} & Pick<TextStyle, 'color' | 'textAlign'>;
 
-const Description: React.FC<DescriptionProps> = ({color, children}) => {
-  const style = useStyles({color});
+const Description: React.FC<DescriptionProps> = ({children, ...styleProps}) => {
+  const style = useStyles(styleProps);
   return <RPParagraph style={style.root}>{children}</RPParagraph>;
 };
 

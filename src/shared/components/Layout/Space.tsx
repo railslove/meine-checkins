@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import {toDpFromPixel} from 'src/shared/theme/util';
 
 interface SpaceVerticalProps {
   s: number;
@@ -7,7 +8,7 @@ interface SpaceVerticalProps {
 const SpaceVertical = ({s}: SpaceVerticalProps) => (
   <View
     style={{
-      marginVertical: s,
+      marginVertical: toDpFromPixel(s),
     }}
   />
 );

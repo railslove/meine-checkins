@@ -1,5 +1,4 @@
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/core';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback, useState} from 'react';
 
@@ -8,23 +7,26 @@ import User from 'src/shared/models/User';
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Button from 'src/shared/components/Button/Button';
-import Headline from 'src/shared/components/Typography/Headline';
+import Title from 'src/shared/components/Typography/Title';
 import TextInput from 'src/shared/components/Form/TextInput';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
-import Description from 'src/shared/components/Typography/Description';
+import Subtitle from 'src/shared/components/Typography/Subtitle';
 import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
+import Paragraph from 'src/shared/components/Typography/Paragraph';
+import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
+  const user = useSelector(state => state.user.item);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useAppNavigation();
 
-  const [address, setAddress] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState(user?.address || '');
+  const [lastName, setLastName] = useState(user?.lastName || '');
+  const [firstName, setFirstName] = useState(user?.firstName || '');
+  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
 
   const handleAddressChange = useCallback((value: string) => {
     setAddress(value);
@@ -57,16 +59,14 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Space.V s={15} />
+      <Space.V s={10} />
 
       <Box>
-        <Box width="50%">
-          <Headline>{t('title')}</Headline>
-        </Box>
-        <Description>{t('subtitle')}</Description>
+        <Title>{t('title')}</Title>
+        <Subtitle>{t('subtitle')}</Subtitle>
       </Box>
 
-      <Space.V s={15} />
+      <Space.V s={10} />
 
       <Box flex={1} flexDirection="column">
         <TextInput
@@ -95,20 +95,23 @@ const ProfileScreen: React.FC = () => {
           onChangeText={handlePhoneNumberChange}
         />
 
-        <Box display="flex" flexDirection="row" alignItems="center">
-          <Box width="85%" display="flex" flexDirection="row" alignItems="center">
+        <Box display="flex" flexDirection="row" alignItems="center" flexWrap="wrap">
+          <Box width="82%" display="flex" flexDirection="row" alignItems="center">
             <Box borderRadius={7} marginRight={20}>
               <LockIcon />
             </Box>
             <Box>
-              <Description>{t('dataPrivacyInfo')}</Description>
+              <Paragraph>{t('dataPrivacyInfo')}</Paragraph>
             </Box>
           </Box>
+
+          <Box>
+            <Space.V s={15} />
+            <Button fullWidth onPress={handleSubmit}>
+              {t('submit')}
+            </Button>
+          </Box>
         </Box>
-
-        <Space.V s={15} />
-
-        <Button onPress={handleSubmit}>{t('submit')}</Button>
       </Box>
     </TopLevelView>
   );

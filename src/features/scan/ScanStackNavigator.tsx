@@ -2,27 +2,22 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import ScanQRCodeScreen from 'src/features/scan/ScanQRCodeScreen';
-import CheckInFormScreen from 'src/features/scan/CheckInFormScreen';
-import CheckOutFormScreen from 'src/features/scan/CheckOutFormScreen';
+import ProviderFormScreen from 'src/features/scan/ProviderFormScreen';
 
 export enum ScanRoutes {
+  key = 'ScanRoutesKey',
+  MyCheckIns = 'MyCheckIns',
   ScanQRCode = 'ScanQRCode',
-  CheckInForm = 'CheckInForm',
-  CheckOutForm = 'CheckOutForm',
+  ProviderForm = 'ProviderForm',
 }
 
 const {Navigator, Screen} = createStackNavigator<Record<ScanRoutes, any>>();
 
 const ScanStackNavigator: React.FC = () => {
   return (
-    <Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Navigator key={ScanRoutes.key} screenOptions={{headerShown: true}}>
       <Screen name={ScanRoutes.ScanQRCode} component={ScanQRCodeScreen} />
-      <Screen name={ScanRoutes.CheckInForm} component={CheckInFormScreen} />
-      <Screen name={ScanRoutes.CheckOutForm} component={CheckOutFormScreen} />
+      <Screen name={ScanRoutes.ProviderForm} component={ProviderFormScreen} />
     </Navigator>
   );
 };

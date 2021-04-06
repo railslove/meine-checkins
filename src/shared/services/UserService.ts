@@ -1,7 +1,7 @@
 import User from 'src/shared/models/User';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ASYNC_STORAGE_KEY = `@masterCheckingApp:user`;
+const ASYNC_STORAGE_KEY = `masterCheckingApp:user`;
 
 class UserService {
   saveUser(user: User) {
@@ -11,21 +11,22 @@ class UserService {
     const value = await AsyncStorage.getItem(ASYNC_STORAGE_KEY);
 
     if (!value) {
-      return null;
+      return;
     }
 
     try {
       const userData: object = JSON.parse(value);
 
-      if (this.validateUseData(userData)) {
+      if (this.isValidUser(userData)) {
         return userData as User;
       }
-    } finally {
-      return undefined;
+    } catch (error) {
+      console.warn(error);
+      return;
     }
   }
 
-  validateUseData(value: object): boolean {
+  isValidUser(value: object): boolean {
     const isInvalid = Object.entries(value).some(([key, value]) => {
       switch (key) {
         case 'address':

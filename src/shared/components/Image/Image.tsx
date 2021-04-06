@@ -1,24 +1,20 @@
 import React from 'react';
 
-import {StyleSheet, View, Image as RNImage, ImageProps as RNImageProps} from 'react-native';
+import {StyleSheet, Image as RNImage, ImageProps as RNImageProps} from 'react-native';
+import Box from 'src/shared/components/Layout/Box';
 
 const style = StyleSheet.create({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    maxWidth: '100%',
+    maxWidth: '90%',
   },
 });
 
 export type ImageProps = RNImageProps;
 
 const Image: React.FC<ImageProps> = props => (
-  <View style={style.root}>
-    <RNImage style={style.image} resizeMode="contain" {...props} />
-  </View>
+  <Box maxHeight="50%" display="flex" alignItems="center" justifyContent="center">
+    <RNImage style={style.root} resizeMode="contain" {...props} />
+  </Box>
 );
 
 export default Image;

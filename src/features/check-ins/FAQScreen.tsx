@@ -1,11 +1,11 @@
 import React from 'react';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import Headline from 'src/shared/components/Typography/Headline';
+import Title from 'src/shared/components/Typography/Title';
 
 const FAQScreen: React.FC = () => {
   return (
     <TopLevelView>
-      <Headline>FAQScreen</Headline>
+      <Title>FAQScreen</Title>
     </TopLevelView>
   );
 };

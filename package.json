@@ -1,6 +1,6 @@
 {
   "name": "mastercheckingapp",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "ios": "react-native run-ios",
@@ -28,8 +28,8 @@
     "ios:rm": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
     "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
     "android:clean": "cd android && ./gradlew clean",
-    "android:clear": "adb shell pm clear com.helloworld",
-    "android:rm": "adb uninstall com.helloworld"
+    "android:clear": "adb shell pm clear com.mastercheckingapp",
+    "android:rm": "adb uninstall com.mastercheckingapp"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -46,10 +46,12 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "^4.7.2",
     "react-native-permissions": "^3.0.1",
+    "react-native-pixel-perfect": "^1.0.2",
     "react-native-qrcode-scanner": "^1.5.3",
     "react-native-safe-area-context": "^3.1.4",
     "react-native-screens": "^2.10.1",
     "react-native-svg": "^12.1.0",
+    "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",

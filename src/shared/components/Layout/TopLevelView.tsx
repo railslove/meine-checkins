@@ -2,28 +2,30 @@ import React from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {toDpFromPixel} from 'src/shared/theme/util';
 
 const useStyles = ({backgroundColor = 'white'}: ViewStyle = {}) =>
   StyleSheet.create({
     root: {
+      backgroundColor,
       flex: 1,
+      width: '100%',
       margin: 0,
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
-      backgroundColor: 'white',
     },
     main: {
+      backgroundColor,
       flex: 1,
       display: 'flex',
-      height: '100%',
       padding: 0,
-      paddingHorizontal: 22,
-      backgroundColor,
     },
     scrollView: {
-      padding: 0,
       backgroundColor,
+      flex: 1,
+      padding: 0,
+      paddingHorizontal: toDpFromPixel(22),
     },
   });
 
