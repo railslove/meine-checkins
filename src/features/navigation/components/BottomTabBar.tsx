@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {
   BottomTabBarOptions,
   BottomTabBarProps as RNBottomTabBarProps,
@@ -8,16 +8,20 @@ import {
 import {toDpFromPixel} from 'src/shared/theme/util';
 import {BottomTabsRoutes} from 'src/features/navigation/constants';
 
-import Box from 'src/shared/components/Layout/Box';
 import BottomTabItem from 'src/features/navigation/components/BottomTabItem';
 
-export type BottomTabBar = {
-  label?: string;
-  route: BottomTabsRoutes;
-  TabIcon: React.FC<{isSelected?: boolean}>;
-};
-
 export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions>;
+
+const styles = StyleSheet.create({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: toDpFromPixel(15),
+    paddingHorizontal: '5%',
+  },
+});
 
 const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descriptors}) => {
   const currentRoute = state.routes[state.index];
@@ -28,14 +32,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descripto
   }
 
   return (
-    <Box
-      paddingVertical={toDpFromPixel(15)}
-      paddingHorizontal="5%"
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-    >
+    <View style={styles.root}>
       {Object.values(BottomTabsRoutes).map(route => {
         const isSelected = currentRoute.name === route;
 
@@ -55,7 +52,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descripto
           </TouchableOpacity>
         );
       })}
-    </Box>
+    </View>
   );
 };
 
