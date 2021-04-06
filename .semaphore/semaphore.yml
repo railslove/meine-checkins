@@ -8,9 +8,6 @@ blocks:
   - name: Install
     dependencies: []
     task:
-      prologue:
-        commands:
-          - nvm install 12
       jobs:
         - name: yarn install
           commands:
