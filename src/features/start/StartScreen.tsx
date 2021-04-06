@@ -3,7 +3,6 @@ import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {StackActions} from '@react-navigation/core';
 
-import {MainStackRoutes} from 'src/features/navigation/MainStackNavigator';
 import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
 
 import Box from 'src/shared/components/Layout/Box';
@@ -14,6 +13,7 @@ import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import LargeHeadline from 'src/shared/components/Typography/LargeTitle';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
+import {MainStackRoutes} from 'src/features/navigation/constants';
 
 const StartScreen: React.FC = () => {
   const {t} = useTranslation('startScreen');
