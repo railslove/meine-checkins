@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
-import Svg, {ClipPath, Defs, G, Path, Rect, Text} from 'react-native-svg';
+import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
