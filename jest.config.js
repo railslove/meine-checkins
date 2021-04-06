@@ -12,5 +12,8 @@ module.exports = {
       '<rootDir>/src/__mocks__/fileMock.js',
     '^src/(.*)': '<rootDir>/src/$1',
   },
-  transformIgnorePatterns: ['node_modules/(?!(jest-)?react-native|@react-navigation/.*)'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!native-base)/',
+    'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation/.*)',
+  ],
 };

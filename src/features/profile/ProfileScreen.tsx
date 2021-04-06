@@ -17,7 +17,7 @@ import Description from 'src/shared/components/Typography/Description';
 import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
 
 const ProfileScreen: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('profileScreen');
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -61,9 +61,9 @@ const ProfileScreen: React.FC = () => {
 
       <Box>
         <Box width="50%">
-          <Headline>{t('profileScreen:title')}</Headline>
+          <Headline>{t('title')}</Headline>
         </Box>
-        <Description>{t('profileScreen:subtitle')}</Description>
+        <Description>{t('subtitle')}</Description>
       </Box>
 
       <Space.V s={15} />
@@ -71,25 +71,25 @@ const ProfileScreen: React.FC = () => {
       <Box flex={1} flexDirection="column">
         <TextInput
           value={firstName}
-          placeholder={t('profileScreen:firstName')}
+          placeholder={t('firstName')}
           autoCompleteType="name"
           onChangeText={handleFirstNameChange}
         />
         <TextInput
           value={lastName}
-          placeholder={t('profileScreen:lastName')}
+          placeholder={t('lastName')}
           autoCompleteType="name"
           onChangeText={handleLastNameChange}
         />
         <TextInput
-          placeholder={t('profileScreen:address')}
+          placeholder={t('address')}
           value={address}
           autoCompleteType="street-address"
           onChangeText={handleAddressChange}
         />
         <TextInput
           value={phoneNumber}
-          placeholder={t('profileScreen:phoneNumber')}
+          placeholder={t('phoneNumber')}
           keyboardType="phone-pad"
           autoCompleteType="tel"
           onChangeText={handlePhoneNumberChange}
@@ -101,14 +101,14 @@ const ProfileScreen: React.FC = () => {
               <LockIcon />
             </Box>
             <Box>
-              <Description>{t('profileScreen:dataPrivacyInfo')}</Description>
+              <Description>{t('dataPrivacyInfo')}</Description>
             </Box>
           </Box>
         </Box>
 
         <Space.V s={15} />
 
-        <Button onPress={handleSubmit}>{t('base:save')}</Button>
+        <Button onPress={handleSubmit}>{t('submit')}</Button>
       </Box>
     </TopLevelView>
   );

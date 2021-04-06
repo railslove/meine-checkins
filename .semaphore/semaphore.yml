@@ -8,6 +8,9 @@ blocks:
   - name: Install
     dependencies: []
     task:
+      prologue:
+        commands:
+          - sem-version node 12
       jobs:
         - name: yarn install
           commands:

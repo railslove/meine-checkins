@@ -14,12 +14,8 @@ import {initializeAppAction} from 'src/shared/redux/actions/appActions';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
 
 const StartScreen: React.FC = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('startScreen');
   const navigation = useNavigation();
-
-  const goNext = () => {
-    navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
-  };
 
   const dispatch = useDispatch();
 
@@ -27,21 +23,25 @@ const StartScreen: React.FC = () => {
     dispatch(initializeAppAction.request());
   });
 
+  const handleSubmit = () => {
+    navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
+  };
+
   return (
     <TopLevelView>
       <Box flex={1} width="90%">
         <Space.V s={15} />
         <Box width="65%" display="flex" justifyContent="center" alignItems="center">
-          <LargeHeadline>{t('startScreen:title')}</LargeHeadline>
+          <LargeHeadline>{t('title')}</LargeHeadline>
         </Box>
         <Image source={require('./img/start-illustration.png')} />
         <Box display="flex" alignItems="center" justifyContent="center">
           <Box width="85%">
-            <Paragraph>{t('startScreen:description')}</Paragraph>
+            <Paragraph>{t('description')}</Paragraph>
           </Box>
         </Box>
         <Space.V s={15} />
-        <Button onPress={goNext}>{t('base:letsGo')}</Button>
+        <Button onPress={handleSubmit}>{t('submit')}</Button>
       </Box>
     </TopLevelView>
   );
