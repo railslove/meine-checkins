@@ -10,7 +10,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version node 12
+          - nvm use 12
       jobs:
         - name: yarn install
           commands:
