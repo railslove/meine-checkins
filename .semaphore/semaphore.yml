@@ -2,20 +2,20 @@ version: v1.0
 name: WFD MasterApp CI
 agent:
   machine:
-    type: a1-standard-4
-    os_image: macos-xcode12
+    type: e1-standard-2
+    os_image: ubuntu1804
 blocks:
   - name: Install
     dependencies: []
     task:
-      env_vars:
-        - name: LANG
-          value: en_US.UTF-8
+      prologue:
+        commands:
+          - sem-version node 12
       jobs:
         - name: yarn install
           commands:
             - checkout
-            - bundle install --path vendor/bundle
+            - cache restore
             - yarn
             - cache store
   - name: Tests
@@ -45,21 +45,3 @@ blocks:
         - name: typescript
           commands:
             - 'yarn check:types'
-
-  - name: Take screenshots
-    task:
-      env_vars:
-        - name: LANG
-          value: en_US.UTF-8
-      prologue:
-        commands:
-          - checkout --use-cache
-          - cache restore
-          - bundle install --path vendor/bundle
-          - cache store
-      jobs:
-        - name: Screenshots
-          commands:
-            - bundle exec xcversion select 11.2.1
-            - bundle exec fastlane screenshots
-            - artifact push project screenshots
