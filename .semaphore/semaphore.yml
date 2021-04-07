@@ -15,7 +15,6 @@ blocks:
         - name: yarn install
           commands:
             - checkout
-            - cache restore
             - bundle install --path vendor/bundle
             - yarn
             - cache store
@@ -46,3 +45,21 @@ blocks:
         - name: typescript
           commands:
             - 'yarn check:types'
+
+  - name: Take screenshots
+    task:
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+      prologue:
+        commands:
+          - checkout --use-cache
+          - cache restore
+          - bundle install --path vendor/bundle
+          - cache store
+      jobs:
+        - name: Screenshots
+          commands:
+            - bundle exec xcversion select 11.2.1
+            - bundle exec fastlane screenshots
+            - artifact push project screenshots
