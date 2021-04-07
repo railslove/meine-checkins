@@ -8,11 +8,15 @@ blocks:
   - name: Install
     dependencies: []
     task:
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
       jobs:
         - name: yarn install
           commands:
             - checkout
             - cache restore
+            - bundle install --path vendor/bundle
             - yarn
             - cache store
   - name: Tests
