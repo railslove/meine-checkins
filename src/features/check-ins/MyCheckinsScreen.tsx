@@ -15,7 +15,9 @@ import SubTitle from 'src/shared/components/Typography/Subtitle';
 import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
 
 const SectionTitle: React.FC<{children: string}> = ({children}) => (
-  <SubTitle textTransform="uppercase">{children}</SubTitle>
+  <SubTitle textTransform="uppercase" fontWeight="700">
+    {children}
+  </SubTitle>
 );
 
 const MyCheckInsScreen: React.FC = () => {

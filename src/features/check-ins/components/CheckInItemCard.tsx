@@ -38,7 +38,6 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const styles = useStyles();
 
   const {name, logoUrl, startTime} = props;
-  console.log('logoUrl', logoUrl);
 
   return (
     <View style={styles.root}>
