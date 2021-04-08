@@ -1,13 +1,13 @@
 import {createReducer} from 'typesafe-actions';
 
 import {getProviderCheckInItemMock} from 'src/constants';
-import {ProviderCheckInItem} from 'src/shared/models/Supplier';
+import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
 import {
   providerRegisterAction,
   providerCheckInAction,
   providerCheckOutAction,
-} from 'src/shared/redux/actions/supplierActions';
+} from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsInitialState = {
   error?: Error;
@@ -16,14 +16,9 @@ export type CheckInsInitialState = {
 };
 
 export const getCheckInsInitialState = (): CheckInsInitialState => ({
-  items: [
-    getProviderCheckInItemMock(),
-    getProviderCheckInItemMock(),
-    getProviderCheckInItemMock(),
-    getProviderCheckInItemMock(),
-  ],
+  items: [],
   error: undefined,
-  current: getProviderCheckInItemMock(),
+  current: undefined,
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState())
@@ -36,17 +31,17 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
   .handleAction(providerCheckInAction, (state, {payload}) => {
     return {
       ...state,
-      items: state.items.concat(payload),
+      current: payload,
     };
   })
-  .handleAction(providerCheckOutAction, (state, {payload: supplier}) => {
-    const id = supplier.id;
+  .handleAction(providerCheckOutAction, (state, {payload: provider}) => {
+    const id = provider.id;
 
     return {
       ...state,
       current: undefined,
       items: state.items.map(el => {
-        return el.id === id ? {...el, ...supplier} : el;
+        return el.id === id ? provider : el;
       }),
     };
   });

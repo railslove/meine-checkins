@@ -1,15 +1,21 @@
 import React from 'react';
+import {useTheme} from 'react-native-paper';
 import {StyleSheet, Text, View} from 'react-native';
 
 import {toDpFromPixel} from 'src/shared/theme/util';
-import {ProviderCheckInItem} from 'src/shared/models/Supplier';
+import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
 import Space from 'src/shared/components/Layout/Space';
 import {formatItemDate} from 'src/shared/format/date';
+import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const useStyles = () => {
+  const theme = useTheme();
+  const borderRadius = toDpFromPixel(5);
+
   return StyleSheet.create({
     root: {
       display: 'flex',
@@ -29,31 +35,47 @@ const useStyles = () => {
       fontWeight: '700',
       lineHeight: toDpFromPixel(14.52),
     },
+    logoContainer: {
+      borderRadius,
+
+      width: toDpFromPixel(67),
+      height: toDpFromPixel(42),
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surface,
+    },
+    logoImage: {
+      borderRadius,
+    },
   });
 };
 
-export type CheckInItemCardProps = Pick<ProviderCheckInItem, 'name' | 'logoUrl' | 'startTime'>;
+export type CheckInItemCardProps = Pick<ProviderCheckInItem, 'name' | 'logoUrl' | 'startTime'> & {
+  isActive?: boolean;
+  onNavigate?: () => void;
+};
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const styles = useStyles();
 
-  const {name, logoUrl, startTime} = props;
+  const {name, logoUrl, startTime, isActive, onNavigate} = props;
 
   return (
     <View style={styles.root}>
-      <Box borderColor="red">
+      <View style={styles.logoContainer}>
         <Image
           source={{
             uri: logoUrl,
             width: toDpFromPixel(67),
             height: toDpFromPixel(52),
           }}
-          style={{borderRadius: toDpFromPixel(5)}}
-          resizeMethod="scale"
+          style={styles.logoImage}
+          resizeMode="center"
         />
-      </Box>
+      </View>
 
-      <Box flex={1} marginLeft={toDpFromPixel(22)}>
+      <Box flex={1} marginLeft={toDpFromPixel(10)}>
         <Text style={styles.companyName}>{name}</Text>
         {startTime ? (
           <>
@@ -63,9 +85,13 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         ) : null}
       </Box>
 
-      <Box>
-        <Image source={{uri: logoUrl}} />
-      </Box>
+      {isActive ? (
+        <Box marginHorizontal={toDpFromPixel(10)}>
+          <TouchableOpacity onPress={onNavigate}>
+            <ChevronRightIcon />
+          </TouchableOpacity>
+        </Box>
+      ) : null}
     </View>
   );
 };

@@ -1,13 +1,14 @@
 export type ProviderCheckInItem = {
   id: string;
-  url: string;
   name: string;
-  logoUrl?: string;
+  logoUrl: string;
+  checkInUrl: string;
+  checkOutUrl: string;
   stopTime?: number;
   startTime?: number;
 };
 
-export type ProviderRegister = Pick<ProviderCheckInItem, 'id' | 'url' | 'name' | 'logoUrl'>;
+export type ProviderRegister = Omit<ProviderCheckInItem, 'startTime' | 'stopTime'>;
 
 export type ProviderCheckIn = ProviderRegister & Pick<ProviderCheckInItem, 'startTime'>;
 export type ProviderCheckOut = ProviderRegister & Pick<ProviderCheckInItem, 'stopTime'>;

@@ -7,8 +7,9 @@ import WebView, {WebViewMessageEvent} from 'react-native-webview';
 import {
   providerCheckInAction,
   providerCheckOutAction,
-} from 'src/shared/redux/actions/supplierActions';
+} from 'src/shared/redux/actions/providerActions';
 
+import {TEST_PROVIDER} from 'src/constants';
 import {injectJSString} from 'src/features/scan/providerFormLib';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
@@ -18,7 +19,6 @@ import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
-import {TEST_PROVIDER} from 'src/constants';
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
@@ -28,9 +28,7 @@ const ProviderFormScreen: React.FC = () => {
   const navigation = useAppNavigation();
 
   const user = useSelector(state => state.user.item);
-  const provider = useSelector(state => {
-    return state.checkIns.current || TEST_PROVIDER;
-  });
+  const provider = useSelector(state => state.checkIns.current || TEST_PROVIDER);
 
   const onMessage = useCallback(
     (ev: WebViewMessageEvent) => {
@@ -56,11 +54,13 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
+  const uri = provider.stopTime ? provider.checkInUrl : provider.checkOutUrl;
+
   return (
     <Box flex={1}>
       <Space.V s={5} />
       <WebView
-        source={{uri: provider.url}}
+        source={{uri}}
         renderLoading={() => <ProgressBar indeterminate color={theme.colors.primary} />}
         injectedJavaScript={user ? injectJSString(user) : undefined}
         onMessage={onMessage}
