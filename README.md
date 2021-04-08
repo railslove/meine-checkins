@@ -24,8 +24,17 @@
 
 ## Changes needs to be done by the provider
 
-* Using autocomplete="" attributes (name, phone, address)
-* Using a xyz-checkin-confirmed entry on the checkin page
+* Check-in form inputs should use [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) attributes for
+  * `given-name`
+  * `family-name`
+  * `street-address`
+  * `postal-code`
+  * `country`
+  * `tel`
+
+* For signaling check-in and check-out to the app
+  * the `check-in` button should have a `data-wfd-action="checkin"`
+  * the `check-out` button should have a `data-wfd-action="checkout"`
 
 # Submitting the app 
 
