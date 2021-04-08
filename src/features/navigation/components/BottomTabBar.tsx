@@ -45,7 +45,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descripto
             key={route}
             style={{flex: 1}}
             accessibilityRole="button"
-            accessibilityState={isSelected ? {selected: true} : {}}
+            accessibilityState={{ selected: isSelected }}
             onPress={onPress}
           >
             <BottomTabItem route={route} isSelected={isSelected} />
