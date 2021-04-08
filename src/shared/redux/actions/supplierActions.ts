@@ -1,26 +1,27 @@
+import {getUUID} from 'src/constants';
 import {createAction} from 'typesafe-actions';
-import {SupplierRegister, SupplierCheckIn, SupplierCheckOut} from 'src/shared/models/Supplier';
+import {ProviderRegister, ProviderCheckIn, ProviderCheckOut} from 'src/shared/models/Supplier';
 
-export const supplierRegisterAction = createAction(
+export const providerRegisterAction = createAction(
   '@provider/register',
-  (url: string): SupplierRegister => ({
-    id: Math.random().toString(32).slice(2),
-    url,
+  (payload: Omit<ProviderRegister, 'id'>): ProviderRegister => ({
+    id: getUUID(),
+    ...payload,
   })
 )();
 
-export const supplierCheckInAction = createAction(
+export const providerCheckInAction = createAction(
   '@provider/check-in',
-  (payload: SupplierRegister): SupplierCheckIn => ({
+  (payload: ProviderRegister): ProviderCheckIn => ({
     ...payload,
-    startTime: new Date(),
+    startTime: Date.now(),
   })
 )();
 
-export const supplierCheckOutAction = createAction(
+export const providerCheckOutAction = createAction(
   '@provider/check-out',
-  (payload: SupplierRegister): SupplierCheckOut => ({
+  (payload: ProviderRegister): ProviderCheckOut => ({
     ...payload,
-    stopTime: new Date(),
+    stopTime: Date.now(),
   })
 )();

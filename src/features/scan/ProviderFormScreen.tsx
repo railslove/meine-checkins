@@ -5,12 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 
 import {
-  supplierCheckInAction,
-  supplierCheckOutAction,
+  providerCheckInAction,
+  providerCheckOutAction,
 } from 'src/shared/redux/actions/supplierActions';
 
 import {injectJSString} from 'src/features/scan/providerFormLib';
-import {TEST_PROVIDER, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -18,6 +18,7 @@ import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
+import {TEST_PROVIDER} from 'src/constants';
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
@@ -36,9 +37,9 @@ const ProviderFormScreen: React.FC = () => {
       const message = ev.nativeEvent.data;
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
-        dispatch(supplierCheckInAction(provider));
+        dispatch(providerCheckInAction(provider));
       } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
-        dispatch(supplierCheckOutAction(provider));
+        dispatch(providerCheckOutAction(provider));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
       }
     },

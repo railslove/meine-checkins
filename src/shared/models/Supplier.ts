@@ -1,10 +1,13 @@
-export type SupplierCheckInItem = {
+export type ProviderCheckInItem = {
   id: string;
   url: string;
-  stopTime?: Date;
-  startTime?: Date;
+  name: string;
+  logoUrl?: string;
+  stopTime?: number;
+  startTime?: number;
 };
 
-export type SupplierCheckIn = Pick<SupplierCheckInItem, 'id' | 'url' | 'startTime'>;
-export type SupplierCheckOut = Pick<SupplierCheckInItem, 'id' | 'url' | 'stopTime'>;
-export type SupplierRegister = Pick<SupplierCheckInItem, 'id' | 'url'>;
+export type ProviderRegister = Pick<ProviderCheckInItem, 'id' | 'url' | 'name' | 'logoUrl'>;
+
+export type ProviderCheckIn = ProviderRegister & Pick<ProviderCheckInItem, 'startTime'>;
+export type ProviderCheckOut = ProviderRegister & Pick<ProviderCheckInItem, 'stopTime'>;

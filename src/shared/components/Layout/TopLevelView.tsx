@@ -12,7 +12,6 @@ const useStyles = ({backgroundColor = 'white'}: ViewStyle = {}) =>
       width: '100%',
       margin: 0,
       display: 'flex',
-      alignItems: 'center',
       flexDirection: 'column',
     },
     main: {
