@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
+import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 import Space from 'src/shared/components/Layout/Space';
@@ -12,7 +13,6 @@ import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import CheckInsList from 'src/features/check-ins/components/CheckInsList';
-import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import EmptyCheckInsList from 'src/features/check-ins/components/EmptyCheckInsList';
 import Box from 'src/shared/components/Layout/Box';
 import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';

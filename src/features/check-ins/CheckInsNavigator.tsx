@@ -3,14 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import FAQScreen from 'src/features/check-ins/FAQScreen';
 import ImprintScreen from 'src/features/check-ins/ImprintScreen';
-import MyCheckInsScreen from 'src/features/check-ins/MyCheckInsScreen';
-
-export enum CheckInsRoutes {
-  key = 'CheckInsRoutesKey',
-  FAQ = 'FAQ',
-  Imprint = 'Imprint',
-  MyCheckIns = 'MyCheckIns',
-}
+import MyCheckInsScreen from 'src/features/check-ins/MyCheckinsScreen';
+import {CheckInsRoutes} from 'src/features/check-ins/constants';
 
 const {Navigator, Screen} = createStackNavigator<Record<CheckInsRoutes, any>>();
 

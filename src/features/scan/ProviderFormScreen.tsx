@@ -11,13 +11,13 @@ import {
 
 import {TEST_PROVIDER} from 'src/testData';
 import {injectJSString} from 'src/features/scan/providerFormLib';
+import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 const ProviderFormScreen: React.FC = () => {
