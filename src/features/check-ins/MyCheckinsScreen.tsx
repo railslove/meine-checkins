@@ -21,7 +21,11 @@ const SectionTitle: React.FC<{children: string}> = ({children}) => (
 const MyCheckInsScreen: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
   const navigate = useAppNavigation();
-  const {current: activeCheckIn, items: checkInItems} = useSelector(state => state.checkIns);
+
+  const {current, items} = useSelector(state => {
+    const {current, items} = state.checkIns;
+    return {current, items};
+  });
 
   const goFAQ = () => navigate.navigate(CheckInsRoutes.FAQ);
   const goImprint = () => navigate.navigate(CheckInsRoutes.Imprint);
@@ -34,23 +38,23 @@ const MyCheckInsScreen: React.FC = () => {
         <Title>{t('title')}</Title>
       </Box>
 
-      {activeCheckIn ? (
+      {current ? (
         <>
           <Box>
             <SectionTitle>{t('activeCheckInTitle')}</SectionTitle>
             <Space.V s={10} />
-            <CheckInItemCard {...activeCheckIn} />
+            <CheckInItemCard {...current} />
           </Box>
         </>
       ) : null}
 
-      {checkInItems.length ? (
+      {items.length ? (
         <>
-          <Space.V s={20} />
+          <Space.V s={10} />
           <Box>
             <SectionTitle>{t('previousCheckInsTitle')}</SectionTitle>
             <Space.V s={10} />
-            {checkInItems.map((el, index) => {
+            {items.map((el, index) => {
               return (
                 <Fragment key={el.id}>
                   {index > 0 ? <Space.V s={10} /> : null}
