@@ -33,13 +33,11 @@ const MyCheckInsScreen: React.FC = () => {
   return (
     <TopLevelView>
       <Space.V s={10} />
-
-      <Box>
-        <Title>{t('title')}</Title>
-      </Box>
+      <Title>{t('title')}</Title>
 
       {current ? (
         <>
+          <Space.V s={5} />
           <Box>
             <SectionTitle>{t('activeCheckInTitle')}</SectionTitle>
             <Space.V s={10} />
