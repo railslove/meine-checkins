@@ -5,33 +5,37 @@ import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
-const useStyles = ({isSelected}: SvgIconProps) => {
-  const theme = useTheme();
-
-  return StyleSheet.create({
-    root: {
-      color: isSelected ? theme.colors.primary : theme.colors.backdrop,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: toDpFromPixel(10),
-      marginBottom: toDpFromPixel(8),
-      borderRadius: toDpFromPixel(10),
-      backgroundColor: `rgba(55, 114, 255, ${isSelected ? '0.2' : '0.1'})`,
-    },
-  });
-};
+const styles = StyleSheet.create({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: toDpFromPixel(10),
+    marginBottom: toDpFromPixel(8),
+    borderRadius: toDpFromPixel(10),
+    backgroundColor: 'transparent',
+  },
+});
 
 const width = toDpFromPixel(20);
 const height = toDpFromPixel(22);
 const strokeWidth = toDpFromPixel(2);
 
-const ScanQRIcon: React.FC<SvgIconProps> = props => {
-  const styles = useStyles(props);
-  const stroke = styles.root.color;
+const ScanQRIcon: React.FC<SvgIconProps> = ({isSelected}) => {
+  const theme = useTheme();
+  const stroke = isSelected ? theme.colors.primary : theme.colors.backdrop;
+  const backgroundColor = `rgba(55, 114, 255, ${isSelected ? '0.2' : '0.1'})`;
+
+  const rootStyles = [
+    styles.root,
+    {
+      backgroundColor,
+      color: stroke,
+    },
+  ];
 
   return (
-    <View style={styles.root}>
+    <View style={rootStyles}>
       <Svg width={width} height={height} viewBox="0 0 20 22" fill="none">
         <G clip-path="url(#clip0)">
           <Path

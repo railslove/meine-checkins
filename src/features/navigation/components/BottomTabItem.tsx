@@ -15,35 +15,38 @@ export type BottomTabItemProps = {
   isSelected: boolean;
 };
 
-const useStyles = ({isSelected}: BottomTabItemProps) => {
-  const theme = useTheme();
+const styles = StyleSheet.create({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: '#7B7A7A',
+    margin: 0,
+    height: 'auto',
+    padding: 0,
 
-  return StyleSheet.create({
-    root: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    text: {
-      color: isSelected ? theme.colors.primary : '#7B7A7A',
-      margin: 0,
-      height: 'auto',
-      padding: 0,
+    fontFamily: 'Inter-Bold',
+    fontWeight: '700',
 
-      fontFamily: 'Inter-Bold',
-      fontWeight: '700',
-
-      fontSize: toDpFromPixel(12),
-      lineHeight: toDpFromPixel(14),
-    },
-  });
-};
+    fontSize: toDpFromPixel(12),
+    lineHeight: toDpFromPixel(14),
+  },
+});
 
 const BottomTabItem: React.FC<BottomTabItemProps> = props => {
   const {route, isSelected} = props;
 
   const {t} = useTranslation('navigation');
-  const styles = useStyles(props);
+  const theme = useTheme();
+
+  const textStyle = StyleSheet.flatten([
+    styles.text,
+    {
+      color: isSelected ? theme.colors.primary : '#7B7A7A',
+    },
+  ]);
 
   switch (route) {
     case BottomTabsRoutes.Profile: {
@@ -51,7 +54,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
         <View style={styles.root}>
           <ProfileIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <Text style={styles.text}>{t('profile')}</Text>
+          <Text style={textStyle}>{t('profile')}</Text>
         </View>
       );
     }
@@ -69,7 +72,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
         <View style={styles.root}>
           <MyCheckInsIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <Text style={styles.text}>{t('checkIns')}</Text>
+          <Text style={textStyle}>{t('checkIns')}</Text>
         </View>
       );
     }
