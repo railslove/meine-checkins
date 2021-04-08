@@ -1,7 +1,7 @@
 import faker from 'faker';
-import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
-export const getUUID = () => Math.random().toString(32).slice(2);
+import {getUUID} from 'src/shared/models/util';
+import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
 export const getProviderCheckInItemMock = (
   props: Partial<ProviderCheckInItem> = {}

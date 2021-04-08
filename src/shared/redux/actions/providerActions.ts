@@ -1,5 +1,6 @@
-import {getUUID} from 'src/constants';
 import {createAction} from 'typesafe-actions';
+
+import {getUUID} from 'src/shared/models/util';
 import {ProviderRegister, ProviderCheckIn, ProviderCheckOut} from 'src/shared/models/Provider';
 
 export const providerRegisterAction = createAction(

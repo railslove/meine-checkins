@@ -14,7 +14,8 @@ import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
-import {TEST_PROVIDER} from 'src/constants';
+
+import {TEST_PROVIDER} from 'src/testData';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');

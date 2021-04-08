@@ -9,7 +9,7 @@ import {
   providerCheckOutAction,
 } from 'src/shared/redux/actions/providerActions';
 
-import {TEST_PROVIDER} from 'src/constants';
+import {TEST_PROVIDER} from 'src/testData';
 import {injectJSString} from 'src/features/scan/providerFormLib';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 

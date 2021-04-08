@@ -1,6 +1,5 @@
 import {createReducer} from 'typesafe-actions';
 
-import {getProviderCheckInItemMock} from 'src/constants';
 import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
 import {
