@@ -10,9 +10,13 @@ declare global {
   }
 }
 
-export const injectJS = function () {
-  let user: User;
-  let messages: typeof PROVIDER_SITE_MESSAGE;
+type InjectJSValues = {
+  user: User;
+  messages: typeof PROVIDER_SITE_MESSAGE;
+};
+
+export const injectJS = function (values: InjectJSValues) {
+  const {user, messages} = values;
 
   function getSubmitButton() {
     return document.body.querySelector<HTMLButtonElement>('button[type=submit]');
@@ -101,12 +105,11 @@ export const injectJS = function () {
   }
 };
 
-/**
- * @param {User} user
- */
 export const injectJSString = (user: User) => {
-  return `(${injectJS
-    .toString()
-    .replace('var user;', `var user = ${JSON.stringify(user)};`)
-    .replace('var messages;', `var messages = ${JSON.stringify(PROVIDER_SITE_MESSAGE)};`)})();`;
+  const values: InjectJSValues = {
+    user,
+    messages: PROVIDER_SITE_MESSAGE,
+  };
+
+  return `(${injectJS.toString()})({${JSON.stringify(values)}});`;
 };
