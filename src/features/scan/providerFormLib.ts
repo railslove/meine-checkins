@@ -169,8 +169,6 @@ export const prepareFillFormInWebViewInject = (user: User, hasCheckedIn: boolean
     hasCheckedIn,
   };
 
-  console.log('hasCheckedIn', hasCheckedIn);
-
   const injectFnBody = fillFormInWebView.toString();
   const serializedArguments = JSON.stringify(values);
 
