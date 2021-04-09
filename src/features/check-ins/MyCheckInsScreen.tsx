@@ -30,7 +30,7 @@ const MyCheckInsScreen: React.FC = () => {
 
   const handleNavigateToImprint = useCallback(() => {
     OpenLinkService.openImprint();
-  }, [navigate]);
+  }, []);
 
   const handleNavigateToCurrent = useCallback(() => {
     navigate.navigate(ScanRoutes.ProviderForm);
