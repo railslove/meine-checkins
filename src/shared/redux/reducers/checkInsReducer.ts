@@ -1,15 +1,17 @@
 import {createReducer} from 'typesafe-actions';
-import {SupplierCheckInItem, SupplierRegister} from 'src/shared/models/Supplier';
+
+import {ProviderCheckInItem} from 'src/shared/models/Provider';
+
 import {
-  supplierRegisterAction,
-  supplierCheckInAction,
-  supplierCheckOutAction,
-} from 'src/shared/redux/actions/supplierActions';
+  providerRegisterAction,
+  providerCheckInAction,
+  providerCheckOutAction,
+} from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsInitialState = {
   error?: Error;
-  items: SupplierCheckInItem[];
-  current?: SupplierRegister;
+  items: ProviderCheckInItem[];
+  current?: ProviderCheckInItem;
 };
 
 export const getCheckInsInitialState = (): CheckInsInitialState => ({
@@ -19,26 +21,26 @@ export const getCheckInsInitialState = (): CheckInsInitialState => ({
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState())
-  .handleAction(supplierRegisterAction, (state, {payload}) => {
+  .handleAction(providerRegisterAction, (state, {payload}) => {
     return {
       ...state,
       current: payload,
     };
   })
-  .handleAction(supplierCheckInAction, (state, {payload}) => {
+  .handleAction(providerCheckInAction, (state, {payload}) => {
     return {
       ...state,
-      items: state.items.concat(payload),
+      current: payload,
     };
   })
-  .handleAction(supplierCheckOutAction, (state, {payload: supplier}) => {
-    const url = supplier.url;
+  .handleAction(providerCheckOutAction, (state, {payload: provider}) => {
+    const id = provider.id;
 
     return {
       ...state,
       current: undefined,
       items: state.items.map(el => {
-        return el.url === url ? {...el, ...supplier} : el;
+        return el.id === id ? provider : el;
       }),
     };
   });
