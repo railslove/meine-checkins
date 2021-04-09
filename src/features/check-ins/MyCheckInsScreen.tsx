@@ -38,8 +38,6 @@ const MyCheckInsScreen: React.FC = () => {
     navigate.navigate(ScanRoutes.ProviderForm);
   }, [navigate]);
 
-  console.log('current', current, items);
-
   const isEmpty = current == null && items.length === 0;
 
   return (
