@@ -34,14 +34,10 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
     };
   })
   .handleAction(providerCheckOutAction, (state, {payload: provider}) => {
-    const id = provider.id;
-
     return {
       ...state,
       current: undefined,
-      items: state.items.map(el => {
-        return el.id === id ? provider : el;
-      }),
+      items: state.items.concat(provider),
     };
   });
 

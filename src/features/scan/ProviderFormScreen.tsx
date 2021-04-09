@@ -34,14 +34,16 @@ const ProviderFormScreen: React.FC = () => {
     (ev: WebViewMessageEvent) => {
       const {data: message} = ev.nativeEvent;
 
-      if (!provider) {
+      if (provider == null) {
         console.warn('no provider available');
         return;
       }
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
+        console.log('provider checks-in');
         dispatch(providerCheckInAction(provider));
       } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
+        console.log('provider checks-out');
         dispatch(providerCheckOutAction(provider));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
       }
@@ -59,7 +61,11 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
-  const injectedJavaScript = user ? prepareFillFormInWebViewInject(user) : undefined;
+  console.log('provider', provider);
+
+  const injectedJavaScript = user
+    ? prepareFillFormInWebViewInject(user, provider.startTime != null)
+    : undefined;
   const uri = provider.stopTime ? provider.checkInUrl : provider.checkOutUrl;
 
   return (

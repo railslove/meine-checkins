@@ -13,6 +13,7 @@ declare global {
 type InjectJSValues = {
   user: User;
   messages: typeof PROVIDER_SITE_MESSAGE;
+  hasCheckedIn: boolean;
 };
 
 /**
@@ -25,17 +26,26 @@ type InjectJSValues = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
-  const {user, messages} = values;
+  const {user, messages, hasCheckedIn} = values;
 
   function postMessage(value: string) {
     window.ReactNativeWebView.postMessage(value);
   }
 
   function getButton() {
-    return (
-      document.body.querySelector<HTMLButtonElement>('button[type=submit]') ||
-      document.createElement('button')
-    );
+    const el = document.body.querySelector<HTMLButtonElement>('button[type=submit]');
+
+    if (el) {
+      return el;
+    }
+
+    const altEl = document.body.querySelector('button');
+
+    if (altEl && /check[-\s]*(in|out)/i.test(altEl?.outerHTML)) {
+      return altEl;
+    }
+
+    return document.createElement('button');
   }
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
@@ -110,19 +120,34 @@ export function fillFormInWebView(values: InjectJSValues) {
     };
   }
 
-  function waitForCheckout() {
-    getButton().removeEventListener('click', waitForCheckout);
-
-    postMessage(messages.checkOutSuccess);
+  function waitForCheckOut() {
+    // wait a bit for re-rendering and wait for check-out
+    setTimeout(() => {
+      getButton().addEventListener('click', function wait() {
+        getButton().removeEventListener('click', wait);
+        postMessage(messages.checkOutSuccess);
+      });
+    }, 1000);
   }
 
   try {
+    if (hasCheckedIn) {
+      waitForCheckOut();
+      return;
+    }
+
     setTimeout(() => {
       const result = fillForm();
 
       if (result.isSuccess) {
-        postMessage(messages.checkInSuccess);
-        getButton().addEventListener('click', waitForCheckout);
+        // we'll wait for the user to submit the form to signal check-in
+        getButton().addEventListener('click', function waitForCheckIn() {
+          getButton().removeEventListener('click', waitForCheckIn);
+
+          postMessage(messages.checkInSuccess);
+
+          waitForCheckOut();
+        });
       } else {
         postMessage(messages.checkInFailure);
       }
@@ -137,11 +162,14 @@ export function fillFormInWebView(values: InjectJSValues) {
  * Makes an immediately invoked function expression
  * that fills the provider's form with the user data from the app
  */
-export const prepareFillFormInWebViewInject = (user: User) => {
+export const prepareFillFormInWebViewInject = (user: User, hasCheckedIn: boolean) => {
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
+    hasCheckedIn,
   };
+
+  console.log('hasCheckedIn', hasCheckedIn);
 
   const injectFnBody = fillFormInWebView.toString();
   const serializedArguments = JSON.stringify(values);

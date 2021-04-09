@@ -38,7 +38,9 @@ const MyCheckInsScreen: React.FC = () => {
     navigate.navigate(ScanRoutes.ProviderForm);
   }, [navigate]);
 
-  const isEmpty = items.length === 0;
+  console.log('current', current, items);
+
+  const isEmpty = current == null && items.length === 0;
 
   return (
     <TopLevelView paddingHorizontal={0}>
@@ -74,6 +76,7 @@ const MyCheckInsScreen: React.FC = () => {
         <Box paddingHorizontal={LAYOUT_PADDING_HORIZONTAL}>
           <Space.V s={10} />
           <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
+          <Space.V s={5} />
           <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
         </Box>
       )}
