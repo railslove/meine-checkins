@@ -9,7 +9,6 @@ import {
   providerCheckOutAction,
 } from 'src/shared/redux/actions/providerActions';
 
-import {TEST_PROVIDER} from 'src/testData';
 import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 import {prepareFillFormInWebViewInject} from 'src/features/scan/providerFormLib';

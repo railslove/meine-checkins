@@ -11,7 +11,7 @@ import Paragraph from 'src/shared/components/Typography/Paragraph';
 import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import CheckInsList from 'src/features/check-ins/components/CheckInsList';
 import EmptyCheckInsList from 'src/features/check-ins/components/EmptyCheckInsList';
 import Box from 'src/shared/components/Layout/Box';

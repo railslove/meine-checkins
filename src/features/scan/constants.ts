@@ -11,3 +11,10 @@ export const TEST_PROVIDER = {
   url:
     'https://rcvr.app/checkin?a=8c2bb0ea-5a6c-4219-8a6d-428f245d7aa7&k=LeDTVuNGteBiKoGmZH9jN%2FmQNuphhcg%2FksroGKnAGmw%3D',
 };
+
+export enum ScanRoutes {
+  key = 'ScanRoutesKey',
+  MyCheckIns = 'MyCheckIns',
+  ScanQRCode = 'ScanQRCode',
+  ProviderForm = 'ProviderForm',
+}

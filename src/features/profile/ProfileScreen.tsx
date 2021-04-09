@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import User from 'src/shared/models/User';
 
@@ -10,7 +10,7 @@ import Button from 'src/shared/components/Button/Button';
 import Title from 'src/shared/components/Typography/Title';
 import TextInput from 'src/shared/components/Form/TextInput';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
 import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
@@ -21,6 +21,9 @@ import {toDpFromPixel} from 'src/shared/theme/util';
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
   const user = useSelector(state => state.user.item);
+
+  console.log('user', user);
+
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
 
@@ -70,6 +73,19 @@ const ProfileScreen: React.FC = () => {
       navigation.navigate(ScanRoutes.ScanQRCode);
     });
   };
+
+  useEffect(() => {
+    if (user != null) {
+      setLastName(user.lastName);
+      setFirstName(user.firstName);
+
+      setCity(user.city);
+      setPostalCode(user.postalCode);
+      setStreetAddress(user.streetAddress);
+
+      setPhoneNumber(user.phoneNumber);
+    }
+  }, [user]);
 
   return (
     <TopLevelView>
