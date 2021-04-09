@@ -1,5 +1,6 @@
-import {useDispatch, useSelector} from 'react-redux';
+import {useTheme} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
+import {useDispatch, useSelector} from 'react-redux';
 import React, {useCallback, useEffect, useState} from 'react';
 
 import User from 'src/shared/models/User';
@@ -17,10 +18,12 @@ import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 import {toDpFromPixel} from 'src/shared/theme/util';
+import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
   const user = useSelector(state => state.user.item);
+  const theme = useTheme();
 
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
@@ -117,22 +120,28 @@ const ProfileScreen: React.FC = () => {
         </Box>
 
         <TextInput
-          placeholder={t('streetAddress')}
           value={streetAddress}
+          placeholder={t('streetAddress')}
           autoCompleteType="street-address"
           onChangeText={handleStreetAddressChange}
         />
         <Box display="flex" flexDirection="row">
           <Box flex={1}>
             <TextInput
-              placeholder={t('postalCode')}
               value={postalCode}
+              placeholder={t('postalCode')}
+              keyboardType="number-pad"
               autoCompleteType="postal-code"
               onChangeText={handlePostalCodeChange}
             />
           </Box>
           <Box flex={1} marginLeft={toDpFromPixel(5)}>
-            <TextInput placeholder={t('city')} value={city} onChangeText={handleCityChange} />
+            <TextInput
+              value={city}
+              placeholder={t('city')}
+              autoCompleteType="street-address"
+              onChangeText={handleCityChange}
+            />
           </Box>
         </Box>
         <TextInput
@@ -142,10 +151,20 @@ const ProfileScreen: React.FC = () => {
           autoCompleteType="tel"
           onChangeText={handlePhoneNumberChange}
         />
-
-        <Box display="flex" flexDirection="row" alignItems="center" flexWrap="wrap">
-          <Box width="82%" display="flex" flexDirection="row" alignItems="center">
-            <Box borderRadius={7} marginRight={20}>
+        <Space.V s={2.5} />
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          marginHorizontal={1.5 * LAYOUT_PADDING_HORIZONTAL}
+        >
+          <Box display="flex" flexDirection="row" alignItems="flex-start">
+            <Box
+              borderRadius={theme.roundness}
+              marginRight={toDpFromPixel(20)}
+              marginTop={toDpFromPixel(5)}
+            >
               <LockIcon />
             </Box>
             <Box>
@@ -153,12 +172,10 @@ const ProfileScreen: React.FC = () => {
             </Box>
           </Box>
 
-          <Box>
-            <Space.V s={15} />
-            <Button fullWidth onPress={handleSubmit}>
-              {t('submit')}
-            </Button>
-          </Box>
+          <Space.V s={10} />
+          <Button fullWidth onPress={handleSubmit}>
+            {t('submit')}
+          </Button>
         </Box>
       </Box>
     </TopLevelView>

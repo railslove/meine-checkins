@@ -22,16 +22,18 @@ const StartScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
-        <Space.V s={10} />
+      <Box marginHorizontal="10%" display="flex" alignItems="center" justifyContent="center">
+        <Space.V s={5} />
         <LargeHeadline>{t('title')}</LargeHeadline>
+        <Space.V s={5} />
+      </Box>
+      <Box marginHorizontal="5%" height="45%">
         <Image source={require('./img/start-illustration.png')} resizeMode="contain" />
-        <Box marginHorizontal="10%" display="flex" alignItems="center" justifyContent="center">
-          <Space.V s={10} />
-          <Description textAlign="center">{t('description')}</Description>
-          <Space.V s={10} />
-          <Button onPress={handleSubmit}>{t('submit')}</Button>
-        </Box>
+      </Box>
+      <Box marginHorizontal="10%" display="flex" alignItems="center" justifyContent="center">
+        <Description textAlign="center">{t('description')}</Description>
+        <Space.V s={10} />
+        <Button onPress={handleSubmit}>{t('submit')}</Button>
       </Box>
     </TopLevelView>
   );
