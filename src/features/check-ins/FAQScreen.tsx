@@ -6,6 +6,11 @@ import Title from 'src/shared/components/Typography/Title';
 import Accordion from 'src/shared/components/Accordion/Accordion';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
+export type FAQLocaleItem = {
+  title: string;
+  content: string;
+};
+
 const FAQScreen: React.FC = () => {
   const {t} = useTranslation('faqScreen');
   const [openAccordion, setOpenAccordion] = useState(-1);
@@ -14,7 +19,7 @@ const FAQScreen: React.FC = () => {
     setOpenAccordion(index === openAccordion ? -1 : index);
   };
 
-  const items = t('items', {returnObjects: true});
+  const items: FAQLocaleItem[] = t('items', {returnObjects: true});
 
   return (
     <TopLevelView>

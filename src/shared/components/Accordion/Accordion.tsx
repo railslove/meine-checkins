@@ -7,7 +7,6 @@ import {toDpFromPixel} from 'src/shared/theme/util';
 import Space from 'src/shared/components/Layout/Space';
 import PlusIcon from 'src/shared/components/Icon/PlusIcon';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
-import Description from 'src/shared/components/Typography/Description';
 
 export type AccordionProps = {
   open?: boolean;
