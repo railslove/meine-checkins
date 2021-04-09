@@ -24,7 +24,7 @@ type InjectJSValues = {
  * - the body is already transformed to JS when is run on the device (you can test this by login it)
  **/
 
-export function fillCheckInProviderForm(values: InjectJSValues) {
+export function fillFormInWebView(values: InjectJSValues) {
   const {user, messages} = values;
 
   function postMessage(value: string) {
@@ -134,15 +134,15 @@ export function fillCheckInProviderForm(values: InjectJSValues) {
 
 /**
  * Makes an immediately invoked function expression
- * with the arguments we have from the app
+ * that fills the provider's form with the user data from the app
  */
-export const prepareFillCheckInProviderFormForInject = (user: User) => {
+export const prepareFillFormInWebViewInject = (user: User) => {
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
   };
 
-  const injectFnBody = fillCheckInProviderForm.toString();
+  const injectFnBody = fillFormInWebView.toString();
   const serializedArguments = JSON.stringify(values);
 
   return `(${injectFnBody})(${serializedArguments});`;
