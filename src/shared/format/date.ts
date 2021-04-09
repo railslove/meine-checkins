@@ -5,14 +5,13 @@ export const normalizeDateNum = (value: number) => {
 export const formatItemDate = (value: number) => {
   const date = new Date(value);
 
-  const day = date.getDay();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // January is 0
-  const mins = date.getMinutes();
-  const hours = date.getHours();
+  const [day, month, year, hours, minutes] = [
+    date.getDay(),
+    date.getMonth() + 1 /* January is 0 */,
+    date.getFullYear(),
+    date.getHours(),
+    date.getMinutes(),
+  ].map(normalizeDateNum);
 
-  return [
-    [day, month, year].map(normalizeDateNum).join('.'),
-    `${[hours, mins].map(normalizeDateNum).join(':')} Uhr`,
-  ].join(' - ');
+  return `${day}.${month}.${year} - ${hours}.${minutes} Uhr`;
 };
