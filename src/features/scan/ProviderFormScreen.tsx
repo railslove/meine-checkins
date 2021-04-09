@@ -34,8 +34,7 @@ const ProviderFormScreen: React.FC = () => {
 
   const onMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      const message = ev.nativeEvent.data;
-      console.log('message', message);
+      const {data: message} = ev.nativeEvent;
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
         dispatch(supplierCheckInAction(provider));
