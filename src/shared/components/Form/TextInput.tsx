@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput as RPTextInput, useTheme} from 'react-native-paper';
-import {StyleSheet, Text, TextInputProps as RNTextInputProps} from 'react-native';
+import {StyleSheet, TextInputProps as RNTextInputProps} from 'react-native';
 
 import {toDpFromPixel} from 'src/shared/theme/util';
 

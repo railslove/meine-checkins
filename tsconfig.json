@@ -6,8 +6,7 @@
     "jest.config.js"
   ],
   "include": [
-    "*.js",
-    "*.tsx",
+    "./index.js",
     "./src"
   ],
   "compilerOptions": {
