@@ -10,9 +10,9 @@ import {
 } from 'src/shared/redux/actions/providerActions';
 
 import {TEST_PROVIDER} from 'src/testData';
-import {injectJSString} from 'src/features/scan/providerFormLib';
 import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {prepareFillCheckInProviderFormForInject} from 'src/features/scan/providerFormLib';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -56,7 +56,7 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
-  const injectedJavaScript = user ? injectJSString(user) : undefined;
+  const injectedJavaScript = user ? prepareFillCheckInProviderFormForInject(user) : undefined;
   const uri = provider.stopTime ? provider.checkInUrl : provider.checkOutUrl;
 
   return (

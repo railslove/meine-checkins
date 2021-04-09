@@ -13,20 +13,18 @@ declare global {
 type InjectJSValues = {
   user: User;
   messages: typeof PROVIDER_SITE_MESSAGE;
-  hasCheckedIn?: boolean;
 };
 
 /**
- * function used inside of the webview for:
- *  - filling forms
- *  - signaling status
+ * Used inside of the WebView for filling forms and signaling status to the app
  *
- * It works written in typescript because
+ * We can use TypeScript because:
+ *
  * - Function.prototype.toString contains the function body
  * - the body is already transformed to JS when is run on the device (you can test this by login it)
  **/
 
-export function injectJS(values: InjectJSValues) {
+export function fillCheckInProviderForm(values: InjectJSValues) {
   const {user, messages} = values;
 
   function postMessage(value: string) {
@@ -40,7 +38,7 @@ export function injectJS(values: InjectJSValues) {
     );
   }
 
-  function fillProviderForm() {
+  function fillForm() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
     );
@@ -119,7 +117,7 @@ export function injectJS(values: InjectJSValues) {
 
   try {
     setTimeout(() => {
-      const result = fillProviderForm();
+      const result = fillForm();
 
       if (result.isSuccess) {
         postMessage(messages.checkInSuccess);
@@ -138,14 +136,13 @@ export function injectJS(values: InjectJSValues) {
  * Makes an immediately invoked function expression
  * with the arguments we have from the app
  */
-export const injectJSString = (user: User) => {
+export const prepareFillCheckInProviderFormForInject = (user: User) => {
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
-    hasCheckedIn: false,
   };
 
-  const injectFnBody = injectJS.toString();
+  const injectFnBody = fillCheckInProviderForm.toString();
   const serializedArguments = JSON.stringify(values);
 
   return `(${injectFnBody})(${serializedArguments});`;
