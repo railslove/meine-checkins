@@ -10,103 +10,141 @@ declare global {
   }
 }
 
-export const injectJS = function () {
-  let user: User;
-  let messages: typeof PROVIDER_SITE_MESSAGE;
+type InjectJSValues = {
+  user: User;
+  messages: typeof PROVIDER_SITE_MESSAGE;
+};
 
-  function getSubmitButton() {
-    return document.body.querySelector<HTMLButtonElement>('button[type=submit]');
+/**
+ * Used inside of the WebView for filling forms and signaling status to the app
+ *
+ * We can use TypeScript because:
+ *
+ * - Function.prototype.toString contains the function body
+ * - the body is already transformed to JS when is run on the device (you can test this by login it)
+ **/
+
+export function fillFormInWebView(values: InjectJSValues) {
+  const {user, messages} = values;
+
+  function postMessage(value: string) {
+    window.ReactNativeWebView.postMessage(value);
   }
 
-  function getSubmitButtonText() {
-    return getSubmitButton()?.textContent;
+  function getButton() {
+    return (
+      document.body.querySelector<HTMLButtonElement>('button[type=submit]') ||
+      document.createElement('button')
+    );
   }
 
-  function isCheckIn() {
-    const text = getSubmitButtonText();
-    return text != null && /check[-\s]+in/i.test(text);
+  function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
+    setTimeout(() => {
+      el.setRangeText(value);
+      el.dispatchEvent(new Event('input', {bubbles: true}));
+    }, index * 100);
   }
 
-  function fillInputs() {
+  function fillForm() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
     );
 
     const filled = inputs
-      .map((el): (keyof User | null)[] => {
+      .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
+
         switch (name) {
           case 'name': {
-            el.value = [user.firstName, user.lastName].join(' ');
+            fillInputAsync(el, index, [user.firstName, user.lastName].join(' '));
             return ['firstName', 'lastName'];
           }
           case 'given-name': {
-            el.value = user.firstName;
+            fillInputAsync(el, index, user.firstName);
+
             return ['firstName'];
           }
           case 'family-name': {
-            el.value = user.lastName;
+            fillInputAsync(el, index, user.lastName);
+
             return ['lastName'];
           }
           case 'tel': {
-            el.value = user.phoneNumber;
+            fillInputAsync(el, index, user.phoneNumber);
+
             return ['phoneNumber'];
           }
           case 'street-address': {
-            el.value = user.address;
-            return ['address'];
+            fillInputAsync(el, index, user.streetAddress);
+
+            return ['streetAddress'];
+          }
+
+          case 'postal-code': {
+            fillInputAsync(el, index, user.postalCode);
+
+            return ['postalCode'];
+          }
+
+          case 'address-level2': {
+            fillInputAsync(el, index, user.city);
+
+            return ['city'];
           }
           default: {
             return [];
           }
         }
       })
-      .filter(v => v)
+      .filter(v => v && v.length > 0)
       .flat();
 
-    const wasFillSuccess = filled.length === Object.keys(user).length;
-    return wasFillSuccess;
-  }
+    const isSuccess = filled.length === Object.keys(user).length;
 
-  function checkIn(wasFillSuccess: boolean) {
-    if (wasFillSuccess) {
-      window.ReactNativeWebView.postMessage(messages.checkInSuccess);
-    } else {
-      window.ReactNativeWebView.postMessage(messages.checkInFailure);
+    if (isSuccess) {
+      getButton().scrollIntoView(false);
     }
+
+    return {
+      isSuccess,
+    };
   }
 
-  function checkOut() {
-    window.ReactNativeWebView.postMessage(messages.checkOutSuccess);
-    getSubmitButton()?.removeEventListener('click', checkOut);
+  function waitForCheckout() {
+    getButton().removeEventListener('click', waitForCheckout);
+
+    postMessage(messages.checkOutSuccess);
   }
 
   try {
     setTimeout(() => {
-      if (isCheckIn()) {
-        const wasFillSuccess = fillInputs();
+      const result = fillForm();
 
-        function waitForCheckIn() {
-          checkIn(wasFillSuccess);
-          getSubmitButton()?.removeEventListener('click', waitForCheckIn);
-          getSubmitButton()?.addEventListener('click', checkOut);
-        }
-
-        getSubmitButton()?.addEventListener('click', waitForCheckIn);
+      if (result.isSuccess) {
+        postMessage(messages.checkInSuccess);
+        getButton().addEventListener('click', waitForCheckout);
+      } else {
+        postMessage(messages.checkInFailure);
       }
     }, 1000);
   } catch (error) {
     // @ts-ignore
-    window.ReactNativeWebView.postMessage(messages.checkInFailure);
+    postMessage(messages.checkInFailure);
   }
-};
+}
 
 /**
- * @param {User} user
+ * Makes an immediately invoked function expression
+ * that fills the provider's form with the user data from the app
  */
-export const injectJSString = (user: User) => {
-  return `(${injectJS
-    .toString()
-    .replace('var user;', `var user = ${JSON.stringify(user)};`)
-    .replace('var messages;', `var messages = ${JSON.stringify(PROVIDER_SITE_MESSAGE)};`)})();`;
+export const prepareFillFormInWebViewInject = (user: User) => {
+  const values: InjectJSValues = {
+    user,
+    messages: PROVIDER_SITE_MESSAGE,
+  };
+
+  const injectFnBody = fillFormInWebView.toString();
+  const serializedArguments = JSON.stringify(values);
+
+  return `(${injectFnBody})(${serializedArguments});`;
 };
