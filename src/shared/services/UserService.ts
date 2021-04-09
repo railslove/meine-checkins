@@ -28,11 +28,15 @@ class UserService {
 
   isValidUser(value: object): boolean {
     const isInvalid = Object.entries(value).some(([key, value]) => {
-      switch (key) {
-        case 'address':
+      const name = key as keyof User;
+
+      switch (name) {
         case 'lastName':
         case 'firstName':
-        case 'phoneNumber': {
+        case 'phoneNumber':
+        case 'city':
+        case 'postalCode':
+        case 'streetAddress': {
           return typeof value !== 'string';
         }
         default: {
