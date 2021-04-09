@@ -92,7 +92,7 @@ const ProfileScreen: React.FC = () => {
               onChangeText={handleFirstNameChange}
             />
           </Box>
-          <Box flex={2} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={toDpFromPixel(5)}>
             <TextInput
               value={lastName}
               placeholder={t('lastName')}
@@ -117,7 +117,7 @@ const ProfileScreen: React.FC = () => {
               onChangeText={handlePostalCodeChange}
             />
           </Box>
-          <Box flex={2} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={toDpFromPixel(5)}>
             <TextInput placeholder={t('city')} value={city} onChangeText={handleCityChange} />
           </Box>
         </Box>
