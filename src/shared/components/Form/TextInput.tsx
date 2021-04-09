@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
 
 export type TextInputProps = Omit<RNTextInputProps, 'selectionColor'> & {
   label?: string;
+  error?: boolean;
 };
 
 const TextInput: React.FC<TextInputProps> = props => {

@@ -12,5 +12,7 @@ export default {
   dataPrivacyInfo:
     'Deine Daten werden sicher lokal auf deinem Gerät gespeichert und nur zum Checkin an den jeweiligen Anbieter übertragen.',
 
+  isRequired: 'ist erforderlich',
+
   submit: 'speichern',
 };

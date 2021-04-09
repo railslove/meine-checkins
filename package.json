@@ -38,6 +38,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "i18next": "^20.1.0",
     "react": "17.0.1",
+    "react-hook-form": "^7.0.5",
     "react-i18next": "^11.8.12",
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.1",
@@ -60,7 +61,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "redux-flipper": "^1.4.2",
     "@babel/core": "^7.11.1",
     "@babel/runtime": "^7.11.2",
     "@testing-library/jest-native": "^3.3.0",
@@ -93,6 +93,7 @@
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
+    "redux-flipper": "^1.4.2",
     "typescript": "^3.9.7"
   },
   "jest": {

@@ -1,7 +1,8 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 import {StackActions} from '@react-navigation/core';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -14,11 +15,21 @@ import {MainStackRoutes} from 'src/features/navigation/constants';
 
 const StartScreen: React.FC = () => {
   const {t} = useTranslation('startScreen');
+  const {item: user, isLoading} = useSelector(state => state.user);
   const navigation = useAppNavigation();
 
   const handleSubmit = () => {
     navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
   };
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (user != null) {
+    handleSubmit();
+    return null;
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
