@@ -2,17 +2,19 @@ import React from 'react';
 import {StyleSheet, View, ViewStyle} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';
 
-const useStyles = ({backgroundColor = 'white'}: ViewStyle = {}) =>
-  StyleSheet.create({
+const useStyles = ({
+  backgroundColor = 'white',
+  paddingHorizontal = LAYOUT_PADDING_HORIZONTAL,
+}: ViewStyle = {}) => {
+  return StyleSheet.create({
     root: {
       backgroundColor,
       flex: 1,
       width: '100%',
       margin: 0,
       display: 'flex',
-      alignItems: 'center',
       flexDirection: 'column',
     },
     main: {
@@ -23,18 +25,21 @@ const useStyles = ({backgroundColor = 'white'}: ViewStyle = {}) =>
     },
     scrollView: {
       backgroundColor,
+      paddingHorizontal,
       flex: 1,
       padding: 0,
-      paddingHorizontal: toDpFromPixel(22),
     },
   });
-
-export type TopLevelViewProps = {
-  backgroundColor?: string;
 };
 
-const TopLevelView: React.FC<TopLevelViewProps> = ({children, backgroundColor}) => {
-  const styles = useStyles({backgroundColor});
+export type TopLevelViewProps = Partial<Pick<ViewStyle, 'backgroundColor' | 'paddingHorizontal'>>;
+
+const TopLevelView: React.FC<TopLevelViewProps> = ({
+  children,
+  paddingHorizontal,
+  backgroundColor,
+}) => {
+  const styles = useStyles({backgroundColor, paddingHorizontal});
 
   return (
     <SafeAreaView style={styles.root}>

@@ -55,7 +55,8 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typesafe-actions": "^5.1.0"
+    "typesafe-actions": "^5.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -65,12 +66,14 @@
     "@types/babel__core": "^7.1.14",
     "@types/detox": "^17.14.0",
     "@types/eslint": "^6.8.1",
+    "@types/faker": "^5.5.0",
     "@types/jest": "^25.2.3",
     "@types/prettier": "^2.2.3",
     "@types/react": "^16.14.5",
     "@types/react-native": "^0.63.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-test-renderer": "^16.9.3",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "babel-jest": "^25.5.1",
@@ -81,6 +84,7 @@
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-native": "^3.8.1",
+    "faker": "^5.5.2",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
     "metro-react-native-babel-preset": "^0.64.0",
