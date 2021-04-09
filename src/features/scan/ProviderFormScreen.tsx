@@ -32,9 +32,10 @@ const ProviderFormScreen: React.FC = () => {
     return state.checkIns.current || TEST_PROVIDER;
   });
 
-  const onMessage = useCallback(
+  const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
       const {data: message} = ev.nativeEvent;
+      console.log('message', message);
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
         dispatch(supplierCheckInAction(provider));
@@ -65,7 +66,7 @@ const ProviderFormScreen: React.FC = () => {
         source={{uri: provider.url}}
         renderLoading={renderLoading}
         injectedJavaScript={injectedJavaScript}
-        onMessage={onMessage}
+        onMessage={handleMessage}
       />
     </Box>
   );

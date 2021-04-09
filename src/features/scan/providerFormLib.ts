@@ -13,17 +13,25 @@ declare global {
 type InjectJSValues = {
   user: User;
   messages: typeof PROVIDER_SITE_MESSAGE;
+  hasCheckedIn?: boolean;
 };
 
 /**
  * function used inside of the webview for:
  *  - filling forms
  *  - signaling status
+ *
+ * It works written in typescript because
+ * - Function.prototype.toString contains the function body
+ * - the body is already transformed to JS when is run on the device (you can test this by login it)
  **/
 
 export function injectJS(values: InjectJSValues) {
   const {user, messages} = values;
-  let hasCheckedIn = false;
+
+  function postMessage(value: string) {
+    window.ReactNativeWebView.postMessage(value);
+  }
 
   function getButton() {
     return (
@@ -32,128 +40,109 @@ export function injectJS(values: InjectJSValues) {
     );
   }
 
-  type FillInputProps = {
-    el: HTMLInputElement;
-    user: User;
-    index: number;
-  };
-
-  function fillInput(props: FillInputProps): (keyof User)[] {
-    const {el, index, user} = props;
-
-    const name = el.getAttribute('autocomplete') as AutoCompleteValues;
-    const timeout = index * 100;
-
-    switch (name) {
-      case 'name': {
-        setTimeout(() => {
-          el.click();
-          el.value = [user.firstName, user.lastName].join(' ');
-        }, timeout);
-        return ['firstName', 'lastName'];
-      }
-      case 'given-name': {
-        setTimeout(() => {
-          el.click();
-          el.value = user.firstName;
-        }, timeout);
-
-        return ['firstName'];
-      }
-      case 'family-name': {
-        setTimeout(() => {
-          el.click();
-          el.value = user.lastName;
-        }, timeout);
-
-        return ['lastName'];
-      }
-      case 'tel': {
-        setTimeout(() => {
-          el.click();
-          el.value = user.phoneNumber;
-        }, timeout);
-
-        return ['phoneNumber'];
-      }
-      case 'street-address': {
-        setTimeout(() => {
-          el.click();
-          el.value = user.address;
-        }, timeout);
-
-        return ['address'];
-      }
-      default: {
-        return [];
-      }
-    }
-  }
-
-  function fillForm() {
+  function fillProviderForm() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
     );
 
     const filled = inputs
-      .map((el, index) => fillInput({el, user, index}))
-      .filter(v => v)
+      .map((el, index) => {
+        const name = el.getAttribute('autocomplete') as AutoCompleteValues;
+
+        const fillAsync = (value: string) =>
+          setTimeout(() => {
+            el.setRangeText(value);
+            el.dispatchEvent(new Event('input', {bubbles: true}));
+          }, index * 100);
+
+        switch (name) {
+          case 'name': {
+            fillAsync([user.firstName, user.lastName].join(' '));
+            return ['firstName', 'lastName'];
+          }
+          case 'given-name': {
+            fillAsync(user.firstName);
+
+            return ['firstName'];
+          }
+          case 'family-name': {
+            fillAsync(user.lastName);
+
+            return ['lastName'];
+          }
+          case 'tel': {
+            fillAsync(user.phoneNumber);
+
+            return ['phoneNumber'];
+          }
+          case 'street-address': {
+            fillAsync(user.streetAddress);
+
+            return ['streetAddress'];
+          }
+
+          case 'postal-code': {
+            fillAsync(user.postalCode);
+
+            return ['postalCode'];
+          }
+
+          case 'address-level2': {
+            fillAsync(user.city);
+
+            return ['city'];
+          }
+          default: {
+            return [];
+          }
+        }
+      })
+      .filter(v => v && v.length > 0)
       .flat();
 
+    const isSuccess = filled.length === Object.keys(user).length;
+
+    if (isSuccess) {
+      getButton().scrollIntoView(false);
+    }
+
     return {
-      success: filled.length === Object.keys(user).length,
+      isSuccess,
     };
   }
 
-  function sendCheckInMessage(wasSuccess: boolean) {
-    if (wasSuccess) {
-      window.ReactNativeWebView.postMessage(messages.checkInSuccess);
-    } else {
-      window.ReactNativeWebView.postMessage(messages.checkInFailure);
-    }
-  }
+  function waitForCheckout() {
+    getButton().removeEventListener('click', waitForCheckout);
 
-  function waitForCheckOut() {
-    window.ReactNativeWebView.postMessage(messages.checkOutSuccess);
-    getButton().removeEventListener('click', waitForCheckOut);
+    postMessage(messages.checkOutSuccess);
   }
 
   try {
     setTimeout(() => {
-      if (!hasCheckedIn) {
-        const result = fillForm();
-        hasCheckedIn = result.success;
+      const result = fillProviderForm();
 
-        function waitForCheckIn() {
-          sendCheckInMessage(hasCheckedIn);
-
-          if (hasCheckedIn) {
-            getButton().removeEventListener('click', waitForCheckIn);
-            getButton().addEventListener('click', waitForCheckOut);
-          }
-        }
-
-        getButton().addEventListener('click', waitForCheckIn);
+      if (result.isSuccess) {
+        postMessage(messages.checkInSuccess);
+        getButton().addEventListener('click', waitForCheckout);
+      } else {
+        postMessage(messages.checkInFailure);
       }
     }, 1000);
   } catch (error) {
     // @ts-ignore
-    window.ReactNativeWebView.postMessage(messages.checkInFailure);
+    postMessage(messages.checkInFailure);
   }
 }
 
 /**
  * Makes an immediately invoked function expression
  * with the arguments we have from the app
- *
- * It works from typescript because
- * - Function.prototype.toString contains the function body
- * - the function body is already transpiled when is run on the device
  */
 export const injectJSString = (user: User) => {
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
+    hasCheckedIn: false,
   };
 
   const injectFnBody = injectJS.toString();
