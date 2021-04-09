@@ -7,7 +7,6 @@ export const PROVIDER_SITE_MESSAGE = {
 
 export enum ScanRoutes {
   key = 'ScanRoutesKey',
-  MyCheckIns = 'MyCheckIns',
   ScanQRCode = 'ScanQRCode',
   ProviderForm = 'ProviderForm',
 }

@@ -37,7 +37,7 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
     return {
       ...state,
       current: undefined,
-      items: state.items.concat(provider),
+      items: [provider].concat(state.items),
     };
   });
 
