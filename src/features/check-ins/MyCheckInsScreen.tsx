@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next';
 import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
+import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
@@ -14,17 +15,13 @@ import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {ScanRoutes} from 'src/features/scan/constants';
 import CheckInsList from 'src/features/check-ins/components/CheckInsList';
 import EmptyCheckInsList from 'src/features/check-ins/components/EmptyCheckInsList';
-import Box from 'src/shared/components/Layout/Box';
 import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';
 
 const MyCheckInsScreen: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
   const navigate = useAppNavigation();
 
-  const {current, items} = useSelector(state => {
-    const {current, items} = state.checkIns;
-    return {current, items};
-  });
+  const {current, items} = useSelector(state => state.checkIns);
 
   const handleNavigateFAQ = useCallback(() => {
     navigate.navigate(CheckInsRoutes.FAQ);

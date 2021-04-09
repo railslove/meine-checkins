@@ -55,7 +55,8 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typesafe-actions": "^5.1.0"
+    "typesafe-actions": "^5.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "redux-flipper": "^1.4.2",
@@ -73,6 +74,7 @@
     "@types/react-native": "^0.63.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-test-renderer": "^16.9.3",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "babel-jest": "^25.5.1",
