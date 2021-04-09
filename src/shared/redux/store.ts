@@ -11,7 +11,7 @@ export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
 const middleware = [thunkMiddleware];
 
-if (__DEV__) {
+if (__DEV__ && process.env.NODE_ENV != 'test') {
   const createDebugger = require('redux-flipper').default;
   middleware.push(createDebugger());
 }
