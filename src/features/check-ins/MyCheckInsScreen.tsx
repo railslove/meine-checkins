@@ -21,10 +21,7 @@ const MyCheckInsScreen: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
   const navigate = useAppNavigation();
 
-  const {current, items} = useSelector(state => {
-    const {current, items} = state.checkIns;
-    return {current, items};
-  });
+  const {current, items} = useSelector(state =>  state.checkIns);
 
   const handleNavigateFAQ = useCallback(() => {
     navigate.navigate(CheckInsRoutes.FAQ);
