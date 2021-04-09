@@ -44,7 +44,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     );
 
     const filled = inputs
-      .map((el, index) => {
+      .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
 
         const fillAsync = (value: string) =>
