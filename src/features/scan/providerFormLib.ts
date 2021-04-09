@@ -38,6 +38,13 @@ export function fillFormInWebView(values: InjectJSValues) {
     );
   }
 
+  function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
+    setTimeout(() => {
+      el.setRangeText(value);
+      el.dispatchEvent(new Event('input', {bubbles: true}));
+    }, index * 100);
+  }
+
   function fillForm() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
@@ -47,46 +54,40 @@ export function fillFormInWebView(values: InjectJSValues) {
       .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
 
-        const fillAsync = (value: string) =>
-          setTimeout(() => {
-            el.setRangeText(value);
-            el.dispatchEvent(new Event('input', {bubbles: true}));
-          }, index * 100);
-
         switch (name) {
           case 'name': {
-            fillAsync([user.firstName, user.lastName].join(' '));
+            fillInputAsync(el, index, [user.firstName, user.lastName].join(' '));
             return ['firstName', 'lastName'];
           }
           case 'given-name': {
-            fillAsync(user.firstName);
+            fillInputAsync(el, index, user.firstName);
 
             return ['firstName'];
           }
           case 'family-name': {
-            fillAsync(user.lastName);
+            fillInputAsync(el, index, user.lastName);
 
             return ['lastName'];
           }
           case 'tel': {
-            fillAsync(user.phoneNumber);
+            fillInputAsync(el, index, user.phoneNumber);
 
             return ['phoneNumber'];
           }
           case 'street-address': {
-            fillAsync(user.streetAddress);
+            fillInputAsync(el, index, user.streetAddress);
 
             return ['streetAddress'];
           }
 
           case 'postal-code': {
-            fillAsync(user.postalCode);
+            fillInputAsync(el, index, user.postalCode);
 
             return ['postalCode'];
           }
 
           case 'address-level2': {
-            fillAsync(user.city);
+            fillInputAsync(el, index, user.city);
 
             return ['city'];
           }
