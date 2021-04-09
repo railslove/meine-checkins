@@ -113,11 +113,22 @@ export function injectJS(values: InjectJSValues) {
   }
 }
 
+/**
+ * Makes an immediately invoked function expression
+ * with the arguments we have from the app
+ *
+ * It works from typescript because
+ * - Function.prototype.toString contains the function body
+ * - the function body is already transpiled when is run on the device
+ */
 export const injectJSString = (user: User) => {
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
   };
 
-  return `(${injectJS.toString()})({${JSON.stringify(values)}});`;
+  const injectFnBody = injectJS.toString();
+  const serializedArguments = JSON.stringify(values);
+
+  return `(${injectFnBody})(${serializedArguments});`;
 };
