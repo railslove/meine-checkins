@@ -1,1 +1,1 @@
-export const getUUID = () => Math.random().toString(32).slice(2);
+export {v4 as getUUID} from 'uuid';
