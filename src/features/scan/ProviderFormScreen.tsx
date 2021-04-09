@@ -1,6 +1,6 @@
+import {ProgressBar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
-import {ProgressBar, useTheme} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 
@@ -19,9 +19,10 @@ import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
+const renderLoading = () => <ProgressBar indeterminate />;
+
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
-  const theme = useTheme();
 
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
@@ -34,6 +35,7 @@ const ProviderFormScreen: React.FC = () => {
   const onMessage = useCallback(
     (ev: WebViewMessageEvent) => {
       const message = ev.nativeEvent.data;
+      console.log('message', message);
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
         dispatch(supplierCheckInAction(provider));
@@ -55,13 +57,15 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
+  const injectedJavaScript = user ? injectJSString(user) : undefined;
+
   return (
     <Box flex={1}>
       <Space.V s={5} />
       <WebView
         source={{uri: provider.url}}
-        renderLoading={() => <ProgressBar indeterminate color={theme.colors.primary} />}
-        injectedJavaScript={user ? injectJSString(user) : undefined}
+        renderLoading={renderLoading}
+        injectedJavaScript={injectedJavaScript}
         onMessage={onMessage}
       />
     </Box>

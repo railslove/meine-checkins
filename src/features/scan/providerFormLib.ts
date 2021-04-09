@@ -32,52 +32,81 @@ export function injectJS(values: InjectJSValues) {
     );
   }
 
-  function fillInputs() {
+  type FillInputProps = {
+    el: HTMLInputElement;
+    user: User;
+    index: number;
+  };
+
+  function fillInput(props: FillInputProps): (keyof User)[] {
+    const {el, index, user} = props;
+
+    const name = el.getAttribute('autocomplete') as AutoCompleteValues;
+    const timeout = index * 100;
+
+    switch (name) {
+      case 'name': {
+        setTimeout(() => {
+          el.click();
+          el.value = [user.firstName, user.lastName].join(' ');
+        }, timeout);
+        return ['firstName', 'lastName'];
+      }
+      case 'given-name': {
+        setTimeout(() => {
+          el.click();
+          el.value = user.firstName;
+        }, timeout);
+
+        return ['firstName'];
+      }
+      case 'family-name': {
+        setTimeout(() => {
+          el.click();
+          el.value = user.lastName;
+        }, timeout);
+
+        return ['lastName'];
+      }
+      case 'tel': {
+        setTimeout(() => {
+          el.click();
+          el.value = user.phoneNumber;
+        }, timeout);
+
+        return ['phoneNumber'];
+      }
+      case 'street-address': {
+        setTimeout(() => {
+          el.click();
+          el.value = user.address;
+        }, timeout);
+
+        return ['address'];
+      }
+      default: {
+        return [];
+      }
+    }
+  }
+
+  function fillForm() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
     );
 
-    inputs[0]?.focus();
-
     const filled = inputs
-      .map((el): (keyof User | null)[] => {
-        const name = el.getAttribute('autocomplete') as AutoCompleteValues;
-        switch (name) {
-          case 'name': {
-            el.value = [user.firstName, user.lastName].join(' ');
-            return ['firstName', 'lastName'];
-          }
-          case 'given-name': {
-            el.value = user.firstName;
-            return ['firstName'];
-          }
-          case 'family-name': {
-            el.value = user.lastName;
-            return ['lastName'];
-          }
-          case 'tel': {
-            el.value = user.phoneNumber;
-            return ['phoneNumber'];
-          }
-          case 'street-address': {
-            el.value = user.address;
-            return ['address'];
-          }
-          default: {
-            return [];
-          }
-        }
-      })
+      .map((el, index) => fillInput({el, user, index}))
       .filter(v => v)
       .flat();
 
-    const wasFillSuccess = filled.length === Object.keys(user).length;
-
-    return wasFillSuccess;
+    return {
+      success: filled.length === Object.keys(user).length,
+    };
   }
 
-  function sendCheckInMessage(wasFillSuccess: boolean) {
-    if (wasFillSuccess) {
+  function sendCheckInMessage(wasSuccess: boolean) {
+    if (wasSuccess) {
       window.ReactNativeWebView.postMessage(messages.checkInSuccess);
     } else {
       window.ReactNativeWebView.postMessage(messages.checkInFailure);
@@ -92,13 +121,13 @@ export function injectJS(values: InjectJSValues) {
   try {
     setTimeout(() => {
       if (!hasCheckedIn) {
-        const wasFillSuccess = fillInputs();
-        hasCheckedIn = wasFillSuccess;
+        const result = fillForm();
+        hasCheckedIn = result.success;
 
         function waitForCheckIn() {
-          sendCheckInMessage(wasFillSuccess);
+          sendCheckInMessage(hasCheckedIn);
 
-          if (wasFillSuccess) {
+          if (hasCheckedIn) {
             getButton().removeEventListener('click', waitForCheckIn);
             getButton().addEventListener('click', waitForCheckOut);
           }
