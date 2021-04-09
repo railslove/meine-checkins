@@ -12,21 +12,18 @@ const useStyles = ({
     root: {
       backgroundColor,
       flex: 1,
-      width: '100%',
       margin: 0,
-      display: 'flex',
-      flexDirection: 'column',
     },
     main: {
       backgroundColor,
       flex: 1,
-      display: 'flex',
       padding: 0,
     },
     scrollView: {
       backgroundColor,
       paddingHorizontal,
       flex: 1,
+      margin: 0,
       padding: 0,
     },
   });
@@ -43,11 +40,9 @@ const TopLevelView: React.FC<TopLevelViewProps> = ({
 
   return (
     <SafeAreaView style={styles.root}>
-      <View style={styles.main}>
-        <ScrollView contentInsetAdjustmentBehavior="always" style={styles.scrollView}>
-          {children}
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.main}>{children}</View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

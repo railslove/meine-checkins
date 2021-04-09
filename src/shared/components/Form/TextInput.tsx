@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput as RPTextInput, useTheme} from 'react-native-paper';
-import {StyleSheet, TextInputProps as RNTextInputProps} from 'react-native';
+import {StyleSheet, Text, TextInputProps as RNTextInputProps} from 'react-native';
 
 import {toDpFromPixel} from 'src/shared/theme/util';
 
@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
     fontSize: toDpFromPixel(12),
     lineHeight: toDpFromPixel(14),
     fontFamily: 'Inter-Regular',
-
-    color: '#393939',
-    backgroundColor: '#EDEDED',
   },
   label: {},
 });
@@ -32,7 +29,9 @@ const TextInput: React.FC<TextInputProps> = props => {
   const style = StyleSheet.flatten([
     styles.root,
     {
+      color: theme.colors.text,
       borderRadius: theme.roundness,
+      backgroundColor: theme.colors.background,
     },
   ]);
 
@@ -42,7 +41,6 @@ const TextInput: React.FC<TextInputProps> = props => {
       mode="flat"
       dense={true}
       style={style}
-      clearTextOnFocus
       underlineColor="transparent"
       placeholderTextColor="black"
       underlineColorAndroid="transparent"
