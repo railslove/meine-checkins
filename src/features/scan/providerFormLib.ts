@@ -15,26 +15,29 @@ type InjectJSValues = {
   messages: typeof PROVIDER_SITE_MESSAGE;
 };
 
-export const injectJS = function (values: InjectJSValues) {
+/**
+ * function used inside of the webview for:
+ *  - filling forms
+ *  - signaling status
+ **/
+
+export function injectJS(values: InjectJSValues) {
   const {user, messages} = values;
+  let hasCheckedIn = false;
 
-  function getSubmitButton() {
-    return document.body.querySelector<HTMLButtonElement>('button[type=submit]');
-  }
-
-  function getSubmitButtonText() {
-    return getSubmitButton()?.textContent;
-  }
-
-  function isCheckIn() {
-    const text = getSubmitButtonText();
-    return text != null && /check[-\s]+in/i.test(text);
+  function getButton() {
+    return (
+      document.body.querySelector<HTMLButtonElement>('button[type=submit]') ||
+      document.createElement('button')
+    );
   }
 
   function fillInputs() {
     const inputs = Array.from(
       document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
     );
+
+    inputs[0]?.focus();
 
     const filled = inputs
       .map((el): (keyof User | null)[] => {
@@ -69,10 +72,11 @@ export const injectJS = function (values: InjectJSValues) {
       .flat();
 
     const wasFillSuccess = filled.length === Object.keys(user).length;
+
     return wasFillSuccess;
   }
 
-  function checkIn(wasFillSuccess: boolean) {
+  function sendCheckInMessage(wasFillSuccess: boolean) {
     if (wasFillSuccess) {
       window.ReactNativeWebView.postMessage(messages.checkInSuccess);
     } else {
@@ -80,30 +84,34 @@ export const injectJS = function (values: InjectJSValues) {
     }
   }
 
-  function checkOut() {
+  function waitForCheckOut() {
     window.ReactNativeWebView.postMessage(messages.checkOutSuccess);
-    getSubmitButton()?.removeEventListener('click', checkOut);
+    getButton().removeEventListener('click', waitForCheckOut);
   }
 
   try {
     setTimeout(() => {
-      if (isCheckIn()) {
+      if (!hasCheckedIn) {
         const wasFillSuccess = fillInputs();
+        hasCheckedIn = wasFillSuccess;
 
         function waitForCheckIn() {
-          checkIn(wasFillSuccess);
-          getSubmitButton()?.removeEventListener('click', waitForCheckIn);
-          getSubmitButton()?.addEventListener('click', checkOut);
+          sendCheckInMessage(wasFillSuccess);
+
+          if (wasFillSuccess) {
+            getButton().removeEventListener('click', waitForCheckIn);
+            getButton().addEventListener('click', waitForCheckOut);
+          }
         }
 
-        getSubmitButton()?.addEventListener('click', waitForCheckIn);
+        getButton().addEventListener('click', waitForCheckIn);
       }
     }, 1000);
   } catch (error) {
     // @ts-ignore
     window.ReactNativeWebView.postMessage(messages.checkInFailure);
   }
-};
+}
 
 export const injectJSString = (user: User) => {
   const values: InjectJSValues = {
