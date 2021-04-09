@@ -1,5 +1,6 @@
 import {configureFonts, DefaultTheme} from 'react-native-paper';
 import {Theme} from 'react-native-paper/lib/typescript/types';
+import {toDpFromPixel} from 'src/shared/theme/util';
 
 const fonts: Parameters<typeof configureFonts>[0] = {
   ios: {
@@ -47,7 +48,7 @@ const theme: Theme = {
     ...DefaultTheme.colors,
     primary: '#3772FF',
   },
-  roundness: 7,
+  roundness: toDpFromPixel(8),
 };
 
 export default theme;

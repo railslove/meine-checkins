@@ -1,8 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, TextStyle} from 'react-native';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
-const useStyles = ({color = '#060606'}: Omit<SubtitleProps, 'children'> = {}) =>
+const useStyles = ({
+  color = '#060606',
+  fontWeight = '600',
+  textTransform,
+}: Omit<SubtitleProps, 'children'> = {}) =>
   StyleSheet.create({
     root: {
       display: 'flex',
@@ -12,25 +16,26 @@ const useStyles = ({color = '#060606'}: Omit<SubtitleProps, 'children'> = {}) =>
     },
     text: {
       color,
+      fontWeight,
+      textTransform,
+
       margin: 0,
       height: 'auto',
       padding: 0,
 
       fontFamily: 'Inter-Bold',
-      fontWeight: '600',
 
       fontSize: toDpFromPixel(12),
       lineHeight: toDpFromPixel(17),
     },
   });
 
-export type SubtitleProps = {
-  color?: string;
+export type SubtitleProps = Pick<TextStyle, 'color' | 'fontWeight' | 'textTransform'> & {
   children: string;
 };
 
-const SubTitle: React.FC<SubtitleProps> = ({children, color}) => {
-  const style = useStyles({color});
+const SubTitle: React.FC<SubtitleProps> = ({children, ...styleProps}) => {
+  const style = useStyles(styleProps);
 
   return <Text style={style.text}>{children}</Text>;
 };

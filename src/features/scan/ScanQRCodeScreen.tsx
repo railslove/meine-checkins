@@ -13,8 +13,9 @@ import Description from 'src/shared/components/Typography/Description';
 import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
-import {supplierRegisterAction} from 'src/shared/redux/actions/supplierActions';
-import {TEST_PROVIDER} from 'src/features/scan/constants';
+import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
+
+import {TEST_PROVIDER} from 'src/testData';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -23,14 +24,12 @@ const ScanQRCodeScreen: React.FC = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleTestSubmit = () => {
-    const {url} = TEST_PROVIDER;
-
-    dispatch({...supplierRegisterAction(url), ...TEST_PROVIDER});
+    dispatch(providerRegisterAction(TEST_PROVIDER));
     navigation.navigate(ScanRoutes.ProviderForm);
   };
 
-  const handleSuccess = ({data: url}: BarCodeReadEvent) => {
-    dispatch(supplierRegisterAction(url));
+  const handleSuccess = ({data: checkInUrl}: BarCodeReadEvent) => {
+    dispatch(providerRegisterAction({...TEST_PROVIDER, checkInUrl}));
     navigation.navigate(ScanRoutes.ProviderForm);
   };
 

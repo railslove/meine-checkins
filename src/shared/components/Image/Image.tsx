@@ -6,6 +6,7 @@ import Box from 'src/shared/components/Layout/Box';
 const style = StyleSheet.create({
   root: {
     maxWidth: '90%',
+    maxHeight: '100%',
   },
 });
 
