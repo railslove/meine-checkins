@@ -29,12 +29,16 @@ const ProviderFormScreen: React.FC = () => {
   const navigation = useAppNavigation();
 
   const user = useSelector(state => state.user.item);
-  const provider = useSelector(state => state.checkIns.current || TEST_PROVIDER);
+  const provider = useSelector(state => state.checkIns.current);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
       const {data: message} = ev.nativeEvent;
-      console.log('message', message);
+
+      if (!provider) {
+        console.warn('no provider available');
+        return;
+      }
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
         dispatch(providerCheckInAction(provider));
