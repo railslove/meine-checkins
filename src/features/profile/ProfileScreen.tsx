@@ -22,8 +22,6 @@ const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
   const user = useSelector(state => state.user.item);
 
-  console.log('user', user);
-
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
 
