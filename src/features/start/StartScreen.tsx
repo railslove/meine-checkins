@@ -1,19 +1,23 @@
 import React, {useCallback} from 'react';
+import {Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 import {StackActions} from '@react-navigation/core';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
+
+import {MainStackRoutes} from 'src/features/navigation/constants';
+import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Image from 'src/shared/components/Image/Image';
 import Button from 'src/shared/components/Button/Button';
 import Description from 'src/shared/components/Typography/Description';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import LargeHeadline from 'src/shared/components/Typography/LargeTitle';
-import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
-import {MainStackRoutes} from 'src/features/navigation/constants';
 
 const StartScreen: React.FC = () => {
+  const {height} = Dimensions.get('screen');
+
   const {t} = useTranslation('startScreen');
   const navigation = useAppNavigation();
   const {item: user, isLoading: isUserLoading} = useSelector(state => state.user);
@@ -34,8 +38,8 @@ const StartScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Box flex={1} display="flex" alignItems="center" justifyContent="center">
+    <TopLevelView>
+      <Box flex={1} display="flex" alignItems="center" justifyContent="center" height={height}>
         <Box marginHorizontal="10%">
           <Box display="flex" alignItems="center" justifyContent="center">
             <LargeHeadline>{t('title')}</LargeHeadline>
@@ -52,7 +56,7 @@ const StartScreen: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </SafeAreaView>
+    </TopLevelView>
   );
 };
 
