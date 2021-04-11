@@ -8,6 +8,7 @@
     "test": "jest --detectOpenHandles",
     "test:ci": "yarn check:types && yarn lint && yarn test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
     "android": "react-native run-android",
     "check:types": "tsc --noEmit",
     "format:code": "prettier --write \"*.{js,ts,tsx,json}\" \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -89,6 +90,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-native": "^3.8.1",
     "faker": "^5.5.2",
+    "husky": "^6.0.0",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
     "metro-react-native-babel-preset": "^0.64.0",
@@ -106,6 +108,18 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:ci"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
     ]
   }
 }
