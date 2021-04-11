@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: toDpFromPixel(15),
     paddingHorizontal: '5%',
+    borderTopColor: 'rgba(0, 0, 0, 0.05)',
+    borderTopWidth: toDpFromPixel(1),
   },
 });
 
@@ -45,7 +47,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descripto
             key={route}
             style={{flex: 1}}
             accessibilityRole="button"
-            accessibilityState={{ selected: isSelected }}
+            accessibilityState={{selected: isSelected}}
             onPress={onPress}
           >
             <BottomTabItem route={route} isSelected={isSelected} />

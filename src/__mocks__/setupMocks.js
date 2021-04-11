@@ -1,19 +1,11 @@
-// import 'react-native/jest/setup';
-// import 'react-native-gesture-handler/jestSetup';
+import 'src/__mocks__/gesture-handler';
 
-import mockPermissions from 'react-native-permissions/mock';
-import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+import 'src/__mocks__/navigation';
+import 'src/__mocks__/reanimated';
+
+import 'src/__mocks__/permissions';
+import 'src/__mocks__/async-storage';
 
 jest.mock('react-native-get-random-values', () => ({
   getRandomBase64: jest.fn(),
 }));
-
-jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
-
-jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
-
-jest.mock('react-native-permissions', () => mockPermissions);
-jest.mock(
-  'react-native-qrcode-scanner/node_modules/react-native-permissions',
-  () => mockPermissions
-);
