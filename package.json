@@ -5,7 +5,7 @@
   "scripts": {
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:ci": "yarn check:types && yarn lint && yarn test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "android": "react-native run-android",

@@ -2,6 +2,7 @@ module.exports = {
   // haste: {defaultPlatform: 'ios', platforms: ['android', 'ios', 'native']},
   preset: 'react-native',
   verbose: true,
+  testRegex: ['.*\\.test\\.tsx?$'],
   setupFiles: ['<rootDir>/src/__mocks__/setupMocks.js'],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   moduleNameMapper: {
