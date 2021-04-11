@@ -53,8 +53,8 @@ export const injectJS = function () {
             return ['phoneNumber'];
           }
           case 'street-address': {
-            el.value = user.address;
-            return ['address'];
+            el.value = user.streetAddress;
+            return ['streetAddress'];
           }
           default: {
             return [];
