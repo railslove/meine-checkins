@@ -29,7 +29,7 @@ const ProfileScreen: React.FC = () => {
 
   const {
     control,
-    formState: {errors, isValid},
+    formState: {errors, isValid, submitCount},
     getValues,
     handleSubmit,
   } = useForm<User>({
@@ -70,7 +70,7 @@ const ProfileScreen: React.FC = () => {
     );
   };
 
-  const canSubmit = isValid;
+  const canSubmit = submitCount === 0 || isValid;
 
   return (
     <TopLevelView>
