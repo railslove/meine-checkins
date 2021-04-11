@@ -8,11 +8,10 @@ export const getProviderCheckInItemMock = (
 ): ProviderCheckInItem => {
   return {
     id: getUUID(),
+    url: faker.internet.url(),
     name: faker.company.companyName(),
     logoUrl: faker.image.nightlife(),
     startTime: faker.date.soon().getTime(),
-    checkInUrl: faker.internet.url(),
-    checkOutUrl: faker.internet.url(),
     ...props,
   };
 };
@@ -24,6 +23,5 @@ const TEST_PROVIDER_URL =
 export const TEST_PROVIDER = getProviderCheckInItemMock({
   // url: 'https://check-in-provider.vercel.app',
   name: 'recover',
-  checkInUrl: TEST_PROVIDER_URL,
-  checkOutUrl: TEST_PROVIDER_URL,
+  url: TEST_PROVIDER_URL,
 });

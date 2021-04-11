@@ -27,8 +27,8 @@ const ScanQRCodeScreen: React.FC = () => {
     NavigationService.fromScanQRScreen();
   };
 
-  const handleSuccess = ({data: checkInUrl}: BarCodeReadEvent) => {
-    dispatch(providerRegisterAction({...TEST_PROVIDER, checkInUrl}));
+  const handleSuccess = ({data: url}: BarCodeReadEvent) => {
+    dispatch(providerRegisterAction({url}));
     NavigationService.fromScanQRScreen();
   };
 

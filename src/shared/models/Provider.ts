@@ -1,9 +1,8 @@
 export type ProviderCheckInItem = {
   id: string;
-  name: string;
-  logoUrl: string;
-  checkInUrl: string;
-  checkOutUrl: string;
+  url: string;
+  name?: string;
+  logoUrl?: string;
   stopTime?: number;
   startTime?: number;
 };

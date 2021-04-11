@@ -60,13 +60,12 @@ const ProviderFormScreen: React.FC = () => {
   const injectedJavaScript = user
     ? prepareFillFormInWebViewInject(user, provider.startTime != null)
     : undefined;
-  const uri = provider.stopTime ? provider.checkInUrl : provider.checkOutUrl;
 
   return (
     <Box flex={1}>
       <Space.V s={5} />
       <WebView
-        source={{uri}}
+        source={{uri: provider.url}}
         renderLoading={renderLoading}
         injectedJavaScript={injectedJavaScript}
         onMessage={handleMessage}
