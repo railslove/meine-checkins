@@ -38,6 +38,7 @@
     "@reduxjs/toolkit": "^1.4.0",
     "i18next": "^20.1.0",
     "react": "17.0.1",
+    "react-hook-form": "^7.0.5",
     "react-i18next": "^11.8.12",
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.1",
@@ -93,7 +94,7 @@
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.2.4"
   },
   "jest": {
     "preset": "react-native",
