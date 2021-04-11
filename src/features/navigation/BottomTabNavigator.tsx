@@ -11,7 +11,7 @@ import CheckInsNavigator from 'src/features/navigation/CheckInsNavigator';
 
 const {Navigator, Screen} = createBottomTabNavigator<Record<BottomTabsRoutes, any>>();
 
-const MainBottomNavigator: React.FC = () => {
+const BottomNavigator: React.FC = () => {
   const user = useSelector(state => state.user.item);
   const {current: provider, items: checkIns} = useSelector(state => state.checkIns);
 
@@ -31,4 +31,4 @@ const MainBottomNavigator: React.FC = () => {
   );
 };
 
-export default MainBottomNavigator;
+export default BottomNavigator;

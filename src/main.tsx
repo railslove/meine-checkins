@@ -11,7 +11,7 @@ import i18n from 'src/shared/i18n';
 import store from 'src/shared/redux/store';
 import theme from 'src/shared/theme/theme';
 import RootErrorBoundary from 'src/RootErrorBoundary';
-import MainStackNavigator from 'src/features/navigation/RootStackNavigator';
+import RootStackNavigator from 'src/features/navigation/RootStackNavigator';
 
 import {rootNavigationRef} from 'src/features/navigation/services/NavigationService';
 import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
@@ -42,7 +42,7 @@ const App: React.FC = () => {
         <PaperProvider theme={theme}>
           <I18nextProvider i18n={i18n}>
             <NavigationContainer ref={rootNavigationRef}>
-              <MainStackNavigator />
+              <RootStackNavigator />
             </NavigationContainer>
           </I18nextProvider>
         </PaperProvider>

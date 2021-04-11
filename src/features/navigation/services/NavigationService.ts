@@ -1,15 +1,29 @@
 import {createRef} from 'react';
 import {NavigationContainerRef, StackActions, TabActions} from '@react-navigation/core';
-import {StoreState} from 'src/shared/redux/store';
 import {BottomTabsRoutes, MyCheckInsRoutes, RootStackRoutes} from 'src/features/navigation/routes';
+
 import User from 'src/shared/models/User';
+import {StoreState} from 'src/shared/redux/store';
 
 export const rootNavigationRef = createRef<NavigationContainerRef>();
 
+type DispatchArgs = Parameters<NavigationContainerRef['dispatch']>;
 type NavigateParams = Parameters<NavigationContainerRef['navigate']>;
 
-type DispatchArgs = Parameters<NavigationContainerRef['dispatch']>;
-
+/**
+ * Routing on the app goes
+ *
+ * RootStackNavigator
+ *  - StartScreen
+ *  - BottomTabsNavigator
+ *    - ProfileScreen
+ *    - ScanQRScreen
+ *    - MyCheckInsStackNavigator
+ *      - MyCheckInsScreen
+ *      - ProviderFormScreen
+ *      - FAQScreen
+ *      - ImprintScreen
+ */
 class NavigationService {
   private getRef = () => {
     return rootNavigationRef?.current;
