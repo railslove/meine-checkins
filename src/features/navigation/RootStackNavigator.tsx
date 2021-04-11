@@ -14,10 +14,14 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const RootStackNavigator: React.FC = () => {
-  const user = useSelector(state => state.user.item);
+  const {item: user, isLoading} = useSelector(state => state.user);
 
   const initialRouteName =
     user == null ? RootStackRoutes.Start : RootStackRoutes.BottomTabNavigator;
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <Navigator initialRouteName={initialRouteName} screenOptions={screenOptions}>
