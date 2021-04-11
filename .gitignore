@@ -63,4 +63,3 @@ buck-out/
 /ios/Pods/
 fastlane/report.xml
 android/gradle/wrapper/gradle-wrapper.jar
-.husky
