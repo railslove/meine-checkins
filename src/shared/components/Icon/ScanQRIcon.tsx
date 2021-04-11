@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 const width = toDpFromPixel(20);
 const height = toDpFromPixel(22);
-const strokeWidth = toDpFromPixel(2);
+const strokeWidth = 2;
 
 const ScanQRIcon: React.FC<SvgIconProps> = ({isSelected}) => {
   const theme = useTheme();

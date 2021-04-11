@@ -26,7 +26,7 @@ const BottomNavigator: React.FC = () => {
     >
       <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />
       <Screen name={BottomTabsRoutes.ScanQRCode} component={ScanQRCodeScreen} />
-      <Screen name={BottomTabsRoutes.MyCheckIns} component={CheckInsNavigator} />
+      <Screen name={BottomTabsRoutes.CheckInsNavigator} component={CheckInsNavigator} />
     </Navigator>
   );
 };

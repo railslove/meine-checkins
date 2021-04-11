@@ -67,7 +67,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
       );
     }
 
-    case BottomTabsRoutes.MyCheckIns: {
+    case BottomTabsRoutes.CheckInsNavigator: {
       return (
         <View style={styles.root}>
           <MyCheckInsIcon isSelected={isSelected} />

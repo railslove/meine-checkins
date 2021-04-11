@@ -1,4 +1,4 @@
-import {ProgressBar} from 'react-native-paper';
+import {ProgressBar, useTheme} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -22,6 +22,7 @@ const renderLoading = () => <ProgressBar indeterminate />;
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
+  const theme = useTheme();
 
   const dispatch = useDispatch();
 
@@ -62,14 +63,15 @@ const ProviderFormScreen: React.FC = () => {
     : undefined;
 
   return (
-    <Box flex={1}>
-      <Space.V s={5} />
+    <Box flex={1} backgroundColor={theme.colors.surface}>
+      <Space.V s={20} />
       <WebView
         source={{uri: provider.url}}
         renderLoading={renderLoading}
         injectedJavaScript={injectedJavaScript}
         onMessage={handleMessage}
       />
+      <Space.V s={5} />
     </Box>
   );
 };

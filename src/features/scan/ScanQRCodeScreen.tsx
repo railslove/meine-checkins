@@ -41,32 +41,42 @@ const ScanQRCodeScreen: React.FC = () => {
   });
 
   return (
-    <TopLevelView backgroundColor="black">
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Title color="white">{t('title')}</Title>
-        <Space.V s={10} />
-      </Box>
-
-      <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-        <QRScanner onRead={handleSuccess} />
-      </Box>
-
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Space.V s={10} />
-        <Box width="85%">
-          <Description color="white" textAlign="center">
-            {t('description')}
-          </Description>
+    <TopLevelView
+      flex={1}
+      display="flex"
+      alignItems="center"
+      flexDirection="column"
+      justifyContent="center"
+      backgroundColor="black"
+    >
+      <Box marginHorizontal="10%">
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Title color="white">{t('title')}</Title>
+          <Space.V s={10} />
         </Box>
 
-        {__DEV__ ? (
-          <>
+        <Box flex={1} display="flex" alignItems="center" justifyContent="center">
+          <QRScanner onRead={handleSuccess} />
+        </Box>
+
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Space.V s={10} />
+          <Box width="85%">
+            <Description color="white" textAlign="center">
+              {t('description')}
+            </Description>
             <Space.V s={10} />
-            <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
-            {/* space below for scroll tests */}
-            <Space.V s={100} />
-          </>
-        ) : null}
+          </Box>
+
+          {__DEV__ ? (
+            <>
+              <Space.V s={10} />
+              <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
+              {/* space below for scroll tests */}
+              <Space.V s={10} />
+            </>
+          ) : null}
+        </Box>
       </Box>
     </TopLevelView>
   );
