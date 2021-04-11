@@ -1,3 +1,4 @@
+import {PersistConfig} from 'redux-persist/es/types';
 import {StoreState, StoreStateKey} from 'src/shared/redux/reducers';
 
 export type ReduxPersistTransform<K extends StoreStateKey, S extends StoreState[K]> = {
@@ -16,4 +17,9 @@ export type ReduxPersistTransform<K extends StoreStateKey, S extends StoreState[
    * transform state being rehydrated
    */
   rehydrate: (input: S) => S;
+};
+
+export type ReduxPersistConfig = Omit<PersistConfig<StoreState>, 'whitelist' | 'blacklist'> & {
+  whitelist: StoreStateKey[];
+  blacklist?: StoreStateKey[];
 };

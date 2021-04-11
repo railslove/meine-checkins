@@ -3,7 +3,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
 
 // persistence
-import {persistStore, persistReducer, PersistConfig} from 'redux-persist';
+import {persistStore, persistReducer} from 'redux-persist';
 import {
   userPersistTransform,
   checkInsPersistTransform,
@@ -13,6 +13,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 // actions
 import {AppAction} from 'src/shared/redux/actions/types';
 import rootReducer, {StoreState} from 'src/shared/redux/reducers';
+import {ReduxPersistConfig} from 'src/shared/redux/persistence/types';
 
 // type exports
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
@@ -27,9 +28,10 @@ if (__DEV__ && process.env.NODE_ENV != 'test') {
 }
 
 // persistence config
-const persistRootReducerConfig: PersistConfig<StoreState> = {
+const persistRootReducerConfig: ReduxPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['user', 'checkIns'],
   transforms: [userPersistTransform, checkInsPersistTransform],
   stateReconciler: autoMergeLevel2,
 };
