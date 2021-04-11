@@ -18,9 +18,9 @@ export const getCheckInsInitialState = (
   initialState: Partial<CheckInsReducerState> = {}
 ): CheckInsReducerState => ({
   items: [],
-  error: undefined,
   current: undefined,
   ...initialState,
+  error: undefined,
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState())

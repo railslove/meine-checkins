@@ -6,13 +6,11 @@ import {saveUserAction} from 'src/shared/redux/actions/userActions';
 
 export type UserReducerState = {
   item?: User;
-  hasError: boolean;
 };
 
 export const getUserInitialState = (
   initialState: Partial<UserReducerState> = {}
 ): UserReducerState => ({
-  hasError: false,
   ...initialState,
 });
 
