@@ -23,6 +23,9 @@ type NavigateParams = Parameters<NavigationContainerRef['navigate']>;
  *      - ProviderFormScreen
  *      - FAQScreen
  *      - ImprintScreen
+ *
+ * NOTE: here we only have to take care navigation that happens after submit of a screen
+ * everything else is handled by the navigators
  */
 class NavigationService {
   private getRef = () => {
