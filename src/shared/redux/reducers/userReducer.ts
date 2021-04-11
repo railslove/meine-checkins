@@ -1,34 +1,27 @@
 import {createReducer} from 'typesafe-actions';
+import {} from 'redux-persist';
 
 import User from 'src/shared/models/User';
-import {initializeAppAction} from 'src/shared/redux/actions/appActions';
 import {saveUserAction} from 'src/shared/redux/actions/userActions';
 
 export type UserReducerState = {
   item?: User;
   hasError: boolean;
-  isLoading: boolean;
 };
 
-export const getUserInitialState = (): UserReducerState => ({
+export const getUserInitialState = (
+  initialState: Partial<UserReducerState> = {}
+): UserReducerState => ({
   hasError: false,
-  isLoading: false,
+  ...initialState,
 });
 
-const userReducer = createReducer(getUserInitialState())
-  .handleAction([initializeAppAction.request, saveUserAction.request], state => {
-    return {
-      ...state,
-      isLoading: true,
-    };
+const userReducer = createReducer(getUserInitialState()).handleAction(
+  saveUserAction,
+  (state, {payload: {user}}) => ({
+    ...state,
+    item: user,
   })
-  .handleAction(
-    [initializeAppAction.success, saveUserAction.success],
-    (state, {payload: {user}}) => ({
-      ...state,
-      item: user,
-      isLoading: true,
-    })
-  );
+);
 
 export default userReducer;

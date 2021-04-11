@@ -1,14 +1,23 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {configureStore} from '@reduxjs/toolkit';
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
+// persistence
+import {persistStore, persistReducer, PersistConfig} from 'redux-persist';
+import {
+  userPersistTransform,
+  checkInsPersistTransform,
+} from 'src/shared/redux/persistence/transform';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+
+// actions
 import {AppAction} from 'src/shared/redux/actions/types';
-import * as reducers from 'src/shared/redux/reducers';
+import rootReducer, {StoreState} from 'src/shared/redux/reducers';
 
-const rootReducer = combineReducers(reducers);
-
-export type StoreState = ReturnType<typeof rootReducer>;
+// type exports
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
+// middleware
 const middleware = [thunkMiddleware];
 
 if (__DEV__ && process.env.NODE_ENV != 'test') {
@@ -16,10 +25,19 @@ if (__DEV__ && process.env.NODE_ENV != 'test') {
   middleware.push(createDebugger());
 }
 
-const store = configureStore({
-  reducer: rootReducer,
+// persistence config
+const persistRootReducerConfig: PersistConfig<StoreState> = {
+  key: 'root',
+  storage: AsyncStorage,
+  transforms: [userPersistTransform, checkInsPersistTransform],
+  stateReconciler: autoMergeLevel2,
+};
+
+// setup
+export const store = configureStore({
+  reducer: persistReducer(persistRootReducerConfig, rootReducer),
   devTools: __DEV__,
   middleware,
 });
 
-export default store;
+export const persistor = persistStore(store);
