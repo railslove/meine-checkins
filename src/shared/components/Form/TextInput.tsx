@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     lineHeight: toDpFromPixel(14),
     fontFamily: 'Inter-Regular',
   },
-  label: {},
 });
 
 export type TextInputProps = Omit<RNTextInputProps, 'selectionColor'> & {
