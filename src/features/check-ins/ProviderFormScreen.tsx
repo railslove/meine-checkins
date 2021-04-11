@@ -9,15 +9,15 @@ import {
   providerCheckOutAction,
 } from 'src/shared/redux/actions/providerActions';
 
-import {CheckInsRoutes} from 'src/features/check-ins/constants';
+import {MyCheckInsRoutes} from 'src/features/navigation/routes';
 import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
-import {prepareFillFormInWebViewInject} from 'src/features/scan/providerFormLib';
+import {prepareFillFormInWebViewInject} from 'src/features/check-ins/providerFormLib';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 
 const renderLoading = () => <ProgressBar indeterminate />;
 
@@ -25,7 +25,6 @@ const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
 
   const dispatch = useDispatch();
-  const navigation = useAppNavigation();
 
   const user = useSelector(state => state.user.item);
   const provider = useSelector(state => state.checkIns.current);
@@ -43,10 +42,10 @@ const ProviderFormScreen: React.FC = () => {
         dispatch(providerCheckInAction(provider));
       } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
         dispatch(providerCheckOutAction(provider));
-        navigation.navigate(CheckInsRoutes.MyCheckIns);
+        NavigationService.fromProfileFormCheckout();
       }
     },
-    [dispatch, navigation, provider]
+    [dispatch, provider]
   );
 
   if (!provider) {

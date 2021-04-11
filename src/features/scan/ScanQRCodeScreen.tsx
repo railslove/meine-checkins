@@ -1,5 +1,4 @@
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/core';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
 import React, {useEffect, useState} from 'react';
@@ -10,27 +9,30 @@ import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
-import {ScanRoutes} from 'src/features/scan/constants';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
 
 import {TEST_PROVIDER} from 'src/testData';
+import {MyCheckInsRoutes} from 'src/features/navigation/routes';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+
+  const checkIns = useSelector(state => state.checkIns);
+
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleTestSubmit = () => {
     dispatch(providerRegisterAction(TEST_PROVIDER));
-    navigation.navigate(ScanRoutes.ProviderForm);
+    NavigationService.fromScanQRScreen(checkIns);
   };
 
   const handleSuccess = ({data: checkInUrl}: BarCodeReadEvent) => {
     dispatch(providerRegisterAction({...TEST_PROVIDER, checkInUrl}));
-    navigation.navigate(ScanRoutes.ProviderForm);
+    NavigationService.fromScanQRScreen(checkIns);
   };
 
   useEffect(() => {
