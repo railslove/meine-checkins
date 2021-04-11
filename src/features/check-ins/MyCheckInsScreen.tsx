@@ -22,15 +22,15 @@ const MyCheckInsScreen: React.FC = () => {
   const {current, items} = useSelector(state => state.checkIns);
 
   const handleNavigateFAQ = useCallback(() => {
-    NavigationService.navigate(MyCheckInsRoutes.FAQ);
+    NavigationService.fromMyCheckIns(MyCheckInsRoutes.FAQ);
   }, []);
 
   const handleNavigateToImprint = useCallback(() => {
-    NavigationService.navigate(MyCheckInsRoutes.Imprint);
+    NavigationService.fromMyCheckIns(MyCheckInsRoutes.Imprint);
   }, []);
 
   const handleNavigateToCurrent = useCallback(() => {
-    NavigationService.navigate(MyCheckInsRoutes.ProviderForm);
+    NavigationService.fromMyCheckIns(MyCheckInsRoutes.ProviderForm);
   }, []);
 
   const isEmpty = current == null && items.length === 0;

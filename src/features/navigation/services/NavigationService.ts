@@ -15,21 +15,11 @@ class NavigationService {
     return rootNavigationRef?.current;
   };
 
-  canGoBack = () => {
-    const indeedCan = this.getRef()?.canGoBack();
-
-    return indeedCan || false;
-  };
-
-  goBack = () => {
-    return this.getRef()?.goBack();
-  };
-
-  navigate = (name: string, params?: NavigateParams) => {
+  private navigate = (name: string, params?: NavigateParams) => {
     return this.getRef()?.navigate(name, params);
   };
 
-  dispatch = (...args: DispatchArgs) => {
+  private dispatch = (...args: DispatchArgs) => {
     return this.getRef()?.dispatch(...args);
   };
 
@@ -47,6 +37,10 @@ class NavigationService {
     return checkIns.current
       ? this.navigate(MyCheckInsRoutes.MyCheckIns)
       : this.navigate(BottomTabsRoutes.ScanQRCode);
+  };
+
+  fromMyCheckIns = (screen: MyCheckInsRoutes) => {
+    return this.navigate(screen);
   };
 
   fromScanQRScreen = () => {
