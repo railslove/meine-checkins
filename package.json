@@ -8,6 +8,7 @@
     "test": "jest",
     "test:ci": "yarn check:types && yarn lint && yarn test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
     "android": "react-native run-android",
     "check:types": "tsc --noEmit",
     "format:code": "prettier --write \"*.{js,ts,tsx,json}\" \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -60,7 +61,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "redux-flipper": "^1.4.2",
     "@babel/core": "^7.11.1",
     "@babel/runtime": "^7.11.2",
     "@testing-library/jest-native": "^3.3.0",
@@ -87,12 +87,14 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-native": "^3.8.1",
     "faker": "^5.5.2",
+    "husky": "^6.0.0",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
     "metro-react-native-babel-preset": "^0.64.0",
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
+    "redux-flipper": "^1.4.2",
     "typescript": "^3.9.7"
   },
   "jest": {
@@ -104,6 +106,18 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn run type-check"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
     ]
   }
 }
