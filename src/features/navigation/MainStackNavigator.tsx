@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
 
@@ -13,8 +14,12 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const StartStackNavigation: React.FC = () => {
+  const user = useSelector(state => state.user.item);
+
+  const initialRoute = user == null ? MainStackRoutes.Start : MainStackRoutes.MainNavigation;
+
   return (
-    <Navigator initialRouteName={MainStackRoutes.MainNavigation} screenOptions={screenOptions}>
+    <Navigator initialRouteName={initialRoute} screenOptions={screenOptions}>
       <Screen name={MainStackRoutes.Start} component={StartScreen} />
       <Screen name={MainStackRoutes.MainNavigation} component={MainBottomNavigation} />
     </Navigator>
