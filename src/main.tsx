@@ -10,11 +10,12 @@ import {Provider as PaperProvider} from 'react-native-paper';
 
 import i18n from 'src/shared/i18n';
 import theme from 'src/shared/theme/theme';
-import {navigationRef} from 'src/shared/hooks/navigationHooks';
 import {store, persistor} from 'src/shared/redux/store';
 
 import RootErrorBoundary from 'src/RootErrorBoundary';
-import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
+import RootStackNavigator from 'src/features/navigation/RootStackNavigator';
+
+import {rootNavigationRef} from 'src/features/navigation/services/NavigationService';
 
 (function setup() {
   if (process.env.NODE_ENV !== 'test') {
@@ -38,8 +39,8 @@ const App: React.FC = () => {
         <PersistGate persistor={persistor}>
           <PaperProvider theme={theme}>
             <I18nextProvider i18n={i18n}>
-              <NavigationContainer ref={navigationRef}>
-                <MainStackNavigator />
+              <NavigationContainer ref={rootNavigationRef}>
+                <RootStackNavigator />
               </NavigationContainer>
             </I18nextProvider>
           </PaperProvider>

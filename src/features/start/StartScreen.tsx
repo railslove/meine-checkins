@@ -1,11 +1,7 @@
-import React, {useCallback} from 'react';
-import {Dimensions} from 'react-native';
+import React from 'react';
 import {useSelector} from 'react-redux';
-import {StackActions} from '@react-navigation/core';
+import {Dimensions} from 'react-native';
 import {useTranslation} from 'react-i18next';
-
-import {MainStackRoutes} from 'src/features/navigation/constants';
-import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -14,28 +10,17 @@ import Button from 'src/shared/components/Button/Button';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import LargeHeadline from 'src/shared/components/Typography/LargeTitle';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 
 const StartScreen: React.FC = () => {
   const {height} = Dimensions.get('screen');
 
   const {t} = useTranslation('startScreen');
-  const navigation = useAppNavigation();
-  const {item: user, isLoading: isUserLoading} = useSelector(state => state.user);
+  const user = useSelector(state => state.user.item);
 
-  const handleNavigation = useCallback(() => {
-    navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
-  }, [navigation]);
-
-  if (isUserLoading) {
-    // wait to see if we have a guest or not (guest = no user data yet)
-    return null;
-  }
-
-  if (user != null) {
-    // we have user data so we can move on
-    handleNavigation();
-    return null;
-  }
+  const handleNavigation = () => {
+    NavigationService.fromStartScreen(user);
+  };
 
   return (
     <TopLevelView>

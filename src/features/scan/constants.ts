@@ -4,10 +4,3 @@ export const PROVIDER_SITE_MESSAGE = {
   checkOutSuccess: 'CheckOutSuccess',
   checkOutFailure: 'CheckOutFailure',
 };
-
-export enum ScanRoutes {
-  key = 'ScanRoutesKey',
-  MyCheckIns = 'MyCheckIns',
-  ScanQRCode = 'ScanQRCode',
-  ProviderForm = 'ProviderForm',
-}
