@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
 import BuildConfig from 'react-native-config';
 import {enableScreens} from 'react-native-screens';
@@ -13,6 +13,8 @@ import theme from 'src/shared/theme/theme';
 import {navigationRef} from 'src/shared/hooks/navigationHooks';
 import RootErrorBoundary from 'src/RootErrorBoundary';
 import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
+
+import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
 
 (function setup() {
   if (process.env.NODE_ENV !== 'test') {
@@ -30,6 +32,10 @@ import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
 })();
 
 const App: React.FC = () => {
+  useEffect(() => {
+    store.dispatch(initializeAppThunk());
+  }, []);
+
   return (
     <RootErrorBoundary>
       <Provider store={store}>

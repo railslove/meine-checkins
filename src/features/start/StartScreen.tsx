@@ -1,9 +1,6 @@
-import React, {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StackActions} from '@react-navigation/core';
-
-import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -19,30 +16,23 @@ const StartScreen: React.FC = () => {
   const {t} = useTranslation('startScreen');
   const navigation = useAppNavigation();
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(initializeAppThunk());
-  });
-
   const handleSubmit = () => {
     navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
   };
 
   return (
     <TopLevelView>
-      <Space.V s={15} />
-      <Box marginLeft="5%">
+      <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column">
+        <Space.V s={10} />
         <LargeHeadline>{t('title')}</LargeHeadline>
-      </Box>
-      <Image source={require('./img/start-illustration.png')} />
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <Box width="85%">
-          <Description>{t('description')}</Description>
+        <Image source={require('./img/start-illustration.png')} resizeMode="contain" />
+        <Box marginHorizontal="10%" display="flex" alignItems="center" justifyContent="center">
+          <Space.V s={10} />
+          <Description textAlign="center">{t('description')}</Description>
+          <Space.V s={10} />
+          <Button onPress={handleSubmit}>{t('submit')}</Button>
         </Box>
       </Box>
-      <Space.V s={15} />
-      <Button onPress={handleSubmit}>{t('submit')}</Button>
     </TopLevelView>
   );
 };

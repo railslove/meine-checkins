@@ -6,14 +6,14 @@ import OpenLinkService from 'src/shared/services/OpenLinkService';
 import {CheckInsRoutes} from 'src/features/check-ins/constants';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 
+import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
 import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
-import Box from 'src/shared/components/Layout/Box';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import CheckInsList from 'src/features/check-ins/components/CheckInsList';
 import EmptyCheckInsList from 'src/features/check-ins/components/EmptyCheckInsList';
 import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';
@@ -36,7 +36,7 @@ const MyCheckInsScreen: React.FC = () => {
     navigate.navigate(ScanRoutes.ProviderForm);
   }, [navigate]);
 
-  const isEmpty = items.length === 0;
+  const isEmpty = current == null && items.length === 0;
 
   return (
     <TopLevelView paddingHorizontal={0}>
@@ -72,6 +72,7 @@ const MyCheckInsScreen: React.FC = () => {
         <Box paddingHorizontal={LAYOUT_PADDING_HORIZONTAL}>
           <Space.V s={10} />
           <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
+          <Space.V s={5} />
           <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
         </Box>
       )}
