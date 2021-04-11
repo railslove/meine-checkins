@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
 import React, {useEffect, useState} from 'react';
@@ -20,18 +20,16 @@ const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
 
-  const checkIns = useSelector(state => state.checkIns);
-
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleTestSubmit = () => {
     dispatch(providerRegisterAction(TEST_PROVIDER));
-    NavigationService.fromScanQRScreen(checkIns);
+    NavigationService.fromScanQRScreen();
   };
 
   const handleSuccess = ({data: checkInUrl}: BarCodeReadEvent) => {
     dispatch(providerRegisterAction({...TEST_PROVIDER, checkInUrl}));
-    NavigationService.fromScanQRScreen(checkIns);
+    NavigationService.fromScanQRScreen();
   };
 
   useEffect(() => {

@@ -49,14 +49,12 @@ class NavigationService {
       : this.navigate(BottomTabsRoutes.ScanQRCode);
   };
 
-  fromScanQRScreen = (checkIns: StoreState['checkIns']) => {
-    return checkIns.current
-      ? this.dispatch(
-          TabActions.jumpTo(MyCheckInsRoutes.MyCheckIns, {
-            screen: MyCheckInsRoutes.ProviderForm,
-          })
-        )
-      : this.navigate(BottomTabsRoutes.ScanQRCode);
+  fromScanQRScreen = () => {
+    return this.dispatch(
+      TabActions.jumpTo(BottomTabsRoutes.MyCheckIns, {
+        screen: MyCheckInsRoutes.ProviderForm,
+      })
+    );
   };
 
   fromProfileFormCheckout = () => {
