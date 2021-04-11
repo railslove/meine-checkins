@@ -10,7 +10,7 @@ describe('App', () => {
     const result = render(<App />);
 
     // wait for redux-persist to setup
-    await sleep(500);
+    await sleep(1000);
 
     expect(result.container).toBeDefined();
   });
