@@ -29,7 +29,7 @@ const ProfileScreen: React.FC = () => {
 
   const {
     control,
-    formState: {errors, submitCount, isValid},
+    formState: {errors, isValid},
     getValues,
     handleSubmit,
   } = useForm<User>({
@@ -37,8 +37,6 @@ const ProfileScreen: React.FC = () => {
   });
 
   const handleSave = handleSubmit(user => {
-    console.log('submit', user);
-
     dispatch(saveUserThunk({user})).then(() => {
       navigation.navigate(ScanRoutes.ScanQRCode);
     });
