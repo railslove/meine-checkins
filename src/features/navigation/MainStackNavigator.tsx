@@ -14,7 +14,7 @@ const screenOptions: StackNavigationOptions = {
 
 const StartStackNavigation: React.FC = () => {
   return (
-    <Navigator initialRouteName={MainStackRoutes.MainNavigation} screenOptions={screenOptions}>
+    <Navigator initialRouteName={MainStackRoutes.Start} screenOptions={screenOptions}>
       <Screen name={MainStackRoutes.Start} component={StartScreen} />
       <Screen name={MainStackRoutes.MainNavigation} component={MainBottomNavigation} />
     </Navigator>

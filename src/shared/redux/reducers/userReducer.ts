@@ -27,7 +27,7 @@ const userReducer = createReducer(getUserInitialState())
     (state, {payload: {user}}) => ({
       ...state,
       item: user,
-      isLoading: true,
+      isLoading: false,
     })
   );
 
