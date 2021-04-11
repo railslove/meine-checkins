@@ -14,7 +14,6 @@ import PermissionsService from 'src/shared/services/PermissionsService';
 import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
 
 import {TEST_PROVIDER} from 'src/testData';
-import {MyCheckInsRoutes} from 'src/features/navigation/routes';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
 const ScanQRCodeScreen: React.FC = () => {
