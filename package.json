@@ -1,6 +1,6 @@
 {
   "name": "mastercheckingapp",
-  "version": "1.4.1",
+  "version": "1.5.1",
   "private": true,
   "scripts": {
     "ios": "react-native run-ios",
@@ -17,8 +17,6 @@
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump_badge",
     "generate-build-config": "node scripts/buildConfig.js",
     "generate-image-imports": "node scripts/images.js",
-    "ios:stagingRelease": "react-native run-ios --scheme STAGING --configuration Release",
-    "ios:productionRelease": "react-native run-ios --scheme PRODUCTION --configuration Release",
     "android:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
     "android:productionRelease": "ENVFILE=.env.prod react-native run-android --variant=release",
     "detox-test:iosRelease": "detox test -c ios.sim.release",
@@ -33,6 +31,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
+    "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
@@ -50,8 +49,9 @@
     "react-native-permissions": "^3.0.1",
     "react-native-pixel-perfect": "^1.0.2",
     "react-native-qrcode-scanner": "^1.5.3",
-    "react-native-safe-area-context": "^3.1.4",
-    "react-native-screens": "^2.10.1",
+    "react-native-reanimated": "^2.1.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.1.0",
     "react-native-svg": "^12.1.0",
     "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.1",
@@ -61,6 +61,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "redux-flipper": "^1.4.2",
     "@babel/core": "^7.11.1",
     "@babel/runtime": "^7.11.2",
     "@testing-library/jest-native": "^3.3.0",

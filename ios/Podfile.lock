@@ -340,10 +340,41 @@ PODS:
     - React-perflogger (= 0.64.0)
   - RNCAsyncStorage (1.14.1):
     - React-Core
+  - RNCMaskedView (0.1.10):
+    - React
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNPermissions (3.0.1):
     - React-Core
+  - RNReanimated (2.1.0):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React
+    - React-callinvoker
+    - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - React-RCTVibration
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (3.1.0):
     - React-Core
   - RNSVG (12.1.0):
@@ -409,8 +440,10 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -501,10 +534,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -525,11 +562,11 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 127954abe8b162fcaf68d2134d34dc2bd7076154
   FlipperKit: 8a20b5c5fcf9436cac58551dc049867247f64b00
-  glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
+  glog: 7a8788d88d2a384c05df45e95c5e763e4d81f3ad
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-Camera: b2e50546c095139bb1264be9c34c796332340d32
-  RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c
+  RCT-Folly: 91521e05ace43e89980cabd1fb54685f7827ddb9
   RCTRequired: 2f8cb5b7533219bf4218a045f92768129cf7050a
   RCTTypeSafety: 512728b73549e72ad7330b92f3d42936f2a4de5b
   React: 98eac01574128a790f0bbbafe2d1a8607291ac24
@@ -559,8 +596,10 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: cad74a1eaa53ee6e7a3620231939d8fe2c6afcf0
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
   RNCAsyncStorage: fe58eec522885718d6b297b7b658bf87d7ca557b
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 4c8a37b4dde50f1f152bf8cd08c4a43d2355829e
+  RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
   RNScreens: 3ba2198ca3179f77f6158425fc31ba3c90a0d49f
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf

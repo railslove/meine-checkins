@@ -5,7 +5,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 
 import User from 'src/shared/models/User';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
 import Box from 'src/shared/components/Layout/Box';

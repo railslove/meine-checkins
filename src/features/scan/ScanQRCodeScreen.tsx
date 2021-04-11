@@ -10,7 +10,7 @@ import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';

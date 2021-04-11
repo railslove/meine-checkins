@@ -17,9 +17,13 @@ export const getProviderCheckInItemMock = (
   };
 };
 
+// const TEST_PROVIDER_URL = 'https://check-in-provider.vercel.app';
+const TEST_PROVIDER_URL =
+  'https://rcvr.app/checkin?a=8c2bb0ea-5a6c-4219-8a6d-428f245d7aa7&k=LeDTVuNGteBiKoGmZH9jN%2FmQNuphhcg%2FksroGKnAGmw%3D';
+
 export const TEST_PROVIDER = getProviderCheckInItemMock({
   // url: 'https://check-in-provider.vercel.app',
   name: 'recover',
-  checkInUrl:
-    'https://rcvr.app/checkin?a=8c2bb0ea-5a6c-4219-8a6d-428f245d7aa7&k=LeDTVuNGteBiKoGmZH9jN%2FmQNuphhcg%2FksroGKnAGmw%3D',
+  checkInUrl: TEST_PROVIDER_URL,
+  checkOutUrl: TEST_PROVIDER_URL,
 });

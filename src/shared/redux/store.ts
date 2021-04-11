@@ -9,10 +9,17 @@ const rootReducer = combineReducers(reducers);
 export type StoreState = ReturnType<typeof rootReducer>;
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
+const middleware = [thunkMiddleware];
+
+if (__DEV__ && process.env.NODE_ENV != 'test') {
+  const createDebugger = require('redux-flipper').default;
+  middleware.push(createDebugger());
+}
+
 const store = configureStore({
   reducer: rootReducer,
   devTools: __DEV__,
-  middleware: [thunkMiddleware],
+  middleware,
 });
 
 export default store;

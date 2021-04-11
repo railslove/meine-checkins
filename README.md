@@ -29,7 +29,7 @@
   * `family-name`
   * `street-address`
   * `postal-code`
-  * `country`
+  * `address-level2`
   * `tel`
 
 * For signaling check-in and check-out to the app
