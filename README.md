@@ -32,14 +32,14 @@
   * `address-level2`
 
 * For signaling check-in and check-out to the app
-  * the `check-in` button should have a `data-wfd-action="checkin"`
-  * the `check-out` button should have a `data-wfd-action="checkout"`
+  * the `check-in` button should have a `data-wfd-action="check-in"`
+  * the `check-out` button should have a `data-wfd-action="check-out"`
 
 ## Check-in form examples
 
 Here is how the check-in form should look like. 
 
-The order of the fields doesn't matter.
+The order of the fields doesn't matter
 
 ```html
 <!-- using name only for the full user name -->
@@ -50,7 +50,7 @@ The order of the fields doesn't matter.
   <input autocomplete="postal-code" type="text" />
   <input autocomplete="address-level2" type="text" />
 ​
-  <button data-wfd-action="checkin" type="submit">check-in</button>
+  <button data-wfd-action="check-in" type="submit">check-in</button>
 </form>
 ​
 <!-- using first and last name separately only for the full user name -->
@@ -62,7 +62,15 @@ The order of the fields doesn't matter.
   <input autocomplete="postal-code" type="text" />
   <input autocomplete="address-level2" type="text" />
 ​
-  <button data-wfd-action="checkin" type="submit">check-in</button>
+  <button data-wfd-action="check-in" type="submit">check-in</button>
+</form>
+```
+
+The checkout form only needs to have
+
+```html
+<form>
+  <button data-wfd-action="check-out" type="submit">check-out</button>
 </form>
 ```
 
