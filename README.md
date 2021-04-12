@@ -35,7 +35,7 @@
   * the `check-in` button should have a `data-wfd-action="check-in"`
   * the `check-out` button should have a `data-wfd-action="check-out"`
 
-## Check-in form examples
+## HTML examples
 
 Here is how the check-in form should look like. 
 
