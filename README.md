@@ -25,7 +25,7 @@
 ## Changes needs to be done by the provider
 
 * Check-in form inputs should use [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) attributes for
-  * `name`
+  * `name` (or `given-name` and `family-name` separately)
   * `tel`
   * `street-address`
   * `postal-code`
@@ -34,6 +34,37 @@
 * For signaling check-in and check-out to the app
   * the `check-in` button should have a `data-wfd-action="checkin"`
   * the `check-out` button should have a `data-wfd-action="checkout"`
+
+## Check-in form examples
+
+Here is how the check-in form should look like. 
+
+The order of the fields doesn't matter.
+
+```html
+<!-- using name only for the full user name -->
+<form>
+  <input autocomplete="name" type="text" />
+  <input autocomplete="tel" type="text" />
+  <input autocomplete="street-address" type="text" />
+  <input autocomplete="postal-code" type="text" />
+  <input autocomplete="address-level2" type="text" />
+​
+  <button data-wfd-action="check-in" type="submit">check-in</button>
+</form>
+​
+<!-- using first and last name separately only for the full user name -->
+<form>
+  <input autocomplete="given-name" type="text" />
+  <input autocomplete="family-name" type="text" />
+  <input autocomplete="tel" type="text" />
+  <input autocomplete="street-address" type="text" />
+  <input autocomplete="postal-code" type="text" />
+  <input autocomplete="address-level2" type="text" />
+​
+  <button data-wfd-action="check-in" type="submit">check-in</button>
+</form>
+```
 
 # Submitting the app 
 
