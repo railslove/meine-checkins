@@ -31,7 +31,7 @@ const ScanQRCodeScreen: React.FC = () => {
     dispatch(
       providerRegisterAction({
         url,
-        name: (/^https?:\/\/[^\s.]\.([^\s\.]+)\./.exec(url) || ['']).pop(),
+        name: (/^https?\:\/\/([^\s\/]+)/.exec(url) || []).pop(),
       })
     );
     NavigationService.fromScanQRScreen();
