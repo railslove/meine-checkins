@@ -28,7 +28,12 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   const handleSuccess = ({data: url}: BarCodeReadEvent) => {
-    dispatch(providerRegisterAction({url}));
+    dispatch(
+      providerRegisterAction({
+        url,
+        name: (/^https?:\/\/[^\s.]\.([^\s\.]+)\.)/.exec(url) || ['']).pop(),
+      })
+    );
     NavigationService.fromScanQRScreen();
   };
 
@@ -51,6 +56,7 @@ const ScanQRCodeScreen: React.FC = () => {
     >
       <Box marginHorizontal="10%">
         <Box display="flex" alignItems="center" justifyContent="center">
+          <Space.V s={10} />
           <Title color="white">{t('title')}</Title>
           <Space.V s={10} />
         </Box>
@@ -68,7 +74,7 @@ const ScanQRCodeScreen: React.FC = () => {
             <Space.V s={10} />
           </Box>
 
-          {__DEV__ ? (
+          {false ? (
             <>
               <Space.V s={10} />
               <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>

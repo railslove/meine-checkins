@@ -7,13 +7,13 @@ import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 declare global {
   interface Window {
     ReactNativeWebView: WebView;
+    __WFD_CHECK_IN_SETUP__?: boolean;
   }
 }
 
 type InjectJSValues = {
   user: User;
   messages: typeof PROVIDER_SITE_MESSAGE;
-  hasCheckedIn: boolean;
 };
 
 /**
@@ -26,7 +26,11 @@ type InjectJSValues = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
-  const {user, messages, hasCheckedIn} = values;
+  if (window.__WFD_CHECK_IN_SETUP__) {
+    return;
+  }
+
+  const {user, messages} = values;
 
   function postMessage(value: string) {
     window.ReactNativeWebView.postMessage(value);
@@ -50,7 +54,7 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
     setTimeout(() => {
-      el.setRangeText(value);
+      el.setRangeText(value, 0, value.length);
       el.dispatchEvent(new Event('input', {bubbles: true}));
     }, index * 100);
   }
@@ -131,11 +135,6 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   try {
-    if (hasCheckedIn) {
-      waitForCheckOut();
-      return;
-    }
-
     setTimeout(() => {
       const result = fillForm();
 
@@ -156,6 +155,8 @@ export function fillFormInWebView(values: InjectJSValues) {
     // @ts-ignore
     postMessage(messages.checkInFailure);
   }
+
+  window.__WFD_CHECK_IN_SETUP__ = true;
 }
 
 /**
@@ -163,10 +164,13 @@ export function fillFormInWebView(values: InjectJSValues) {
  * that fills the provider's form with the user data from the app
  */
 export const prepareFillFormInWebViewInject = (user: User, hasCheckedIn: boolean) => {
+  if (hasCheckedIn) {
+    return '';
+  }
+
   const values: InjectJSValues = {
     user,
     messages: PROVIDER_SITE_MESSAGE,
-    hasCheckedIn,
   };
 
   const injectFnBody = fillFormInWebView.toString();

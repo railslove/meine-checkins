@@ -5,7 +5,7 @@ import {ProviderRegister, ProviderCheckInItem} from 'src/shared/models/Provider'
 
 export const providerRegisterAction = createAction(
   '@provider/register',
-  (payload: Pick<ProviderRegister, 'url'>): ProviderCheckInItem => ({
+  (payload: Pick<ProviderRegister, 'url' | 'name'>): ProviderCheckInItem => ({
     id: getUUID(),
     ...payload,
     stopTime: undefined,

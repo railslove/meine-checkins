@@ -15,7 +15,7 @@ const BottomNavigator: React.FC = () => {
   const user = useSelector(state => state.user.item);
   const {current: provider, items: checkIns} = useSelector(state => state.checkIns);
 
-  const tabBarVisible = user != null && (provider?.startTime != null || checkIns.length > 0);
+  const tabBarVisible = user != null && (provider != null || checkIns.length > 0);
   const initialRouteName = user == null ? BottomTabsRoutes.Profile : BottomTabsRoutes.ScanQRCode;
 
   return (
