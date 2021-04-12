@@ -53,7 +53,7 @@ The order of the fields doesn't matter
   <button data-wfd-action="check-in" type="submit">check-in</button>
 </form>
 ​
-<!-- using first and last name separately only for the full user name -->
+<!-- using first and last name separately -->
 <form>
   <input autocomplete="given-name" type="text" />
   <input autocomplete="family-name" type="text" />
