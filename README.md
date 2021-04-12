@@ -50,7 +50,7 @@ The order of the fields doesn't matter.
   <input autocomplete="postal-code" type="text" />
   <input autocomplete="address-level2" type="text" />
 ​
-  <button data-wfd-action="check-in" type="submit">check-in</button>
+  <button data-wfd-action="checkin" type="submit">check-in</button>
 </form>
 ​
 <!-- using first and last name separately only for the full user name -->
@@ -62,7 +62,7 @@ The order of the fields doesn't matter.
   <input autocomplete="postal-code" type="text" />
   <input autocomplete="address-level2" type="text" />
 ​
-  <button data-wfd-action="check-in" type="submit">check-in</button>
+  <button data-wfd-action="checkin" type="submit">check-in</button>
 </form>
 ```
 
