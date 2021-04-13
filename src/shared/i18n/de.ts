@@ -4,8 +4,10 @@ import profileScreenLocales from 'src/features/profile/profileScreenLocales';
 import scanQRCodeScreenLocales from 'src/features/scan/scanQRCodeScreenLocales';
 import providerFormScreenLocales from 'src/features/check-ins/providerFormScreenLocales';
 import navigationLocales from 'src/features/navigation/navigationLocales';
+import FAQLocales from 'src/features/check-ins/FAQLocales';
 
 export default {
+  faqScreen: FAQLocales,
   navigation: navigationLocales,
   startScreen: startScreenLocales,
   profileScreen: profileScreenLocales,

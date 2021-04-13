@@ -3850,6 +3850,11 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
+husky@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-6.0.0.tgz#810f11869adf51604c32ea577edbc377d7f9319e"
+  integrity sha512-SQS2gDTB7tBN486QSoKPKQItZw97BMOd+Kdb6ghfpBc0yXyzrddI0oDV5MkDAbuB4X2mO3/nj60TRMcYxwzZeQ==
+
 i18next@^20.1.0:
   version "20.1.0"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-20.1.0.tgz#397dce9ad230ea822f487dc62d6128df5b678456"
@@ -6459,6 +6464,11 @@ react-devtools-core@^4.6.0:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-hook-form@^7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.0.5.tgz#33d4a437be78ca1fe86867ed937fe94b09c4bf9c"
+  integrity sha512-NERg22pjSa8URYfNhDhefGVODMTP4DMLlkK+bpuN4GUWKYIh/qiV4YmPuH8bfMAcXKj+bpdh6n7dB5B6jBs74Q==
+
 react-i18next@^11.8.12:
   version "11.8.12"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.8.12.tgz#6a9f57277062fb6a6129cad4db5e6198d5c60b58"
@@ -6737,6 +6747,11 @@ redux-flipper@^1.4.2:
   dependencies:
     cycle "^1.0.3"
     dayjs "^1.8.29"
+
+redux-persist@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
+  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 redux-thunk@^2.3.0:
   version "2.3.0"
@@ -7876,10 +7891,10 @@ typesafe-actions@^5.1.0:
   resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-5.1.0.tgz#9afe8b1e6a323af1fd59e6a57b11b7dd6623d2f1"
   integrity sha512-bna6Yi1pRznoo6Bz1cE6btB/Yy8Xywytyfrzu/wc+NFW3ZF0I+2iCGImhBsoYYCOWuICtRO4yHcnDlzgo1AdNg==
 
-typescript@^3.9.7:
-  version "3.9.9"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
-  integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
+typescript@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
 
 ua-parser-js@^0.7.18:
   version "0.7.26"

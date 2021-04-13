@@ -8,16 +8,19 @@ import {
   providerCheckOutAction,
 } from 'src/shared/redux/actions/providerActions';
 
-export type CheckInsInitialState = {
+export type CheckInsReducerState = {
   error?: Error;
   items: ProviderCheckInItem[];
   current?: ProviderCheckInItem;
 };
 
-export const getCheckInsInitialState = (): CheckInsInitialState => ({
+export const getCheckInsInitialState = (
+  initialState: Partial<CheckInsReducerState> = {}
+): CheckInsReducerState => ({
   items: [],
-  error: undefined,
   current: undefined,
+  ...initialState,
+  error: undefined,
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState())
