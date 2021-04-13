@@ -6,7 +6,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {MyCheckInsRoutes} from 'src/features/navigation/routes';
 
 import FAQScreen from 'src/features/check-ins/FAQScreen';
-import ImprintScreen from 'src/features/check-ins/ImprintScreen';
 import MyCheckInsScreen from 'src/features/check-ins/MyCheckInsScreen';
 import ProviderFormScreen from 'src/features/check-ins/ProviderFormScreen';
 
@@ -34,11 +33,6 @@ const CheckInsNavigator: React.FC = () => {
         name={MyCheckInsRoutes.FAQ}
         options={{title: t('myCheckInsScreen:faq')}}
         component={FAQScreen}
-      />
-      <Screen
-        name={MyCheckInsRoutes.Imprint}
-        options={{title: t('myCheckInsScreen:imprint')}}
-        component={ImprintScreen}
       />
     </Navigator>
   );
