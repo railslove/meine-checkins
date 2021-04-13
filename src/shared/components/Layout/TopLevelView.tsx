@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, ViewStyle} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
+
 import {ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {LAYOUT_PADDING_HORIZONTAL} from 'src/shared/components/Layout/constants';
@@ -10,24 +11,14 @@ const useStyles = ({
 }: ViewStyle = {}) => {
   return StyleSheet.create({
     root: {
-      backgroundColor,
       flex: 1,
-      width: '100%',
-      margin: 0,
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    main: {
       backgroundColor,
-      flex: 1,
-      display: 'flex',
-      padding: 0,
     },
     scrollView: {
-      backgroundColor,
-      paddingHorizontal,
       flex: 1,
-      padding: 0,
+    },
+    scrollViewContent: {
+      paddingHorizontal,
     },
   });
 };
@@ -43,11 +34,9 @@ const TopLevelView: React.FC<TopLevelViewProps> = ({
 
   return (
     <SafeAreaView style={styles.root}>
-      <View style={styles.main}>
-        <ScrollView contentInsetAdjustmentBehavior="always" style={styles.scrollView}>
-          {children}
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollViewContent}>
+        {children}
+      </ScrollView>
     </SafeAreaView>
   );
 };
