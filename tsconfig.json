@@ -1,30 +1,13 @@
 {
-  "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
-  ],
-  "include": [
-    "*.js",
-    "*.tsx",
-    "./src"
-  ],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
+  "include": ["*.js", "*.tsx", "./src"],
   "compilerOptions": {
     "jsx": "react-native",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "paths": {
-      "src/*": [
-        "./src/*"
-      ]
+      "src/*": ["./src/*"]
     },
-    "typeRoots": [
-      "./src/types",
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "baseUrl": ".",
     "noEmit": true,
     "strict": true,
