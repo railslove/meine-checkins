@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
 import {toDpFromPixel} from 'src/shared/theme/util';
 
-const style = StyleSheet.create({
+export const paragraphStyle = StyleSheet.create({
   root: {
     margin: 0,
     padding: 0,
@@ -19,7 +19,7 @@ export type ParagraphProps = {
 };
 
 const Paragraph: React.FC<ParagraphProps> = ({children}) => {
-  return <RPParagraph style={style.root}>{children}</RPParagraph>;
+  return <RPParagraph style={paragraphStyle.root}>{children}</RPParagraph>;
 };
 
 export default Paragraph;

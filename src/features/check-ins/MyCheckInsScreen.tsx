@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
+import React, {useCallback} from 'react';
 
 import OpenLinkService from 'src/shared/services/OpenLinkService';
 import NavigationService from 'src/features/navigation/services/NavigationService';

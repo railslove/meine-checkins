@@ -6,7 +6,6 @@ import {toDpFromPixel} from 'src/shared/theme/util';
 
 import Space from 'src/shared/components/Layout/Space';
 import PlusIcon from 'src/shared/components/Icon/PlusIcon';
-import Paragraph from 'src/shared/components/Typography/Paragraph';
 
 export type AccordionProps = {
   open?: boolean;
@@ -39,10 +38,10 @@ const styles = StyleSheet.create({
     marginRight: toDpFromPixel(30),
   },
   headerText: {
-    fontSize: toDpFromPixel(15),
+    fontSize: toDpFromPixel(13),
     fontWeight: '700',
     fontFamily: 'Inter-Bold',
-    lineHeight: toDpFromPixel(22),
+    lineHeight: toDpFromPixel(20),
   },
 });
 
@@ -60,7 +59,7 @@ const Accordion: React.FC<AccordionProps> = ({open, title, content, onOpen}) => 
       {open ? (
         <>
           <Space.V s={10} />
-          <Paragraph>{content}</Paragraph>
+          {content}
         </>
       ) : null}
     </View>

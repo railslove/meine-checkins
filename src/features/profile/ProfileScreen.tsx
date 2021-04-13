@@ -54,6 +54,7 @@ const ProfileScreen: React.FC = () => {
 
           return (
             <TextInput
+              name={name}
               dataDetectorTypes="all"
               {...inputProps}
               label={hasError ? label : undefined}
