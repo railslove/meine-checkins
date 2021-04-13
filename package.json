@@ -1,6 +1,6 @@
 {
   "name": "mastercheckingapp",
-  "version": "1.4.1",
+  "version": "1.5.1",
   "private": true,
   "scripts": {
     "ios": "react-native run-ios",
@@ -8,6 +8,7 @@
     "test": "jest",
     "test:ci": "yarn check:types && yarn lint && yarn test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
     "android": "react-native run-android",
     "check:types": "tsc --noEmit",
     "format:code": "prettier --write \"*.{js,ts,tsx,json}\" \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -17,8 +18,6 @@
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump_badge",
     "generate-build-config": "node scripts/buildConfig.js",
     "generate-image-imports": "node scripts/images.js",
-    "ios:stagingRelease": "react-native run-ios --scheme STAGING --configuration Release",
-    "ios:productionRelease": "react-native run-ios --scheme PRODUCTION --configuration Release",
     "android:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
     "android:productionRelease": "ENVFILE=.env.prod react-native run-android --variant=release",
     "detox-test:iosRelease": "detox test -c ios.sim.release",
@@ -33,12 +32,14 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
+    "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "@reduxjs/toolkit": "^1.4.0",
     "i18next": "^20.1.0",
     "react": "17.0.1",
+    "react-hook-form": "^7.0.5",
     "react-i18next": "^11.8.12",
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.1",
@@ -49,8 +50,9 @@
     "react-native-permissions": "^3.0.1",
     "react-native-pixel-perfect": "^1.0.2",
     "react-native-qrcode-scanner": "^1.5.3",
-    "react-native-safe-area-context": "^3.1.4",
-    "react-native-screens": "^2.10.1",
+    "react-native-reanimated": "^2.1.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.1.0",
     "react-native-svg": "^12.1.0",
     "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.1",
@@ -86,13 +88,15 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-native": "^3.8.1",
     "faker": "^5.5.2",
+    "husky": "^6.0.0",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
     "metro-react-native-babel-preset": "^0.64.0",
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.2.4",
+    "redux-flipper": "^1.4.2"
   },
   "jest": {
     "preset": "react-native",
@@ -103,6 +107,18 @@
       "jsx",
       "json",
       "node"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:ci"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
     ]
   }
 }

@@ -10,7 +10,7 @@ import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
@@ -43,24 +43,31 @@ const ScanQRCodeScreen: React.FC = () => {
 
   return (
     <TopLevelView backgroundColor="black">
-      <Box flex={1} display="flex" flexDirection="column">
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Title color="white">{t('title')}</Title>
-        </Box>
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Title color="white">{t('title')}</Title>
         <Space.V s={10} />
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <QRScanner onRead={handleSuccess} />
-        </Box>
+      </Box>
+
+      <Box flex={1} display="flex" alignItems="center" justifyContent="center">
+        <QRScanner onRead={handleSuccess} />
+      </Box>
+
+      <Box display="flex" alignItems="center" justifyContent="center">
         <Space.V s={10} />
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Box width="85%">
-            <Description color="white" textAlign="center">
-              {t('description')}
-            </Description>
-          </Box>
+        <Box width="85%">
+          <Description color="white" textAlign="center">
+            {t('description')}
+          </Description>
         </Box>
-        <Space.V s={10} />
-        <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
+
+        {__DEV__ ? (
+          <>
+            <Space.V s={10} />
+            <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
+            {/* space below for scroll tests */}
+            <Space.V s={100} />
+          </>
+        ) : null}
       </Box>
     </TopLevelView>
   );

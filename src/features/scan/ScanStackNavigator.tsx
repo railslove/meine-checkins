@@ -1,15 +1,9 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import {ScanRoutes} from 'src/features/scan/constants';
 import ScanQRCodeScreen from 'src/features/scan/ScanQRCodeScreen';
 import ProviderFormScreen from 'src/features/scan/ProviderFormScreen';
-
-export enum ScanRoutes {
-  key = 'ScanRoutesKey',
-  MyCheckIns = 'MyCheckIns',
-  ScanQRCode = 'ScanQRCode',
-  ProviderForm = 'ProviderForm',
-}
 
 const {Navigator, Screen} = createStackNavigator<Record<ScanRoutes, any>>();
 

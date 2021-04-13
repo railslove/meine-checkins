@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 export type ButtonProps = {
   onPress?: () => void;
   children: React.ReactNode;
+  disabled?: boolean;
   fullWidth?: boolean;
 };
 
