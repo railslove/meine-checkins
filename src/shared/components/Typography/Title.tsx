@@ -27,11 +27,20 @@ const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'childre
   });
 
 export type TitleProps = Pick<TextStyle, 'color' | 'textTransform'> & {
+  /**
+   * split the text in multiple lines
+   * @default true
+   */
+  split?: boolean;
   children: string;
 };
 
-const Title: React.FC<TitleProps> = ({children, color, textTransform}) => {
+const Title: React.FC<TitleProps> = ({children, split = true, color, textTransform}) => {
   const style = useStyles({color, textTransform});
+
+  if (!split) {
+    return <Text style={style.text}>{children}</Text>;
+  }
 
   return (
     <View style={style.root}>
