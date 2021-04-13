@@ -5,11 +5,8 @@ import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Accordion from 'src/shared/components/Accordion/Accordion';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-
-export type FAQLocaleItem = {
-  title: string;
-  content: string;
-};
+import {FAQLocaleItem} from 'src/features/check-ins/FAQLocales';
+import {Paragraph} from 'react-native-paper';
 
 const FAQScreen: React.FC = () => {
   const {t} = useTranslation('faqScreen');
@@ -35,7 +32,7 @@ const FAQScreen: React.FC = () => {
             key={index}
             open={index === openAccordion}
             title={title}
-            content={content || 'empty'}
+            content={<Paragraph>{React.createElement(content)}</Paragraph>}
             onOpen={handleOpenAccordion(index)}
           />
         );

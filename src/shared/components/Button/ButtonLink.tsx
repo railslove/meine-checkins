@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTheme} from 'react-native-paper';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet, Text, View} from 'react-native';
+
 import {toDpFromPixel} from 'src/shared/theme/util';
 
 const useStyles = () => {
