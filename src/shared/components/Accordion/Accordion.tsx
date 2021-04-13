@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     marginRight: toDpFromPixel(30),
   },
   headerText: {
-    fontSize: toDpFromPixel(15),
+    fontSize: toDpFromPixel(13),
     fontWeight: '700',
     fontFamily: 'Inter-Bold',
-    lineHeight: toDpFromPixel(22),
+    lineHeight: toDpFromPixel(20),
   },
 });
 

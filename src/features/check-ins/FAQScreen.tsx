@@ -32,7 +32,7 @@ const FAQScreen: React.FC = () => {
             key={index}
             open={index === openAccordion}
             title={title}
-            content={<Paragraph>{React.createElement(content)}</Paragraph>}
+            content={<Paragraph>{content}</Paragraph>}
             onOpen={handleOpenAccordion(index)}
           />
         );
