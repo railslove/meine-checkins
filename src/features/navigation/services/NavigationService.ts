@@ -73,9 +73,7 @@ class NavigationService {
   fromProfileScreen = (checkIns: StoreState['checkIns']) => {
     return checkIns.items.length
       ? this.navigate(BottomTabsRoutes.ScanQRCode)
-      : TabActions.jumpTo(BottomTabsRoutes.CheckInsNavigator, {
-          screen: MyCheckInsRoutes.MyCheckIns,
-        });
+      : this.navigate(BottomTabsRoutes.CheckInsNavigator);
   };
 
   fromMyCheckIns = (screen: MyCheckInsRoutes | ScanQRCodeRoutes) => {
