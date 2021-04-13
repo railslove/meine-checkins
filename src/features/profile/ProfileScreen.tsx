@@ -29,7 +29,7 @@ const ProfileScreen: React.FC = () => {
 
   const {
     control,
-    formState: {errors, isValid, submitCount},
+    formState: {errors},
     getValues,
     handleSubmit,
   } = useForm<User>({
@@ -69,8 +69,6 @@ const ProfileScreen: React.FC = () => {
       />
     );
   };
-
-  const canSubmit = submitCount === 0 || isValid;
 
   return (
     <TopLevelView>
@@ -145,7 +143,7 @@ const ProfileScreen: React.FC = () => {
           </Box>
 
           <Space.V s={10} />
-          <Button fullWidth onPress={handleSave} disabled={!canSubmit}>
+          <Button fullWidth onPress={handleSave}>
             {t('submit')}
           </Button>
         </Box>
