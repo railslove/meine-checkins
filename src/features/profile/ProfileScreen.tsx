@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import User from 'src/shared/models/User';
 import {ScanRoutes} from 'src/features/scan/constants';
 import {toDpFromPixel} from 'src/shared/theme/util';
+import {saveUserAction} from 'src/shared/redux/actions/userActions';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -16,7 +17,6 @@ import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {saveUserThunk} from 'src/shared/redux/effects/userThunks';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
 import TextInput, {TextInputProps} from 'src/shared/components/Form/TextInput';
 
@@ -37,9 +37,8 @@ const ProfileScreen: React.FC = () => {
   });
 
   const handleSave = handleSubmit(user => {
-    dispatch(saveUserThunk({user})).then(() => {
-      navigation.navigate(ScanRoutes.ScanQRCode);
-    });
+    dispatch(saveUserAction(user));
+    navigation.navigate(ScanRoutes.ScanQRCode);
   });
 
   const renderTextInput = (name: keyof User, inputProps: TextInputProps = {}) => {

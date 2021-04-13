@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Provider} from 'react-redux';
 import BuildConfig from 'react-native-config';
+import {PersistGate} from 'redux-persist/integration/react';
 import {enableScreens} from 'react-native-screens';
 import {I18nextProvider} from 'react-i18next';
 import {Platform, UIManager} from 'react-native';
@@ -8,13 +9,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import i18n from 'src/shared/i18n';
-import store from 'src/shared/redux/store';
 import theme from 'src/shared/theme/theme';
 import {navigationRef} from 'src/shared/hooks/navigationHooks';
+import {store, persistor} from 'src/shared/redux/store';
+
 import RootErrorBoundary from 'src/RootErrorBoundary';
 import MainStackNavigator from 'src/features/navigation/MainStackNavigator';
-
-import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
 
 (function setup() {
   if (process.env.NODE_ENV !== 'test') {
@@ -32,20 +32,18 @@ import {initializeAppThunk} from 'src/shared/redux/effects/appThunks';
 })();
 
 const App: React.FC = () => {
-  useEffect(() => {
-    store.dispatch(initializeAppThunk());
-  }, []);
-
   return (
     <RootErrorBoundary>
       <Provider store={store}>
-        <PaperProvider theme={theme}>
-          <I18nextProvider i18n={i18n}>
-            <NavigationContainer ref={navigationRef}>
-              <MainStackNavigator />
-            </NavigationContainer>
-          </I18nextProvider>
-        </PaperProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider theme={theme}>
+            <I18nextProvider i18n={i18n}>
+              <NavigationContainer ref={navigationRef}>
+                <MainStackNavigator />
+              </NavigationContainer>
+            </I18nextProvider>
+          </PaperProvider>
+        </PersistGate>
       </Provider>
     </RootErrorBoundary>
   );
