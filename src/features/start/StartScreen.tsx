@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react';
 import {Dimensions} from 'react-native';
-import {useSelector} from 'react-redux';
 import {StackActions} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
 
@@ -20,22 +19,10 @@ const StartScreen: React.FC = () => {
 
   const {t} = useTranslation('startScreen');
   const navigation = useAppNavigation();
-  const {item: user, isLoading: isUserLoading} = useSelector(state => state.user);
 
   const handleNavigation = useCallback(() => {
     navigation.dispatch(StackActions.replace(MainStackRoutes.MainNavigation));
   }, [navigation]);
-
-  if (isUserLoading) {
-    // wait to see if we have a guest or not (guest = no user data yet)
-    return null;
-  }
-
-  if (user != null) {
-    // we have user data so we can move on
-    handleNavigation();
-    return null;
-  }
 
   return (
     <TopLevelView>
