@@ -64,3 +64,4 @@ buck-out/
 fastlane/report.xml
 android/gradle/wrapper/gradle-wrapper.jar
 .husky
+android/java_pid24475.hprof
