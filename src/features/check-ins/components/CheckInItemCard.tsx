@@ -12,6 +12,11 @@ import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
+const logoDimensions = {
+  width: toDpFromPixel(67),
+  height: toDpFromPixel(42),
+};
+
 const useStyles = () => {
   const theme = useTheme();
   const borderRadius = toDpFromPixel(5);
@@ -38,8 +43,8 @@ const useStyles = () => {
     logoContainer: {
       borderRadius,
 
-      width: toDpFromPixel(67),
-      height: toDpFromPixel(42),
+      ...logoDimensions,
+
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -64,6 +69,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
     typeof logoUrl === 'string'
       ? {
           uri: logoUrl,
+          ...logoDimensions,
         }
       : logoUrl;
 
