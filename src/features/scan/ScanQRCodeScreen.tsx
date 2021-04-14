@@ -59,7 +59,7 @@ const ScanQRCodeScreen: React.FC = () => {
           <Description>{t('checkInProgressDescription')}</Description>
 
           <Space.V s={10} />
-          <Button onPress={handleGoToCheckout}>{t('checkInGoToCheckout')}</Button>
+          <Button onPress={handleGoToCheckout}>{t('checkInProgressContinue')}</Button>
           {/* space below for scroll tests */}
           <Space.V s={10} />
         </Box>

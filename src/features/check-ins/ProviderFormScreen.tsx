@@ -46,9 +46,7 @@ const ProviderFormScreen: React.FC = () => {
       const message = parseProviderWebviewMessage(ev);
       const {key, value} = message;
 
-      if (__DEV__) {
-        console.log('message', message);
-      }
+      console.info('ProviderForm message', message);
 
       switch (key) {
         case 'setProviderLogo': {
@@ -65,7 +63,7 @@ const ProviderFormScreen: React.FC = () => {
           break;
         }
         default: {
-          console.log('ProviderFormScreen: no handle for message', message);
+          console.info('ProviderForm: unhandled message', message);
           break;
         }
       }
@@ -87,9 +85,7 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
-  const injectedJavaScript = user
-    ? prepareFillFormInWebViewInject(user, provider.startTime != null)
-    : undefined;
+  const injectedJavaScript = user ? prepareFillFormInWebViewInject(user) : undefined;
 
   return (
     <Box flex={1} backgroundColor={theme.colors.surface}>

@@ -196,11 +196,7 @@ export const parseProviderWebviewMessage = (ev: WebViewMessageEvent): ProviderFo
  * Makes an immediately invoked function expression
  * that fills the provider's form with the user data from the app
  */
-export const prepareFillFormInWebViewInject = (user: User, hasCheckedIn: boolean) => {
-  if (hasCheckedIn) {
-    return '';
-  }
-
+export const prepareFillFormInWebViewInject = (user: User) => {
   const values: InjectJSValues = {
     user,
   };

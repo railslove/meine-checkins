@@ -5,5 +5,5 @@ export default {
   checkInProgress: 'Check-in in Arbeit',
   checkInProgressDescription:
     'Beenden Sie Ihren aktuellen Check-in, bevor Sie einen anderen starten.',
-  checkInGoToCheckout: 'Check-Out',
+  checkInProgressContinue: 'Fortfahren',
 };
