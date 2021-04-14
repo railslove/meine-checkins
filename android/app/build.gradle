@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mastercheckingapp"
+        applicationId "com.railslove.wfd-masterapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 6
