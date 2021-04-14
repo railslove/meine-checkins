@@ -5,44 +5,28 @@ default_platform(:ios)
 
 # -------------Android Build & Deploy-------------#
 platform :android do
-  # For android, you should setup signing for release builds.
-  # Currently, the default debug keystore is used.
-  desc 'Build the staging release APK.'
-  private_lane :build_staging do
-    gradle(task: 'clean', project_dir: 'android/')
-    sh("npm", "run", "make-apk:stagingRelease")
-  end
+  desc "Deploy Android"
+  desc "Build with code signing and upload to Google Play Internal"
+  lane :deploy do |options|
+    gradle(
+      task: "bundleRelease",
+      project_dir: "./android/",
+      properties: {
+        "android.injected.signing.store.file" => File.expand_path(ENV["ANDROID_KEYSTORE_PATH"]),
+        "android.injected.signing.store.password" => ENV["ANDROID_STORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["ANDROID_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["ANDROID_KEY_PASSWORD"]
+      }
+    )
 
-  desc 'Build the production release APK.'
-  private_lane :build_production do
-    gradle(task: 'clean', project_dir: 'android/')
-    sh("npm", "run", "make-apk:productionRelease")
-  end
-
-  desc 'Upload the release APK to App Center.'
-  private_lane :upload do |options|
-    release_notes = options[:notes]
-    appcenter_upload(
-        api_token: ENV["APPCENTER_API_TOKEN"],
-        owner_name: ENV["APPCENTER_OWNER_NAME"],
-        app_name: ENV["APPCENTER_APP_NAME"],
-        apk: "./android/app/build/outputs/apk/release/app-release.apk",
-        notify_testers: ENV["NOTIFY_TESTERS"],
-        destinations: ENV["DESTINATIONS"],
-        release_notes: release_notes
-        )
-  end
-
-  desc 'Build, deploy staging Android.'
-  lane :deploy_staging do
-    build_staging
-    upload
-  end
-
-  desc 'Build, deploy production Android.'
-  lane :deploy_production do
-    build_production
-    upload
+    upload_to_play_store(
+      track: "internal",
+      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: true
+    )
   end
 
   desc 'Bump, badge, deploy staging Android.'
@@ -65,68 +49,30 @@ platform :ios do
     setup_semaphore
   end
 
-  # You need to configure singing for iOS
-  # https://github.com/osamaq/reactnative-fastlane-appcenter#signing
-  desc 'Set up certs and profiles for iOS.'
-  lane :certificates do
-    register_devices(
-      devices: {
-        }
+  desc "Deploy iOS"
+  desc "Build with code signing and upload to testflight"
+  lane :deploy do |options|
+    cocoapods(
+      podfile: "./ios/Podfile"
     )
-    match(
-      app_identifier: 'com.app.bundle',
-      readonly: true,
-      force_for_new_devices: true,
-      )
-  end
 
-  desc 'Build the staging release iOS application.'
-  private_lane :build_staging do
-    package = load_json(json_path: "./package.json")
-    gym(
-      scheme: "STAGING",
-      workspace: './ios/' + package['name'] + '.xcworkspace',
-      export_method: 'ad-hoc'
+    sync_code_signing(
+      username: "herbertbot@railslove.com",
+      type: "appstore",
+      git_user_email: "ops@railslove.com", # we are in readonly mode on ci anyways, so this doesn't need to be a real user
+      git_full_name: "railslove-ops"
     )
-  end
 
-  desc 'Build the production release iOS application.'
-  private_lane :build_production do
-    package = load_json(json_path: "./package.json")
-    gym(
-      scheme: "PRODUCTION",
-      workspace: './ios/' + package['name'] + '.xcworkspace',
-      export_method: 'ad-hoc'
+    build_ios_app(
+      workspace: "./ios/Tramling.xcworkspace",
+      scheme: "Tramling",
+      clean: true
     )
-  end
 
-
-  desc 'Upload the release IPA to App Center.'
-  private_lane :upload do |options|
-    release_notes = options[:notes]
-    appcenter_upload(
-        api_token: ENV["APPCENTER_API_TOKEN"],
-        owner_name: ENV["APPCENTER_OWNER_NAME"],
-        app_name: ENV["APPCENTER_APP_NAME"],
-        ipa: "./" + "masterCheckingApp" + ".ipa",
-        notify_testers: ENV["NOTIFY_TESTERS"],
-        destinations: ENV["DESTINATIONS"],
-        release_notes: release_notes
-        )
-  end
-
-  desc 'Sign, build, deploy staging iOS.'
-  lane :deploy_staging do
-    certificates
-    build_staging
-    upload
-  end
-
-  desc 'Sign, build, deploy production iOS.'
-  lane :deploy_production do
-    certificates
-    build_production
-    upload
+    upload_to_testflight(
+      username: "herbertbot@railslove.com",
+      skip_waiting_for_build_processing: true
+    )
   end
 
   desc 'Bump, badge, sign, build, deploy staging iOS.'

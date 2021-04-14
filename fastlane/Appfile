@@ -1,0 +1,8 @@
+# Android
+package_name("com.railslove.wfd-masterapp")
+json_key_file("~/service-account-key.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+
+# iOS
+app_identifier("com.railslove.wfd-masterapp")
+itc_team_id("305106") # App Store Connect Team ID
+team_id("L9QN3322BC") # Developer Portal Team ID
