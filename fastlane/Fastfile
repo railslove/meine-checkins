@@ -52,6 +52,8 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
+    appJSON = load_json(json_path: "./app.json")
+
     cocoapods(
       podfile: "./ios/Podfile"
     )
@@ -64,7 +66,7 @@ platform :ios do
     )
 
     build_ios_app(
-      workspace: "./ios/masterCheckingApp.xcworkspace",
+      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
       scheme: "Tramling",
       clean: true
     )
