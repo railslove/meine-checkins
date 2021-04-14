@@ -5,4 +5,4 @@ json_key_file("~/service-account-key.json") # Path to the json secret file - Fol
 # iOS
 app_identifier("com.railslove.wfd-masterapp")
 itc_team_id("305106") # App Store Connect Team ID
-team_id("L9QN3322BC") # Developer Portal Team ID
+team_id("5AXEB2NPQJ") # Developer Portal Team ID
