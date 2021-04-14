@@ -64,7 +64,7 @@ platform :ios do
     )
 
     build_ios_app(
-      workspace: "./ios/Tramling.xcworkspace",
+      workspace: "./ios/masterCheckingApp.xcworkspace",
       scheme: "Tramling",
       clean: true
     )
