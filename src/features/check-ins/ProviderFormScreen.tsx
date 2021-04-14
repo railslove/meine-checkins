@@ -89,13 +89,11 @@ const ProviderFormScreen: React.FC = () => {
 
   return (
     <Box flex={1} backgroundColor={theme.colors.surface}>
-      <Space.V s={20} />
       <MemoWebview
         url={provider.url}
         injectedJavaScript={injectedJavaScript}
         onMessage={handleMessage}
       />
-      <Space.V s={5} />
     </Box>
   );
 };
