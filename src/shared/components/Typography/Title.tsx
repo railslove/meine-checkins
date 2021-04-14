@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TextStyle, View} from 'react-native';
+
 import {toDpFromPixel} from 'src/shared/theme/util';
 
-const useStyles = ({color = '#060606'}: Omit<TitleProps, 'children'> = {}) =>
+const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'children'> = {}) =>
   StyleSheet.create({
     root: {
       display: 'flex',
@@ -12,6 +13,8 @@ const useStyles = ({color = '#060606'}: Omit<TitleProps, 'children'> = {}) =>
     },
     text: {
       color,
+      textTransform,
+
       margin: 0,
       height: 'auto',
       padding: 0,
@@ -23,13 +26,21 @@ const useStyles = ({color = '#060606'}: Omit<TitleProps, 'children'> = {}) =>
     },
   });
 
-export type TitleProps = {
-  color?: string;
+export type TitleProps = Pick<TextStyle, 'color' | 'textTransform'> & {
+  /**
+   * split the text in multiple lines
+   * @default true
+   */
+  split?: boolean;
   children: string;
 };
 
-const Title: React.FC<TitleProps> = ({children, color}) => {
-  const style = useStyles({color});
+const Title: React.FC<TitleProps> = ({children, split = true, color, textTransform}) => {
+  const style = useStyles({color, textTransform});
+
+  if (!split) {
+    return <Text style={style.text}>{children}</Text>;
+  }
 
   return (
     <View style={style.root}>

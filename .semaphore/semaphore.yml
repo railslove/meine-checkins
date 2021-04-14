@@ -45,3 +45,13 @@ blocks:
         - name: typescript
           commands:
             - 'yarn check:types'
+
+promotions:
+  - name: Deploy Android
+    pipeline_file: deploy-android.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master' and tag =~ '^v'"
+  - name: Deploy iOS
+    pipeline_file: deploy-ios.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master' and tag =~ '^v'"

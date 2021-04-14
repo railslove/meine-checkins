@@ -10,11 +10,12 @@ import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
 import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
-import {ScanRoutes} from 'src/features/scan/ScanStackNavigator';
+import {ScanRoutes} from 'src/features/scan/constants';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
-import {supplierRegisterAction} from 'src/shared/redux/actions/supplierActions';
-import {TEST_PROVIDER} from 'src/features/scan/constants';
+import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
+
+import {TEST_PROVIDER} from 'src/testData';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -23,14 +24,12 @@ const ScanQRCodeScreen: React.FC = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleTestSubmit = () => {
-    const {url} = TEST_PROVIDER;
-
-    dispatch({...supplierRegisterAction(url), ...TEST_PROVIDER});
+    dispatch(providerRegisterAction(TEST_PROVIDER));
     navigation.navigate(ScanRoutes.ProviderForm);
   };
 
-  const handleSuccess = ({data: url}: BarCodeReadEvent) => {
-    dispatch(supplierRegisterAction(url));
+  const handleSuccess = ({data: checkInUrl}: BarCodeReadEvent) => {
+    dispatch(providerRegisterAction({...TEST_PROVIDER, checkInUrl}));
     navigation.navigate(ScanRoutes.ProviderForm);
   };
 
@@ -44,24 +43,31 @@ const ScanQRCodeScreen: React.FC = () => {
 
   return (
     <TopLevelView backgroundColor="black">
-      <Box flex={1} display="flex" flexDirection="column">
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Title color="white">{t('title')}</Title>
-        </Box>
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Title color="white">{t('title')}</Title>
         <Space.V s={10} />
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <QRScanner onRead={handleSuccess} />
-        </Box>
+      </Box>
+
+      <Box flex={1} display="flex" alignItems="center" justifyContent="center">
+        <QRScanner onRead={handleSuccess} />
+      </Box>
+
+      <Box display="flex" alignItems="center" justifyContent="center">
         <Space.V s={10} />
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Box width="85%">
-            <Description color="white" textAlign="center">
-              {t('description')}
-            </Description>
-          </Box>
+        <Box width="85%">
+          <Description color="white" textAlign="center">
+            {t('description')}
+          </Description>
         </Box>
-        <Space.V s={10} />
-        <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
+
+        {__DEV__ ? (
+          <>
+            <Space.V s={10} />
+            <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
+            {/* space below for scroll tests */}
+            <Space.V s={100} />
+          </>
+        ) : null}
       </Box>
     </TopLevelView>
   );

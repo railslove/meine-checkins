@@ -1,44 +1,48 @@
+import {ProgressBar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
-import {ProgressBar, useTheme} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 
 import {
-  supplierCheckInAction,
-  supplierCheckOutAction,
-} from 'src/shared/redux/actions/supplierActions';
+  providerCheckInAction,
+  providerCheckOutAction,
+} from 'src/shared/redux/actions/providerActions';
 
-import {injectJSString} from 'src/features/scan/providerFormLib';
-import {TEST_PROVIDER, PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {CheckInsRoutes} from 'src/features/check-ins/constants';
+import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
+import {prepareFillFormInWebViewInject} from 'src/features/scan/providerFormLib';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {CheckInsRoutes} from 'src/features/check-ins/CheckInsNavigator';
 import {useAppNavigation} from 'src/shared/hooks/navigationHooks';
+
+const renderLoading = () => <ProgressBar indeterminate />;
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
-  const theme = useTheme();
 
   const dispatch = useDispatch();
   const navigation = useAppNavigation();
 
   const user = useSelector(state => state.user.item);
-  const provider = useSelector(state => {
-    return state.checkIns.current || TEST_PROVIDER;
-  });
+  const provider = useSelector(state => state.checkIns.current);
 
-  const onMessage = useCallback(
+  const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      const message = ev.nativeEvent.data;
+      const {data: message} = ev.nativeEvent;
+
+      if (provider == null) {
+        console.warn('no provider available');
+        return;
+      }
 
       if (message === PROVIDER_SITE_MESSAGE.checkInSuccess) {
-        dispatch(supplierCheckInAction(provider));
+        dispatch(providerCheckInAction(provider));
       } else if (message === PROVIDER_SITE_MESSAGE.checkOutSuccess) {
-        dispatch(supplierCheckOutAction(provider));
+        dispatch(providerCheckOutAction(provider));
         navigation.navigate(CheckInsRoutes.MyCheckIns);
       }
     },
@@ -55,14 +59,19 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
+  const injectedJavaScript = user
+    ? prepareFillFormInWebViewInject(user, provider.startTime != null)
+    : undefined;
+  const uri = provider.stopTime ? provider.checkInUrl : provider.checkOutUrl;
+
   return (
     <Box flex={1}>
       <Space.V s={5} />
       <WebView
-        source={{uri: provider.url}}
-        renderLoading={() => <ProgressBar indeterminate color={theme.colors.primary} />}
-        injectedJavaScript={user ? injectJSString(user) : undefined}
-        onMessage={onMessage}
+        source={{uri}}
+        renderLoading={renderLoading}
+        injectedJavaScript={injectedJavaScript}
+        onMessage={handleMessage}
       />
     </Box>
   );
