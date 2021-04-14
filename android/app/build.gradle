@@ -133,8 +133,8 @@ android {
         applicationId "com.mastercheckingapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12
-        versionName "1.7.4"
+        versionCode 15
+        versionName "1.7.7"
 
         // Detox
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
