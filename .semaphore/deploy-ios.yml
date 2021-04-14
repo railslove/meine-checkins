@@ -17,7 +17,7 @@ blocks:
         - name: wfd-masterapp-app-secrets
       prologue:
         commands:
-          - checkout
+          - checkout --use-cache
           - cache restore
           # Needs ssh to clone apple-credentials repo for fastlane match
           - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
@@ -25,7 +25,7 @@ blocks:
 
           - rbenv rehash
           - bundle install --path vendor/bundler
-          - npm ci
+          - yarn
       jobs:
         - name: fastlane ios deploy
           commands:
