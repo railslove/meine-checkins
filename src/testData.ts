@@ -9,9 +9,6 @@ export const getProviderCheckInItemMock = (
   return {
     id: getUUID(),
     url: faker.internet.url(),
-    name: faker.company.companyName(),
-    logoUrl: faker.image.nightlife(),
-    startTime: faker.date.soon().getTime(),
     ...props,
   };
 };
@@ -22,6 +19,5 @@ const TEST_PROVIDER_URL =
 
 export const TEST_PROVIDER = getProviderCheckInItemMock({
   // url: 'https://check-in-provider.vercel.app',
-  name: 'recover',
   url: TEST_PROVIDER_URL,
 });

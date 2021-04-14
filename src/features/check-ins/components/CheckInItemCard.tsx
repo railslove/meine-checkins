@@ -60,19 +60,19 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const styles = useStyles();
 
   const {name, logoUrl, startTime, isActive, onNavigate} = props;
+  const logoSource =
+    typeof logoUrl === 'string'
+      ? {
+          uri: logoUrl,
+        }
+      : logoUrl;
 
   return (
     <View style={styles.root}>
       <View style={styles.logoContainer}>
-        <Image
-          source={{
-            uri: logoUrl,
-            width: toDpFromPixel(67),
-            height: toDpFromPixel(52),
-          }}
-          style={styles.logoImage}
-          resizeMode="center"
-        />
+        {logoSource == null ? null : (
+          <Image source={logoSource} style={styles.logoImage} resizeMode="center" />
+        )}
       </View>
 
       <Box flex={1} marginLeft={toDpFromPixel(10)}>

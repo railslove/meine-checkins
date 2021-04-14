@@ -1,19 +1,22 @@
-import WebView from 'react-native-webview';
+import WebView, {WebViewMessageEvent} from 'react-native-webview';
 
 import User from 'src/shared/models/User';
+import {MessageKey} from 'src/features/scan/constants';
 import {AutoCompleteValues} from 'src/shared/types/autoComplete';
-import {PROVIDER_SITE_MESSAGE} from 'src/features/scan/constants';
 
 declare global {
   interface Window {
     ReactNativeWebView: WebView;
-    __WFD_CHECK_IN_SETUP__?: boolean;
   }
 }
 
 type InjectJSValues = {
   user: User;
-  messages: typeof PROVIDER_SITE_MESSAGE;
+};
+
+export type ProviderFormMessage = {
+  key: MessageKey;
+  value?: string;
 };
 
 /**
@@ -26,14 +29,19 @@ type InjectJSValues = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
-  if (window.__WFD_CHECK_IN_SETUP__) {
-    return;
+  const {user} = values;
+
+  function postMessage(key: MessageKey, value?: string) {
+    const message = JSON.stringify({key, value});
+    window.ReactNativeWebView.postMessage(message);
   }
 
-  const {user, messages} = values;
+  function findProviderLogo() {
+    const link = document.querySelector<HTMLLinkElement>('link[type^=image][rel=icon]');
 
-  function postMessage(value: string) {
-    window.ReactNativeWebView.postMessage(value);
+    if (link && link.href) {
+      postMessage('setProviderLogo', link.href);
+    }
   }
 
   function getButton() {
@@ -59,12 +67,16 @@ export function fillFormInWebView(values: InjectJSValues) {
     }, index * 100);
   }
 
-  function fillForm() {
-    const inputs = Array.from(
-      document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]')
-    );
+  function getCheckInInputs() {
+    return Array.from(document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]'));
+  }
 
-    const filled = inputs
+  function isCheckInFormReady() {
+    return getCheckInInputs().length > 0;
+  }
+
+  function fillCheckInForm() {
+    const filled = getCheckInInputs()
       .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
 
@@ -129,35 +141,56 @@ export function fillFormInWebView(values: InjectJSValues) {
     setTimeout(() => {
       getButton().addEventListener('click', function wait() {
         getButton().removeEventListener('click', wait);
-        postMessage(messages.checkOutSuccess);
+        postMessage('checkOutSuccess');
       });
-    }, 1000);
+    }, 3000);
   }
 
   try {
-    setTimeout(() => {
-      const result = fillForm();
+    const timer = setInterval(() => {
+      if (!isCheckInFormReady()) {
+        return;
+      }
+
+      clearInterval(timer);
+
+      findProviderLogo();
+
+      const result = fillCheckInForm();
 
       if (result.isSuccess) {
         // we'll wait for the user to submit the form to signal check-in
         getButton().addEventListener('click', function waitForCheckIn() {
           getButton().removeEventListener('click', waitForCheckIn);
 
-          postMessage(messages.checkInSuccess);
+          postMessage('checkInSuccess');
 
           waitForCheckOut();
         });
       } else {
-        postMessage(messages.checkInFailure);
+        postMessage('checkInFailure');
       }
     }, 1000);
   } catch (error) {
-    // @ts-ignore
-    postMessage(messages.checkInFailure);
+    postMessage('checkInFailure', error.message);
   }
-
-  window.__WFD_CHECK_IN_SETUP__ = true;
 }
+
+/**
+ * helper method to parse messages coming from the webview
+ */
+export const parseProviderWebviewMessage = (ev: WebViewMessageEvent): ProviderFormMessage => {
+  try {
+    const {data} = ev.nativeEvent;
+    return JSON.parse(data) as ProviderFormMessage;
+  } catch (error) {
+    console.warn('parse provider form message error', error.message);
+    return {
+      key: 'parseMessageError',
+      value: error.message,
+    };
+  }
+};
 
 /**
  * Makes an immediately invoked function expression
@@ -170,11 +203,17 @@ export const prepareFillFormInWebViewInject = (user: User, hasCheckedIn: boolean
 
   const values: InjectJSValues = {
     user,
-    messages: PROVIDER_SITE_MESSAGE,
   };
 
   const injectFnBody = fillFormInWebView.toString();
+  const globalForSetup = 'window.__WFD_CHECK_IN_SETUP__';
   const serializedArguments = JSON.stringify(values);
 
-  return `(${injectFnBody})(${serializedArguments});`;
+  return `
+    if (!${globalForSetup}) {
+      ${globalForSetup} = true;
+
+      (${injectFnBody})(${serializedArguments});
+    }
+  `;
 };

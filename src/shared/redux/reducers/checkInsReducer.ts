@@ -6,6 +6,7 @@ import {
   providerRegisterAction,
   providerCheckInAction,
   providerCheckOutAction,
+  providerSetLogoAction,
 } from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsReducerState = {
@@ -28,6 +29,14 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
     return {
       ...state,
       current: payload,
+    };
+  })
+  .handleAction(providerSetLogoAction, (state, {payload}) => {
+    const {current} = state;
+
+    return {
+      ...state,
+      current: current?.logoUrl == null ? payload : current,
     };
   })
   .handleAction(providerCheckInAction, (state, {payload}) => {

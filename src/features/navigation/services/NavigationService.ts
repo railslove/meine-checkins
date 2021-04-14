@@ -88,7 +88,11 @@ class NavigationService {
     );
   };
 
-  fromProfileFormCheckout = () => {
+  fromEmptyProviderForm = () => {
+    return this.navigate(BottomTabsRoutes.ScanQRCode);
+  };
+
+  fromProviderFormCheckout = () => {
     return this.dispatch(
       TabActions.jumpTo(BottomTabsRoutes.CheckInsNavigator, {
         screen: MyCheckInsRoutes.MyCheckIns,

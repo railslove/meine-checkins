@@ -1,8 +1,16 @@
+import {ImageSourcePropType} from 'react-native';
+
+export type CheckInProvider = {
+  name: string;
+  logoUrl: string | ImageSourcePropType;
+  hostname: string;
+};
+
 export type ProviderCheckInItem = {
   id: string;
   url: string;
   name?: string;
-  logoUrl?: string;
+  logoUrl?: string | ImageSourcePropType;
   stopTime?: number;
   startTime?: number;
 };
