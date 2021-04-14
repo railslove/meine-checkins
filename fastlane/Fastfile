@@ -1,9 +1,7 @@
 # For basics, see
 # https://github.com/osamaq/reactnative-fastlane-appcenter
 
-before_all do
-  setup_semaphore
-end
+default_platform(:ios)
 
 # -------------Android Build & Deploy-------------#
 platform :android do
@@ -62,6 +60,11 @@ end
 
 # -------------iOS Sign, Build & Deploy-------------#
 platform :ios do
+  before_all do
+    # installed via the semaphore plugin with `fastlane add_plugin semaphore`
+    setup_semaphore
+  end
+
   # You need to configure singing for iOS
   # https://github.com/osamaq/reactnative-fastlane-appcenter#signing
   desc 'Set up certs and profiles for iOS.'
