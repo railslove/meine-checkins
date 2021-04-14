@@ -1,0 +1,31 @@
+version: v1.0
+name: Deploy Android
+agent:
+  machine:
+    type: e1-standard-2
+  containers:
+    - name: main
+      image: semaphoreci/android:29-node
+
+blocks:
+  - name: Build Android and deploy to Google Play Internal
+    task:
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+        - name: ENVFILE
+          value: '.env.production'
+      secrets:
+        - name: wfd-masterapp-app-secrets
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+          - bundle install --path vendor/bundle
+          - npm install
+          - cache store
+      jobs:
+        - name: fastlane android deploy
+          commands:
+            - npx jetify
+            - bundle exec fastlane android deploy
