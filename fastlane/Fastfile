@@ -200,10 +200,9 @@ desc 'Android: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_and do
   package = load_json(json_path: "./package.json")
   add_badge(
-    shield: "DEV-" + package['version'] + "-orange",
+    shield: package['version'] + "-orange",
     no_badge: true,
-    dark: true,
-    shield_scale: "0.55",
+    shield_scale: "0.5",
     shield_gravity: "Center",
     shield_geometry: "+0+30%",
     glob: "/android/app/src/main/res/mipmap-*/ic_launcher*.png",
@@ -216,10 +215,9 @@ desc 'iOS: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_ios do
   package = load_json(json_path: "./package.json")
   add_badge(
-    shield: "DEV-" + package['version'] + "-orange",
+    shield: package['version'] + "-orange",
     no_badge: true,
-    dark: true,
-    shield_scale: "0.85",
+    shield_scale: "0.5",
     shield_gravity: "South",
     shield_geometry: "+0+5%",
     glob: "/ios/" + package['name'] + "/Images.xcassets/AppIcon.appiconset/*.png",
