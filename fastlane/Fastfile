@@ -205,7 +205,7 @@ private_lane :make_badge_and do
     dark: true,
     shield_scale: "0.55",
     shield_gravity: "Center",
-    shield_geometry: "+0+30%",
+    shield_geometry: "+0+60%",
     glob: "/android/app/src/main/res/mipmap-*/ic_launcher*.png",
   )
 end
@@ -228,6 +228,7 @@ end
 
 desc 'Make new versioned icon badges.'
 lane :make_badge do
+  app_icon
   make_badge_ios
   make_badge_and
 end
