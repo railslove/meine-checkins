@@ -137,9 +137,9 @@ end
 
 
 # -------------Icons & Versioning-------------#
-desc 'Create App Icon from src/shared/assets/Logo.png'
+desc 'Create App Icon from src/shared/assets/App-Icon.png'
 lane :app_icon do
-  file_path = './src/shared/assets/Logo.png'
+  file_path = './src/shared/assets/App-Icon.png'
 
   appicon(
     appicon_path: 'ios/masterCheckingApp/Images.xcassets',
