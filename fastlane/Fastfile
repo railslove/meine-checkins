@@ -1,6 +1,9 @@
 # For basics, see
 # https://github.com/osamaq/reactnative-fastlane-appcenter
 
+package = load_json(json_path: "./package.json")
+appJSON = load_json(json_path: "./app.json")
+
 # -------------Android Build & Deploy-------------#
 platform :android do
   # For android, you should setup signing for release builds.
@@ -75,20 +78,18 @@ platform :ios do
 
   desc 'Build the staging release iOS application.'
   private_lane :build_staging do
-    package = load_json(json_path: "./package.json")
     gym(
       scheme: "STAGING",
-      workspace: './ios/' + package['name'] + '.xcworkspace',
+      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
       export_method: 'ad-hoc'
     )
   end
 
   desc 'Build the production release iOS application.'
   private_lane :build_production do
-    package = load_json(json_path: "./package.json")
     gym(
       scheme: "PRODUCTION",
-      workspace: './ios/' + package['name'] + '.xcworkspace',
+      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
       export_method: 'ad-hoc'
     )
   end
@@ -142,7 +143,7 @@ lane :app_icon do
   file_path = './src/shared/assets/App-Icon.png'
 
   appicon(
-    appicon_path: 'ios/masterCheckingApp/Images.xcassets',
+    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
     appicon_devices: %i[iphone ios_marketing],
     appicon_image_file: file_path,
   )
@@ -150,7 +151,7 @@ lane :app_icon do
   appicon(
     appicon_image_file: file_path,
     appicon_devices: [:universal],
-    appicon_path: 'ios/masterCheckingApp/Images.xcassets',
+    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
     appicon_name: 'BootSplashLogo.imageset'
   )
 
@@ -162,7 +163,7 @@ lane :app_icon do
 end
 
 desc 'Android: Increment versionCode and set versionName to package.json version.'
-package = load_json(json_path: "./package.json")
+
 private_lane :inc_ver_and do
   increment_version_code(
     gradle_file_path: "./android/app/build.gradle",
@@ -178,10 +179,10 @@ end
 desc 'iOS: Increment build number and set the version to package.json version.'
 private_lane :inc_ver_ios do
   increment_build_number(
-    xcodeproj: './ios/' + package['name'] + '.xcodeproj'
+    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj'
   )
   increment_version_number(
-    xcodeproj: './ios/' + package['name'] + '.xcodeproj',
+    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj',
     version_number: package['version']
   )
 end
@@ -198,7 +199,6 @@ end
 # https://developer.android.com/studio/write/image-asset-studio
 desc 'Android: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_and do
-  package = load_json(json_path: "./package.json")
   add_badge(
     shield: package['version'] + "-orange",
     no_badge: true,
@@ -213,14 +213,13 @@ end
 # https://appicon.co/
 desc 'iOS: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_ios do
-  package = load_json(json_path: "./package.json")
   add_badge(
     shield: package['version'] + "-orange",
     no_badge: true,
     shield_scale: "0.5",
     shield_gravity: "South",
     shield_geometry: "+0+5%",
-    glob: "/ios/" + package['name'] + "/Images.xcassets/AppIcon.appiconset/*.png",
+    glob: "/ios/" + appJSON['name'] + "/Images.xcassets/AppIcon.appiconset/*.png",
   )
 end
 

@@ -1,7 +1,6 @@
 {
-  "name": "mastercheckingapp",
-  "version": "1.7.10",
   "private": true,
+  "version": "1.7.10",
   "scripts": {
     "ios": "react-native run-ios",
     "start": "react-native start",
