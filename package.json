@@ -15,6 +15,7 @@
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump_badge",
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump_badge",
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump_badge",
+    "make-apk:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
     "generate-build-config": "node scripts/buildConfig.js",
     "generate-image-imports": "node scripts/images.js",
     "android:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
