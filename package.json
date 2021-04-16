@@ -23,11 +23,8 @@
     "detox-build:iosRelease": "detox build -c ios.sim.release",
     "detox-test:androidRelease": "detox test -c android.emu.release",
     "detox-build:androidRelease": "detox build -c android.emu.release",
-    "ios:rm": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
     "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
-    "android:clean": "cd android && ./gradlew clean",
-    "android:clear": "adb shell pm clear com.mastercheckingapp",
-    "android:rm": "adb uninstall com.mastercheckingapp"
+    "android:clean": "cd android && ./gradlew clean"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
