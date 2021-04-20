@@ -20,7 +20,6 @@ blocks:
           - checkout --use-cache
           - cache restore
           - npm i
-          - rbenv rehash
           - bundle install --path vendor/bundler
           - cache store
           # Needs ssh to clone apple-credentials repo for fastlane match
