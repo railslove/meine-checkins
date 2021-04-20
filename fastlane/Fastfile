@@ -57,6 +57,11 @@ platform :ios do
   lane :deploy do |options|
     username = "stringparser@gmail.com"
 
+    cocoapods(
+      podfile: "./ios",
+      clean_install: true
+    )
+
     sync_code_signing(
       type: "appstore",
       username: username,
@@ -69,7 +74,7 @@ platform :ios do
       clean: true,
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
-      export_method: "appstore"
+      export_method: "app-store"
     )
 
     upload_to_testflight(
