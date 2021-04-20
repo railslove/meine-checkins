@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.mastercheckingapp",
+    package = "de.railslove.wfdcheckin",
 )
 
 android_resource(
     name = "res",
-    package = "com.mastercheckingapp",
+    package = "de.railslove.wfdcheckin",
     res = "src/main/res",
 )
 

@@ -16,9 +16,9 @@ import {ReduxPersistConfig} from 'src/shared/redux/persistence/types';
 import rootReducer, {reducers} from 'src/shared/redux/reducers';
 
 // type exports
-export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 export type StoreState = ReturnType<typeof rootReducer>;
 export type StoreStateKey = keyof typeof reducers;
+export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
 // middleware
 const middleware = [thunkMiddleware];

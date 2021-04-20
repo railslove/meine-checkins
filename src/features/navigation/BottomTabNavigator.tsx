@@ -13,9 +13,8 @@ const {Navigator, Screen} = createBottomTabNavigator<Record<BottomTabsRoutes, an
 
 const BottomNavigator: React.FC = () => {
   const user = useSelector(state => state.user.item);
-  const {current: provider, items: checkIns} = useSelector(state => state.checkIns);
 
-  const tabBarVisible = user != null && (provider?.startTime != null || checkIns.length > 0);
+  const tabBarVisible = user != null;
   const initialRouteName = user == null ? BottomTabsRoutes.Profile : BottomTabsRoutes.ScanQRCode;
 
   return (
@@ -26,7 +25,7 @@ const BottomNavigator: React.FC = () => {
     >
       <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />
       <Screen name={BottomTabsRoutes.ScanQRCode} component={ScanQRCodeScreen} />
-      <Screen name={BottomTabsRoutes.MyCheckIns} component={CheckInsNavigator} />
+      <Screen name={BottomTabsRoutes.CheckInsNavigator} component={CheckInsNavigator} />
     </Navigator>
   );
 };

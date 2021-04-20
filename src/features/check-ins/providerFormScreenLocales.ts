@@ -1,3 +1,5 @@
 export default {
-  missingProvider: 'Etwas ist schief gelaufen, scannen Sie den QR-Code erneut',
+  missingProviderTitle: 'Kein Check-In in Arbeit',
+  missingProviderSubmit: 'scannen',
+  missingProviderDescription: 'Es wurde kein QR-Code gescannt. Bitte scannen Sie einen.',
 };
