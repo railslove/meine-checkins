@@ -69,7 +69,7 @@ platform :ios do
     )
 
     upload_to_testflight(
-      username: "herbertbot@railslove.com",
+      username: "stringparser@gmail.com",
       skip_waiting_for_build_processing: true
     )
   end
