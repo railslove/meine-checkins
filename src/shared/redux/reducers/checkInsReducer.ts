@@ -33,8 +33,6 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
   })
   .handleAction(providerSetLogoAction, (state, {payload}) => {
     const {current} = state;
-    console.log('set logo', payload);
-    console.log('current', current);
 
     return {
       ...state,
