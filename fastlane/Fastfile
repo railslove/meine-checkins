@@ -54,6 +54,8 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
+    xcversion(version: "11.7")
+
     sync_code_signing(
       type: "appstore",
       username: "stringparser@gmail.com",
@@ -65,7 +67,8 @@ platform :ios do
     build_ios_app(
       clean: true,
       scheme: appJSON['name'],
-      workspace: "#{ios_path}.xcworkspace"
+      workspace: "#{ios_path}.xcworkspace",
+      export_method: "appstore"
     )
 
     upload_to_testflight(
