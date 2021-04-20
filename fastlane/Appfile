@@ -1,8 +1,11 @@
+require 'json'
+
+appJSON = JSON.parse(File.read("./app.json"))
+appIdentifier = appJSON['id']
+
 # Android
-package_name("com.railslove.wfd-masterapp")
+package_name(appIdentifier)
 json_key_file("~/service-account-key.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
 
 # iOS
-app_identifier("com.railslove.wfd-masterapp")
-itc_team_id("305106") # App Store Connect Team ID
-team_id("5AXEB2NPQJ") # Developer Portal Team ID
+app_identifier(appIdentifier)
