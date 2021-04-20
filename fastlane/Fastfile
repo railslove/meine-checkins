@@ -54,14 +54,16 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
+    username = "stringparser@gmail.com"
+
     xcversion(version: "11.7")
 
     sync_code_signing(
       type: "appstore",
-      username: "stringparser@gmail.com",
+      username: username,
       git_full_name: "stringparser",
       # we are in readonly mode on ci anyways, so this doesn't need to be a real user
-      git_user_email: "stringparser@gmail.com"
+      git_user_email: username
     )
 
     build_ios_app(
@@ -72,7 +74,7 @@ platform :ios do
     )
 
     upload_to_testflight(
-      username: "stringparser@gmail.com",
+      username: username,
       skip_waiting_for_build_processing: true
     )
   end
