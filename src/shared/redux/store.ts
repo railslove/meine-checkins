@@ -12,11 +12,13 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 // actions
 import {AppAction} from 'src/shared/redux/actions/types';
-import rootReducer, {StoreState} from 'src/shared/redux/reducers';
 import {ReduxPersistConfig} from 'src/shared/redux/persistence/types';
+import rootReducer, {reducers} from 'src/shared/redux/reducers';
 
 // type exports
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
+export type StoreState = ReturnType<typeof rootReducer>;
+export type StoreStateKey = keyof typeof reducers;
 
 // middleware
 const middleware = [thunkMiddleware];

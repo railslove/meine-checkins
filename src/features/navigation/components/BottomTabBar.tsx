@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import {toDpFromPixel} from 'src/shared/theme/util';
-import {BottomTabsRoutes} from 'src/features/navigation/constants';
+import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
 import BottomTabItem from 'src/features/navigation/components/BottomTabItem';
 
