@@ -22,7 +22,8 @@ blocks:
           - npm i
           - rbenv rehash
           - gem install cocoapods:1.10.1
-          - bundle install --path vendor/bundler
+          - bundle config set path 'vendor/bundler'
+          - bundle install
           - cache store
 
           # Needs ssh to clone apple-credentials repo for fastlane match
@@ -33,4 +34,5 @@ blocks:
       jobs:
         - name: fastlane ios deploy
           commands:
+            - xcversion select 11.2.1
             - bundle exec fastlane ios deploy
