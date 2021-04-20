@@ -24,7 +24,6 @@ blocks:
           - gem install cocoapods:1.10.1
           - bundle config set path 'vendor/bundler'
           - bundle install
-          - npx pod-install
           - cache store
 
           # Needs ssh to clone apple-credentials repo for fastlane match
