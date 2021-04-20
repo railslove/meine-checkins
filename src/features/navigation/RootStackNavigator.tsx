@@ -14,7 +14,7 @@ const screenOptions: StackNavigationOptions = {
 };
 
 const RootStackNavigator: React.FC = () => {
-  const {item: user} = useSelector(state => state.user);
+  const user = useSelector(state => state.user.item);
 
   const initialRouteName =
     user == null ? RootStackRoutes.Start : RootStackRoutes.BottomTabNavigator;

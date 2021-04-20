@@ -64,3 +64,6 @@ buck-out/
 fastlane/report.xml
 android/gradle/wrapper/gradle-wrapper.jar
 .husky
+android/*.hprof
+.env.staging
+android/app/release

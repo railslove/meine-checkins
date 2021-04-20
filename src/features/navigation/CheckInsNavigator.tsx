@@ -29,11 +29,7 @@ const CheckInsNavigator: React.FC = () => {
         component={MyCheckInsScreen}
       />
       <Screen name={MyCheckInsRoutes.ProviderForm} component={ProviderFormScreen} />
-      <Screen
-        name={MyCheckInsRoutes.FAQ}
-        options={{title: t('myCheckInsScreen:faq')}}
-        component={FAQScreen}
-      />
+      <Screen name={MyCheckInsRoutes.FAQ} options={{title: ''}} component={FAQScreen} />
     </Navigator>
   );
 };

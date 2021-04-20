@@ -1,7 +1,6 @@
 {
-  "name": "mastercheckingapp",
-  "version": "1.5.1",
   "private": true,
+  "version": "1.7.11",
   "scripts": {
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -16,6 +15,7 @@
     "bump:minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump_badge",
     "bump:patch": "npm version patch --no-git-tag-version && bundle exec fastlane bump_badge",
     "bump:major": "npm version major --no-git-tag-version && bundle exec fastlane bump_badge",
+    "make-apk:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
     "generate-build-config": "node scripts/buildConfig.js",
     "generate-image-imports": "node scripts/images.js",
     "android:stagingRelease": "ENVFILE=.env.staging react-native run-android --variant=release",
@@ -24,11 +24,8 @@
     "detox-build:iosRelease": "detox build -c ios.sim.release",
     "detox-test:androidRelease": "detox test -c android.emu.release",
     "detox-build:androidRelease": "detox build -c android.emu.release",
-    "ios:rm": "xcrun simctl uninstall booted org.reactjs.native.example.HelloWorld",
     "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
-    "android:clean": "cd android && ./gradlew clean",
-    "android:clear": "adb shell pm clear com.mastercheckingapp",
-    "android:rm": "adb uninstall com.mastercheckingapp"
+    "android:clean": "cd android && ./gradlew clean"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -92,6 +89,7 @@
     "husky": "^6.0.0",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
+    "lint-staged": "^10.5.4",
     "metro-react-native-babel-preset": "^0.64.0",
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",

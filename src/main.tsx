@@ -36,7 +36,7 @@ const App: React.FC = () => {
   return (
     <RootErrorBoundary>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate persistor={persistor}>
           <PaperProvider theme={theme}>
             <I18nextProvider i18n={i18n}>
               <NavigationContainer ref={rootNavigationRef}>
