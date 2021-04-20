@@ -67,3 +67,6 @@ android/gradle/wrapper/gradle-wrapper.jar
 android/*.hprof
 .env.staging
 android/app/release
+
+# product signing
+.ios_signing
