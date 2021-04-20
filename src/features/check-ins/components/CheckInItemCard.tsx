@@ -51,6 +51,8 @@ const useStyles = () => {
       backgroundColor: theme.colors.surface,
     },
     logoImage: {
+      maxWidth: '60%',
+      maxHeight: '70%',
       borderRadius,
     },
   });
@@ -77,7 +79,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
     <View style={styles.root}>
       <View style={styles.logoContainer}>
         {logoSource == null ? null : (
-          <Image source={logoSource} style={styles.logoImage} resizeMode="center" />
+          <Image source={logoSource} style={styles.logoImage} resizeMode="contain" />
         )}
       </View>
 
