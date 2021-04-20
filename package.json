@@ -5,10 +5,11 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest --detectOpenHandles",
-    "test:ci": "yarn check:types && yarn lint && yarn test --ci",
+    "test:ci": "npm run check:types && npm run lint && npm run test --ci",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
     "android": "react-native run-android",
+    "lint-staged": "lint-staged",
     "check:types": "tsc --noEmit",
     "format:code": "prettier --write \"*.{js,ts,tsx,json}\" \"src/**/*.{js,jsx,ts,tsx}\"",
     "adb:metro": "adb reverse tcp:8081 tcp:8081",
@@ -24,8 +25,9 @@
     "detox-build:iosRelease": "detox build -c ios.sim.release",
     "detox-test:androidRelease": "detox test -c android.emu.release",
     "detox-build:androidRelease": "detox build -c android.emu.release",
-    "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
-    "android:clean": "cd android && ./gradlew clean"
+    "ios:reset": "npm run ios:rm && cd ios && pod deintegrate && pod install",
+    "android:clean": "cd android && ./gradlew clean",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -111,13 +113,13 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn test:ci"
+      "pre-push": "npm run test:ci"
     }
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
-      "yarn lint",
-      "yarn format"
+      "npm run lint",
+      "npm run format"
     ]
   }
 }

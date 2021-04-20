@@ -3,7 +3,7 @@ name: Deploy iOS
 agent:
   machine:
     type: a1-standard-4
-    os_image: macos-xcode11
+    os_image: macos-xcode12
 
 blocks:
   - name: Build iOS and deploy to Testflight
@@ -19,12 +19,12 @@ blocks:
         commands:
           - checkout --use-cache
           - cache restore
+          - npm i
           # Needs ssh to clone apple-credentials repo for fastlane match
           - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
           - ssh-add ~/.ssh/apple_certificates_deploy_rsa
           - rvm use stable --default
           - bundle install
-          - yarn
       jobs:
         - name: fastlane ios deploy
           commands:
