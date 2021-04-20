@@ -21,6 +21,7 @@ blocks:
           - cache restore
           - npm i
           - rbenv rehash
+          - gem install xcode-install
           - gem install cocoapods:1.10.1
           - bundle config set path 'vendor/bundler'
           - bundle install

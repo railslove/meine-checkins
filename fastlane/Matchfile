@@ -10,10 +10,7 @@
 #
 ##
 
-require 'json'
-
-appJSON = JSON.parse(File.read("./app.json"))
-appIdentifier = appJSON['id']
+appIdentifier = "de.railslove.wfdcheckin"
 
 storage_mode("git")
 
