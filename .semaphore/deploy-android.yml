@@ -23,7 +23,6 @@ blocks:
           - cache restore
           - npm i
           - bundle install --path vendor/bundler
-          - npx pod-install
           - cache store
       jobs:
         - name: fastlane android deploy

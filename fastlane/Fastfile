@@ -17,7 +17,8 @@ platform :android do
   lane :deploy do |options|
     gradle(
       task: 'assemble',
-      build_type: 'Release'
+      build_type: 'Release',
+      project_dir: './android'
     )
 
     upload_to_play_store(
