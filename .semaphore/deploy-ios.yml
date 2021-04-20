@@ -3,7 +3,7 @@ name: Deploy iOS
 agent:
   machine:
     type: a1-standard-4
-    os_image: macos-xcode12
+    os_image: macos-xcode11
 
 blocks:
   - name: Build iOS and deploy to Testflight
@@ -17,10 +17,11 @@ blocks:
         - name: wfd-checkin
       prologue:
         commands:
-          - checkout
+          - checkout --use-cache
           - cache restore
           - npm i
           - rbenv rehash
+          - gem install cocoapods:1.10.1
           - bundle install --path vendor/bundler
           - cache store
 
