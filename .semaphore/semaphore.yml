@@ -14,7 +14,7 @@ blocks:
       jobs:
         - name: yarn install
           commands:
-            - checkout
+            - checkout --use-cache
             - cache restore
             - yarn
             - cache store

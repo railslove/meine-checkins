@@ -19,10 +19,11 @@ blocks:
         - name: wfd-masterapp-app-secrets
       prologue:
         commands:
-          - checkout
+          - checkout --use-cache
           - cache restore
-          - bundle install --path vendor/bundle
-          - npm install
+          - rvm use stable --default
+          - bundle install
+          - npx yarn
           - cache store
       jobs:
         - name: fastlane android deploy

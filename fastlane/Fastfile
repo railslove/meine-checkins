@@ -16,14 +16,8 @@ platform :android do
   desc "Build with code signing and upload to Google Play Internal"
   lane :deploy do |options|
     gradle(
-      task: "bundleRelease",
-      project_dir: "./android/",
-      properties: {
-        "android.injected.signing.store.file" => File.expand_path(ENV["ANDROID_KEYSTORE_PATH"]),
-        "android.injected.signing.store.password" => ENV["ANDROID_STORE_PASSWORD"],
-        "android.injected.signing.key.alias" => ENV["ANDROID_KEY_ALIAS"],
-        "android.injected.signing.key.password" => ENV["ANDROID_KEY_PASSWORD"]
-      }
+      task: 'assemble',
+      build_type: 'Release'
     )
 
     upload_to_play_store(
@@ -64,16 +58,17 @@ platform :ios do
     )
 
     sync_code_signing(
-      username: "herbertbot@railslove.com",
       type: "appstore",
-      git_user_email: "ops@railslove.com", # we are in readonly mode on ci anyways, so this doesn't need to be a real user
-      git_full_name: "railslove-ops"
+      username: "herbertbot@railslove.com",
+      git_full_name: "railslove-ops",
+      # we are in readonly mode on ci anyways, so this doesn't need to be a real user
+      git_user_email: "ops@railslove.com"
     )
 
     build_ios_app(
-      workspace: "#{ios_path}.xcworkspace",
-      scheme: "Tramling",
-      clean: true
+      clean: true,
+      scheme: "Release",
+      workspace: "#{ios_path}.xcworkspace"
     )
 
     upload_to_testflight(
