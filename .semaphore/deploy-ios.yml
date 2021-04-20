@@ -6,7 +6,26 @@ agent:
     os_image: macos-xcode12
 
 blocks:
+  - name: Install
+    dependencies: []
+    task:
+      jobs:
+        - name: npm install
+          commands:
+            - checkout --use-cache
+            - cache restore
+            - npm i
+            - cache store
+        - name: bundle install
+          commands:
+            - checkout --use-cache
+            - cache restore
+            - bundle install --path vendor/bundler
+            - cache store
+
   - name: Build iOS and deploy to Testflight
+    dependencies:
+      - Install
     task:
       env_vars:
         - name: LANG
@@ -19,12 +38,9 @@ blocks:
         commands:
           - checkout --use-cache
           - cache restore
-          - npm i
           # Needs ssh to clone apple-credentials repo for fastlane match
           - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
           - ssh-add ~/.ssh/apple_certificates_deploy_rsa
-          - rvm use stable --default
-          - bundle install
       jobs:
         - name: fastlane ios deploy
           commands:
