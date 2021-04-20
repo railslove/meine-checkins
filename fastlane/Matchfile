@@ -1,7 +1,18 @@
+##
 # The docs are available on https://docs.fastlane.tools/actions/match
+##
 
-git_url("git@github.com:railslove/match.git")
+require 'json'
+
+appJSON = JSON.parse(File.read("./app.json"))
+appIdentifier = appJSON['id']
+
 storage_mode("git")
 
-app_identifier(["com.railslove.wfd-masterapp"])
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
+# The default type, can be: appstore, adhoc, enterprise or development
+type("development")
+
+git_url("git@github.com:railslove/match.git")
+git_branch(appIdentifier)
+
+app_identifier([appIdentifier])

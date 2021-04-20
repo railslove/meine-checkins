@@ -1,10 +1,14 @@
 # For basics, see
 # https://github.com/osamaq/reactnative-fastlane-appcenter
 
+default_platform(:ios)
+
 package = load_json(json_path: "./package.json")
 appJSON = load_json(json_path: "./app.json")
 
-default_platform(:ios)
+ios_path = "./ios/#{appJSON['name']}"
+version_number = package['version']
+appicon_image_file = './src/shared/assets/App-Icon.png'
 
 # -------------Android Build & Deploy-------------#
 platform :android do
@@ -67,7 +71,7 @@ platform :ios do
     )
 
     build_ios_app(
-      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
+      workspace: "#{ios_path}.xcworkspace",
       scheme: "Tramling",
       clean: true
     )
@@ -93,27 +97,25 @@ end
 
 
 # -------------Icons & Versioning-------------#
-desc 'Create App Icon from src/shared/assets/App-Icon.png'
+desc "Create App Icon from #{appicon_image_file}"
 lane :app_icon do
-  file_path = './src/shared/assets/App-Icon.png'
-
   appicon(
-    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
+    appicon_path: "#{ios_path}/Images.xcassets",
     appicon_devices: %i[iphone ios_marketing],
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
   )
 
   appicon(
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
     appicon_devices: [:universal],
-    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
+    appicon_path: "#{ios_path}/Images.xcassets",
     appicon_name: 'BootSplashLogo.imageset'
   )
 
   android_appicon(
     appicon_path: 'android/app/src/main/res/mipmap',
     generate_rounded: true,
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
   )
 end
 
@@ -124,8 +126,8 @@ private_lane :inc_ver_and do
   )
 
   increment_version_name(
-    gradle_file_path: "./android/app/build.gradle",
-    version_name: package['version']
+    version_name: version_number,
+    gradle_file_path: "./android/app/build.gradle"
   )
 end
 
@@ -133,11 +135,11 @@ end
 desc 'iOS: Increment build number and set the version to package.json version.'
 private_lane :inc_ver_ios do
   increment_build_number(
-    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj'
+    xcodeproj: "#{ios_path}.xcodeproj"
   )
   increment_version_number(
-    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj',
-    version_number: package['version']
+    xcodeproj: "#{ios_path}.xcodeproj",
+    version_number: version_number
   )
 end
 
@@ -154,7 +156,7 @@ end
 desc 'Android: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_and do
   add_badge(
-    shield: package['version'] + "-orange",
+    shield: version_number + "-orange",
     no_badge: true,
     shield_scale: "0.5",
     shield_gravity: "Center",
@@ -168,7 +170,7 @@ end
 desc 'iOS: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_ios do
   add_badge(
-    shield: package['version'] + "-orange",
+    shield: version_number + "-orange",
     no_badge: true,
     shield_scale: "0.5",
     shield_gravity: "South",

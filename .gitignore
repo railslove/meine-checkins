@@ -61,12 +61,17 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# fastlane
 fastlane/report.xml
+
+# android
 android/gradle/wrapper/gradle-wrapper.jar
-.husky
 android/*.hprof
-.env.staging
 android/app/release
+
+# env
+.env.*
 
 # product signing
 .ios_signing
