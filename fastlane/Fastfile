@@ -56,15 +56,15 @@ platform :ios do
   lane :deploy do |options|
     sync_code_signing(
       type: "appstore",
-      username: "herbertbot@railslove.com",
-      git_full_name: "railslove-ops",
+      username: "stringparser@gmail.com",
+      git_full_name: "stringparser",
       # we are in readonly mode on ci anyways, so this doesn't need to be a real user
-      git_user_email: "ops@railslove.com"
+      git_user_email: "stringparser@gmail.com"
     )
 
     build_ios_app(
       clean: true,
-      scheme: "Release",
+      scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace"
     )
 
