@@ -1,5 +1,13 @@
 ##
 # The docs are available on https://docs.fastlane.tools/actions/match
+# --
+#
+# To run this from the command line first setup your credentials
+#
+# then
+#
+#  fastlane match --username "your"
+#
 ##
 
 require 'json'
