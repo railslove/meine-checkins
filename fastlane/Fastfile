@@ -53,10 +53,6 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
-    cocoapods(
-      podfile: "./ios/Podfile"
-    )
-
     sync_code_signing(
       type: "appstore",
       username: "herbertbot@railslove.com",

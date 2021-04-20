@@ -8,7 +8,27 @@ agent:
       image: semaphoreci/android:29-node
 
 blocks:
+  - name: Install
+    dependencies: []
+    task:
+      jobs:
+        - name: npm install
+          commands:
+            - checkout --use-cache
+            - cache restore
+            - npm i
+            - cache store
+        - name: bundle install
+          commands:
+            - checkout --use-cache
+            - cache restore
+            - rbenv rehash
+            - bundle install --path vendor/bundler
+            - cache store
+
   - name: Build Android and deploy to Google Play Internal
+    dependencies:
+      - Install
     task:
       env_vars:
         - name: LANG
@@ -21,10 +41,7 @@ blocks:
         commands:
           - checkout --use-cache
           - cache restore
-          - rvm use stable --default
-          - bundle install
-          - npx yarn
-          - cache store
+          - npx pod-install
       jobs:
         - name: fastlane android deploy
           commands:
