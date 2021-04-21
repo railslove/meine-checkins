@@ -54,7 +54,15 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
-    match(type: "appstore")
+    username = ENV["FASTLANE_USER"]
+
+    # match alias https://docs.fastlane.tools/actions/match/#match
+    sync_code_signing(
+      type: "appstore",
+      username: username,
+      # we are in readonly mode on ci anyways, so this doesn't need to be a real user
+      git_user_email: username
+    )
 
     build_ios_app(
       clean: true,
