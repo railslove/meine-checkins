@@ -60,7 +60,6 @@ platform :ios do
     # match alias https://docs.fastlane.tools/actions/match/#match
     sync_code_signing(
       type: "appstore",
-      readonly: false,
       username: username,
       storage_mode: "git",
       git_url: "git@github.com:railslove/match.git",
@@ -73,7 +72,6 @@ platform :ios do
     build_ios_app(
       clean: true,
       silent: true,
-      xcargs: "-allowProvisioningUpdates",
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
       export_method: "app-store",
