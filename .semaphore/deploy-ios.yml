@@ -19,7 +19,9 @@ blocks:
           - cache restore
 
           - npm i
-          - bundle install --path vendor/bundler
+          - gem install bundler
+          - bundle config set path vendor/bundler
+          - bundle install
           - cd ios
           - pod install
           - cd ..
