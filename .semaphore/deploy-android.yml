@@ -16,7 +16,7 @@ blocks:
         - name: ENVFILE
           value: '.env.production'
       secrets:
-        - name: tramling-app-secrets
+        - name: wfd-checkin
       prologue:
         commands:
           - checkout --use-cache
