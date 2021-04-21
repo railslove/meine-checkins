@@ -15,7 +15,7 @@ appIdentifier = "de.railslove.wfdcheckin"
 storage_mode("git")
 
 # The default type, can be: appstore, adhoc, enterprise or development
-type("development")
+type("appstore")
 
 git_url("git@github.com:railslove/match.git")
 git_branch(appIdentifier)

@@ -59,7 +59,7 @@ platform :ios do
 
     # match alias https://docs.fastlane.tools/actions/match/#match
     sync_code_signing(
-      type: "development",
+      type: "appstore",
       username: username,
       storage_mode: "git",
       git_url: "git@github.com:railslove/match.git",
