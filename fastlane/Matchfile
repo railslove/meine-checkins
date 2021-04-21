@@ -18,5 +18,6 @@ storage_mode("git")
 type("appstore")
 
 git_url("git@github.com:railslove/match.git")
+git_branch(appIdentifier)
 
 app_identifier([appIdentifier])
