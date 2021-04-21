@@ -55,7 +55,15 @@ platform :ios do
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
     match(type: "appstore")
-    gym(export_method: "app-store")
+
+    gym(
+      clean: true,
+      silent: true,
+      scheme: appJSON['name'],
+      workspace: "#{ios_path}.xcworkspace",
+      export_method: "app-store",
+      configuration: "Release"
+    )
   end
 
   desc 'Bump, badge, sign, build, deploy staging iOS.'
