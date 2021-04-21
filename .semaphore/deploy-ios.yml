@@ -11,23 +11,25 @@ blocks:
       env_vars:
         - name: LANG
           value: en_US.UTF-8
-        - name: ENVFILE
-          value: '.env.production'
       secrets:
         - name: wfd-checkin
       prologue:
         commands:
-          - checkout --use-cache
+          - checkout
           - cache restore
-          - npm i
-          - bundle install --path 'vendor/bundler'
-          - npx pod-install
-          - cache store
 
-          # Needs ssh to clone apple-credentials repo for fastlane match
-          - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
-          - ssh-add ~/.ssh/apple_certificates_deploy_rsa
+          - npm i
+          - bundle install --path vendor/bundler
+          - cd ios
+          - pod install
+          - cd ..
+
+          - cache store
       jobs:
         - name: fastlane ios deploy
           commands:
+            # Needs ssh to clone apple-credentials repo for fastlane match
+            - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
+            - ssh-add ~/.ssh/apple_certificates_deploy_rsa
+
             - bundle exec fastlane ios deploy

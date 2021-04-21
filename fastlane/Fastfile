@@ -67,8 +67,9 @@ platform :ios do
       git_user_email: username
     )
 
-    build_ios_app(
+    build_app(
       clean: true,
+      silent: true,
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
       export_method: "app-store",
