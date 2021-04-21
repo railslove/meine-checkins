@@ -22,7 +22,8 @@ blocks:
           - checkout --use-cache
           - cache restore
           - npm i
-          - bundle install --path 'vendor/bundler'
+          - bundle config set path 'vendor/bundle'
+          - bundle install
           - cache store
       jobs:
         - name: fastlane android deploy
