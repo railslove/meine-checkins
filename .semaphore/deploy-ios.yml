@@ -23,6 +23,7 @@ blocks:
           - rbenv rehash
           - bundle config set path 'vendor/bundler'
           - bundle install
+          - npx pod-install
           - cache store
 
           # Needs ssh to clone apple-credentials repo for fastlane match

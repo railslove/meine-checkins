@@ -59,11 +59,6 @@ platform :ios do
     get_certificates
     get_provisioning_profile
 
-    cocoapods(
-      podfile: "./ios",
-      clean_install: true
-    )
-
     sync_code_signing(
       type: "appstore",
       username: username,
