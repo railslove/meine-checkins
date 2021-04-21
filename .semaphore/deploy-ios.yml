@@ -3,7 +3,7 @@ name: Deploy iOS
 agent:
   machine:
     type: a1-standard-4
-    os_image: macos-xcode11
+    os_image: macos-xcode12
 
 blocks:
   - name: Build iOS and deploy to Testflight
@@ -31,5 +31,4 @@ blocks:
       jobs:
         - name: fastlane ios deploy
           commands:
-            - xcversion select 11.7
             - bundle exec fastlane ios deploy

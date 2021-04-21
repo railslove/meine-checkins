@@ -22,7 +22,7 @@ platform :android do
     )
 
     upload_to_play_store(
-      track: "internal",
+      track: "beta",
       aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
       skip_upload_images: true,
       skip_upload_metadata: true,
@@ -47,7 +47,6 @@ end
 # -------------iOS Sign, Build & Deploy-------------#
 platform :ios do
   before_all do
-    xcversion(version: "11.7")
     # installed via the semaphore plugin with `fastlane add_plugin semaphore`
     setup_semaphore
   end
@@ -56,6 +55,9 @@ platform :ios do
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
     username = "stringparser@gmail.com"
+
+    get_certificates
+    get_provisioning_profile
 
     cocoapods(
       podfile: "./ios",
@@ -74,7 +76,8 @@ platform :ios do
       clean: true,
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
-      export_method: "app-store"
+      export_method: "app-store",
+      configuration: "Release"
     )
 
     upload_to_testflight(
