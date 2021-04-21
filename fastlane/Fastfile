@@ -7,6 +7,7 @@ package = load_json(json_path: "./package.json")
 appJSON = load_json(json_path: "./app.json")
 
 ios_path = "./ios/#{appJSON['name']}"
+app_identifier = "de.railslove.wfdcheckin"
 version_number = package['version']
 appicon_image_file = './src/shared/assets/App-Icon.png'
 
@@ -61,8 +62,12 @@ platform :ios do
       type: "appstore",
       readonly: false,
       username: username,
+      storage_mode: "git",
+      git_url: "git@github.com:railslove/match.git",
+      git_branch: app_identifier,
       git_full_name: "railslove-ops",
-      git_user_email: username
+      git_user_email: username,
+      app_identifier: [app_identifier]
     )
 
     build_ios_app(
