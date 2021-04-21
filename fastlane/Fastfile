@@ -59,6 +59,7 @@ platform :ios do
     build_ios_app(
       clean: true,
       silent: true,
+      xcargs: "-allowProvisioningUpdates",
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
       export_method: "app-store",
