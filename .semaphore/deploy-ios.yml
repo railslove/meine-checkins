@@ -19,7 +19,6 @@ blocks:
           - cache restore
 
           - npm i
-          - rbenv rehash
           - bundle config set path vendor/bundler
           - bundle install
           - cd ios
