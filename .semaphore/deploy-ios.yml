@@ -20,7 +20,6 @@ blocks:
 
           - npm i
           - rbenv rehash
-          - gem install bundler
           - bundle config set path vendor/bundler
           - bundle install
           - cd ios
