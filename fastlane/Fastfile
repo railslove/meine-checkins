@@ -56,9 +56,6 @@ platform :ios do
   lane :deploy do |options|
     username = "stringparser@gmail.com"
 
-    get_certificates
-    get_provisioning_profile
-
     sync_code_signing(
       type: "appstore",
       username: username,
