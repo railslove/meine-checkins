@@ -12,7 +12,7 @@ blocks:
         - name: LANG
           value: en_US.UTF-8
       secrets:
-        - name: wfd-checkin
+        - name: tramling-app-secrets
       prologue:
         commands:
           - checkout
