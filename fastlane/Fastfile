@@ -54,29 +54,8 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
-    username = "stringparser@gmail.com"
-
-    sync_code_signing(
-      type: "appstore",
-      username: username,
-      git_full_name: "stringparser",
-      # we are in readonly mode on ci anyways, so this doesn't need to be a real user
-      git_user_email: username
-    )
-
-    build_app(
-      clean: true,
-      silent: true,
-      scheme: appJSON['name'],
-      workspace: "#{ios_path}.xcworkspace",
-      export_method: "app-store",
-      configuration: "Release"
-    )
-
-    upload_to_testflight(
-      username: username,
-      skip_waiting_for_build_processing: true
-    )
+    match(type: "appstore")
+    gym(export_method: "app-store")
   end
 
   desc 'Bump, badge, sign, build, deploy staging iOS.'

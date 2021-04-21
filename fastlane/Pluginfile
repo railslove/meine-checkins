@@ -6,6 +6,3 @@ gem 'fastlane-plugin-increment_version_code'
 gem 'fastlane-plugin-load_json'
 gem 'fastlane-plugin-semaphore'
 gem 'fastlane-plugin-appicon'
-
-# ios
-gem 'xcode-install'

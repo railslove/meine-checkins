@@ -20,7 +20,8 @@ blocks:
 
           - npm i
           - gem install bundler -v '2.1.4'
-          - bundle install --path vendor/bundle
+          - bundle config set path 'vendor/bundle'
+          - bundle install
           - cd ios
           - pod install
           - cd ..
