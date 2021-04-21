@@ -56,13 +56,18 @@ platform :ios do
   lane :deploy do |options|
     match(type: "appstore")
 
-    gym(
+    build_ios_app(
       clean: true,
       silent: true,
       scheme: appJSON['name'],
       workspace: "#{ios_path}.xcworkspace",
       export_method: "app-store",
       configuration: "Release"
+    )
+
+    upload_to_testflight(
+      username: username,
+      skip_waiting_for_build_processing: true
     )
   end
 
