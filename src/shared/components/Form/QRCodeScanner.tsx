@@ -30,22 +30,23 @@ const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle
 };
 
 const useStyles = () => {
+  const markerPad = -toDpFromPixel(12.5);
   const {width: windowWidth} = Dimensions.get('window');
 
   return StyleSheet.create({
     dimensions: {
       width: windowWidth * 0.6,
       height: windowWidth * 0.6,
-      position: 'relative',
       borderRadius,
     },
     marker: {
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      top: markerPad,
+      left: markerPad,
+      right: markerPad,
+      bottom: markerPad,
       zIndex: 100,
       position: 'absolute',
+      borderRadius,
     },
     markerTopLeft: borderStyleProps({
       top: '2.5%',
