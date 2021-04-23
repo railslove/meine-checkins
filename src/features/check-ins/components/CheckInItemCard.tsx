@@ -51,9 +51,11 @@ const useStyles = () => {
       backgroundColor: theme.colors.surface,
     },
     logoImage: {
-      maxWidth: '60%',
-      maxHeight: '70%',
-      borderRadius,
+      flex: 1,
+      width: undefined,
+      height: undefined,
+      margin: '20%',
+      alignSelf: 'stretch',
     },
   });
 };
@@ -71,7 +73,6 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
     typeof logoUrl === 'string'
       ? {
           uri: logoUrl,
-          ...logoDimensions,
         }
       : logoUrl;
 
