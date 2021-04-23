@@ -19,7 +19,7 @@ const WFDIndexButtonLink: React.FC<WFDIndexButtonLinkProps> = ({children, styleP
   };
 
   return (
-    <Text style={textStyle} onPress={OpenLinkService.openWFDEmail}>
+    <Text style={textStyle} onPress={OpenLinkService.openWFDIndex}>
       {children}
     </Text>
   );
