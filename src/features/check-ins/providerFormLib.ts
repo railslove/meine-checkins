@@ -139,7 +139,7 @@ export function fillFormInWebView(values: InjectJSValues) {
   function waitForCheckOut() {
     // wait a bit for re-rendering and wait for check-out
     setTimeout(() => {
-      getButton().addEventListener('click', function wait() {
+      document.body.addEventListener('click', function wait() {
         getButton().removeEventListener('click', wait);
         postMessage('checkOutSuccess');
       });
