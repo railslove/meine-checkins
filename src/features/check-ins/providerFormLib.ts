@@ -7,9 +7,6 @@ import {AutoCompleteValues} from 'src/shared/types/autoComplete';
 declare global {
   interface Window {
     ReactNativeWebView: WebView;
-    __WFD_DID_CHECK_IN_?: boolean;
-    __WFD_DID_CHECK_OUT_?: boolean;
-    __WFD_CHECK_IN_SETUP__?: boolean;
   }
 }
 
@@ -150,29 +147,17 @@ export function fillFormInWebView(values: InjectJSValues) {
     const checkOutTimer = setInterval(() => {
       const button = getButton();
 
-      if (button == null) {
-        return;
-      }
-
-      if (!isCheckOutButton(button)) {
+      if (button == null || !isCheckOutButton(button)) {
         return;
       }
 
       clearInterval(checkOutTimer);
-      button.removeEventListener('click', waitForCheckOut);
 
-      if (!window.__WFD_DID_CHECK_IN_) {
-        postMessage('checkInSuccess');
-        window.__WFD_DID_CHECK_IN_ = true;
-      }
+      postMessage('checkInSuccess');
 
       button.addEventListener('click', function wait() {
         button.removeEventListener('click', wait);
-
-        if (!window.__WFD_DID_CHECK_OUT_) {
-          postMessage('checkOutSuccess');
-          window.__WFD_DID_CHECK_OUT_ = true;
-        }
+        postMessage('checkOutSuccess');
       });
     }, 1000);
   }
@@ -191,7 +176,10 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (result.isSuccess) {
         // we'll wait for the user to submit the form to signal check-in
-        getButton()?.addEventListener('click', waitForCheckOut);
+        getButton()?.addEventListener('click', function wait() {
+          getButton()?.removeEventListener('click', wait);
+          waitForCheckOut();
+        });
       } else {
         postMessage('checkInFailure');
       }
