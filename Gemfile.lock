@@ -91,6 +91,9 @@ GEM
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-appcenter (1.11.0)
+    fastlane-plugin-appicon (0.16.0)
+      json
+      mini_magick (>= 4.9.4, < 5.0.0)
     fastlane-plugin-badge (1.5.0)
       badge (~> 0.13.0)
     fastlane-plugin-increment_version_code (0.4.3)
@@ -208,6 +211,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   fastlane-plugin-appcenter
+  fastlane-plugin-appicon
   fastlane-plugin-badge
   fastlane-plugin-increment_version_code
   fastlane-plugin-increment_version_name

@@ -9,6 +9,7 @@ import {toDpFromPixel} from 'src/shared/theme/util';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
 import BottomTabItem from 'src/features/navigation/components/BottomTabItem';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 
 export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions>;
 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descriptors}) => {
+const BottomTabBar: React.FC<BottomTabBarProps> = ({state, descriptors}) => {
   const currentRoute = state.routes[state.index];
   const focusedOptions = descriptors[currentRoute.key].options;
 
@@ -39,7 +40,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, navigation, descripto
         const isSelected = currentRoute.name === route;
 
         const onPress = () => {
-          navigation.navigate(route);
+          NavigationService.fromBottomTabs(route);
         };
 
         return (

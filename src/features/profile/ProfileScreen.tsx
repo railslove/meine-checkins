@@ -7,29 +7,29 @@ import {useDispatch, useSelector} from 'react-redux';
 import User from 'src/shared/models/User';
 import {toDpFromPixel} from 'src/shared/theme/util';
 import {saveUserAction} from 'src/shared/redux/actions/userActions';
-import NavigationService from 'src/features/navigation/services/NavigationService';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Button from 'src/shared/components/Button/Button';
 import Title from 'src/shared/components/Typography/Title';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
 import Paragraph from 'src/shared/components/Typography/Paragraph';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 import TextInput, {TextInputProps} from 'src/shared/components/Form/TextInput';
 
 const ProfileScreen: React.FC = () => {
-  const theme = useTheme();
+  const {t} = useTranslation('profileScreen');
   const user = useSelector(state => state.user.item);
+  const theme = useTheme();
   const checkIns = useSelector(state => state.checkIns);
 
-  const {t} = useTranslation('profileScreen');
   const dispatch = useDispatch();
 
   const {
     control,
-    formState: {errors, isValid, submitCount},
+    formState: {errors},
     getValues,
     handleSubmit,
   } = useForm<User>({
@@ -54,6 +54,7 @@ const ProfileScreen: React.FC = () => {
 
           return (
             <TextInput
+              name={name}
               dataDetectorTypes="all"
               {...inputProps}
               label={hasError ? label : undefined}
@@ -68,8 +69,6 @@ const ProfileScreen: React.FC = () => {
       />
     );
   };
-
-  const canSubmit = submitCount === 0 || isValid;
 
   return (
     <TopLevelView>
@@ -144,7 +143,7 @@ const ProfileScreen: React.FC = () => {
           </Box>
 
           <Space.V s={10} />
-          <Button fullWidth onPress={handleSave} disabled={!canSubmit}>
+          <Button fullWidth onPress={handleSave}>
             {t('submit')}
           </Button>
         </Box>

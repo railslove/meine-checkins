@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export type TextInputProps = Omit<RNTextInputProps, 'selectionColor'> & {
+  name?: string;
   label?: string;
   error?: boolean;
 };

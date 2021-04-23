@@ -130,11 +130,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mastercheckingapp"
+        applicationId "de.railslove.wfdcheckin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.5.1"
+        versionCode 19
+        versionName "1.7.11"
 
         // Detox
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
