@@ -7,6 +7,9 @@ import {AutoCompleteValues} from 'src/shared/types/autoComplete';
 declare global {
   interface Window {
     ReactNativeWebView: WebView;
+    __WFD_DID_CHECK_IN_?: boolean;
+    __WFD_DID_CHECK_OUT_?: boolean;
+    __WFD_CHECK_IN_SETUP__?: boolean;
   }
 }
 
@@ -30,6 +33,8 @@ export type ProviderFormMessage = {
 
 export function fillFormInWebView(values: InjectJSValues) {
   const {user} = values;
+
+  postMessage('fillFormStart');
 
   function postMessage(key: MessageKey, value?: string) {
     const message = JSON.stringify({key, value});
@@ -73,6 +78,10 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function isCheckInFormReady() {
     return getCheckInInputs().length > 0 && getButton() != null;
+  }
+
+  function isCheckOutButton(button: HTMLButtonElement) {
+    return /check[-\s]*out/i.test(button?.outerHTML);
   }
 
   function fillCheckInForm() {
@@ -138,33 +147,43 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function waitForCheckOut() {
     // wait a bit for re-rendering and wait for check-out
-    const timer = setInterval(() => {
+    const checkOutTimer = setInterval(() => {
       const button = getButton();
 
       if (button == null) {
         return;
       }
 
+      if (!isCheckOutButton(button)) {
+        return;
+      }
+
+      clearInterval(checkOutTimer);
       button.removeEventListener('click', waitForCheckOut);
 
-      postMessage('checkInSuccess');
-
-      clearInterval(timer);
+      if (!window.__WFD_DID_CHECK_IN_) {
+        postMessage('checkInSuccess');
+        window.__WFD_DID_CHECK_IN_ = true;
+      }
 
       button.addEventListener('click', function wait() {
         button.removeEventListener('click', wait);
-        postMessage('checkOutSuccess');
+
+        if (!window.__WFD_DID_CHECK_OUT_) {
+          postMessage('checkOutSuccess');
+          window.__WFD_DID_CHECK_OUT_ = true;
+        }
       });
     }, 1000);
   }
 
   try {
-    const timer = setInterval(() => {
+    const checkInTimer = setInterval(() => {
       if (!isCheckInFormReady()) {
         return;
       }
 
-      clearInterval(timer);
+      clearInterval(checkInTimer);
 
       findProviderLogo();
 
