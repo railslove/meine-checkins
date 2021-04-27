@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontFamily: 'Inter-Bold',
 
-    fontSize: toDpFromPixel(14),
+    fontSize: toDpFromPixel(13),
     lineHeight: toDpFromPixel(17),
     letterSpacing: toDpFromPixel(16 * 0.075),
   },
