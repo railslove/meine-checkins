@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import {TEST_PROVIDER} from 'src/testData';
 
@@ -18,6 +18,7 @@ import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 import {toDpFromPixel} from 'src/shared/theme/util';
+import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
@@ -25,8 +26,6 @@ const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
   const currentProvider = useSelector(state => state.checkIns.current);
-
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean>();
 
   const handleTestSubmit = () => {
     handleSuccess({data: TEST_PROVIDER.url});
@@ -42,11 +41,7 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    if (hasCameraPermission == null) {
-      PermissionsService.requestCamera().then(({hasPermission}) => {
-        setHasCameraPermission(hasPermission);
-      });
-    }
+    PermissionsService.requestCamera();
   });
 
   if (currentProvider) {
@@ -90,7 +85,7 @@ const ScanQRCodeScreen: React.FC = () => {
         </Box>
 
         <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-          <QRScanner onRead={handleSuccess} />
+          <QRScanner notAuthorizedView={<NotAuthorizedView />} onRead={handleSuccess} />
         </Box>
 
         <Box display="flex" alignItems="center" justifyContent="center">
