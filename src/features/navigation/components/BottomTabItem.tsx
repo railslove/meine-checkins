@@ -3,12 +3,12 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Text, View, StyleSheet} from 'react-native';
 
-import {BottomTabsRoutes} from 'src/features/navigation/routes';
-import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
-import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
-import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
 import Space from 'src/shared/components/Layout/Space';
+import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
+import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
+import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
 import {toDpFromPixel} from 'src/shared/theme/util';
+import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
 export type BottomTabItemProps = {
   route: BottomTabsRoutes;

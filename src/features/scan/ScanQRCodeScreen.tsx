@@ -102,7 +102,7 @@ const ScanQRCodeScreen: React.FC = () => {
             <Space.V s={10} />
           </Box>
 
-          {__DEV__ ? (
+          {true ? (
             <>
               <Space.V s={10} />
               <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>

@@ -31,6 +31,8 @@ export type ProviderFormMessage = {
 export function fillFormInWebView(values: InjectJSValues) {
   const {user} = values;
 
+  postMessage('fillFormStart');
+
   function postMessage(key: MessageKey, value?: string) {
     const message = JSON.stringify({key, value});
     window.ReactNativeWebView.postMessage(message);
@@ -57,7 +59,7 @@ export function fillFormInWebView(values: InjectJSValues) {
       return altEl;
     }
 
-    return document.createElement('button');
+    return;
   }
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
@@ -72,7 +74,11 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function isCheckInFormReady() {
-    return getCheckInInputs().length > 0;
+    return getCheckInInputs().length > 0 && getButton() != null;
+  }
+
+  function isCheckOutButton(button: HTMLButtonElement) {
+    return /check[-\s]*out/i.test(button?.outerHTML);
   }
 
   function fillCheckInForm() {
@@ -128,7 +134,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     const isSuccess = filled.length === Object.keys(user).length;
 
     if (isSuccess) {
-      getButton().scrollIntoView(false);
+      getButton()?.scrollIntoView(false);
     }
 
     return {
@@ -138,21 +144,31 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function waitForCheckOut() {
     // wait a bit for re-rendering and wait for check-out
-    setTimeout(() => {
-      getButton().addEventListener('click', function wait() {
-        getButton().removeEventListener('click', wait);
+    const checkOutTimer = setInterval(() => {
+      const button = getButton();
+
+      if (button == null || !isCheckOutButton(button)) {
+        return;
+      }
+
+      clearInterval(checkOutTimer);
+
+      postMessage('checkInSuccess');
+
+      button.addEventListener('click', function wait() {
+        button.removeEventListener('click', wait);
         postMessage('checkOutSuccess');
       });
-    }, 3000);
+    }, 1000);
   }
 
   try {
-    const timer = setInterval(() => {
+    const checkInTimer = setInterval(() => {
       if (!isCheckInFormReady()) {
         return;
       }
 
-      clearInterval(timer);
+      clearInterval(checkInTimer);
 
       findProviderLogo();
 
@@ -160,11 +176,8 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (result.isSuccess) {
         // we'll wait for the user to submit the form to signal check-in
-        getButton().addEventListener('click', function waitForCheckIn() {
-          getButton().removeEventListener('click', waitForCheckIn);
-
-          postMessage('checkInSuccess');
-
+        getButton()?.addEventListener('click', function wait() {
+          getButton()?.removeEventListener('click', wait);
           waitForCheckOut();
         });
       } else {

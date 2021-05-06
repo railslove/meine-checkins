@@ -5,16 +5,23 @@ import {
   BottomTabBarProps as RNBottomTabBarProps,
 } from '@react-navigation/bottom-tabs';
 
+import {useTheme} from 'react-native-paper';
 import {toDpFromPixel} from 'src/shared/theme/util';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
+import ScanHighlight from 'src/features/navigation/components/ScanHighlight';
 import BottomTabItem from 'src/features/navigation/components/BottomTabItem';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
-export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions>;
+export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions> & {
+  theme: ReturnType<typeof useTheme>;
+  highlightScanButton: boolean;
+};
 
 const styles = StyleSheet.create({
   root: {
+    zIndex: 100,
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
@@ -26,7 +33,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const BottomTabBar: React.FC<BottomTabBarProps> = ({state, descriptors}) => {
+const BottomTabBar: React.FC<BottomTabBarProps> = ({
+  theme,
+  state,
+  descriptors,
+  highlightScanButton,
+}) => {
   const currentRoute = state.routes[state.index];
   const focusedOptions = descriptors[currentRoute.key].options;
 
@@ -34,11 +46,15 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, descriptors}) => {
     return null;
   }
 
+  const shouldHighlightScan =
+    highlightScanButton && currentRoute.name === BottomTabsRoutes.CheckInsNavigator;
+
   return (
     <View style={styles.root}>
       {Object.values(BottomTabsRoutes).map(route => {
-        const isSelected = currentRoute.name === route;
-
+        const isSelected = shouldHighlightScan
+          ? route === BottomTabsRoutes.ScanQRCode
+          : currentRoute.name === route;
         const onPress = () => {
           NavigationService.fromBottomTabs(route);
         };
@@ -46,7 +62,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, descriptors}) => {
         return (
           <TouchableOpacity
             key={route}
-            style={{flex: 1}}
+            style={{flex: 1, zIndex: 500}}
             accessibilityRole="button"
             accessibilityState={{selected: isSelected}}
             onPress={onPress}
@@ -55,6 +71,9 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({state, descriptors}) => {
           </TouchableOpacity>
         );
       })}
+      {shouldHighlightScan ? (
+        <ScanHighlight zIndex={200} backgroundColor={theme.colors.background} />
+      ) : null}
     </View>
   );
 };
