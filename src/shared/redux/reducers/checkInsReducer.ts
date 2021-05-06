@@ -59,4 +59,5 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       current: undefined,
     };
   });
+
 export default checkInsReducer;

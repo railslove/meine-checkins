@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
 });
 
 export type ButtonProps = {
-  onPress?: () => void;
+  mode?: 'text' | 'outlined' | 'contained';
   children: React.ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
+  onPress?: () => void;
 };
 
 const Button: React.FC<ButtonProps> = ({fullWidth, ...props}) => {
@@ -41,7 +42,6 @@ const Button: React.FC<ButtonProps> = ({fullWidth, ...props}) => {
     <View style={styles.root}>
       <RPButton
         mode="contained"
-        compact={false}
         style={fullWidth ? styles.fullWidth : styles.main}
         labelStyle={styles.label}
         contentStyle={styles.content}

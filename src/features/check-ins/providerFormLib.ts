@@ -12,6 +12,7 @@ declare global {
 
 type InjectJSValues = {
   user: User;
+  __DEV__: boolean;
 };
 
 export type ProviderFormMessage = {
@@ -29,10 +30,12 @@ export type ProviderFormMessage = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
-  const {user} = values;
+  const {user, __DEV__} = values;
   const state = {hasFilledInputs: isCheckOut(), hasCheckOut: false};
 
-  postMessage('fillFormStart');
+  if (__DEV__) {
+    postMessage('start', JSON.stringify(state));
+  }
 
   function postMessage(key: MessageKey, value?: string) {
     const message = JSON.stringify({key, value});
@@ -70,8 +73,12 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
-    el.setRangeText(value, 0, value.length);
-    el.dispatchEvent(new Event('input', {bubbles: true}));
+    el.focus();
+
+    setTimeout(() => {
+      el.setRangeText(value, 0, value.length);
+      el.dispatchEvent(new Event('input', {bubbles: true}));
+    }, index * 100);
   }
 
   function getCheckInInputs() {
@@ -140,6 +147,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     const isSuccess = filled.length === Object.keys(user).length;
 
     if (isSuccess) {
+      state.hasFilledInputs = true;
       getButton()?.scrollIntoView(false);
     }
 
@@ -167,10 +175,13 @@ export function fillFormInWebView(values: InjectJSValues) {
     });
 
     const checkInterval = setInterval(() => {
-      if (canCheckIn()) {
+      if (__DEV__) {
+        postMessage('check', JSON.stringify(state));
+      }
+
+      if (!state.hasFilledInputs && canCheckIn()) {
         fillCheckInForm();
         findProviderLogo();
-        clearInterval(checkInterval);
       } else if (isCheckOut()) {
         postMessage('checkInSuccess');
         clearInterval(checkInterval);

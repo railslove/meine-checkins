@@ -89,7 +89,7 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
-  const injectedJavaScript = user ? prepareFillFormInWebViewInject({user}) : undefined;
+  const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;
 
   return (
     <Box flex={1} backgroundColor={theme.colors.surface}>

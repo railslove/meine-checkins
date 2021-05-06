@@ -78,7 +78,7 @@ const ScanQRCodeScreen: React.FC = () => {
         </Button>
 
         <Space.V s={10} />
-        <Button fullWidth={true} onPress={handleDiscardCheckIn}>
+        <Button fullWidth={true} mode="text" onPress={handleDiscardCheckIn}>
           {t('checkInProgressDiscard')}
         </Button>
       </TopLevelView>
