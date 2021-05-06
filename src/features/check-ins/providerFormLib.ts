@@ -25,11 +25,12 @@ export type ProviderFormMessage = {
  * We can use TypeScript because:
  *
  * - Function.prototype.toString contains the function body
- * - the body is already transformed to JS when is run on the device (you can test this by login it)
+ * - body is already transformed to JS when is run (you can test this by using console.log)
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
   const {user} = values;
+  const state = {hasFilledInputs: isCheckOut(), hasCheckOut: false};
 
   postMessage('fillFormStart');
 
@@ -39,7 +40,7 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function findProviderLogo() {
-    const link = document.querySelector<HTMLLinkElement>('link[type^=image][rel=icon]');
+    const link = document.querySelector<HTMLLinkElement>('link[type*=image][rel*=icon]');
 
     if (link && link.href) {
       postMessage('setProviderLogo', link.href);
@@ -47,38 +48,43 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function getButton() {
-    const el = document.body.querySelector<HTMLButtonElement>('button[type=submit]');
+    const el = document.body.querySelector<HTMLButtonElement>(
+      '[type=submit], [data-wfd-action="check-in"], [data-wfd-action="check-out"]'
+    );
 
     if (el) {
       return el;
     }
 
-    const altEl = document.body.querySelector('button');
+    const elements = document.body.querySelectorAll<HTMLButtonElement>('a, input, button');
 
-    if (altEl && /check[-\s]*(in|out)/i.test(altEl?.outerHTML)) {
-      return altEl;
-    }
+    return Array.from(elements).find(
+      el => el.type === 'submit' || /check[-\s]*(in|out)/i.test(el.outerHTML)
+    );
+  }
 
-    return;
+  function isElementVisible(el: HTMLElement = document.createElement('div')) {
+    // taken from jquery source code
+    // https://github.com/jquery/jquery/blob/a684e6ba836f7c553968d7d026ed7941e1a612d8/src/css/hiddenVisibleSelectors.js#L9
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
   }
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
-    setTimeout(() => {
-      el.setRangeText(value, 0, value.length);
-      el.dispatchEvent(new Event('input', {bubbles: true}));
-    }, index * 100);
+    el.setRangeText(value, 0, value.length);
+    el.dispatchEvent(new Event('input', {bubbles: true}));
   }
 
   function getCheckInInputs() {
-    return Array.from(document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]'));
+    const el = document.body.querySelectorAll<HTMLInputElement>('input[autocomplete]');
+    return Array.from(el).filter(isElementVisible);
   }
 
-  function isCheckInFormReady() {
+  function canCheckIn() {
     return getCheckInInputs().length > 0 && getButton() != null;
   }
 
-  function isCheckOutButton(button: HTMLButtonElement) {
-    return /check[-\s]*out/i.test(button?.outerHTML);
+  function isCheckOut(el = getButton()) {
+    return /check[-\s]*out/i.test(el?.outerHTML || '');
   }
 
   function fillCheckInForm() {
@@ -142,46 +148,32 @@ export function fillFormInWebView(values: InjectJSValues) {
     };
   }
 
-  function waitForCheckOut() {
-    // wait a bit for re-rendering and wait for check-out
-    const checkOutTimer = setInterval(() => {
-      const button = getButton();
-
-      if (button == null || !isCheckOutButton(button)) {
-        return;
-      }
-
-      clearInterval(checkOutTimer);
-
-      postMessage('checkInSuccess');
-
-      button.addEventListener('click', function wait() {
-        button.removeEventListener('click', wait);
-        postMessage('checkOutSuccess');
-      });
-    }, 1000);
+  function waitForCheckout() {
+    if (!state.hasCheckOut) {
+      postMessage('checkOutSuccess');
+    } else {
+      state.hasCheckOut = true;
+    }
   }
 
   try {
-    const checkInTimer = setInterval(() => {
-      if (!isCheckInFormReady()) {
-        return;
+    document.body.addEventListener('mousedown', (ev: any) => {
+      const el = ev.target?.closest('a, div, button, input');
+
+      if (isCheckOut(el)) {
+        setTimeout(waitForCheckout, 500);
+        window.addEventListener('unload', waitForCheckout);
       }
+    });
 
-      clearInterval(checkInTimer);
-
-      findProviderLogo();
-
-      const result = fillCheckInForm();
-
-      if (result.isSuccess) {
-        // we'll wait for the user to submit the form to signal check-in
-        getButton()?.addEventListener('click', function wait() {
-          getButton()?.removeEventListener('click', wait);
-          waitForCheckOut();
-        });
-      } else {
-        postMessage('checkInFailure');
+    const checkInterval = setInterval(() => {
+      if (canCheckIn()) {
+        fillCheckInForm();
+        findProviderLogo();
+        clearInterval(checkInterval);
+      } else if (isCheckOut()) {
+        postMessage('checkInSuccess');
+        clearInterval(checkInterval);
       }
     }, 1000);
   } catch (error) {
@@ -209,11 +201,7 @@ export const parseProviderWebviewMessage = (ev: WebViewMessageEvent): ProviderFo
  * Makes an immediately invoked function expression
  * that fills the provider's form with the user data from the app
  */
-export const prepareFillFormInWebViewInject = (user: User) => {
-  const values: InjectJSValues = {
-    user,
-  };
-
+export const prepareFillFormInWebViewInject = (values: InjectJSValues) => {
   const injectFnBody = fillFormInWebView.toString();
   const globalForSetup = 'window.__WFD_CHECK_IN_SETUP__';
   const serializedArguments = JSON.stringify(values);

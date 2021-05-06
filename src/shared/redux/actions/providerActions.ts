@@ -36,3 +36,5 @@ export const providerCheckOutAction = createAction(
     stopTime: Date.now(),
   })
 )();
+
+export const providerDiscardAction = createAction('@provider/check-in-discard')();

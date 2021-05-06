@@ -6,13 +6,15 @@ export const webviewRef = createRef<WebView>();
 const renderLoading = () => <ProgressBar indeterminate />;
 
 export type MemoWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
+  id: string;
   url: string;
 };
 
 /**
  * webview that only re-renders when the url changes
  */
-const MemoWebView: React.FC<MemoWebViewProps> = ({url, ...restProps}) => {
+const MemoWebView: React.FC<MemoWebViewProps> = ({id, url, ...restProps}) => {
+  console.info('Rendering MemoWebView for', id);
   return (
     <WebView renderLoading={renderLoading} {...restProps} ref={webviewRef} source={{uri: url}} />
   );
