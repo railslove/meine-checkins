@@ -7,6 +7,7 @@ import {
   providerCheckInAction,
   providerCheckOutAction,
   providerSetLogoAction,
+  providerDiscardAction,
 } from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsReducerState = {
@@ -50,6 +51,12 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       ...state,
       current: undefined,
       items: [provider].concat(state.items),
+    };
+  })
+  .handleAction(providerDiscardAction, state => {
+    return {
+      ...state,
+      current: undefined,
     };
   });
 

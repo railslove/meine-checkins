@@ -13,7 +13,10 @@ import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
-import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
+import {
+  providerDiscardAction,
+  providerRegisterAction,
+} from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
@@ -39,6 +42,10 @@ const ScanQRCodeScreen: React.FC = () => {
 
   const handleGoToCheckout = () => {
     NavigationService.fromScanQRScreen();
+  };
+
+  const handleDiscardCheckIn = () => {
+    dispatch(providerDiscardAction());
   };
 
   useEffect(() => {
@@ -68,6 +75,11 @@ const ScanQRCodeScreen: React.FC = () => {
 
         <Button fullWidth={true} onPress={handleGoToCheckout}>
           {t('checkInProgressContinue')}
+        </Button>
+
+        <Space.V s={10} />
+        <Button fullWidth={true} mode="text" onPress={handleDiscardCheckIn}>
+          {t('checkInProgressDiscard')}
         </Button>
       </TopLevelView>
     );
