@@ -17,6 +17,9 @@ import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
+import {toDpFromPixel} from 'src/shared/theme/util';
+
+export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -48,21 +51,24 @@ const ScanQRCodeScreen: React.FC = () => {
 
   if (currentProvider) {
     return (
-      <TopLevelView flex={1} display="flex" flexDirection="column">
-        <Space.V s={10} />
-        <Title split={false}>{t('title')}</Title>
-        <Space.V s={10} />
-        <SubTitle>{t('checkInProgress')}</SubTitle>
-        <Space.V s={10} />
+      <TopLevelView
+        flex={1}
+        display="flex"
+        flexDirection="column"
+        paddingHorizontal={toDpFromPixel(30)}
+        backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
+      >
+        <Space.V s={40} />
+        <Title color="white" split={false}>
+          {t('checkInProgressTitle')}
+        </Title>
+        <Space.V s={15} />
+        <SubTitle color="white">{t('checkInProgressSubTitle')}</SubTitle>
+        <Space.V s={25} />
 
-        <Box display="flex" flex={1}>
-          <Description>{t('checkInProgressDescription')}</Description>
-
-          <Space.V s={10} />
-          <Button onPress={handleGoToCheckout}>{t('checkInProgressContinue')}</Button>
-          {/* space below for scroll tests */}
-          <Space.V s={10} />
-        </Box>
+        <Button fullWidth={true} onPress={handleGoToCheckout}>
+          {t('checkInProgressContinue')}
+        </Button>
       </TopLevelView>
     );
   }
@@ -74,7 +80,7 @@ const ScanQRCodeScreen: React.FC = () => {
       alignItems="center"
       flexDirection="column"
       justifyContent="center"
-      backgroundColor="black"
+      backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
     >
       <Box marginHorizontal="10%">
         <Box display="flex" alignItems="center" justifyContent="center">
@@ -96,7 +102,7 @@ const ScanQRCodeScreen: React.FC = () => {
             <Space.V s={10} />
           </Box>
 
-          {__DEV__ ? (
+          {true ? (
             <>
               <Space.V s={10} />
               <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>

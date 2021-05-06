@@ -31,6 +31,8 @@ export type ProviderFormMessage = {
 export function fillFormInWebView(values: InjectJSValues) {
   const {user} = values;
 
+  postMessage('fillFormStart');
+
   function postMessage(key: MessageKey, value?: string) {
     const message = JSON.stringify({key, value});
     window.ReactNativeWebView.postMessage(message);
@@ -73,6 +75,10 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function isCheckInFormReady() {
     return getCheckInInputs().length > 0 && getButton() != null;
+  }
+
+  function isCheckOutButton(button: HTMLButtonElement) {
+    return /check[-\s]*out/i.test(button?.outerHTML);
   }
 
   function fillCheckInForm() {
@@ -138,18 +144,16 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function waitForCheckOut() {
     // wait a bit for re-rendering and wait for check-out
-    const timer = setInterval(() => {
+    const checkOutTimer = setInterval(() => {
       const button = getButton();
 
-      if (button == null) {
+      if (button == null || !isCheckOutButton(button)) {
         return;
       }
 
-      button.removeEventListener('click', waitForCheckOut);
+      clearInterval(checkOutTimer);
 
       postMessage('checkInSuccess');
-
-      clearInterval(timer);
 
       button.addEventListener('click', function wait() {
         button.removeEventListener('click', wait);
@@ -159,12 +163,12 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   try {
-    const timer = setInterval(() => {
+    const checkInTimer = setInterval(() => {
       if (!isCheckInFormReady()) {
         return;
       }
 
-      clearInterval(timer);
+      clearInterval(checkInTimer);
 
       findProviderLogo();
 
@@ -172,7 +176,10 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (result.isSuccess) {
         // we'll wait for the user to submit the form to signal check-in
-        getButton()?.addEventListener('click', waitForCheckOut);
+        getButton()?.addEventListener('click', function wait() {
+          getButton()?.removeEventListener('click', wait);
+          waitForCheckOut();
+        });
       } else {
         postMessage('checkInFailure');
       }

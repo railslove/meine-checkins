@@ -2,6 +2,7 @@ import React from 'react';
 
 import {WFD_EMAIL} from 'src/shared/services/OpenLinkService';
 import WFDEmailButtonLink from 'src/shared/components/Button/WFDEmailButtonLink';
+import WFDIndexButtonLink from 'src/shared/components/Button/WFDIndexButtonLink';
 
 export type FAQLocaleItem = {
   title: string;
@@ -26,8 +27,15 @@ const faqItems: FAQLocaleItem[] = [
   },
   {
     title: 'Was ist “Wir für Digitalisierung”?',
-    content:
-      'Wir für Digitalisierung ist eine Initiative verschiedener Startups mit dem Ziel die digitale Vielfältigkeit der Kontakterfassung zu forcieren.',
+    content() {
+      return (
+        <>
+          <WFDIndexButtonLink>Wir für Digitalisierung</WFDIndexButtonLink> ist eine Initiative
+          verschiedener Startups mit dem Ziel die digitale Vielfältigkeit der Kontakterfassung zu
+          forcieren.
+        </>
+      );
+    },
   },
   {
     title: 'Sind meine Daten sicher?',

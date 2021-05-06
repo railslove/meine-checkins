@@ -19,7 +19,7 @@ or alternatively using `brew install fastlane`
 ```
 fastlane app_icon
 ```
-Create App Icon from src/shared/assets/App-Icon.png
+Create App Icon from src/shared/assets/App-Icon.jpg
 ### make_badge
 ```
 fastlane make_badge
