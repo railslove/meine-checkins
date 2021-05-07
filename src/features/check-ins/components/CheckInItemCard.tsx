@@ -54,7 +54,7 @@ const useStyles = () => {
       flex: 1,
       width: undefined,
       height: undefined,
-      margin: '20%',
+      margin: '10%',
       alignSelf: 'stretch',
     },
   });
