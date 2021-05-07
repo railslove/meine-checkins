@@ -159,7 +159,6 @@ export function fillFormInWebView(values: InjectJSValues) {
   function waitForCheckout() {
     if (!state.hasCheckOut) {
       postMessage('checkOutSuccess');
-    } else {
       state.hasCheckOut = true;
     }
   }
