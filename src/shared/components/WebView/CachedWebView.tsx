@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import {ProgressBar} from 'react-native-paper';
 import WebView, {WebViewProps} from 'react-native-webview';
 
 const renderLoading = () => <ProgressBar indeterminate />;
 
+export const webviewRef = createRef<WebView>();
 const webViewCache: Record<string, null | React.ReactElement<WebViewProps, typeof WebView>> = {};
 
 export const clearCachedWebView = (id: string) => {
@@ -26,7 +27,7 @@ const CachedWebView: React.FC<CachedWebViewProps> = ({id, url, ...restProps}) =>
   const cached =
     webViewCache[id] ||
     (webViewCache[id] = (
-      <WebView renderLoading={renderLoading} {...restProps} source={{uri: url}} />
+      <WebView renderLoading={renderLoading} {...restProps} ref={webviewRef} source={{uri: url}} />
     ));
 
   return cached;
