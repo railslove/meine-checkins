@@ -1,6 +1,6 @@
-import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
+import {useDispatch, useSelector} from 'react-redux';
 import React, {useEffect} from 'react';
 
 import {TEST_PROVIDER} from 'src/testData';
@@ -39,19 +39,19 @@ const ScanQRCodeScreen: React.FC = () => {
     NavigationService.fromScanQRScreen();
   };
 
-  const handleGoToCheckout = () => {
-    NavigationService.fromScanQRScreen();
-  };
-
-  const handleDiscardCheckIn = () => {
-    dispatch(providerDiscardAction());
-  };
-
   useEffect(() => {
     PermissionsService.requestCamera();
   });
 
   if (currentProvider) {
+    const handleGoToCheckout = () => {
+      NavigationService.fromScanQRScreen();
+    };
+
+    const handleDiscardCheckIn = () => {
+      dispatch(providerDiscardAction());
+    };
+
     return (
       <TopLevelView
         flex={1}

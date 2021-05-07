@@ -73,8 +73,6 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
-    el.focus();
-
     setTimeout(() => {
       el.setRangeText(value, 0, value.length);
       el.dispatchEvent(new Event('input', {bubbles: true}));

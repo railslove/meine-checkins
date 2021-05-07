@@ -15,14 +15,15 @@ import {
   prepareFillFormInWebViewInject,
 } from 'src/features/check-ins/providerFormLib';
 
+import NavigationService from 'src/features/navigation/services/NavigationService';
+
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
-import MemoWebview from 'src/shared/components/Webview/MemoWebview';
-import NavigationService from 'src/features/navigation/services/NavigationService';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import Description from 'src/shared/components/Typography/Description';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
@@ -93,7 +94,7 @@ const ProviderFormScreen: React.FC = () => {
 
   return (
     <Box flex={1} backgroundColor={theme.colors.surface}>
-      <MemoWebview
+      <CachedWebView
         id={checkIn.id}
         url={checkIn.url}
         injectedJavaScript={injectedJavaScript}
