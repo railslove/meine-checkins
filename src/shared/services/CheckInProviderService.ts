@@ -5,7 +5,7 @@ class CheckInProviderService {
   mapProviderValues = (props: ProviderCheckInItem): ProviderCheckInItem => {
     const {url} = props;
     const hostname = (/^https?\:\/\/([^\s\/]+)/.exec(url) || []).pop();
-    const provider = CHECK_IN_PROVIDER_LIST.find(el => el.hostname === hostname);
+    const provider = CHECK_IN_PROVIDER_LIST.find(el => el.hostname.test(hostname));
 
     if (provider) {
       return {
