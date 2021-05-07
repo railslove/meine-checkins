@@ -3,6 +3,7 @@ export default {
   description: 'Indem du den QR-Code scannst, leiten wir dich zur Seite des Anbieters weiter. ',
   submitScanQRCode: 'check-in',
 
+  gotoAppSettings: 'ändern',
   cameraNotAuthorized: 'Kamera nicht autorisiert',
 
   checkInProgressTitle: 'Du bist bereits eingecheckt',

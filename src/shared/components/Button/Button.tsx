@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
 });
 
 export type ButtonProps = {
-  onPress?: () => void;
+  mode?: 'text' | 'contained' | 'outlined';
   children: React.ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
+  onPress?: () => void;
 };
 
 const Button: React.FC<ButtonProps> = ({fullWidth, ...props}) => {
