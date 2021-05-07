@@ -1,5 +1,4 @@
 import {useTheme} from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
 import {WebViewMessageEvent} from 'react-native-webview';
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,24 +17,14 @@ import {
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
 import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
-import Title from 'src/shared/components/Typography/Title';
-import Button from 'src/shared/components/Button/Button';
-import Description from 'src/shared/components/Typography/Description';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
 const ProviderFormScreen: React.FC = () => {
-  const {t} = useTranslation('providerFormScreen');
   const theme = useTheme();
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.user.item);
   const checkIn = useSelector(state => state.checkIns.current);
-
-  const handleGoToScanQR = useCallback(() => {
-    NavigationService.fromEmptyProviderForm();
-  }, []);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
@@ -77,17 +66,7 @@ const ProviderFormScreen: React.FC = () => {
   );
 
   if (!checkIn) {
-    return (
-      <TopLevelView>
-        <Space.V s={10} />
-        <Title split={false}>{t('missingProviderTitle')}</Title>
-        <Space.V s={10} />
-
-        <Description>{t('missingProviderDescription')}</Description>
-        <Space.V s={10} />
-        <Button onPress={handleGoToScanQR}>{t('missingProviderSubmit')}</Button>
-      </TopLevelView>
-    );
+    return null;
   }
 
   const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;
