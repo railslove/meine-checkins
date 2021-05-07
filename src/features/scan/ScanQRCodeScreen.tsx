@@ -35,8 +35,11 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
-    dispatch(providerRegisterAction({url}));
     NavigationService.fromScanQRScreen();
+
+    // dispatch action with a bit of delay
+    // otherwise the case where there is a current provider flashes
+    setTimeout(() => dispatch(providerRegisterAction({url})), 0);
   };
 
   useEffect(() => {
