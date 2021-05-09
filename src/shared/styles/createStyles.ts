@@ -1,5 +1,6 @@
 import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import {create} from 'react-native-pixel-perfect';
+import {DESIGN_VIEWPORT_SIZE} from 'src/shared/styles/constants';
 
 type StyleRules = ViewStyle | TextStyle | ImageStyle;
 type StyleRuleKey = keyof StyleRules;
@@ -12,10 +13,7 @@ type NamedStyles<T> = {[P in keyof T]: StyleRules};
  *
  * width and height values below come from the figma design of the app
  */
-export const px2dp = create({
-  width: 375,
-  height: 750,
-});
+export const px2dp = create(DESIGN_VIEWPORT_SIZE);
 
 const shouldTransformStyleValue = (
   styleKey: keyof ViewStyle | keyof TextStyle,

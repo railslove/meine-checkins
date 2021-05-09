@@ -5,7 +5,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 
 import User from 'src/shared/models/User';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {saveUserAction} from 'src/shared/redux/actions/userActions';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
@@ -88,7 +88,7 @@ const ProfileScreen: React.FC = () => {
               autoCompleteType: 'name',
             })}
           </Box>
-          <Box flex={1} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={px2dp(5)}>
             {renderTextInput('lastName', {
               autoCompleteType: 'name',
             })}
@@ -108,7 +108,7 @@ const ProfileScreen: React.FC = () => {
               dataDetectorTypes: 'phoneNumber',
             })}
           </Box>
-          <Box flex={1} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={px2dp(5)}>
             {renderTextInput('city', {
               autoCompleteType: 'street-address',
               dataDetectorTypes: 'address',
@@ -130,11 +130,7 @@ const ProfileScreen: React.FC = () => {
           marginHorizontal="7.5%"
         >
           <Box display="flex" flexDirection="row" alignItems="flex-start">
-            <Box
-              borderRadius={theme.roundness}
-              marginRight={toDpFromPixel(20)}
-              marginTop={toDpFromPixel(5)}
-            >
+            <Box borderRadius={theme.roundness} marginRight={px2dp(20)} marginTop={px2dp(5)}>
               <LockIcon />
             </Box>
             <Box>

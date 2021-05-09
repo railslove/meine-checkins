@@ -2,9 +2,9 @@ import React from 'react';
 import {useTheme} from 'react-native-paper';
 import Svg, {Path} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const size = toDpFromPixel(22);
+const size = px2dp(22);
 
 const ProfileIcon: React.FC<SvgIconProps> = ({isSelected}) => {
   const theme = useTheme();

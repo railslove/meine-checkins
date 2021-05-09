@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 import Space from 'src/shared/components/Layout/Space';
 import PlusIcon from 'src/shared/components/Icon/PlusIcon';
@@ -16,12 +16,12 @@ export type AccordionProps = {
 
 const styles = StyleSheet.create({
   root: {
-    paddingVertical: toDpFromPixel(12),
+    paddingVertical: px2dp(12),
 
     display: 'flex',
     flexDirection: 'column',
 
-    borderTopWidth: toDpFromPixel(2),
+    borderTopWidth: px2dp(2),
     borderTopColor: '#E5ECFC',
   },
   center: {
@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     flex: 1,
-    marginRight: toDpFromPixel(30),
+    marginRight: px2dp(30),
   },
   headerText: {
-    fontSize: toDpFromPixel(13),
+    fontSize: px2dp(13),
     fontWeight: '700',
     fontFamily: 'Inter-Bold',
-    lineHeight: toDpFromPixel(20),
+    lineHeight: px2dp(20),
   },
 });
 

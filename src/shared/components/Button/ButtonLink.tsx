@@ -3,7 +3,7 @@ import {useTheme} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const useStyles = () => {
   const theme = useTheme();
@@ -15,8 +15,8 @@ const useStyles = () => {
       flexDirection: 'row',
     },
     text: {
-      fontSize: toDpFromPixel(13),
-      lineHeight: toDpFromPixel(16),
+      fontSize: px2dp(13),
+      lineHeight: px2dp(16),
 
       color: theme.colors.primary,
       fontWeight: '600',

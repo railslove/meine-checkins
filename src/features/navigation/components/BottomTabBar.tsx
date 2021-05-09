@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import {useTheme} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
 import ScanHighlight from 'src/features/navigation/components/ScanHighlight';
@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: toDpFromPixel(15),
+    paddingVertical: px2dp(15),
     paddingHorizontal: '2.5%',
     borderTopColor: 'rgba(0, 0, 0, 0.05)',
-    borderTopWidth: toDpFromPixel(1),
+    borderTopWidth: px2dp(1),
   },
 });
 

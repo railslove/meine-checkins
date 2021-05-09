@@ -1,9 +1,9 @@
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import Svg, {Path} from 'react-native-svg';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const size = toDpFromPixel(19);
+const size = px2dp(19);
 
 const ChevronRightIcon: React.FC = () => {
   const {colors} = useTheme();

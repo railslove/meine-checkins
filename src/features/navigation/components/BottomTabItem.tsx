@@ -7,7 +7,7 @@ import Space from 'src/shared/components/Layout/Space';
 import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
 import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
 import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
 import Box from 'src/shared/components/Layout/Box';
 
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
 
-    fontSize: toDpFromPixel(12),
-    lineHeight: toDpFromPixel(14),
+    fontSize: px2dp(12),
+    lineHeight: px2dp(14),
   },
 });
 
@@ -77,11 +77,11 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
           {hasNewCheckIn ? (
             <Box
               position="absolute"
-              top={toDpFromPixel(-5)}
-              right={toDpFromPixel(25)}
-              width={toDpFromPixel(6)}
-              height={toDpFromPixel(6)}
-              borderRadius={toDpFromPixel(3)}
+              top={px2dp(-5)}
+              right={px2dp(25)}
+              width={px2dp(6)}
+              height={px2dp(6)}
+              borderRadius={px2dp(3)}
               backgroundColor="#3772FF"
             />
           ) : undefined}

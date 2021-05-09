@@ -20,7 +20,7 @@ import {
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
@@ -60,7 +60,7 @@ const ScanQRCodeScreen: React.FC = () => {
         flex={1}
         display="flex"
         flexDirection="column"
-        paddingHorizontal={toDpFromPixel(30)}
+        paddingHorizontal={px2dp(30)}
         backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
       >
         <Space.V s={40} />

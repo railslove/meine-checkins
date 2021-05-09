@@ -2,7 +2,7 @@ import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/styles/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
@@ -13,13 +13,13 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Space from 'src/shared/components/Layout/Space';
 
 const logoDimensions = {
-  width: toDpFromPixel(67),
-  height: toDpFromPixel(52),
+  width: px2dp(67),
+  height: px2dp(52),
 };
 
 const useStyles = () => {
   const theme = useTheme();
-  const borderRadius = toDpFromPixel(5);
+  const borderRadius = px2dp(5);
 
   return StyleSheet.create({
     root: {
@@ -27,10 +27,10 @@ const useStyles = () => {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      paddingVertical: toDpFromPixel(9),
-      paddingHorizontal: toDpFromPixel(10),
+      paddingVertical: px2dp(9),
+      paddingHorizontal: px2dp(10),
 
-      borderRadius: toDpFromPixel(5),
+      borderRadius: px2dp(5),
       backgroundColor: '#F0F1F3',
     },
     rootTouchable: {
@@ -50,22 +50,22 @@ const useStyles = () => {
       flex: 1,
       width: undefined,
       height: undefined,
-      margin: toDpFromPixel(10),
+      margin: px2dp(10),
       alignSelf: 'stretch',
     },
     companyName: {
       textAlign: 'left',
-      fontSize: toDpFromPixel(12),
+      fontSize: px2dp(12),
 
       fontFamily: 'Inter-Bold',
       fontWeight: '600',
-      lineHeight: toDpFromPixel(15),
+      lineHeight: px2dp(15),
     },
     dateTime: {
       textAlign: 'left',
-      fontSize: toDpFromPixel(12),
+      fontSize: px2dp(12),
       fontWeight: '400',
-      lineHeight: toDpFromPixel(15),
+      lineHeight: px2dp(15),
     },
   });
 };
@@ -109,7 +109,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         )}
       </View>
 
-      <Box flex={1} marginLeft={toDpFromPixel(22)}>
+      <Box flex={1} marginLeft={px2dp(22)}>
         <Text style={styles.companyName}>{name}</Text>
         {itemTime ? (
           <>
@@ -120,7 +120,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
       </Box>
 
       {stopTime == null ? (
-        <Box marginHorizontal={toDpFromPixel(10)}>
+        <Box marginHorizontal={px2dp(10)}>
           <ChevronRightIcon />
         </Box>
       ) : null}
