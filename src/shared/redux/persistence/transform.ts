@@ -1,4 +1,5 @@
 import {createTransform} from 'redux-persist';
+import {createCompleteCheckIn} from 'src/shared/models/Provider';
 import {ReduxPersistTransform} from 'src/shared/redux/persistence/types';
 
 import {
@@ -30,7 +31,10 @@ export const userPersistTransform = createTransform<UserReducerState, UserReduce
  */
 const checkInsTransform: ReduxPersistTransform<'checkIns', CheckInsReducerState> = {
   serialize: ({items}) => getCheckInsInitialState({items}),
-  rehydrate: value => value,
+  rehydrate: value => ({
+    ...value,
+    items: value.items.map(createCompleteCheckIn),
+  }),
   config: {
     whitelist: ['checkIns'],
   },

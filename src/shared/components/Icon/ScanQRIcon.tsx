@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const width = toDpFromPixel(25);
-const height = toDpFromPixel(25);
+const width = toDpFromPixel(28);
+const height = toDpFromPixel(28);
 const strokeWidth = 2;
 
 const ScanQRIcon: React.FC<SvgIconProps> = ({isSelected}) => {

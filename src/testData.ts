@@ -8,6 +8,8 @@ const TEST_PROVIDER_URL =
 // const TEST_PROVIDER_URL = 'https://checkin.bevent.io/12603/IN/41420/37';
 // const TEST_PROVIDER_URL =
 //   'https://visits-dev.perkiot.com/entry/9b2b0c5f-259c-438b-e0bc-08d8de26c0ad';
+// const TEST_PROVIDER_URL = 'https://pandasafe.app/15f42fb481fc2d';
+// const TEST_PROVIDER_URL = 'https://gastident.de/check-in/spotar';
 
 export const TEST_PROVIDER = createPartialCheckIn({
   // url: 'https://check-in-provider.vercel.app',

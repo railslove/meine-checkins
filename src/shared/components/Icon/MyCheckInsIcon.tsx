@@ -4,7 +4,7 @@ import Svg, {Path} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
 import {toDpFromPixel} from 'src/shared/styles/util';
 
-const size = toDpFromPixel(21);
+const size = toDpFromPixel(22);
 
 const MyCheckInsIcon: React.FC<SvgIconProps> = ({isSelected}) => {
   const theme = useTheme();

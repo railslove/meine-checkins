@@ -22,11 +22,13 @@ export type CompletedCheckInItem = PartialCheckInItem & {
   startTime: number;
 };
 
+export const EXTRACT_HOSTNAME_RE = /^https?\:\/\/|\/[^\s]+$/g;
+
 export const createPartialCheckIn = (
   props: Pick<PartialCheckInItem, 'url'>
 ): PartialCheckInItem => {
   const id = getUUID();
-  const name = props.url.replace(/^https?\:\/\/|\/[^\s]+/g, '');
+  const name = props.url.replace(EXTRACT_HOSTNAME_RE, '');
   const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
 
   if (item) {
@@ -42,4 +44,21 @@ export const createPartialCheckIn = (
     name,
     ...props,
   };
+};
+
+/**
+ * map existing check-ins for their actualized values (logo, etc.)
+ */
+export const createCompleteCheckIn = (props: CompletedCheckInItem) => {
+  const name = props.url.replace(EXTRACT_HOSTNAME_RE, '');
+  const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
+
+  if (item) {
+    return {
+      ...props,
+      ...item,
+    };
+  }
+
+  return props;
 };

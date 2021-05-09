@@ -8,12 +8,12 @@ type CheckInProvider = {
 
 const CHECK_IN_PROVIDER_LIST = Object.freeze<CheckInProvider>([
   {
-    name: 'recover',
+    name: 'recoverapp.de',
     logoUrl: require('./img/recover-logo.png'),
-    hostname: /rcvr\.app$/,
+    hostname: /(rcvr|recover)\.app$/,
   },
   {
-    name: 'checkincode',
+    name: 'checkincode.de',
     logoUrl: require('./img/checkincode-logo.png'),
     hostname: /checkincode\.de$/,
   },

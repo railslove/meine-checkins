@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: toDpFromPixel(12.5),
+    paddingVertical: toDpFromPixel(15),
     paddingHorizontal: '2.5%',
     borderTopColor: 'rgba(0, 0, 0, 0.05)',
     borderTopWidth: toDpFromPixel(1),
