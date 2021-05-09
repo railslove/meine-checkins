@@ -4,7 +4,7 @@ import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
-import {ProviderCheckInItem} from 'src/shared/models/Provider';
+import {PartialCheckInItem} from 'src/shared/models/Provider';
 import {useTranslation} from 'react-i18next';
 
 const SectionTitle: React.FC<{children: string}> = ({children}) => (
@@ -14,8 +14,8 @@ const SectionTitle: React.FC<{children: string}> = ({children}) => (
 );
 
 export type CheckInsListProps = {
-  items: ProviderCheckInItem[];
-  current?: ProviderCheckInItem;
+  items: PartialCheckInItem[];
+  current?: PartialCheckInItem;
   handleNavigateToCurrent?: () => void;
 };
 

@@ -42,7 +42,9 @@ const ProviderFormScreen: React.FC = () => {
 
       switch (key) {
         case 'setProviderLogo': {
-          store.dispatch(providerSetLogoAction({...current, logoUrl: value}));
+          if (value) {
+            store.dispatch(providerSetLogoAction({item: current, logoUrl: value}));
+          }
           break;
         }
         case 'checkInSuccess': {
@@ -54,7 +56,12 @@ const ProviderFormScreen: React.FC = () => {
           break;
         }
         case 'checkOutSuccess': {
-          store.dispatch(providerCheckOutAction(current));
+          const {startTime} = current;
+
+          if (startTime != null) {
+            store.dispatch(providerCheckOutAction({...current, startTime, stopTime: Date.now()}));
+          }
+
           NavigationService.fromProviderFormCheckout();
           break;
         }

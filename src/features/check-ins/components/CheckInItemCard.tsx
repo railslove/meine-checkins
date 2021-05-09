@@ -2,14 +2,15 @@ import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
-import {ProviderCheckInItem} from 'src/shared/models/Provider';
+import {toDpFromPixel} from 'src/shared/styles/util';
+import {PartialCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Space from 'src/shared/components/Layout/Space';
 
 const logoDimensions = {
   width: toDpFromPixel(67),
@@ -64,7 +65,7 @@ const useStyles = () => {
   });
 };
 
-export type CheckInItemCardProps = Pick<ProviderCheckInItem, 'name' | 'logoUrl' | 'startTime'> & {
+export type CheckInItemCardProps = Pick<PartialCheckInItem, 'name' | 'logoUrl' | 'startTime'> & {
   isActive?: boolean;
   onNavigate?: () => void;
 };
@@ -92,6 +93,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         <Text style={styles.companyName}>{name}</Text>
         {startTime ? (
           <>
+            <Space.V s={1} />
             <Text style={styles.dateTime}>{formatItemDate(startTime)}</Text>
           </>
         ) : null}

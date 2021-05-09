@@ -20,7 +20,7 @@ import {
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
@@ -28,7 +28,7 @@ export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
-  const currentProvider = useSelector(state => state.checkIns.current);
+  const current = useSelector(state => state.checkIns.current);
 
   const handleTestSubmit = () => {
     handleSuccess({data: TEST_PROVIDER.url});
@@ -46,13 +46,13 @@ const ScanQRCodeScreen: React.FC = () => {
     PermissionsService.requestCamera();
   });
 
-  if (currentProvider) {
+  if (current) {
     const handleGoToCheckout = () => {
       NavigationService.fromScanQRScreen();
     };
 
     const handleDiscardCheckIn = () => {
-      dispatch(providerDiscardAction());
+      dispatch(providerDiscardAction(current));
     };
 
     return (
