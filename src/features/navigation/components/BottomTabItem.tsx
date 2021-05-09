@@ -7,7 +7,7 @@ import Space from 'src/shared/components/Layout/Space';
 import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
 import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
 import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
 import Box from 'src/shared/components/Layout/Box';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button as RPButton} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const styles = StyleSheet.create({
   root: {

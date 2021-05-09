@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import Svg, {Path} from 'react-native-svg';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const size = toDpFromPixel(19);
 

@@ -2,13 +2,13 @@ import React from 'react';
 import {TextInput as RPTextInput, useTheme} from 'react-native-paper';
 import {StyleSheet, TextInputProps as RNTextInputProps} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const styles = StyleSheet.create({
   root: {
     height: toDpFromPixel(20),
     padding: toDpFromPixel(14),
-    marginBottom: toDpFromPixel(14),
+    marginBottom: toDpFromPixel(10),
 
     textAlign: 'left',
 

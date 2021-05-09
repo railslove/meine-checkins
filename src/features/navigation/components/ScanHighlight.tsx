@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Box from 'src/shared/components/Layout/Box';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 export type ScanHighlightProps = {
   size?: number;
@@ -9,7 +9,7 @@ export type ScanHighlightProps = {
   backgroundColor: string;
 };
 
-const CIRCLE_SIZE = toDpFromPixel(122);
+const CIRCLE_SIZE = toDpFromPixel(130);
 const BORDER_WIDTH = toDpFromPixel(12);
 
 const ScanHighlight: React.FC<ScanHighlightProps> = ({
@@ -36,18 +36,18 @@ const ScanHighlight: React.FC<ScanHighlightProps> = ({
         backgroundColor={backgroundColor}
       />
       <Box
-        top="-25%"
+        top="-20%"
         width={size}
         height={size}
         zIndex={zIndex}
         borderWidth={BORDER_WIDTH}
         borderRadius={size / 2}
-        borderColor="rgba(55, 114, 255, 0.04)"
+        borderColor="rgba(55, 114, 255, 0.05)"
       >
         <Box
           width="100%"
           height="100%"
-          backgroundColor="rgba(55, 114, 255, 0.1)"
+          backgroundColor="rgba(55, 114, 255, 0.15)"
           borderRadius={size}
         />
       </Box>

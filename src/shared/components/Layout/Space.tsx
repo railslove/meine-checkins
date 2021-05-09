@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 interface SpaceVerticalProps {
   s: number;

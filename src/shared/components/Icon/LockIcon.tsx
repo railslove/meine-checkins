@@ -1,6 +1,6 @@
 import React from 'react';
 import Svg, {Rect, Path} from 'react-native-svg';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const size = toDpFromPixel(30);
 

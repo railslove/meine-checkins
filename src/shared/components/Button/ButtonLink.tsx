@@ -3,7 +3,7 @@ import {useTheme} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet, Text, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const useStyles = () => {
   const theme = useTheme();

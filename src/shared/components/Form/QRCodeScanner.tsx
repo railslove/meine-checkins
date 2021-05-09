@@ -2,7 +2,7 @@ import React from 'react';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
 import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 import Box from 'src/shared/components/Layout/Box';
 
 const borderWidth = toDpFromPixel(3);
