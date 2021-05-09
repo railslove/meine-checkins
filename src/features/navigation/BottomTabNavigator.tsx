@@ -32,7 +32,8 @@ const BottomNavigator: React.FC = () => {
           highlightScanButton={highlightScanButton}
         />
       )}
-      screenOptions={{tabBarVisible}}
+      backBehavior="none"
+      screenOptions={{tabBarVisible, unmountOnBlur: false}}
       initialRouteName={initialRouteName}
     >
       <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />

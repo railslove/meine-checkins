@@ -171,6 +171,12 @@ export function fillFormInWebView(values: InjectJSValues) {
       }
     });
 
+    // only once so we don't dispatch more actions
+    // which then re-renders the screen => we might loose the website state
+    setTimeout(() => {
+      findProviderLogo();
+    }, 1000);
+
     const checkInterval = setInterval(() => {
       if (__DEV__) {
         postMessage('check', JSON.stringify(state));
@@ -178,7 +184,6 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (!state.hasFilledInputs && canCheckIn()) {
         fillCheckInForm();
-        findProviderLogo();
       } else if (isCheckOut()) {
         postMessage('checkInSuccess');
         clearInterval(checkInterval);

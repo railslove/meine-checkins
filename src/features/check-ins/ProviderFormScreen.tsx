@@ -1,7 +1,7 @@
+import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'react-native-paper';
 import React, {useCallback} from 'react';
 import {WebViewMessageEvent} from 'react-native-webview';
-import {useSelector, useStore} from 'react-redux';
 
 import {
   providerCheckInAction,
@@ -19,19 +19,24 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 import Box from 'src/shared/components/Layout/Box';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
-const ProviderFormScreen: React.FC = () => {
+/**
+ * in order to not re-render and lose the website state
+ * we pass all dependencies from the parent component
+ * and memoize this one
+ */
+const ProviderFormScreen = () => {
   const theme = useTheme();
-  const store = useStore();
+  const dispatch = useDispatch();
 
   const user = useSelector(state => state.user.item);
   const checkIn = useSelector(state => state.checkIns.current);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      const {current} = store.getState().checkIns;
+      const current = checkIn;
 
       if (current == null) {
-        console.warn('no checkIn available');
+        console.warn('there is no check-in in progress');
         return;
       }
 
@@ -42,16 +47,16 @@ const ProviderFormScreen: React.FC = () => {
 
       switch (key) {
         case 'setProviderLogo': {
-          if (value) {
-            store.dispatch(providerSetLogoAction({item: current, logoUrl: value}));
+          if (value && current.logoUrl == null) {
+            dispatch(providerSetLogoAction({item: current, logoUrl: value}));
           }
           break;
         }
         case 'checkInSuccess': {
           if (current.startTime == null) {
-            store.dispatch(providerCheckInAction(current));
+            dispatch(providerCheckInAction(current));
           } else {
-            console.info('ProviderForm: skipping already checked in');
+            console.warn('tried to check-in with startTime');
           }
           break;
         }
@@ -59,7 +64,9 @@ const ProviderFormScreen: React.FC = () => {
           const {startTime} = current;
 
           if (startTime != null) {
-            store.dispatch(providerCheckOutAction({...current, startTime, stopTime: Date.now()}));
+            dispatch(providerCheckOutAction({...current, startTime, stopTime: Date.now()}));
+          } else {
+            console.warn('tried to check-out without startTime');
           }
 
           NavigationService.fromProviderFormCheckout();
@@ -71,7 +78,7 @@ const ProviderFormScreen: React.FC = () => {
         }
       }
     },
-    [store]
+    [checkIn, dispatch]
   );
 
   if (!checkIn) {
