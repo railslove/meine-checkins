@@ -59,7 +59,7 @@ const ProviderFormScreen = () => {
           const {startTime} = current;
 
           if (startTime != null) {
-            dispatch(providerCheckOutAction({...current, startTime, stopTime: Date.now()}));
+            dispatch(providerCheckOutAction({...current, startTime}));
           } else {
             console.warn('tried to check-out without startTime');
           }

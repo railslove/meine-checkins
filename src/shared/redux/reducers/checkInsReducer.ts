@@ -56,7 +56,12 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       },
     };
   })
-  .handleAction(providerCheckOutAction, (state, {payload: item}) => {
+  .handleAction(providerCheckOutAction, (state, {payload}) => {
+    const item: CompletedCheckInItem = {
+      ...payload,
+      stopTime: Date.now(),
+    };
+
     clearCachedWebView(item.id);
 
     return {

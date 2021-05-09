@@ -7,7 +7,9 @@ export const providerRegisterAction = createAction('@provider/register')<
 >();
 
 export const providerCheckInAction = createAction('@provider/check-in')<PartialCheckInItem>();
-export const providerCheckOutAction = createAction('@provider/check-out')<CompletedCheckInItem>();
+export const providerCheckOutAction = createAction('@provider/check-out')<
+  Omit<CompletedCheckInItem, 'stopTime'>
+>();
 
 type ProviderSetLogoPayload = {
   item: PartialCheckInItem;
