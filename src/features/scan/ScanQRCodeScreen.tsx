@@ -95,12 +95,10 @@ const ScanQRCodeScreen: React.FC = () => {
 
         <Box display="flex" alignItems="center" justifyContent="center">
           <Space.V s={10} />
-          <Box width="85%">
-            <Description color="white" textAlign="center">
-              {t('description')}
-            </Description>
-            <Space.V s={10} />
-          </Box>
+          <Description color="white" textAlign="center">
+            {t('description')}
+          </Description>
+          <Space.V s={10} />
 
           {true ? (
             <>
