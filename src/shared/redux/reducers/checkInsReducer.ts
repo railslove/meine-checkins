@@ -13,7 +13,6 @@ import {
   providerSetLogoAction,
   providerDiscardAction,
 } from 'src/shared/redux/actions/providerActions';
-import {clearCachedWebView} from 'src/shared/components/WebView/CachedWebView';
 
 export type CheckInsReducerState = {
   error?: Error;
@@ -62,19 +61,13 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       stopTime: Date.now(),
     };
 
-    clearCachedWebView(item.id);
-
     return {
       ...state,
       current: undefined,
       items: [item].concat(state.items),
     };
   })
-  .handleAction(providerDiscardAction, (state, {payload: {id}}) => {
-    if (id) {
-      clearCachedWebView(id);
-    }
-
+  .handleAction(providerDiscardAction, state => {
     return {
       ...state,
       current: undefined,

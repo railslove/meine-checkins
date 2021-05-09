@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
   },
 });
 
+export const BOTTOM_TAB_ITEMS = Object.values(BottomTabsRoutes).filter(
+  route => route !== BottomTabsRoutes.ProviderForm
+);
+
 const BottomTabBar: React.FC<BottomTabBarProps> = ({
   theme,
   state,
@@ -53,7 +57,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
 
   return (
     <View style={styles.root}>
-      {Object.values(BottomTabsRoutes).map(route => {
+      {BOTTOM_TAB_ITEMS.map(route => {
         const isSelected = shouldHighlightScan
           ? route === BottomTabsRoutes.ScanQRCode
           : currentRoute.name === route;

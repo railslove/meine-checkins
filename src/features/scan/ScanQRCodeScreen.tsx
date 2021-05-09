@@ -52,7 +52,7 @@ const ScanQRCodeScreen: React.FC = () => {
     };
 
     const handleDiscardCheckIn = () => {
-      dispatch(providerDiscardAction(current));
+      dispatch(providerDiscardAction());
     };
 
     return (

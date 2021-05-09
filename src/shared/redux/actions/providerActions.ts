@@ -18,6 +18,4 @@ type ProviderSetLogoPayload = {
 
 export const providerSetLogoAction = createAction('@provider/set-logo')<ProviderSetLogoPayload>();
 
-export const providerDiscardAction = createAction(
-  '@provider/check-in-discard'
-)<PartialCheckInItem>();
+export const providerDiscardAction = createAction('@provider/check-in-discard')();
