@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle} from 'react-native';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const useStyles = ({
   color = '#060606',
@@ -25,8 +25,8 @@ const useStyles = ({
 
       fontFamily: 'Inter-Bold',
 
-      fontSize: toDpFromPixel(13),
-      lineHeight: toDpFromPixel(17),
+      fontSize: toDpFromPixel(12),
+      lineHeight: toDpFromPixel(18),
     },
   });
 

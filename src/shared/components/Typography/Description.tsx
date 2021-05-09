@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextStyle} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const useStyles = ({
   color = 'black',

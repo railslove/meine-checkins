@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'children'> = {}) =>
   StyleSheet.create({

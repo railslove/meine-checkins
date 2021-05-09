@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/theme/util';
+
+import {toDpFromPixel} from 'src/shared/styles/util';
 
 export const paragraphStyle = StyleSheet.create({
   root: {
