@@ -10,6 +10,6 @@ export default {
   checkInProgressSubTitle:
     'Bitte checke dich bei deinem aktuellen Besuch aus, um einen weiteren QR-Code zu scannen.',
 
-  checkInProgressDiscard: 'Check-in entsorgen',
+  checkInProgressDiscard: 'Neuer Check-in',
   checkInProgressContinue: 'zum aktuellen Check-in',
 };
