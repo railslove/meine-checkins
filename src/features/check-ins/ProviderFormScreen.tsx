@@ -19,11 +19,6 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 import Box from 'src/shared/components/Layout/Box';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
-/**
- * in order to not re-render and lose the website state
- * we pass all dependencies from the parent component
- * and memoize this one
- */
 const ProviderFormScreen = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
