@@ -3,7 +3,7 @@ import {useTheme} from 'react-native-paper';
 import {StyleSheet, Text, View} from 'react-native';
 
 import {toDpFromPixel} from 'src/shared/styles/util';
-import {PartialCheckInItem} from 'src/shared/models/Provider';
+import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
@@ -65,15 +65,30 @@ const useStyles = () => {
   });
 };
 
-export type CheckInItemCardProps = Pick<PartialCheckInItem, 'name' | 'logoUrl' | 'startTime'> & {
-  isActive?: boolean;
+export type CheckInItemCardProps = {
+  item: Pick<CompletedCheckInItem, 'name' | 'logoUrl'> &
+    (
+      | {
+          startTime?: CompletedCheckInItem['stopTime'];
+          stopTime?: never;
+        }
+      | {
+          startTime: CompletedCheckInItem['stopTime'];
+          stopTime: CompletedCheckInItem['stopTime'];
+        }
+    );
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
+  const {
+    item: {name, logoUrl, startTime, stopTime},
+    onNavigate,
+  } = props;
+
   const styles = useStyles();
 
-  const {name, logoUrl, startTime, isActive, onNavigate} = props;
+  const itemTime = stopTime || startTime;
   const logoSource =
     typeof logoUrl === 'string'
       ? {
@@ -91,15 +106,15 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
 
       <Box flex={1} marginLeft={toDpFromPixel(10)}>
         <Text style={styles.companyName}>{name}</Text>
-        {startTime ? (
+        {itemTime ? (
           <>
             <Space.V s={1} />
-            <Text style={styles.dateTime}>{formatItemDate(startTime)}</Text>
+            <Text style={styles.dateTime}>{formatItemDate(itemTime)}</Text>
           </>
         ) : null}
       </Box>
 
-      {isActive ? (
+      {stopTime == null ? (
         <Box marginHorizontal={toDpFromPixel(10)}>
           <TouchableOpacity onPress={onNavigate}>
             <ChevronRightIcon />
