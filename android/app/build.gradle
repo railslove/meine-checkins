@@ -133,8 +133,8 @@ android {
         applicationId "de.railslove.wfdcheckin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 23
-        versionName "1.8.3"
+        versionCode 24
+        versionName "1.8.4"
 
         // Detox
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type
