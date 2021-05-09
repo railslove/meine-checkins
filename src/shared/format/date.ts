@@ -1,17 +1,9 @@
-export const normalizeDateNum = (value: number) => {
-  return value < 10 ? `0${value}` : `${value}`;
-};
+import {format} from 'date-fns-tz';
+import {de} from 'date-fns/locale';
+
+const options = {locale: de, timeZone: 'Europe/Berlin'};
 
 export const formatItemDate = (value: number) => {
-  const date = new Date(value);
-
-  const [day, month, year, hours, minutes] = [
-    date.getDay(),
-    date.getMonth() + 1 /* January is 0 */,
-    date.getFullYear(),
-    date.getHours(),
-    date.getMinutes(),
-  ].map(normalizeDateNum);
-
-  return `${day}.${month}.${year} - ${hours}:${minutes} Uhr`;
+  console.log('value', value);
+  return format(value, "dd.MM.yyyy H:mm 'Uhr'", options);
 };

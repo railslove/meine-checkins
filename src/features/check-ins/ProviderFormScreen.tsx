@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import React, {useCallback} from 'react';
 import {WebViewMessageEvent} from 'react-native-webview';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, useStore} from 'react-redux';
 
 import {
   providerCheckInAction,
@@ -21,14 +21,16 @@ import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
 const ProviderFormScreen: React.FC = () => {
   const theme = useTheme();
-  const dispatch = useDispatch();
+  const store = useStore();
 
   const user = useSelector(state => state.user.item);
   const checkIn = useSelector(state => state.checkIns.current);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      if (checkIn == null) {
+      const {current} = store.getState().checkIns;
+
+      if (current == null) {
         console.warn('no checkIn available');
         return;
       }
@@ -40,19 +42,19 @@ const ProviderFormScreen: React.FC = () => {
 
       switch (key) {
         case 'setProviderLogo': {
-          dispatch(providerSetLogoAction({...checkIn, logoUrl: value}));
+          store.dispatch(providerSetLogoAction({...current, logoUrl: value}));
           break;
         }
         case 'checkInSuccess': {
-          if (checkIn.startTime == null) {
-            dispatch(providerCheckInAction(checkIn));
+          if (current.startTime == null) {
+            store.dispatch(providerCheckInAction(current));
           } else {
             console.info('ProviderForm: skipping already checked in');
           }
           break;
         }
         case 'checkOutSuccess': {
-          dispatch(providerCheckOutAction(checkIn));
+          store.dispatch(providerCheckOutAction(current));
           NavigationService.fromProviderFormCheckout();
           break;
         }
@@ -62,7 +64,7 @@ const ProviderFormScreen: React.FC = () => {
         }
       }
     },
-    [dispatch, checkIn]
+    [store]
   );
 
   if (!checkIn) {

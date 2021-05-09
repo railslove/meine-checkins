@@ -33,6 +33,7 @@ const MyCheckInsScreen: React.FC = () => {
   }, []);
 
   const isEmpty = current == null && items.length === 0;
+  console.log('items', items.length, JSON.stringify(items, null, 2));
 
   return (
     <TopLevelView>

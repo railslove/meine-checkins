@@ -44,9 +44,8 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
             <SectionTitle>{t('previousCheckInsTitle')}</SectionTitle>
             <Space.V s={10} />
             {items.map((el, index) => {
-              const key = `${el.id}-${el.startTime || index}`;
               return (
-                <Fragment key={key}>
+                <Fragment key={el.id}>
                   {index > 0 ? <Space.V s={5} /> : null}
                   <CheckInItemCard {...el} />
                 </Fragment>

@@ -18,4 +18,5 @@ export type ProviderCheckInItem = {
 export type ProviderRegister = Omit<ProviderCheckInItem, 'startTime' | 'stopTime'>;
 
 export type ProviderCheckIn = ProviderRegister & Pick<ProviderCheckInItem, 'startTime'>;
-export type ProviderCheckOut = ProviderRegister & Pick<ProviderCheckInItem, 'stopTime'>;
+export type ProviderCheckOut = ProviderRegister &
+  Pick<ProviderCheckInItem, 'startTime' | 'stopTime'>;
