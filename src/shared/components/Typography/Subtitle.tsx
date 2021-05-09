@@ -25,7 +25,7 @@ const useStyles = ({
 
       fontFamily: 'Inter-Bold',
 
-      fontSize: toDpFromPixel(12),
+      fontSize: toDpFromPixel(13),
       lineHeight: toDpFromPixel(17),
     },
   });

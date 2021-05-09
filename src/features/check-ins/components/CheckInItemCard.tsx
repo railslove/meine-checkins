@@ -7,7 +7,6 @@ import {ProviderCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
-import Space from 'src/shared/components/Layout/Space';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -28,17 +27,9 @@ const useStyles = () => {
       flexDirection: 'row',
       justifyContent: 'center',
 
-      padding: toDpFromPixel(10),
+      padding: toDpFromPixel(8),
       borderRadius: toDpFromPixel(5),
       backgroundColor: '#F0F1F3',
-    },
-    companyName: {
-      textAlign: 'left',
-      fontSize: toDpFromPixel(12),
-
-      fontFamily: 'Inter-Bold',
-      fontWeight: '700',
-      lineHeight: toDpFromPixel(14.52),
     },
     logoContainer: {
       borderRadius,
@@ -56,6 +47,19 @@ const useStyles = () => {
       height: undefined,
       margin: '15%',
       alignSelf: 'stretch',
+    },
+    companyName: {
+      textAlign: 'left',
+      fontSize: toDpFromPixel(12),
+
+      fontFamily: 'Inter-Bold',
+      fontWeight: '700',
+      lineHeight: toDpFromPixel(15),
+    },
+    dateTime: {
+      textAlign: 'left',
+      fontSize: toDpFromPixel(12),
+      lineHeight: toDpFromPixel(15),
     },
   });
 };
@@ -88,8 +92,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         <Text style={styles.companyName}>{name}</Text>
         {startTime ? (
           <>
-            <Space.V s={4} />
-            <Text>{formatItemDate(startTime)}</Text>
+            <Text style={styles.dateTime}>{formatItemDate(startTime)}</Text>
           </>
         ) : null}
       </Box>
