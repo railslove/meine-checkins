@@ -30,6 +30,7 @@ const CachedWebView: React.FC<CachedWebViewProps> = ({
   return (
     <WebView
       ref={webviewRef}
+      incognito={true}
       renderLoading={renderLoading}
       injectedJavaScript={injectedJavaScript}
       startInLoadingState={true}
