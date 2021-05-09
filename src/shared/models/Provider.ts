@@ -49,7 +49,7 @@ export const createPartialCheckIn = (
 /**
  * map existing check-ins for their actualized values (logo, etc.)
  */
-export const createCompleteCheckIn = (props: CompletedCheckInItem) => {
+export const createCompletedCheckIn = (props: CompletedCheckInItem): CompletedCheckInItem => {
   const name = props.url.replace(EXTRACT_HOSTNAME_RE, '');
   const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
 
