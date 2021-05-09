@@ -46,7 +46,7 @@ const ScanQRCodeScreen: React.FC = () => {
     PermissionsService.requestCamera();
   });
 
-  if (current) {
+  if (current && current.startTime) {
     const handleGoToCheckout = () => {
       NavigationService.fromScanQRScreen();
     };
