@@ -90,7 +90,7 @@ const ScanQRCodeScreen: React.FC = () => {
         </Box>
 
         <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-          <QRScanner onRead={handleSuccess} />
+          <QRScanner onRead={handleSuccess} backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR} />
         </Box>
 
         <Box display="flex" alignItems="center" justifyContent="center">
