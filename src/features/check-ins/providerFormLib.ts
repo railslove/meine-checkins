@@ -142,7 +142,8 @@ export function fillFormInWebView(values: InjectJSValues) {
       .filter(v => v && v.length > 0)
       .flat();
 
-    const isSuccess = filled.length === Object.keys(user).length;
+    // minimum is full name, zip code and telephone or email
+    const isSuccess = filled.length > 3;
 
     if (isSuccess) {
       state.hasFilledInputs = true;

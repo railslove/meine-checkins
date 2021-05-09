@@ -62,7 +62,7 @@ const MyCheckInsScreen: React.FC = () => {
 
       {isEmpty ? null : (
         <Box>
-          <Space.V s={10} />
+          <Space.V s={15} />
           <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
           <Space.V s={5} />
           <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
