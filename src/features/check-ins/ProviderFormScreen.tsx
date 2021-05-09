@@ -1,7 +1,7 @@
 import {useTheme} from 'react-native-paper';
 import React, {useCallback} from 'react';
 import {WebViewMessageEvent} from 'react-native-webview';
-import {useDispatch, useSelector, useStore} from 'react-redux';
+import {useSelector, useStore} from 'react-redux';
 
 import {
   providerCheckInAction,
