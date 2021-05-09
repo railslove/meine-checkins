@@ -14,7 +14,7 @@ import Space from 'src/shared/components/Layout/Space';
 
 const logoDimensions = {
   width: toDpFromPixel(67),
-  height: toDpFromPixel(42),
+  height: toDpFromPixel(52),
 };
 
 const useStyles = () => {
@@ -27,10 +27,14 @@ const useStyles = () => {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
+      paddingVertical: toDpFromPixel(9),
+      paddingHorizontal: toDpFromPixel(10),
 
-      padding: toDpFromPixel(8),
       borderRadius: toDpFromPixel(5),
       backgroundColor: '#F0F1F3',
+    },
+    rootTouchable: {
+      display: 'flex',
     },
     logoContainer: {
       borderRadius,
@@ -46,7 +50,7 @@ const useStyles = () => {
       flex: 1,
       width: undefined,
       height: undefined,
-      margin: '15%',
+      margin: toDpFromPixel(10),
       alignSelf: 'stretch',
     },
     companyName: {
@@ -54,12 +58,13 @@ const useStyles = () => {
       fontSize: toDpFromPixel(12),
 
       fontFamily: 'Inter-Bold',
-      fontWeight: '700',
+      fontWeight: '600',
       lineHeight: toDpFromPixel(15),
     },
     dateTime: {
       textAlign: 'left',
       fontSize: toDpFromPixel(12),
+      fontWeight: '400',
       lineHeight: toDpFromPixel(15),
     },
   });
@@ -96,7 +101,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         }
       : logoUrl;
 
-  return (
+  const cardItem = (
     <View style={styles.root}>
       <View style={styles.logoContainer}>
         {logoSource == null ? null : (
@@ -104,11 +109,11 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         )}
       </View>
 
-      <Box flex={1} marginLeft={toDpFromPixel(10)}>
+      <Box flex={1} marginLeft={toDpFromPixel(22)}>
         <Text style={styles.companyName}>{name}</Text>
         {itemTime ? (
           <>
-            <Space.V s={1} />
+            <Space.V s={3} />
             <Text style={styles.dateTime}>{formatItemDate(itemTime)}</Text>
           </>
         ) : null}
@@ -116,12 +121,20 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
 
       {stopTime == null ? (
         <Box marginHorizontal={toDpFromPixel(10)}>
-          <TouchableOpacity onPress={onNavigate}>
-            <ChevronRightIcon />
-          </TouchableOpacity>
+          <ChevronRightIcon />
         </Box>
       ) : null}
     </View>
+  );
+
+  if (stopTime) {
+    return cardItem;
+  }
+
+  return (
+    <TouchableOpacity style={styles.rootTouchable} onPress={onNavigate}>
+      {cardItem}
+    </TouchableOpacity>
   );
 };
 
