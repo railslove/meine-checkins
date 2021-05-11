@@ -7,9 +7,9 @@ import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
+import Space from 'src/shared/components/Layout/Space';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
-import Space from 'src/shared/components/Layout/Space';
 
 const logoDimensions = {
   width: px2dp(67),
