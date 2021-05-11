@@ -1,6 +1,8 @@
+import multilineText from 'src/shared/format/multilineText';
+
 export default {
   title: 'Datenschutzerklärung',
-  content: `Name und Kontaktdaten des für die Verarbeitung Verantwortlichen sowie des betrieblichen Datenschutzbeauftragten
+  content: multilineText(`Name und Kontaktdaten des für die Verarbeitung Verantwortlichen sowie des betrieblichen Datenschutzbeauftragten
 
   Diese Datenschutz-Information gilt für die Datenverarbeitung durch:
 
@@ -109,8 +111,5 @@ export default {
 
   Diese Datenschutzerklärung ist aktuell gültig und hat den Stand Mai 2020.
 
-  Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.`
-    .split('\n')
-    .map(el => el.trim())
-    .join('\n'),
+  Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.`),
 };
