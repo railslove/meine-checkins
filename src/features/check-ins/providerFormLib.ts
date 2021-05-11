@@ -146,13 +146,11 @@ export function fillFormInWebView(values: InjectJSValues) {
       .filter(v => v && v.length > 0);
 
     // minimum is full name, zip code and telephone or email
-    const isSuccess = filled.length === inputs.length;
+    const isSuccess = filled.length > 0;
 
     if (isSuccess) {
       state.hasFilledInputs = true;
-      setTimeout(() => {
-        getButton()?.scrollIntoView(false);
-      }, 2 * actionTime * inputs.length);
+      getButton()?.scrollIntoView(false);
     }
 
     return {
