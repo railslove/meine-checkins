@@ -74,6 +74,7 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
     setTimeout(() => {
+      el.focus();
       el.setRangeText(value, 0, value.length);
       el.dispatchEvent(new Event('input', {bubbles: true}));
     }, index * 100);
@@ -93,7 +94,9 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function fillCheckInForm() {
-    const filled = getCheckInInputs()
+    const inputs = getCheckInInputs();
+
+    const filled = inputs
       .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
 
@@ -139,11 +142,10 @@ export function fillFormInWebView(values: InjectJSValues) {
           }
         }
       })
-      .filter(v => v && v.length > 0)
-      .flat();
+      .filter(v => v && v.length > 0);
 
     // minimum is full name, zip code and telephone or email
-    const isSuccess = filled.length > 3;
+    const isSuccess = filled.length === inputs.length;
 
     if (isSuccess) {
       state.hasFilledInputs = true;
