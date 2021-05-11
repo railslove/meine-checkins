@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
     textAlign: 'left',
 
-    fontSize: px2dp(12),
+    fontSize: px2dp(15),
     lineHeight: px2dp(14),
     fontFamily: 'Inter-Regular',
   },

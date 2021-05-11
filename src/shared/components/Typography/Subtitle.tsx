@@ -25,7 +25,7 @@ const useStyles = ({
 
       fontFamily: 'Inter-Bold',
 
-      fontSize: px2dp(12),
+      fontSize: px2dp(14),
       lineHeight: px2dp(18),
     },
   });

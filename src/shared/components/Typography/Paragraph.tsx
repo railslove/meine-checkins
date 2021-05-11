@@ -9,7 +9,7 @@ export const paragraphStyle = StyleSheet.create({
     margin: 0,
     padding: 0,
     height: 'auto',
-    fontSize: px2dp(12),
+    fontSize: px2dp(13),
     lineHeight: px2dp(18),
     fontFamily: 'Inter-Regular',
   },

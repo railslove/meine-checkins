@@ -134,7 +134,7 @@ const ProfileScreen: React.FC = () => {
               <LockIcon />
             </Box>
             <Box>
-              <TextBox fontSize={12} lineHeight={16.72} fontWeight="600">
+              <TextBox fontSize={13} lineHeight={16.72} fontWeight="600">
                 {t('dataPrivacyInfo')}
               </TextBox>
             </Box>
