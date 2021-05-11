@@ -62,8 +62,11 @@ export function fillFormInWebView(values: InjectJSValues) {
 
     const elements = document.body.querySelectorAll<HTMLButtonElement>('a, input, button');
 
-    return Array.from(elements).find(
-      el => el.type === 'submit' || /check[-\s]*(in|out)/i.test(el.outerHTML)
+    return (
+      Array.from(elements)
+        // do reverse to start from the last element on the page
+        .reverse()
+        .find(el => /check[-\s]*(in|out)/i.test(el.textContent || ''))
     );
   }
 
@@ -76,7 +79,11 @@ export function fillFormInWebView(values: InjectJSValues) {
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
     setTimeout(() => {
       el.focus();
-      el.setRangeText(value, 0, value.length);
+      if (el.type === 'number') {
+        el.value = value;
+      } else {
+        el.setRangeText(value, 0, value.length);
+      }
       el.dispatchEvent(new Event('input', {bubbles: true}));
     }, index * actionTime);
   }
