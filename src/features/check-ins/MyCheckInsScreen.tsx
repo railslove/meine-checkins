@@ -28,6 +28,10 @@ const MyCheckInsScreen: React.FC = () => {
     OpenLinkService.openImprint();
   }, []);
 
+  const handleNavigateToDatenschutz = useCallback(() => {
+    NavigationService.fromMyCheckIns(MyCheckInsRoutes.Datenschutz);
+  }, []);
+
   const handleNavigateToCurrent = useCallback(() => {
     NavigationService.fromMyCheckIns(MyCheckInsRoutes.ProviderForm);
   }, []);
@@ -66,6 +70,8 @@ const MyCheckInsScreen: React.FC = () => {
           <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
           <Space.V s={5} />
           <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
+          <Space.V s={5} />
+          <ButtonLink onPress={handleNavigateToDatenschutz}>{t('datenschutz')}</ButtonLink>
         </Box>
       )}
     </TopLevelView>
