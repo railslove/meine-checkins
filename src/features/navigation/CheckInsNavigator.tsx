@@ -6,6 +6,7 @@ import {MyCheckInsRoutes} from 'src/features/navigation/routes';
 
 import FAQScreen from 'src/features/check-ins/FAQScreen';
 import MyCheckInsScreen from 'src/features/check-ins/MyCheckInsScreen';
+import ImprintScreen from 'src/features/check-ins/ImprintScreen';
 
 const {Navigator, Screen} = createStackNavigator<Record<MyCheckInsRoutes, any>>();
 
@@ -13,7 +14,7 @@ const CheckInsNavigator: React.FC = () => {
   const {t} = useTranslation();
 
   return (
-    <Navigator screenOptions={{headerShown: false}}>
+    <Navigator screenOptions={{title: '', headerShown: false}}>
       <Screen
         name={MyCheckInsRoutes.MyCheckIns}
         options={{title: t('myCheckInsScreen:title')}}
@@ -23,6 +24,11 @@ const CheckInsNavigator: React.FC = () => {
         name={MyCheckInsRoutes.FAQ}
         options={{title: '', headerShown: true}}
         component={FAQScreen}
+      />
+      <Screen
+        name={MyCheckInsRoutes.Imprint}
+        options={{title: '', headerShown: true}}
+        component={ImprintScreen}
       />
     </Navigator>
   );
