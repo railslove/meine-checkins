@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTheme} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 import {CompletedCheckInItem} from 'src/shared/models/Provider';
@@ -9,7 +9,6 @@ import Box from 'src/shared/components/Layout/Box';
 import Image from 'src/shared/components/Image/Image';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Space from 'src/shared/components/Layout/Space';
 
 const logoDimensions = {
@@ -63,7 +62,7 @@ const useStyles = () => {
     },
     dateTime: {
       textAlign: 'left',
-      fontSize: px2dp(11),
+      fontSize: px2dp(12),
       fontWeight: '400',
       lineHeight: px2dp(15),
     },

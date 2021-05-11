@@ -1,11 +1,13 @@
 import React, {Fragment} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
 import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
-import {useTranslation} from 'react-i18next';
+import TextBox from 'src/shared/components/Typography/TextBox';
+import {formatItemDateHeader} from 'src/shared/format/date';
 
 const SectionTitle: React.FC<{children: string}> = ({children}) => (
   <SubTitle textTransform="uppercase" fontWeight="700">
@@ -44,9 +46,20 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
             <SectionTitle>{t('previousCheckInsTitle')}</SectionTitle>
             <Space.V s={10} />
             {items.map((el, index) => {
+              const dateHeader = formatItemDateHeader(el.startTime);
+
+              const prevDateHeader =
+                index > 1 ? formatItemDateHeader(items[index].startTime) : dateHeader;
+
               return (
                 <Fragment key={el.id}>
                   {index > 0 ? <Space.V s={5} /> : null}
+                  {index === 0 || dateHeader !== prevDateHeader ? (
+                    <>
+                      <TextBox fontSize={12}>{formatItemDateHeader(el.startTime)}</TextBox>
+                      <Space.V s={5} />
+                    </>
+                  ) : null}
                   <CheckInItemCard item={el} />
                 </Fragment>
               );
