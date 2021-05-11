@@ -5,8 +5,10 @@ import scanQRCodeScreenLocales from 'src/features/scan/scanQRCodeScreenLocales';
 import providerFormScreenLocales from 'src/features/check-ins/providerFormScreenLocales';
 import navigationLocales from 'src/features/navigation/navigationLocales';
 import FAQLocales from 'src/features/check-ins/FAQLocales';
+import imprintLocales from 'src/features/check-ins/imprintLocales';
 
 export default {
+  imprint: imprintLocales,
   faqScreen: FAQLocales,
   navigation: navigationLocales,
   startScreen: startScreenLocales,
