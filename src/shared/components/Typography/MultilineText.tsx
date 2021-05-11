@@ -23,7 +23,7 @@ const MultilineText = ({children}: MultilineTextProps): JSX.Element => {
       value={children
         .split('\n')
         .map(el => el.trim())
-        .join('n')}
+        .join('\n')}
       style={styles.text}
       scrollEnabled={false}
     />

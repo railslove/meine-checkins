@@ -37,6 +37,17 @@ const MyCheckInsScreen: React.FC = () => {
 
   const isEmpty = current == null && items.length === 0;
 
+  const Links = (
+    <Box>
+      <Space.V s={15} />
+      <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
+      <Space.V s={5} />
+      <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
+      <Space.V s={5} />
+      <ButtonLink onPress={handleNavigateToDatenschutz}>{t('datenschutz')}</ButtonLink>
+    </Box>
+  );
+
   return (
     <TopLevelView>
       <Box>
@@ -46,11 +57,7 @@ const MyCheckInsScreen: React.FC = () => {
           <>
             <Space.V s={5} />
             <Description>{t('emptyCheckInsDescription')}</Description>
-            <Space.V s={10} />
-            <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
-            <Space.V s={5} />
-            <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
-            <Space.V s={5} />
+            {Links}
           </>
         ) : null}
       </Box>
@@ -64,16 +71,7 @@ const MyCheckInsScreen: React.FC = () => {
         />
       )}
 
-      {isEmpty ? null : (
-        <Box>
-          <Space.V s={15} />
-          <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
-          <Space.V s={5} />
-          <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>
-          <Space.V s={5} />
-          <ButtonLink onPress={handleNavigateToDatenschutz}>{t('datenschutz')}</ButtonLink>
-        </Box>
-      )}
+      {isEmpty ? null : Links}
     </TopLevelView>
   );
 };
