@@ -2,13 +2,15 @@ import React from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
+import {px2dp} from 'src/shared/styles/createStyles';
+
 import Title from 'src/shared/components/Typography/Title';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import MultilineText from 'src/shared/components/Typography/MultilineText';
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: toDpFromPixel(12),
+    fontSize: px2dp(12),
     fontFamily: 'Inter-Regular',
   },
 });
@@ -19,14 +21,7 @@ const DatenschutzScreen = () => {
   return (
     <TopLevelView>
       <Title>{t('title')}</Title>
-      <TextInput
-        dataDetectorTypes={['link', 'phoneNumber']}
-        editable={false}
-        multiline={true}
-        value={t('content')}
-        style={styles.text}
-        scrollEnabled={false}
-      />
+      <MultilineText>{t('content')}</MultilineText>
     </TopLevelView>
   );
 };

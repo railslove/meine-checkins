@@ -1,10 +1,8 @@
-import multilineText from 'src/shared/format/multilineText';
-
 export const COLOGNE_CITY_LOGO_MARK = '%%Stadt-Koeln-logo%%';
 
 export default {
   title: 'Impressum',
-  content: multilineText(`Hierbei handelt es sich um ein Gemeinschaftsprojekt von:
+  content: `Hierbei handelt es sich um ein Gemeinschaftsprojekt von:
 
   recover, darfichrein.de, inög, Hygiene-Ranger, Snapweb24, Corona Presence, kontakterfassung, Digital Waiter, 2fdz, SmartMeeting, e-guest, scopevisio, gastident
 
@@ -33,5 +31,5 @@ export default {
   Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: https://ec.europa.eu/consumers/odr. Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
 
   Haftung für Inhalte
-  Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigen`),
+  Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigen`,
 };
