@@ -63,7 +63,7 @@ const useStyles = () => {
     },
     dateTime: {
       textAlign: 'left',
-      fontSize: px2dp(12),
+      fontSize: px2dp(11),
       fontWeight: '400',
       lineHeight: px2dp(15),
     },
@@ -82,14 +82,12 @@ export type CheckInItemCardProps = {
           stopTime: CompletedCheckInItem['stopTime'];
         }
     );
-  activeTimeText?: string;
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {
     item: {name, logoUrl, startTime, stopTime},
-    activeTimeText = '',
     onNavigate,
   } = props;
 
@@ -115,10 +113,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
         {startTime != null ? (
           <>
             <Space.V s={3} />
-            <Text style={styles.dateTime}>
-              {formatItemDate(startTime)} -{' '}
-              {stopTime == null ? activeTimeText : formatItemDate(stopTime)}
-            </Text>
+            <Text style={styles.dateTime}>{formatItemDate(startTime, stopTime)}</Text>
           </>
         ) : null}
       </Box>

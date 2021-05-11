@@ -66,7 +66,6 @@ const MyCheckInsScreen: React.FC = () => {
         <CheckInsList
           items={items}
           current={current}
-          activeTimeText={t('activeTimeText')}
           handleNavigateToCurrent={handleNavigateToCurrent}
         />
       )}
