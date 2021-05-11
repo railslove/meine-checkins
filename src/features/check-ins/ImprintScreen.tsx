@@ -1,11 +1,12 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, TextInput} from 'react-native';
-import {COLOGNE_CITY_LOGO_MARK} from 'src/features/check-ins/imprintLocales';
+
 import Image from 'src/shared/components/Image/Image';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import Title from 'src/shared/components/Typography/Title';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import {toDpFromPixel} from 'src/shared/theme/util';
+import {COLOGNE_CITY_LOGO_MARK} from 'src/features/check-ins/imprintLocales';
 
 const style = StyleSheet.create({
   text: {
