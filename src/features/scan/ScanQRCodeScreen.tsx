@@ -3,7 +3,9 @@ import {BarCodeReadEvent} from 'react-native-camera';
 import {useDispatch, useSelector} from 'react-redux';
 import React, {useEffect} from 'react';
 
-import {TEST_PROVIDER} from 'src/testData';
+import {px2dp} from 'src/shared/styles/createStyles';
+import {TEST_PROVIDERS} from 'src/testData';
+import {PartialCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -19,8 +21,8 @@ import {
 } from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
+import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import {px2dp} from 'src/shared/styles/createStyles';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
@@ -30,8 +32,8 @@ const ScanQRCodeScreen: React.FC = () => {
   const dispatch = useDispatch();
   const current = useSelector(state => state.checkIns.current);
 
-  const handleTestSubmit = () => {
-    handleSuccess({data: TEST_PROVIDER.url});
+  const handleTestSubmit = (el: PartialCheckInItem) => () => {
+    handleSuccess({data: el.url});
   };
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
@@ -117,8 +119,15 @@ const ScanQRCodeScreen: React.FC = () => {
           {__DEV__ ? (
             <>
               <Space.V s={10} />
-              <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
-              {/* space below for scroll tests */}
+              <Box display="flex" flexDirection="row" maxWidth="100%" flexWrap="wrap">
+                {TEST_PROVIDERS.map(el => {
+                  return (
+                    <ButtonLink key={el.id} onPress={handleTestSubmit(el)}>
+                      {'  ' + el.name + '  '}
+                    </ButtonLink>
+                  );
+                })}
+              </Box>
               <Space.V s={10} />
             </>
           ) : null}

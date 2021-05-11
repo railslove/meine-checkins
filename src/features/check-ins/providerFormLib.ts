@@ -30,6 +30,7 @@ export type ProviderFormMessage = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
+  const actionTime = 50;
   const {user, __DEV__} = values;
   const state = {hasFilledInputs: isCheckOut(), hasCheckOut: false};
 
@@ -77,7 +78,7 @@ export function fillFormInWebView(values: InjectJSValues) {
       el.focus();
       el.setRangeText(value, 0, value.length);
       el.dispatchEvent(new Event('input', {bubbles: true}));
-    }, index * 100);
+    }, index * actionTime);
   }
 
   function getCheckInInputs() {
@@ -149,7 +150,9 @@ export function fillFormInWebView(values: InjectJSValues) {
 
     if (isSuccess) {
       state.hasFilledInputs = true;
-      getButton()?.scrollIntoView(false);
+      setTimeout(() => {
+        getButton()?.scrollIntoView(false);
+      }, 2 * actionTime * inputs.length);
     }
 
     return {
