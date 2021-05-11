@@ -16,11 +16,12 @@ const SectionTitle: React.FC<{children: string}> = ({children}) => (
 export type CheckInsListProps = {
   items: CompletedCheckInItem[];
   current?: PartialCheckInItem;
+  activeTimeText: string;
   handleNavigateToCurrent?: () => void;
 };
 
 const CheckInsList: React.FC<CheckInsListProps> = props => {
-  const {current, items, handleNavigateToCurrent} = props;
+  const {current, items, activeTimeText, handleNavigateToCurrent} = props;
 
   const {t} = useTranslation('myCheckInsScreen');
 
@@ -32,7 +33,11 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
           <Box>
             <SectionTitle>{t('activeCheckInTitle')}</SectionTitle>
             <Space.V s={10} />
-            <CheckInItemCard item={current} onNavigate={handleNavigateToCurrent} />
+            <CheckInItemCard
+              item={current}
+              activeTimeText={activeTimeText}
+              onNavigate={handleNavigateToCurrent}
+            />
           </Box>
         </>
       ) : null}

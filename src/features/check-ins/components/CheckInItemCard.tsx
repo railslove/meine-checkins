@@ -82,18 +82,19 @@ export type CheckInItemCardProps = {
           stopTime: CompletedCheckInItem['stopTime'];
         }
     );
+  activeTimeText?: string;
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {
     item: {name, logoUrl, startTime, stopTime},
+    activeTimeText = '',
     onNavigate,
   } = props;
 
   const styles = useStyles();
 
-  const itemTime = stopTime || startTime;
   const logoSource =
     typeof logoUrl === 'string'
       ? {
@@ -111,10 +112,13 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
 
       <Box flex={1} marginLeft={px2dp(22)}>
         <Text style={styles.companyName}>{name}</Text>
-        {itemTime ? (
+        {startTime != null ? (
           <>
             <Space.V s={3} />
-            <Text style={styles.dateTime}>{formatItemDate(itemTime)}</Text>
+            <Text style={styles.dateTime}>
+              {formatItemDate(startTime)} -{' '}
+              {stopTime == null ? activeTimeText : formatItemDate(stopTime)}
+            </Text>
           </>
         ) : null}
       </Box>
