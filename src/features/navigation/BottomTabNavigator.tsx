@@ -18,13 +18,19 @@ const BottomNavigator: React.FC = () => {
   const checkIns = useSelector(state => state.checkIns);
 
   const tabBarVisible = user != null;
+  const checkInActive = checkIns.current != null;
   const initialRouteName = user == null ? BottomTabsRoutes.Profile : BottomTabsRoutes.ScanQRCode;
   const highlightScanButton = checkIns.current == null && checkIns.items.length === 0;
 
   return (
     <Navigator
       tabBar={props => (
-        <BottomTabBar {...props} theme={theme} highlightScanButton={highlightScanButton} />
+        <BottomTabBar
+          {...props}
+          theme={theme}
+          checkInActive={checkInActive}
+          highlightScanButton={highlightScanButton}
+        />
       )}
       screenOptions={{tabBarVisible}}
       initialRouteName={initialRouteName}

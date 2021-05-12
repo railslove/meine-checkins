@@ -15,6 +15,7 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 
 export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions> & {
   theme: ReturnType<typeof useTheme>;
+  checkInActive: boolean;
   highlightScanButton: boolean;
 };
 
@@ -37,6 +38,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
   theme,
   state,
   descriptors,
+  checkInActive,
   highlightScanButton,
 }) => {
   const currentRoute = state.routes[state.index];
@@ -55,6 +57,10 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
         const isSelected = shouldHighlightScan
           ? route === BottomTabsRoutes.ScanQRCode
           : currentRoute.name === route;
+
+        const shouldShowCheckInActive =
+          checkInActive && route === BottomTabsRoutes.CheckInsNavigator;
+
         const onPress = () => {
           NavigationService.fromBottomTabs(route);
         };
@@ -67,7 +73,11 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
             accessibilityState={{selected: isSelected}}
             onPress={onPress}
           >
-            <BottomTabItem route={route} isSelected={isSelected} />
+            <BottomTabItem
+              route={route}
+              isSelected={isSelected}
+              hasNewCheckIn={shouldShowCheckInActive}
+            />
           </TouchableOpacity>
         );
       })}
