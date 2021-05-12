@@ -7,12 +7,14 @@ import Space from 'src/shared/components/Layout/Space';
 import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
 import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
 import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
+import Box from 'src/shared/components/Layout/Box';
 
 export type BottomTabItemProps = {
   route: BottomTabsRoutes;
   isSelected: boolean;
+  hasNewCheckIn: boolean;
 };
 
 const styles = StyleSheet.create({
@@ -20,6 +22,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    position: 'relative',
   },
   text: {
     color: '#7B7A7A',
@@ -30,13 +34,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
 
-    fontSize: toDpFromPixel(12),
-    lineHeight: toDpFromPixel(14),
+    fontSize: px2dp(12),
+    lineHeight: px2dp(14),
   },
 });
 
 const BottomTabItem: React.FC<BottomTabItemProps> = props => {
-  const {route, isSelected} = props;
+  const {route, isSelected, hasNewCheckIn} = props;
 
   const {t} = useTranslation('navigation');
   const theme = useTheme();
@@ -70,6 +74,18 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
     case BottomTabsRoutes.CheckInsNavigator: {
       return (
         <View style={styles.root}>
+          {hasNewCheckIn ? (
+            <Box
+              position="absolute"
+              top={px2dp(-5)}
+              right={px2dp(25)}
+              width={px2dp(6)}
+              height={px2dp(6)}
+              borderRadius={px2dp(3)}
+              backgroundColor="#3772FF"
+            />
+          ) : undefined}
+
           <MyCheckInsIcon isSelected={isSelected} />
           <Space.V s={5} />
           <Text style={textStyle}>{t('checkIns')}</Text>

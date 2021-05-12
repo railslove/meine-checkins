@@ -2,15 +2,16 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, TextInput} from 'react-native';
 
+import {px2dp} from 'src/shared/styles/createStyles';
+
 import Image from 'src/shared/components/Image/Image';
 import Title from 'src/shared/components/Typography/Title';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {toDpFromPixel} from 'src/shared/theme/util';
 import {COLOGNE_CITY_LOGO_MARK} from 'src/features/check-ins/imprintLocales';
 
 const style = StyleSheet.create({
   text: {
-    fontSize: toDpFromPixel(12),
+    fontSize: px2dp(12),
     fontFamily: 'Inter-Regular',
   },
 });

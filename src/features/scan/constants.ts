@@ -1,5 +1,6 @@
 export enum PROVIDER_SITE_MESSAGE {
-  fillFormStart = 'fillFormStart',
+  start = 'start',
+  check = 'check',
   checkInSuccess = 'CheckInSuccess',
   checkInFailure = 'CheckInFailure',
   checkOutSuccess = 'CheckOutSuccess',

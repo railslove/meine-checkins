@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const style = StyleSheet.create({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
-    marginBottom: toDpFromPixel(14),
+    marginBottom: px2dp(14),
   },
   text: {
     color: '#060606',
@@ -15,8 +15,8 @@ const style = StyleSheet.create({
     height: 'auto',
     padding: 0,
 
-    fontSize: toDpFromPixel(36),
-    lineHeight: toDpFromPixel(44),
+    fontSize: px2dp(36),
+    lineHeight: px2dp(44),
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
   },
