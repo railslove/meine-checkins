@@ -1,19 +1,14 @@
 import React, {Fragment} from 'react';
 import {useTranslation} from 'react-i18next';
 
-import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
-import SubTitle from 'src/shared/components/Typography/Subtitle';
-import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
-import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
-import TextBox from 'src/shared/components/Typography/TextBox';
 import {formatItemDateHeader} from 'src/shared/format/date';
 
-const SectionTitle: React.FC<{children: string}> = ({children}) => (
-  <SubTitle textTransform="uppercase" fontWeight="700">
-    {children}
-  </SubTitle>
-);
+import Box from 'src/shared/components/Layout/Box';
+import Space from 'src/shared/components/Layout/Space';
+import TextBox from 'src/shared/components/Typography/TextBox';
+import SectionTitle from 'src/shared/components/Typography/SectionTitle';
+import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
+import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
 
 export type CheckInsListProps = {
   items: CompletedCheckInItem[];

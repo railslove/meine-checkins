@@ -10,9 +10,11 @@ import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 
+import TextBox from 'src/shared/components/Typography/TextBox';
 import CheckInsList from 'src/features/check-ins/components/CheckInsList';
 import MyCheckInsEmpty from 'src/features/check-ins/components/MyCheckInsEmpty';
 import MyCheckInsLinks from 'src/features/check-ins/components/MyCheckInsLinks';
+import CheckInProviderLogos from 'src/features/check-ins/components/CheckInProviderLogos';
 
 const MyCheckInsScreen: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
@@ -41,6 +43,10 @@ const MyCheckInsScreen: React.FC = () => {
         current={current}
         handleNavigateToCurrent={handleNavigateToCurrent}
       />
+
+      <Space.V s={20} />
+      <TextBox fontWeight="bold">{t('providerListHeader')}</TextBox>
+      <CheckInProviderLogos opacity={1} justifyContent="flex-start" />
 
       <MyCheckInsLinks />
     </TopLevelView>
