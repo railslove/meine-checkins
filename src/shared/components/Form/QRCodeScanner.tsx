@@ -2,8 +2,8 @@ import React from 'react';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
 import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 
-import {px2dp} from 'src/shared/styles/createStyles';
 import Box from 'src/shared/components/Layout/Box';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const borderWidth = px2dp(3);
 const borderRadius = Platform.select({
