@@ -1,8 +1,8 @@
 import React from 'react';
 import Svg, {Rect, Path} from 'react-native-svg';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const size = toDpFromPixel(30);
+const size = px2dp(30);
 
 const LockIcon: React.FC = () => {
   return (

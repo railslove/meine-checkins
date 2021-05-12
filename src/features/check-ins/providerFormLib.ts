@@ -30,6 +30,7 @@ export type ProviderFormMessage = {
  **/
 
 export function fillFormInWebView(values: InjectJSValues) {
+  const actionTime = 50;
   const {user, __DEV__} = values;
   const state = {hasFilledInputs: isCheckOut(), hasCheckOut: false};
 
@@ -61,8 +62,11 @@ export function fillFormInWebView(values: InjectJSValues) {
 
     const elements = document.body.querySelectorAll<HTMLButtonElement>('a, input, button');
 
-    return Array.from(elements).find(
-      el => el.type === 'submit' || /check[-\s]*(in|out)/i.test(el.outerHTML)
+    return (
+      Array.from(elements)
+        // do reverse to start from the last element on the page
+        .reverse()
+        .find(el => /check[-\s]*(in|out)/i.test(el.textContent || ''))
     );
   }
 
@@ -74,9 +78,14 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
     setTimeout(() => {
-      el.setRangeText(value, 0, value.length);
+      el.focus();
+      if (el.type === 'number') {
+        el.value = value;
+      } else {
+        el.setRangeText(value, 0, value.length);
+      }
       el.dispatchEvent(new Event('input', {bubbles: true}));
-    }, index * 100);
+    }, index * actionTime);
   }
 
   function getCheckInInputs() {
@@ -93,7 +102,9 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function fillCheckInForm() {
-    const filled = getCheckInInputs()
+    const inputs = getCheckInInputs();
+
+    const filled = inputs
       .map((el, index): (keyof User)[] => {
         const name = el.getAttribute('autocomplete') as AutoCompleteValues;
 
@@ -139,10 +150,10 @@ export function fillFormInWebView(values: InjectJSValues) {
           }
         }
       })
-      .filter(v => v && v.length > 0)
-      .flat();
+      .filter(v => v && v.length > 0);
 
-    const isSuccess = filled.length === Object.keys(user).length;
+    // minimum is full name, zip code and telephone or email
+    const isSuccess = filled.length > 0;
 
     if (isSuccess) {
       state.hasFilledInputs = true;
@@ -157,7 +168,6 @@ export function fillFormInWebView(values: InjectJSValues) {
   function waitForCheckout() {
     if (!state.hasCheckOut) {
       postMessage('checkOutSuccess');
-    } else {
       state.hasCheckOut = true;
     }
   }
@@ -172,6 +182,12 @@ export function fillFormInWebView(values: InjectJSValues) {
       }
     });
 
+    // only once so we don't dispatch more actions
+    // which then re-renders the screen => we might loose the website state
+    setTimeout(() => {
+      findProviderLogo();
+    }, 1000);
+
     const checkInterval = setInterval(() => {
       if (__DEV__) {
         postMessage('check', JSON.stringify(state));
@@ -179,7 +195,6 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (!state.hasFilledInputs && canCheckIn()) {
         fillCheckInForm();
-        findProviderLogo();
       } else if (isCheckOut()) {
         postMessage('checkInSuccess');
         clearInterval(checkInterval);

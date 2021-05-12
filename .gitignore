@@ -62,7 +62,7 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 fastlane/report.xml
-android/gradle/wrapper/gradle-wrapper.jar
+
 .husky
 android/*.hprof
 .env.staging

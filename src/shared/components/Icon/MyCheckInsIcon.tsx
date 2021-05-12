@@ -2,9 +2,9 @@ import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import Svg, {Path} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const size = toDpFromPixel(21);
+const size = px2dp(22);
 
 const MyCheckInsIcon: React.FC<SvgIconProps> = ({isSelected}) => {
   const theme = useTheme();

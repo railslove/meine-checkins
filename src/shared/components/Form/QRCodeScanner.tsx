@@ -2,13 +2,13 @@ import React from 'react';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
 import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
 import Box from 'src/shared/components/Layout/Box';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const borderWidth = toDpFromPixel(3);
+const borderWidth = px2dp(3);
 const borderRadius = Platform.select({
-  android: toDpFromPixel(14),
-  default: toDpFromPixel(24),
+  android: px2dp(14),
+  default: px2dp(24),
 });
 
 const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle => {
@@ -34,8 +34,8 @@ const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle
 };
 
 const useStyles = () => {
-  const markerPad = -toDpFromPixel(12.5);
-  const cameraSize = toDpFromPixel(200);
+  const markerPad = -px2dp(12.5);
+  const cameraSize = px2dp(200);
 
   return StyleSheet.create({
     dimensions: {
@@ -99,8 +99,8 @@ const QRScanner: React.FC<QRScannerProps> = props => {
             <>
               <Box
                 zIndex={50}
-                top={-toDpFromPixel(40)}
-                height={toDpFromPixel(43)}
+                top={-px2dp(40)}
+                height={px2dp(43)}
                 left={0}
                 right={0}
                 position="absolute"
@@ -108,8 +108,8 @@ const QRScanner: React.FC<QRScannerProps> = props => {
               />
               <Box
                 zIndex={50}
-                bottom={-toDpFromPixel(40)}
-                height={toDpFromPixel(43)}
+                bottom={-px2dp(40)}
+                height={px2dp(43)}
                 left={0}
                 right={0}
                 position="absolute"

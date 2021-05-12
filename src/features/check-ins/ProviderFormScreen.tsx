@@ -1,8 +1,7 @@
+import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
 import {WebViewMessageEvent} from 'react-native-webview';
-import {useDispatch, useSelector} from 'react-redux';
 
 import {
   providerCheckInAction,
@@ -18,29 +17,21 @@ import {
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
 import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
-import Title from 'src/shared/components/Typography/Title';
-import Button from 'src/shared/components/Button/Button';
-import Description from 'src/shared/components/Typography/Description';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
-const ProviderFormScreen: React.FC = () => {
-  const {t} = useTranslation('providerFormScreen');
+const ProviderFormScreen = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.user.item);
   const checkIn = useSelector(state => state.checkIns.current);
 
-  const handleGoToScanQR = useCallback(() => {
-    NavigationService.fromEmptyProviderForm();
-  }, []);
-
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      if (checkIn == null) {
-        console.warn('no checkIn available');
+      const current = checkIn;
+
+      if (current == null) {
+        console.warn('there is no check-in in progress');
         return;
       }
 
@@ -51,19 +42,28 @@ const ProviderFormScreen: React.FC = () => {
 
       switch (key) {
         case 'setProviderLogo': {
-          dispatch(providerSetLogoAction({...checkIn, logoUrl: value}));
+          if (value && current.logoUrl == null) {
+            dispatch(providerSetLogoAction({item: current, logoUrl: value}));
+          }
           break;
         }
         case 'checkInSuccess': {
-          if (checkIn.startTime == null) {
-            dispatch(providerCheckInAction(checkIn));
+          if (current.startTime == null) {
+            dispatch(providerCheckInAction(current));
           } else {
-            console.info('ProviderForm: skipping already checked in');
+            console.warn('tried to check-in with startTime');
           }
           break;
         }
         case 'checkOutSuccess': {
-          dispatch(providerCheckOutAction(checkIn));
+          const {startTime} = current;
+
+          if (startTime != null) {
+            dispatch(providerCheckOutAction({...current, startTime}));
+          } else {
+            console.warn('tried to check-out without startTime');
+          }
+
           NavigationService.fromProviderFormCheckout();
           break;
         }
@@ -73,21 +73,11 @@ const ProviderFormScreen: React.FC = () => {
         }
       }
     },
-    [dispatch, checkIn]
+    [checkIn, dispatch]
   );
 
   if (!checkIn) {
-    return (
-      <TopLevelView>
-        <Space.V s={10} />
-        <Title split={false}>{t('missingProviderTitle')}</Title>
-        <Space.V s={10} />
-
-        <Description>{t('missingProviderDescription')}</Description>
-        <Space.V s={10} />
-        <Button onPress={handleGoToScanQR}>{t('missingProviderSubmit')}</Button>
-      </TopLevelView>
-    );
+    return null;
   }
 
   const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;

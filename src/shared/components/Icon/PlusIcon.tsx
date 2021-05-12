@@ -2,9 +2,9 @@ import React from 'react';
 import {useTheme} from 'react-native-paper';
 import Svg, {Path} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
-const size = toDpFromPixel(18);
+const size = px2dp(18);
 
 const PlusIcon: React.FC<SvgIconProps> = ({isSelected}) => {
   const theme = useTheme();

@@ -4,7 +4,7 @@ import React, {useCallback} from 'react';
 
 import OpenLinkService from 'src/shared/services/OpenLinkService';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import {MyCheckInsRoutes} from 'src/features/navigation/routes';
+import {BottomTabsRoutes, MyCheckInsRoutes} from 'src/features/navigation/routes';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -29,7 +29,7 @@ const MyCheckInsScreen: React.FC = () => {
   }, []);
 
   const handleNavigateToCurrent = useCallback(() => {
-    NavigationService.fromMyCheckIns(MyCheckInsRoutes.ProviderForm);
+    NavigationService.fromMyCheckIns(BottomTabsRoutes.ProviderForm);
   }, []);
 
   const isEmpty = current == null && items.length === 0;
@@ -56,13 +56,14 @@ const MyCheckInsScreen: React.FC = () => {
         <CheckInsList
           items={items}
           current={current}
+          activeTimeText={t('activeTimeText')}
           handleNavigateToCurrent={handleNavigateToCurrent}
         />
       )}
 
       {isEmpty ? null : (
         <Box>
-          <Space.V s={10} />
+          <Space.V s={15} />
           <ButtonLink onPress={handleNavigateFAQ}>{t('faq')}</ButtonLink>
           <Space.V s={5} />
           <ButtonLink onPress={handleNavigateToImprint}>{t('imprint')}</ButtonLink>

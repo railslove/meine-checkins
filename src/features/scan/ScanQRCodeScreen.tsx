@@ -1,9 +1,11 @@
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
-import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
 
-import {TEST_PROVIDER} from 'src/testData';
+import {px2dp} from 'src/shared/styles/createStyles';
+import {TEST_PROVIDERS} from 'src/testData';
+import {PartialCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -19,8 +21,8 @@ import {
 } from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
+import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import {toDpFromPixel} from 'src/shared/theme/util';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
@@ -28,22 +30,25 @@ export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
-  const currentProvider = useSelector(state => state.checkIns.current);
+  const current = useSelector(state => state.checkIns.current);
 
-  const handleTestSubmit = () => {
-    handleSuccess({data: TEST_PROVIDER.url});
+  const handleTestSubmit = (el: PartialCheckInItem) => () => {
+    handleSuccess({data: el.url});
   };
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
-    dispatch(providerRegisterAction({url}));
     NavigationService.fromScanQRScreen();
+
+    // dispatch action with a bit of delay
+    // otherwise the case where there is a current provider flashes
+    setTimeout(() => dispatch(providerRegisterAction({url})), 0);
   };
 
   useEffect(() => {
     PermissionsService.requestCamera();
   });
 
-  if (currentProvider) {
+  if (current && current.startTime) {
     const handleGoToCheckout = () => {
       NavigationService.fromScanQRScreen();
     };
@@ -57,7 +62,7 @@ const ScanQRCodeScreen: React.FC = () => {
         flex={1}
         display="flex"
         flexDirection="column"
-        paddingHorizontal={toDpFromPixel(30)}
+        paddingHorizontal={px2dp(30)}
         backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
       >
         <Space.V s={40} />
@@ -98,9 +103,9 @@ const ScanQRCodeScreen: React.FC = () => {
 
         <Box flex={1} display="flex" alignItems="center" justifyContent="center">
           <QRScanner
+            backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
             notAuthorizedView={<NotAuthorizedView />}
             onRead={handleSuccess}
-            backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
           />
         </Box>
 
@@ -111,11 +116,18 @@ const ScanQRCodeScreen: React.FC = () => {
           </Description>
           <Space.V s={10} />
 
-          {true ? (
+          {__DEV__ ? (
             <>
               <Space.V s={10} />
-              <Button onPress={handleTestSubmit}>{t('submitScanQRCode')}</Button>
-              {/* space below for scroll tests */}
+              <Box display="flex" flexDirection="row" maxWidth="100%" flexWrap="wrap">
+                {TEST_PROVIDERS.map(el => {
+                  return (
+                    <ButtonLink key={el.id} onPress={handleTestSubmit(el)}>
+                      {'  ' + el.name + '  '}
+                    </ButtonLink>
+                  );
+                })}
+              </Box>
               <Space.V s={10} />
             </>
           ) : null}

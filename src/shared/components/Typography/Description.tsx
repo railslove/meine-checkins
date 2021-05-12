@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextStyle} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const useStyles = ({
   color = 'black',
@@ -15,8 +15,8 @@ const useStyles = ({
       margin: 0,
       padding: 0,
       height: 'auto',
-      fontSize: toDpFromPixel(14),
-      lineHeight: toDpFromPixel(22),
+      fontSize: px2dp(14),
+      lineHeight: px2dp(22),
       fontFamily: 'Inter-Regular',
     },
   });
