@@ -13,5 +13,5 @@ export const formatItemDate = (value: number) => {
     date.getMinutes(),
   ].map(normalizeDateNum);
 
-  return `${day}.${month}.${year} - ${hours}:${minutes} Uhr`;
+  return `${day}.${month}.${year} ${hours}.${minutes} Uhr`;
 };
