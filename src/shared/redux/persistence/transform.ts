@@ -29,7 +29,7 @@ export const userPersistTransform = createTransform<UserReducerState, UserReduce
  * checkIns transform
  */
 const checkInsTransform: ReduxPersistTransform<'checkIns', CheckInsReducerState> = {
-  serialize: ({items}) => getCheckInsInitialState({items}),
+  serialize: ({items, current}) => getCheckInsInitialState({items, current}),
   rehydrate: value => value,
   config: {
     whitelist: ['checkIns'],

@@ -15,14 +15,15 @@ import {
   prepareFillFormInWebViewInject,
 } from 'src/features/check-ins/providerFormLib';
 
+import NavigationService from 'src/features/navigation/services/NavigationService';
+
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Title from 'src/shared/components/Typography/Title';
 import Button from 'src/shared/components/Button/Button';
-import MemoWebview from 'src/shared/components/Webview/MemoWebview';
-import NavigationService from 'src/features/navigation/services/NavigationService';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import Description from 'src/shared/components/Typography/Description';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
 const ProviderFormScreen: React.FC = () => {
   const {t} = useTranslation('providerFormScreen');
@@ -30,7 +31,7 @@ const ProviderFormScreen: React.FC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.user.item);
-  const provider = useSelector(state => state.checkIns.current);
+  const checkIn = useSelector(state => state.checkIns.current);
 
   const handleGoToScanQR = useCallback(() => {
     NavigationService.fromEmptyProviderForm();
@@ -38,27 +39,31 @@ const ProviderFormScreen: React.FC = () => {
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      if (provider == null) {
-        console.warn('no provider available');
+      if (checkIn == null) {
+        console.warn('no checkIn available');
         return;
       }
 
       const message = parseProviderWebviewMessage(ev);
       const {key, value} = message;
 
-      console.info('ProviderForm message', message);
+      console.info('ProviderForm message:', message);
 
       switch (key) {
         case 'setProviderLogo': {
-          dispatch(providerSetLogoAction({...provider, logoUrl: value}));
+          dispatch(providerSetLogoAction({...checkIn, logoUrl: value}));
           break;
         }
         case 'checkInSuccess': {
-          dispatch(providerCheckInAction(provider));
+          if (checkIn.startTime == null) {
+            dispatch(providerCheckInAction(checkIn));
+          } else {
+            console.info('ProviderForm: skipping already checked in');
+          }
           break;
         }
         case 'checkOutSuccess': {
-          dispatch(providerCheckOutAction(provider));
+          dispatch(providerCheckOutAction(checkIn));
           NavigationService.fromProviderFormCheckout();
           break;
         }
@@ -68,10 +73,10 @@ const ProviderFormScreen: React.FC = () => {
         }
       }
     },
-    [dispatch, provider]
+    [dispatch, checkIn]
   );
 
-  if (!provider) {
+  if (!checkIn) {
     return (
       <TopLevelView>
         <Space.V s={10} />
@@ -85,12 +90,13 @@ const ProviderFormScreen: React.FC = () => {
     );
   }
 
-  const injectedJavaScript = user ? prepareFillFormInWebViewInject(user) : undefined;
+  const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;
 
   return (
     <Box flex={1} backgroundColor={theme.colors.surface}>
-      <MemoWebview
-        url={provider.url}
+      <CachedWebView
+        id={checkIn.id}
+        url={checkIn.url}
         injectedJavaScript={injectedJavaScript}
         onMessage={handleMessage}
       />
