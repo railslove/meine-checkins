@@ -14,6 +14,7 @@ export type PartialCheckInItem = {
   url: string;
   name: string;
   logoUrl?: string | ImageSourcePropType;
+  location?: string;
   startTime?: number;
 };
 

@@ -18,4 +18,13 @@ type ProviderSetLogoPayload = {
 
 export const providerSetLogoAction = createAction('@provider/set-logo')<ProviderSetLogoPayload>();
 
+type ProviderSetLocationPayload = {
+  item: PartialCheckInItem;
+  location: string;
+};
+
+export const providerSetLocationAction = createAction(
+  '@provider/set-location'
+)<ProviderSetLocationPayload>();
+
 export const providerDiscardAction = createAction('@provider/check-in-discard')();

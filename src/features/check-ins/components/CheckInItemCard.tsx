@@ -56,11 +56,11 @@ const useStyles = () => {
       textAlign: 'left',
       fontSize: px2dp(12),
 
-      fontFamily: 'Inter-Bold',
+      fontFamily: 'Inter-Regular',
       fontWeight: '600',
       lineHeight: px2dp(15),
     },
-    dateTime: {
+    infoText: {
       textAlign: 'left',
       fontSize: px2dp(12),
       fontWeight: '400',
@@ -70,7 +70,7 @@ const useStyles = () => {
 };
 
 export type CheckInItemCardProps = {
-  item: Pick<CompletedCheckInItem, 'name' | 'logoUrl'> &
+  item: Pick<CompletedCheckInItem, 'name' | 'location' | 'logoUrl'> &
     (
       | {
           startTime?: CompletedCheckInItem['stopTime'];
@@ -86,7 +86,7 @@ export type CheckInItemCardProps = {
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {
-    item: {name, logoUrl, startTime, stopTime},
+    item: {name, location, logoUrl, startTime, stopTime},
     onNavigate,
   } = props;
 
@@ -108,11 +108,19 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
       </View>
 
       <Box flex={1} marginLeft={px2dp(22)}>
+        {location != null ? (
+          <>
+            <Space.V s={1} />
+            <Text style={styles.infoText}>{location}</Text>
+          </>
+        ) : null}
+
         <Text style={styles.companyName}>{name}</Text>
+
         {startTime != null ? (
           <>
-            <Space.V s={3} />
-            <Text style={styles.dateTime}>{formatItemDate(startTime, stopTime)}</Text>
+            <Space.V s={1} />
+            <Text style={styles.infoText}>{formatItemDate(startTime, stopTime)}</Text>
           </>
         ) : null}
       </Box>

@@ -47,13 +47,22 @@ export function fillFormInWebView(values: InjectJSValues) {
     const link = document.querySelector<HTMLLinkElement>('link[type*=image][rel*=icon]');
 
     if (link && link.href) {
-      postMessage('setProviderLogo', link.href);
+      postMessage('setLogo', link.href);
+    }
+  }
+
+  function findProviderLocation() {
+    const el = document.querySelector<HTMLElement>('[data-wfd-location]');
+    const value = el && el.dataset.wfdLocation;
+
+    if (value) {
+      postMessage('setLocation', value);
     }
   }
 
   function getButton() {
     const el = document.body.querySelector<HTMLButtonElement>(
-      '[type=submit], [data-wfd-action="check-in"], [data-wfd-action="check-out"]'
+      '[data-wfd-action="check-in"], [data-wfd-action="check-out"]'
     );
 
     if (el) {
@@ -177,6 +186,7 @@ export function fillFormInWebView(values: InjectJSValues) {
       const el = ev.target?.closest('a, div, button, input');
 
       if (isCheckOut(el)) {
+        findProviderLocation();
         setTimeout(waitForCheckout, 500);
         window.addEventListener('unload', waitForCheckout);
       }
@@ -186,6 +196,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     // which then re-renders the screen => we might loose the website state
     setTimeout(() => {
       findProviderLogo();
+      findProviderLocation();
     }, 1000);
 
     const checkInterval = setInterval(() => {
@@ -196,6 +207,7 @@ export function fillFormInWebView(values: InjectJSValues) {
       if (!state.hasFilledInputs && canCheckIn()) {
         fillCheckInForm();
       } else if (isCheckOut()) {
+        findProviderLocation();
         postMessage('checkInSuccess');
         clearInterval(checkInterval);
       }

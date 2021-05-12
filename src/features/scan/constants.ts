@@ -1,11 +1,12 @@
 export enum PROVIDER_SITE_MESSAGE {
   start = 'start',
   check = 'check',
+  setLogo = 'SetLogo',
+  setLocation = 'SetLocation',
   checkInSuccess = 'CheckInSuccess',
   checkInFailure = 'CheckInFailure',
   checkOutSuccess = 'CheckOutSuccess',
   checkOutFailure = 'CheckOutFailure',
-  setProviderLogo = 'SetProviderLogo',
   parseMessageError = 'parseMessageError',
 }
 

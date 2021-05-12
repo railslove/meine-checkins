@@ -5,8 +5,9 @@ import {WebViewMessageEvent} from 'react-native-webview';
 
 import {
   providerCheckInAction,
-  providerCheckOutAction,
   providerSetLogoAction,
+  providerCheckOutAction,
+  providerSetLocationAction,
 } from 'src/shared/redux/actions/providerActions';
 
 import {
@@ -41,9 +42,15 @@ const ProviderFormScreen = () => {
       console.info('ProviderForm message:', message);
 
       switch (key) {
-        case 'setProviderLogo': {
+        case 'setLogo': {
           if (value && current.logoUrl == null) {
             dispatch(providerSetLogoAction({item: current, logoUrl: value}));
+          }
+          break;
+        }
+        case 'setLocation': {
+          if (value && current.location == null) {
+            dispatch(providerSetLocationAction({item: current, location: value}));
           }
           break;
         }
