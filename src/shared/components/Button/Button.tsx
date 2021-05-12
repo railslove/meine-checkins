@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 });
 
 export type ButtonProps = {
-  mode?: 'text' | 'outlined' | 'contained';
+  mode?: 'text' | 'contained' | 'outlined';
   children: React.ReactNode;
   disabled?: boolean;
   fullWidth?: boolean;
