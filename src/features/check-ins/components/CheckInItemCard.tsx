@@ -1,25 +1,16 @@
 import React from 'react';
-import {useTheme} from 'react-native-paper';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
-import Image from 'src/shared/components/Image/Image';
 import Space from 'src/shared/components/Layout/Space';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
-
-const logoDimensions = {
-  width: px2dp(67),
-  height: px2dp(52),
-};
+import CheckInLogo from 'src/features/check-ins/components/CheckInLogo';
 
 const useStyles = () => {
-  const theme = useTheme();
-  const borderRadius = px2dp(5);
-
   return StyleSheet.create({
     root: {
       display: 'flex',
@@ -34,23 +25,6 @@ const useStyles = () => {
     },
     rootTouchable: {
       display: 'flex',
-    },
-    logoContainer: {
-      borderRadius,
-
-      ...logoDimensions,
-
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.surface,
-    },
-    logoImage: {
-      flex: 1,
-      width: undefined,
-      height: undefined,
-      margin: px2dp(10),
-      alignSelf: 'stretch',
     },
     companyName: {
       textAlign: 'left',
@@ -92,20 +66,9 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
 
   const styles = useStyles();
 
-  const logoSource =
-    typeof logoUrl === 'string'
-      ? {
-          uri: logoUrl,
-        }
-      : logoUrl;
-
   const cardItem = (
     <View style={styles.root}>
-      <View style={styles.logoContainer}>
-        {logoSource == null ? null : (
-          <Image source={logoSource} style={styles.logoImage} resizeMode="contain" />
-        )}
-      </View>
+      <CheckInLogo src={logoUrl} />
 
       <Box flex={1} marginLeft={px2dp(22)}>
         {location != null ? (
