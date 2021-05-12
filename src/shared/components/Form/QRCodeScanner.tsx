@@ -1,11 +1,15 @@
 import React from 'react';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
-import {Dimensions, StyleSheet, View, ViewStyle} from 'react-native';
+import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 
 import {toDpFromPixel} from 'src/shared/theme/util';
+import Box from 'src/shared/components/Layout/Box';
 
 const borderWidth = toDpFromPixel(3);
-const borderRadius = toDpFromPixel(24);
+const borderRadius = Platform.select({
+  android: toDpFromPixel(14),
+  default: toDpFromPixel(24),
+});
 
 const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle => {
   return {
@@ -31,12 +35,13 @@ const borderStyleProps = ({top, right, bottom, left}: ViewStyle = {}): ViewStyle
 
 const useStyles = () => {
   const markerPad = -toDpFromPixel(12.5);
-  const {width: windowWidth} = Dimensions.get('window');
+  const cameraSize = toDpFromPixel(200);
 
   return StyleSheet.create({
     dimensions: {
-      width: windowWidth * 0.6,
-      height: windowWidth * 0.6,
+      width: cameraSize,
+      height: cameraSize,
+      zIndex: 100,
       borderRadius,
     },
     marker: {
@@ -46,6 +51,7 @@ const useStyles = () => {
       bottom: markerPad,
       zIndex: 100,
       position: 'absolute',
+
       borderRadius,
     },
     markerTopLeft: borderStyleProps({
@@ -67,11 +73,14 @@ const useStyles = () => {
   });
 };
 
-export type QRScannerProps = RNQRCodeScannerProps;
+export type QRScannerProps = RNQRCodeScannerProps & {
+  backgroundColor?: string;
+};
 
 // eslint-disable-next-line react/display-name
 const QRScanner: React.FC<QRScannerProps> = props => {
   const styles = useStyles();
+  const {backgroundColor, ...restProps} = props;
 
   return (
     <QRCodeScanner
@@ -79,17 +88,42 @@ const QRScanner: React.FC<QRScannerProps> = props => {
       reactivateTimeout={10000}
       showMarker={true}
       customMarker={
-        <View style={styles.marker}>
-          <View style={styles.markerTopLeft} />
-          <View style={styles.markerTopRight} />
-          <View style={styles.markerBottomLeft} />
-          <View style={styles.markerBottomRight} />
-        </View>
+        <>
+          <View style={styles.marker}>
+            <View style={styles.markerTopLeft} />
+            <View style={styles.markerTopRight} />
+            <View style={styles.markerBottomLeft} />
+            <View style={styles.markerBottomRight} />
+          </View>
+          {(Platform.OS === 'android' && (
+            <>
+              <Box
+                zIndex={50}
+                top={-toDpFromPixel(40)}
+                height={toDpFromPixel(43)}
+                left={0}
+                right={0}
+                position="absolute"
+                backgroundColor={backgroundColor}
+              />
+              <Box
+                zIndex={50}
+                bottom={-toDpFromPixel(40)}
+                height={toDpFromPixel(43)}
+                left={0}
+                right={0}
+                position="absolute"
+                backgroundColor={backgroundColor}
+              />
+            </>
+          )) ||
+            null}
+        </>
       }
       cameraStyle={styles.dimensions}
       topViewStyle={styles.dimensions}
       containerStyle={styles.dimensions}
-      {...props}
+      {...restProps}
     />
   );
 };
