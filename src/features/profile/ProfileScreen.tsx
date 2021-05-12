@@ -119,6 +119,7 @@ const ProfileScreen: React.FC = () => {
         {renderTextInput('phoneNumber', {
           keyboardType: 'phone-pad',
           autoCompleteType: 'tel',
+          dataDetectorTypes: 'phoneNumber',
         })}
 
         <Space.V s={10} />
