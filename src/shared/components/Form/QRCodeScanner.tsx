@@ -87,6 +87,7 @@ const QRScanner: React.FC<QRScannerProps> = props => {
       reactivate
       reactivateTimeout={10000}
       showMarker={true}
+      cameraType="back"
       customMarker={
         <>
           <View style={styles.marker}>
