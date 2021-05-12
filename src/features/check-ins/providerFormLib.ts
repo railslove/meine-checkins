@@ -107,7 +107,7 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function isCheckOut(el = getButton()) {
-    return /check[-\s]*out/i.test(el?.outerHTML || '');
+    return el?.dataset.wfdAction === 'check-out' || /check[-\s]*out/i.test(el?.outerHTML || '');
   }
 
   function fillCheckInForm() {
@@ -187,7 +187,7 @@ export function fillFormInWebView(values: InjectJSValues) {
 
       if (isCheckOut(el)) {
         findProviderLocation();
-        setTimeout(waitForCheckout, 500);
+        setTimeout(waitForCheckout, 0);
         window.addEventListener('unload', waitForCheckout);
       }
     });
@@ -200,10 +200,6 @@ export function fillFormInWebView(values: InjectJSValues) {
     }, 1000);
 
     const checkInterval = setInterval(() => {
-      if (__DEV__) {
-        postMessage('check', JSON.stringify(state));
-      }
-
       if (!state.hasFilledInputs && canCheckIn()) {
         fillCheckInForm();
       } else if (isCheckOut()) {
