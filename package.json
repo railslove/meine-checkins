@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.8.1",
+  "version": "1.8.5",
   "scripts": {
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -34,6 +34,8 @@
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "@reduxjs/toolkit": "^1.4.0",
+    "date-fns": "^2.21.3",
+    "date-fns-tz": "^1.1.4",
     "i18next": "^20.1.0",
     "react": "17.0.1",
     "react-hook-form": "^7.0.5",
@@ -85,7 +87,6 @@
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-react-native": "^3.8.1",
-    "faker": "^5.5.2",
     "husky": "^6.0.0",
     "jest": "^25.5.4",
     "jest-circus": "^26.4.0",
@@ -94,8 +95,8 @@
     "prettier": "^2.0.5",
     "react-native-flipper": "^0.52.1",
     "react-test-renderer": "^16.13.1",
-    "typescript": "^4.2.4",
-    "redux-flipper": "^1.4.2"
+    "redux-flipper": "^1.4.2",
+    "typescript": "^4.2.4"
   },
   "jest": {
     "preset": "react-native",

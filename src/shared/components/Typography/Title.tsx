@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'children'> = {}) =>
   StyleSheet.create({
@@ -9,7 +9,7 @@ const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'childre
       display: 'flex',
       alignItems: 'flex-start',
       flexDirection: 'column',
-      marginBottom: toDpFromPixel(14),
+      marginBottom: px2dp(14),
     },
     text: {
       color,
@@ -19,10 +19,10 @@ const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'childre
       height: 'auto',
       padding: 0,
 
-      fontSize: toDpFromPixel(22),
+      fontSize: px2dp(22),
       fontFamily: 'Inter-Bold',
       fontWeight: '700',
-      lineHeight: toDpFromPixel(26),
+      lineHeight: px2dp(26),
     },
   });
 

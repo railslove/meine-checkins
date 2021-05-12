@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, TextInput} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {StyleSheet, TextInput} from 'react-native';
+
+import {px2dp} from 'src/shared/styles/createStyles';
 
 import Title from 'src/shared/components/Typography/Title';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import {toDpFromPixel} from 'src/shared/theme/util';
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: toDpFromPixel(12),
+    fontSize: px2dp(12),
     fontFamily: 'Inter-Regular',
   },
 });

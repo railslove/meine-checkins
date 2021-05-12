@@ -5,18 +5,18 @@ import {Controller, useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 
 import User from 'src/shared/models/User';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 import {saveUserAction} from 'src/shared/redux/actions/userActions';
+import NavigationService from 'src/features/navigation/services/NavigationService';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import Button from 'src/shared/components/Button/Button';
 import Title from 'src/shared/components/Typography/Title';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import TextBox from 'src/shared/components/Typography/TextBox';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
-import Paragraph from 'src/shared/components/Typography/Paragraph';
-import NavigationService from 'src/features/navigation/services/NavigationService';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import TextInput, {TextInputProps} from 'src/shared/components/Form/TextInput';
 
 const ProfileScreen: React.FC = () => {
@@ -72,14 +72,14 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Space.V s={10} />
+      <Space.V s={15} />
 
       <Box>
         <Title>{t('title')}</Title>
         <Subtitle>{t('subtitle')}</Subtitle>
       </Box>
 
-      <Space.V s={10} />
+      <Space.V s={15} />
 
       <Box flex={1} flexDirection="column">
         <Box display="flex" flexDirection="row">
@@ -88,7 +88,7 @@ const ProfileScreen: React.FC = () => {
               autoCompleteType: 'name',
             })}
           </Box>
-          <Box flex={1} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={px2dp(5)}>
             {renderTextInput('lastName', {
               autoCompleteType: 'name',
             })}
@@ -108,7 +108,7 @@ const ProfileScreen: React.FC = () => {
               dataDetectorTypes: 'phoneNumber',
             })}
           </Box>
-          <Box flex={1} marginLeft={toDpFromPixel(5)}>
+          <Box flex={1} marginLeft={px2dp(5)}>
             {renderTextInput('city', {
               autoCompleteType: 'street-address',
               dataDetectorTypes: 'address',
@@ -121,7 +121,7 @@ const ProfileScreen: React.FC = () => {
           autoCompleteType: 'tel',
         })}
 
-        <Space.V s={2.5} />
+        <Space.V s={10} />
         <Box
           display="flex"
           alignItems="center"
@@ -130,19 +130,17 @@ const ProfileScreen: React.FC = () => {
           marginHorizontal="7.5%"
         >
           <Box display="flex" flexDirection="row" alignItems="flex-start">
-            <Box
-              borderRadius={theme.roundness}
-              marginRight={toDpFromPixel(20)}
-              marginTop={toDpFromPixel(5)}
-            >
+            <Box borderRadius={theme.roundness} marginRight={px2dp(20)} marginTop={px2dp(5)}>
               <LockIcon />
             </Box>
             <Box>
-              <Paragraph>{t('dataPrivacyInfo')}</Paragraph>
+              <TextBox fontSize={13} lineHeight={16.72} fontWeight="600">
+                {t('dataPrivacyInfo')}
+              </TextBox>
             </Box>
           </Box>
 
-          <Space.V s={10} />
+          <Space.V s={15} />
           <Button fullWidth onPress={handleSave}>
             {t('submit')}
           </Button>

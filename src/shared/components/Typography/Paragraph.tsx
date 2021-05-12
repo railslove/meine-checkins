@@ -1,15 +1,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Paragraph as RPParagraph} from 'react-native-paper';
-import {toDpFromPixel} from 'src/shared/theme/util';
+
+import {px2dp} from 'src/shared/styles/createStyles';
 
 export const paragraphStyle = StyleSheet.create({
   root: {
     margin: 0,
     padding: 0,
     height: 'auto',
-    fontSize: toDpFromPixel(11),
-    lineHeight: toDpFromPixel(18),
+    fontSize: px2dp(13),
+    lineHeight: px2dp(18),
     fontFamily: 'Inter-Regular',
   },
 });

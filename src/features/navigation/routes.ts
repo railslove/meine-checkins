@@ -6,11 +6,8 @@ export enum RootStackRoutes {
 export enum BottomTabsRoutes {
   Profile = 'Profile',
   ScanQRCode = 'ScanQRCode',
+  ProviderForm = 'ProviderForm',
   CheckInsNavigator = 'CheckInsNavigator',
-}
-
-export enum ScanQRCodeRoutes {
-  ScanQRCode = 'ScanQRCode',
 }
 
 export enum MyCheckInsRoutes {

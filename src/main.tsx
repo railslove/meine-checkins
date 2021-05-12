@@ -9,7 +9,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import i18n from 'src/shared/i18n';
-import theme from 'src/shared/theme/theme';
+import theme from 'src/shared/styles/theme';
 import {store, persistor} from 'src/shared/redux/store';
 
 import RootErrorBoundary from 'src/RootErrorBoundary';
