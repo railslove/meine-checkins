@@ -8,8 +8,8 @@ const options = {locale: de, timeZone: 'Europe/Berlin'};
  * @param b end time
  */
 export const formatItemDate = (a: number, b?: number) => {
-  const stop = b == null ? null : format(b, 'H:mm', options);
-  const start = format(a, 'H:mm', options);
+  const stop = b == null ? null : format(b, 'HH:mm', options);
+  const start = format(a, 'HH:mm', options);
 
   return stop == null ? `${start} - aktiv` : `${start} - ${stop} Uhr`;
 };
