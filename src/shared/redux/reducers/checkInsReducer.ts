@@ -72,6 +72,12 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       ...state,
       current: undefined,
     };
+  })
+  .handleAction(providerDiscardAction, state => {
+    return {
+      ...state,
+      current: undefined,
+    };
   });
 
 export default checkInsReducer;
