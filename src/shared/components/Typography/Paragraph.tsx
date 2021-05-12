@@ -8,7 +8,7 @@ export const paragraphStyle = StyleSheet.create({
     margin: 0,
     padding: 0,
     height: 'auto',
-    fontSize: toDpFromPixel(11),
+    fontSize: toDpFromPixel(12),
     lineHeight: toDpFromPixel(18),
     fontFamily: 'Inter-Regular',
   },

@@ -72,7 +72,7 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Space.V s={10} />
+      <Space.V s={15} />
 
       <Box>
         <Title>{t('title')}</Title>
@@ -121,7 +121,7 @@ const ProfileScreen: React.FC = () => {
           autoCompleteType: 'tel',
         })}
 
-        <Space.V s={2.5} />
+        <Space.V s={5} />
         <Box
           display="flex"
           alignItems="center"

@@ -16,7 +16,7 @@ const useStyles = ({
       padding: 0,
       height: 'auto',
       fontSize: toDpFromPixel(14),
-      lineHeight: toDpFromPixel(24),
+      lineHeight: toDpFromPixel(22),
       fontFamily: 'Inter-Regular',
     },
   });

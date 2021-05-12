@@ -42,7 +42,6 @@ const Button: React.FC<ButtonProps> = ({fullWidth, ...props}) => {
     <View style={styles.root}>
       <RPButton
         mode="contained"
-        compact={false}
         style={fullWidth ? styles.fullWidth : styles.main}
         labelStyle={styles.label}
         contentStyle={styles.content}

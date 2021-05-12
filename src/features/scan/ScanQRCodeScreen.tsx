@@ -1,7 +1,7 @@
-import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {BarCodeReadEvent} from 'react-native-camera';
 import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {TEST_PROVIDER} from 'src/testData';
 
@@ -13,7 +13,10 @@ import QRScanner from 'src/shared/components/Form/QRCodeScanner';
 import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
-import {providerRegisterAction} from 'src/shared/redux/actions/providerActions';
+import {
+  providerDiscardAction,
+  providerRegisterAction,
+} from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
@@ -36,15 +39,19 @@ const ScanQRCodeScreen: React.FC = () => {
     NavigationService.fromScanQRScreen();
   };
 
-  const handleGoToCheckout = () => {
-    NavigationService.fromScanQRScreen();
-  };
-
   useEffect(() => {
     PermissionsService.requestCamera();
   });
 
   if (currentProvider) {
+    const handleGoToCheckout = () => {
+      NavigationService.fromScanQRScreen();
+    };
+
+    const handleDiscardCheckIn = () => {
+      dispatch(providerDiscardAction());
+    };
+
     return (
       <TopLevelView
         flex={1}
@@ -63,6 +70,11 @@ const ScanQRCodeScreen: React.FC = () => {
 
         <Button fullWidth={true} onPress={handleGoToCheckout}>
           {t('checkInProgressContinue')}
+        </Button>
+
+        <Space.V s={10} />
+        <Button fullWidth={true} mode="text" onPress={handleDiscardCheckIn}>
+          {t('checkInProgressDiscard')}
         </Button>
       </TopLevelView>
     );
@@ -85,17 +97,19 @@ const ScanQRCodeScreen: React.FC = () => {
         </Box>
 
         <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-          <QRScanner notAuthorizedView={<NotAuthorizedView />} onRead={handleSuccess} />
+          <QRScanner
+            notAuthorizedView={<NotAuthorizedView />}
+            onRead={handleSuccess}
+            backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
+          />
         </Box>
 
         <Box display="flex" alignItems="center" justifyContent="center">
           <Space.V s={10} />
-          <Box width="85%">
-            <Description color="white" textAlign="center">
-              {t('description')}
-            </Description>
-            <Space.V s={10} />
-          </Box>
+          <Description color="white" textAlign="center">
+            {t('description')}
+          </Description>
+          <Space.V s={10} />
 
           {true ? (
             <>

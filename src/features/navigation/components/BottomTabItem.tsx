@@ -9,10 +9,12 @@ import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
 import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
 import {toDpFromPixel} from 'src/shared/theme/util';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
+import Box from 'src/shared/components/Layout/Box';
 
 export type BottomTabItemProps = {
   route: BottomTabsRoutes;
   isSelected: boolean;
+  hasNewCheckIn: boolean;
 };
 
 const styles = StyleSheet.create({
@@ -20,6 +22,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    position: 'relative',
   },
   text: {
     color: '#7B7A7A',
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
 });
 
 const BottomTabItem: React.FC<BottomTabItemProps> = props => {
-  const {route, isSelected} = props;
+  const {route, isSelected, hasNewCheckIn} = props;
 
   const {t} = useTranslation('navigation');
   const theme = useTheme();
@@ -70,6 +74,18 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
     case BottomTabsRoutes.CheckInsNavigator: {
       return (
         <View style={styles.root}>
+          {hasNewCheckIn ? (
+            <Box
+              position="absolute"
+              top={toDpFromPixel(-5)}
+              right={toDpFromPixel(25)}
+              width={toDpFromPixel(6)}
+              height={toDpFromPixel(6)}
+              borderRadius={toDpFromPixel(3)}
+              backgroundColor="#3772FF"
+            />
+          ) : undefined}
+
           <MyCheckInsIcon isSelected={isSelected} />
           <Space.V s={5} />
           <Text style={textStyle}>{t('checkIns')}</Text>
