@@ -201,6 +201,9 @@ export function fillFormInWebView(values: InjectJSValues) {
 
     const checkInterval = setInterval(() => {
       if (!state.hasFilledInputs && canCheckIn()) {
+        // Makes sure the bottom of the page has space enough to click on the check-in button
+        document.body.style.paddingBottom = document.body.style.paddingBottom || '100px';
+
         fillCheckInForm();
       } else if (isCheckOut()) {
         findProviderLocation();

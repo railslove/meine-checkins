@@ -49,6 +49,7 @@ const MyCheckInsScreen: React.FC = () => {
       <CheckInProviderLogos opacity={1} justifyContent="flex-start" />
 
       <MyCheckInsLinks />
+      <Space.V s={10} />
     </TopLevelView>
   );
 };
