@@ -26,18 +26,17 @@ const useStyles = () => {
     rootTouchable: {
       display: 'flex',
     },
-    companyName: {
+    nameText: {
       textAlign: 'left',
       fontSize: px2dp(12),
 
-      fontFamily: 'Inter-Regular',
-      fontWeight: '600',
+      fontFamily: 'Inter-Bold',
+      fontWeight: '700',
       lineHeight: px2dp(15),
     },
     infoText: {
       textAlign: 'left',
       fontSize: px2dp(12),
-      fontWeight: '400',
       lineHeight: px2dp(15),
     },
   });
@@ -70,15 +69,8 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
     <View style={styles.root}>
       <CheckInLogo src={logoUrl} />
 
-      <Box flex={1} marginLeft={px2dp(22)}>
-        {location != null ? (
-          <>
-            <Space.V s={1} />
-            <Text style={styles.infoText}>{location}</Text>
-          </>
-        ) : null}
-
-        <Text style={styles.companyName}>{name}</Text>
+      <Box flex={1} marginLeft={px2dp(10)}>
+        <Text style={styles.nameText}>{location || name}</Text>
 
         {startTime != null ? (
           <>

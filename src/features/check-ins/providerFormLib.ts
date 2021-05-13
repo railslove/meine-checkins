@@ -183,7 +183,7 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   try {
     document.body.addEventListener('mousedown', (ev: any) => {
-      const el = ev.target?.closest('a, div, button, input');
+      const el = ev.target?.closest('[data-wfd-action="check-out"], a, button, input, div');
 
       if (isCheckOut(el)) {
         findProviderLocation();
