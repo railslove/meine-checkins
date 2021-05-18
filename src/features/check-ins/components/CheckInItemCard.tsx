@@ -89,7 +89,6 @@ export type CheckInItemCardProps = {
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {
     item: {name, logoUrl, startTime, stopTime},
-    activeTimeText = '',
     onNavigate,
   } = props;
 
@@ -116,8 +115,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
           <>
             <Space.V s={3} />
             <Text style={styles.dateTime}>
-              {formatItemDate(startTime)} -{' '}
-              {stopTime == null ? activeTimeText : formatItemDate(stopTime)}
+              {formatItemDate(startTime)} - {stopTime == null ? 'aktiv' : formatItemDate(stopTime)}
             </Text>
           </>
         ) : null}

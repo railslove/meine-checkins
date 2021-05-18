@@ -2,7 +2,7 @@ export default {
   faq: 'Häufige Fragen',
   title: 'Meine Check-ins',
   imprint: 'Impressum',
-  activeTimeText: 'aktiv',
+  datenschutz: 'Datenschutz',
   activeCheckInTitle: 'AKTUELLE CHECKINS',
   previousCheckInsTitle: 'MEINE LETZTEN CHECKINS',
   emptyCheckInsDescription:
