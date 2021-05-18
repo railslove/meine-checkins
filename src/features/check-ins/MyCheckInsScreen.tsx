@@ -2,7 +2,6 @@ import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
 
-import OpenLinkService from 'src/shared/services/OpenLinkService';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 import {BottomTabsRoutes, MyCheckInsRoutes} from 'src/features/navigation/routes';
 
@@ -25,7 +24,7 @@ const MyCheckInsScreen: React.FC = () => {
   }, []);
 
   const handleNavigateToImprint = useCallback(() => {
-    OpenLinkService.openImprint();
+    NavigationService.fromMyCheckIns(MyCheckInsRoutes.Imprint);
   }, []);
 
   const handleNavigateToDatenschutz = useCallback(() => {

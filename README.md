@@ -22,7 +22,7 @@
 * Storing contact tracing entry on the phone 
 * All data stored locally
 
-## Changes needs to be done by the provider
+## Changes to be done by the provider
 
 * Check-in form inputs should use [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) attributes for
   * `name` (or `given-name` and `family-name` separately)
@@ -32,18 +32,23 @@
   * `address-level2`
 
 * For signaling check-in and check-out to the app
-  * the `check-in` button should have a `data-wfd-action="check-in"`
-  * the `check-out` button should have a `data-wfd-action="check-out"`
+  * the `check-in` element should have a `data-wfd-action="check-in"`
+  * the `check-out` element should have a `data-wfd-action="check-out"`
+
+* Other data
+  * the `location` name on an element (can be anything) with `data-wfd-location="<restaurant-name>"`
 
 ## HTML examples
 
 Here is how the check-in form should look like. 
 
-The order of the fields doesn't matter
+The order of the fields doesn't matter.
+
+You can include the `location` on the `check-in` or in the `check-out` page.
 
 ```html
 <!-- using name only for the full user name -->
-<form>
+<form data-wfd-location="Frische Küche Restaurant">
   <input autocomplete="name" type="text" />
   <input autocomplete="tel" type="text" />
   <input autocomplete="street-address" type="text" />
@@ -54,25 +59,27 @@ The order of the fields doesn't matter
 </form>
 ​
 <!-- using first and last name separately -->
-<form>
+<form data-wfd-location="Frische Küche Restaurant">
   <input autocomplete="given-name" type="text" />
   <input autocomplete="family-name" type="text" />
   <input autocomplete="tel" type="text" />
   <input autocomplete="street-address" type="text" />
   <input autocomplete="postal-code" type="text" />
   <input autocomplete="address-level2" type="text" />
-​
+
   <button data-wfd-action="check-in" type="submit">check-in</button>
 </form>
 ```
 
-The checkout form only needs to have
+Example check-out page
 
 ```html
-<form>
+<form data-wfd-location="Café um die Ecke">
   <button data-wfd-action="check-out" type="submit">check-out</button>
 </form>
 ```
+
+Other data like the location can be added to any element. In these examples was added to the form for simplicity.
 
 # Submitting the app 
 
