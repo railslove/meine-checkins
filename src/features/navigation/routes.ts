@@ -15,5 +15,4 @@ export enum MyCheckInsRoutes {
   Imprint = 'Imprint',
   MyCheckIns = 'MyCheckIns',
   Datenschutz = 'Datenschutz',
-  ProviderForm = 'ProviderForm',
 }

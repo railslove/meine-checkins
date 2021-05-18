@@ -1,8 +1,6 @@
-import multilineText from 'src/shared/format/multilineText';
-
 export default {
   title: 'Datenschutzerklärung',
-  content: multilineText(`Name und Kontaktdaten des für die Verarbeitung Verantwortlichen sowie des betrieblichen Datenschutzbeauftragten
+  content: `Name und Kontaktdaten des für die Verarbeitung Verantwortlichen sowie des betrieblichen Datenschutzbeauftragten
 
   Diese Datenschutz-Information gilt für die Datenverarbeitung durch:
 
@@ -27,5 +25,5 @@ export default {
 
   Verwendungszweck
 
-  Personenbezogene Daten werden von uns nur dann und nur in dem Umfang und zu dem Zweck erhoben, zu dem Du uns die Daten von Dir aus, z. B. im Rahmen einer Registrierung zur Verfügung st`),
+  Personenbezogene Daten werden von uns nur dann und nur in dem Umfang und zu dem Zweck erhoben, zu dem Du uns die Daten von Dir aus, z. B. im Rahmen einer Registrierung zur Verfügung st`,
 };

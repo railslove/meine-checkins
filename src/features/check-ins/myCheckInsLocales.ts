@@ -3,6 +3,7 @@ export default {
   title: 'Meine Check-ins',
   imprint: 'Impressum',
   datenschutz: 'Datenschutz',
+  providerListHeader: 'TEILNEHMENDE ANBIETER',
   activeCheckInTitle: 'AKTUELLE CHECKINS',
   previousCheckInsTitle: 'MEINE LETZTEN CHECKINS',
   emptyCheckInsDescription:

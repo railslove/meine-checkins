@@ -3,6 +3,10 @@ import {de} from 'date-fns/locale';
 
 const options = {locale: de, timeZone: 'Europe/Berlin'};
 
-export const formatItemDate = (value: number) => {
-  return format(value, "dd.MM.yyyy H:mm 'Uhr'", options);
+export const formatItemDate = (startTime: number, stopTime?: number) => {
+  const date = format(startTime, 'dd.MM.yyyy', options);
+  const stop = stopTime == null ? null : format(stopTime, 'HH:mm', options);
+  const start = format(startTime, 'HH:mm', options);
+
+  return `${date} ${start}-${stop || 'aktiv'} ${stop ? 'Uhr' : ''}`;
 };

@@ -1,26 +1,16 @@
 import React from 'react';
-import {useTheme} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
-import Image from 'src/shared/components/Image/Image';
+import Space from 'src/shared/components/Layout/Space';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import Space from 'src/shared/components/Layout/Space';
-
-const logoDimensions = {
-  width: px2dp(67),
-  height: px2dp(52),
-};
+import CheckInLogo from 'src/features/check-ins/components/CheckInLogo';
 
 const useStyles = () => {
-  const theme = useTheme();
-  const borderRadius = px2dp(5);
-
   return StyleSheet.create({
     root: {
       display: 'flex',
@@ -36,42 +26,24 @@ const useStyles = () => {
     rootTouchable: {
       display: 'flex',
     },
-    logoContainer: {
-      borderRadius,
-
-      ...logoDimensions,
-
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.surface,
-    },
-    logoImage: {
-      flex: 1,
-      width: undefined,
-      height: undefined,
-      margin: px2dp(10),
-      alignSelf: 'stretch',
-    },
-    companyName: {
+    nameText: {
       textAlign: 'left',
       fontSize: px2dp(12),
 
       fontFamily: 'Inter-Bold',
-      fontWeight: '600',
+      fontWeight: '700',
       lineHeight: px2dp(15),
     },
-    dateTime: {
+    infoText: {
       textAlign: 'left',
       fontSize: px2dp(12),
-      fontWeight: '400',
       lineHeight: px2dp(15),
     },
   });
 };
 
 export type CheckInItemCardProps = {
-  item: Pick<CompletedCheckInItem, 'name' | 'logoUrl'> &
+  item: Pick<CompletedCheckInItem, 'name' | 'location' | 'logoUrl'> &
     (
       | {
           startTime?: CompletedCheckInItem['stopTime'];
@@ -82,41 +54,28 @@ export type CheckInItemCardProps = {
           stopTime: CompletedCheckInItem['stopTime'];
         }
     );
-  activeTimeText?: string;
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {
-    item: {name, logoUrl, startTime, stopTime},
+    item: {name, location, logoUrl, startTime, stopTime},
     onNavigate,
   } = props;
 
   const styles = useStyles();
 
-  const logoSource =
-    typeof logoUrl === 'string'
-      ? {
-          uri: logoUrl,
-        }
-      : logoUrl;
-
   const cardItem = (
     <View style={styles.root}>
-      <View style={styles.logoContainer}>
-        {logoSource == null ? null : (
-          <Image source={logoSource} style={styles.logoImage} resizeMode="contain" />
-        )}
-      </View>
+      <CheckInLogo src={logoUrl} />
 
-      <Box flex={1} marginLeft={px2dp(22)}>
-        <Text style={styles.companyName}>{name}</Text>
+      <Box flex={1} marginLeft={px2dp(10)}>
+        <Text style={styles.nameText}>{location || name}</Text>
+
         {startTime != null ? (
           <>
-            <Space.V s={3} />
-            <Text style={styles.dateTime}>
-              {formatItemDate(startTime)} - {stopTime == null ? 'aktiv' : formatItemDate(stopTime)}
-            </Text>
+            <Space.V s={1} />
+            <Text style={styles.infoText}>{formatItemDate(startTime, stopTime)}</Text>
           </>
         ) : null}
       </Box>

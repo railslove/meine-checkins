@@ -47,13 +47,22 @@ export function fillFormInWebView(values: InjectJSValues) {
     const link = document.querySelector<HTMLLinkElement>('link[type*=image][rel*=icon]');
 
     if (link && link.href) {
-      postMessage('setProviderLogo', link.href);
+      postMessage('setLogo', link.href);
+    }
+  }
+
+  function findProviderLocation() {
+    const el = document.querySelector<HTMLElement>('[data-wfd-location]');
+    const value = el && el.dataset.wfdLocation;
+
+    if (value) {
+      postMessage('setLocation', value);
     }
   }
 
   function getButton() {
     const el = document.body.querySelector<HTMLButtonElement>(
-      '[type=submit], [data-wfd-action="check-in"], [data-wfd-action="check-out"]'
+      '[data-wfd-action="check-in"], [data-wfd-action="check-out"]'
     );
 
     if (el) {
@@ -98,7 +107,7 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function isCheckOut(el = getButton()) {
-    return /check[-\s]*out/i.test(el?.outerHTML || '');
+    return el?.dataset.wfdAction === 'check-out' || /check[-\s]*out/i.test(el?.outerHTML || '');
   }
 
   function fillCheckInForm() {
@@ -174,10 +183,11 @@ export function fillFormInWebView(values: InjectJSValues) {
 
   try {
     document.body.addEventListener('mousedown', (ev: any) => {
-      const el = ev.target?.closest('a, div, button, input');
+      const el = ev.target?.closest('[data-wfd-action="check-out"], a, button, input, div');
 
       if (isCheckOut(el)) {
-        setTimeout(waitForCheckout, 500);
+        findProviderLocation();
+        setTimeout(waitForCheckout, 0);
         window.addEventListener('unload', waitForCheckout);
       }
     });
@@ -186,16 +196,17 @@ export function fillFormInWebView(values: InjectJSValues) {
     // which then re-renders the screen => we might loose the website state
     setTimeout(() => {
       findProviderLogo();
+      findProviderLocation();
     }, 1000);
 
     const checkInterval = setInterval(() => {
-      if (__DEV__) {
-        postMessage('check', JSON.stringify(state));
-      }
-
       if (!state.hasFilledInputs && canCheckIn()) {
+        // Makes sure the bottom of the page has space enough to click on the check-in button
+        document.body.style.paddingBottom = document.body.style.paddingBottom || '100px';
+
         fillCheckInForm();
       } else if (isCheckOut()) {
+        findProviderLocation();
         postMessage('checkInSuccess');
         clearInterval(checkInterval);
       }

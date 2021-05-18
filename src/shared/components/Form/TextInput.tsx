@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
     textAlign: 'left',
 
-    fontSize: px2dp(15),
+    fontSize: px2dp(13),
     lineHeight: px2dp(14),
     fontFamily: 'Inter-Regular',
   },
@@ -42,6 +42,7 @@ const TextInput: React.FC<TextInputProps> = props => {
       mode="flat"
       dense={true}
       style={style}
+      autoCorrect={true}
       underlineColor="transparent"
       placeholderTextColor="black"
       underlineColorAndroid="transparent"
