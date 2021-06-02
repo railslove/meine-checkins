@@ -1,9 +1,8 @@
-import {URL} from 'react-native-url-polyfill';
 import React, {createRef} from 'react';
 import {ProgressBar} from 'react-native-paper';
 import WebView, {WebViewProps} from 'react-native-webview';
 
-import {WEBVIEW_DEFAULT_HEADERS, WEBVIEW_DEFAULT_QUERY_PARAMS} from 'src/config';
+import {formatWebViewSource} from 'src/shared/format/webView';
 
 const renderLoading = () => <ProgressBar indeterminate />;
 
@@ -30,12 +29,6 @@ const CachedWebView: React.FC<CachedWebViewProps> = ({
   injectedJavaScript,
   ...restProps
 }) => {
-  const uri = new URL(url);
-
-  WEBVIEW_DEFAULT_QUERY_PARAMS.forEach(el => {
-    uri.searchParams.append(el.name, el.value);
-  });
-
   return (
     <WebView
       ref={webviewRef}
@@ -44,10 +37,7 @@ const CachedWebView: React.FC<CachedWebViewProps> = ({
       injectedJavaScript={injectedJavaScript}
       startInLoadingState={true}
       {...restProps}
-      source={{
-        uri: uri.toString(),
-        headers: WEBVIEW_DEFAULT_HEADERS,
-      }}
+      source={formatWebViewSource(url)}
     />
   );
 };
