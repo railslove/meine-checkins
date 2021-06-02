@@ -20,8 +20,7 @@ export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
  * CachedWebView
  *
  * We need to maintain the website state while we use navigation on the app.
- * The id should be unique per check-in not per provider.
- * The component is cached and cleared when check-out is done or a check-in is discarded.
+ * We use the id here to make the WebView unique per check-in not per provider.
  */
 const CachedWebView: React.FC<CachedWebViewProps> = ({
   id: _cachedID,
