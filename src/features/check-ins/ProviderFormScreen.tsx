@@ -20,8 +20,8 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 
 import Box from 'src/shared/components/Layout/Box';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
-import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
 import ArrowLeftIcon from 'src/shared/components/Icon/ArrowLeftIcon';
+import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
 
 const ProviderFormScreen = () => {
   const theme = useTheme();
