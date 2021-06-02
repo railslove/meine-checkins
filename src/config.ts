@@ -1,10 +1,12 @@
+export const APP_ID = 'de.railslove.wfdcheckin';
+
 export const WEBVIEW_DEFAULT_HEADERS = {
-  [`X-WFD-CheckIn`]: 'true',
+  'x-requested-with': APP_ID,
 };
 
 export const WEBVIEW_DEFAULT_QUERY_PARAMS = [
   {
-    name: 'WFD-CheckIn',
-    value: 'true',
+    name: 'requestedWith',
+    value: APP_ID,
   },
 ];
