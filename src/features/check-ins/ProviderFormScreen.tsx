@@ -112,7 +112,7 @@ const ProviderFormScreen = () => {
     [checkIn, dispatch]
   );
 
-  if (!checkIn) {
+  if (checkIn == null) {
     return null;
   }
 

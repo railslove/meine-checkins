@@ -10,6 +10,7 @@ export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
    */
   id: string;
   url: string;
+  ref?: React.MutableRefObject<WebView>;
   children?: React.ReactNode;
 };
 
@@ -24,7 +25,7 @@ const CachedWebView = React.forwardRef<WebView, CachedWebViewProps>(function Cac
   props,
   ref
 ) {
-  const {id: _cachedID, url, injectedJavaScript, ...restProps} = props;
+  const {url, injectedJavaScript, ...restProps} = props;
 
   return (
     <WebView
