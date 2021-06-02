@@ -12,4 +12,9 @@ export default {
 
   checkInProgressDiscard: 'Neuer Check-in',
   checkInProgressContinue: 'zum aktuellen Check-in',
+
+  no: 'Nein',
+  yes: 'Ja',
+  checkInProgressDiscardAlertMessage:
+    'Willst Du dich neu einchecken ohne dich ausgecheckt zu haben?',
 };
