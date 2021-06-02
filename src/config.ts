@@ -5,6 +5,6 @@ export const WEBVIEW_DEFAULT_HEADERS = {
 export const WEBVIEW_DEFAULT_QUERY_PARAMS = [
   {
     name: 'WFD-CheckIn',
-    value: true,
+    value: 'true',
   },
 ];
