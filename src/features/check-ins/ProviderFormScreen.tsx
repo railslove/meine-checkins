@@ -1,7 +1,8 @@
-import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'react-native-paper';
-import React, {useCallback} from 'react';
-import {WebViewMessageEvent} from 'react-native-webview';
+import {useDispatch, useSelector} from 'react-redux';
+import React, {useCallback, useState, useRef} from 'react';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
+import WebView, {WebViewMessageEvent, WebViewNavigation} from 'react-native-webview';
 
 import {
   providerCheckInAction,
@@ -19,13 +20,41 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 
 import Box from 'src/shared/components/Layout/Box';
 import CachedWebView from 'src/shared/components/WebView/CachedWebView';
+import ArrowLeftIcon from 'src/shared/components/Icon/ArrowLeftIcon';
+import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
 
 const ProviderFormScreen = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const webviewRef = useRef<WebView>(null);
 
   const user = useSelector(state => state.user.item);
   const checkIn = useSelector(state => state.checkIns.current);
+  const [canGoBack, setCanGoBack] = useState<boolean>();
+  const [canGoForward, setCanGoForward] = useState<boolean>();
+
+  const {current: browserWindow} = webviewRef;
+
+  const handleGoBack = useCallback(() => {
+    if (!browserWindow || !canGoBack) {
+      return null;
+    }
+
+    browserWindow.goBack();
+  }, [canGoBack, browserWindow]);
+
+  const handleGoForward = useCallback(() => {
+    if (!browserWindow || !canGoForward) {
+      return null;
+    }
+
+    browserWindow.goForward();
+  }, [canGoForward, browserWindow]);
+
+  const handleNavigationStateChange = useCallback((ev: WebViewNavigation) => {
+    setCanGoBack(ev.canGoBack);
+    setCanGoForward(ev.canGoForward);
+  }, []);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
@@ -83,21 +112,51 @@ const ProviderFormScreen = () => {
     [checkIn, dispatch]
   );
 
-  if (!checkIn) {
+  if (checkIn == null) {
     return null;
   }
 
   const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;
 
   return (
-    <Box flex={1} backgroundColor={theme.colors.surface}>
-      <CachedWebView
-        id={checkIn.id}
-        url={checkIn.url}
-        injectedJavaScript={injectedJavaScript}
-        onMessage={handleMessage}
-      />
-    </Box>
+    <SafeAreaView style={{flex: 1}}>
+      <Box flex={1} backgroundColor={theme.colors.surface} flexDirection="column">
+        {canGoBack || canGoForward ? (
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="flex-end"
+            justifyContent="space-between"
+            paddingVertical={10}
+            paddingHorizontal={15}
+          >
+            {canGoBack ? (
+              <TouchableOpacity onPress={handleGoBack}>
+                <ArrowLeftIcon />
+              </TouchableOpacity>
+            ) : (
+              <Box />
+            )}
+
+            {canGoForward ? (
+              <TouchableOpacity onPress={handleGoForward}>
+                <ArrowRightIcon />
+              </TouchableOpacity>
+            ) : (
+              <Box />
+            )}
+          </Box>
+        ) : null}
+        <CachedWebView
+          id={checkIn.id}
+          url={checkIn.url}
+          ref={webviewRef}
+          injectedJavaScript={injectedJavaScript}
+          onMessage={handleMessage}
+          onNavigationStateChange={handleNavigationStateChange}
+        />
+      </Box>
+    </SafeAreaView>
   );
 };
 

@@ -1,4 +1,6 @@
-export type SvgIconProps = Partial<{
-  stroke: string;
-  isSelected: boolean;
-}>;
+import {SvgProps} from 'react-native-svg';
+
+export type SvgIconProps = SvgProps &
+  Partial<{
+    isSelected: boolean;
+  }>;

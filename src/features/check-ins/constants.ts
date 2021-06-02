@@ -10,4 +10,4 @@ export enum PROVIDER_SITE_MESSAGE {
   parseMessageError = 'parseMessageError',
 }
 
-export type MessageKey = keyof typeof PROVIDER_SITE_MESSAGE;
+export type ProviderSiteMessageKey = keyof typeof PROVIDER_SITE_MESSAGE;
