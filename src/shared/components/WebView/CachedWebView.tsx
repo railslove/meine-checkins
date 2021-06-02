@@ -1,10 +1,8 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import {ProgressBar} from 'react-native-paper';
 import WebView, {WebViewProps} from 'react-native-webview';
 
 const renderLoading = () => <ProgressBar indeterminate />;
-
-export const webviewRef = createRef<WebView>();
 
 export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
   /**
@@ -12,6 +10,7 @@ export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
    */
   id: string;
   url: string;
+  children?: React.ReactNode;
 };
 
 /**
@@ -21,15 +20,15 @@ export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
  * The id should be unique per check-in not per provider.
  * The component is cached and cleared when check-out is done or a check-in is discarded.
  */
-const CachedWebView: React.FC<CachedWebViewProps> = ({
-  id: _cachedID,
-  url,
-  injectedJavaScript,
-  ...restProps
-}) => {
+const CachedWebView = React.forwardRef<WebView, CachedWebViewProps>(function CachedWebViewWithRef(
+  props,
+  ref
+) {
+  const {id: _cachedID, url, injectedJavaScript, ...restProps} = props;
+
   return (
     <WebView
-      ref={webviewRef}
+      ref={ref}
       incognito={true}
       renderLoading={renderLoading}
       injectedJavaScript={injectedJavaScript}
@@ -38,6 +37,6 @@ const CachedWebView: React.FC<CachedWebViewProps> = ({
       source={{uri: url}}
     />
   );
-};
+});
 
 export default React.memo(CachedWebView);
