@@ -174,24 +174,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     };
   }
 
-  function waitForCheckout() {
-    if (!state.hasCheckOut) {
-      postMessage('checkOutSuccess');
-      state.hasCheckOut = true;
-    }
-  }
-
   try {
-    document.body.addEventListener('mousedown', (ev: any) => {
-      const el = ev.target?.closest('[data-wfd-action="check-out"], a, button, input, div');
-
-      if (isCheckOut(el)) {
-        findProviderLocation();
-        setTimeout(waitForCheckout, 0);
-        window.addEventListener('unload', waitForCheckout);
-      }
-    });
-
     // only once so we don't dispatch more actions
     // which then re-renders the screen => we might loose the website state
     setTimeout(() => {
@@ -201,14 +184,26 @@ export function fillFormInWebView(values: InjectJSValues) {
 
     const checkInterval = setInterval(() => {
       if (!state.hasFilledInputs && canCheckIn()) {
-        // Makes sure the bottom of the page has space enough to click on the check-in button
-        document.body.style.paddingBottom = document.body.style.paddingBottom || '100px';
-
         fillCheckInForm();
-      } else if (isCheckOut()) {
+        return;
+      }
+
+      const button = getButton();
+
+      if (button && isCheckOut(button)) {
+        clearInterval(checkInterval);
+
         findProviderLocation();
         postMessage('checkInSuccess');
-        clearInterval(checkInterval);
+
+        button.addEventListener('click', function wait() {
+          if (!state.hasCheckOut) {
+            findProviderLocation();
+            postMessage('checkOutSuccess');
+            state.hasCheckOut = true;
+          }
+          button.removeEventListener('click', wait);
+        });
       }
     }, 1000);
   } catch (error) {
