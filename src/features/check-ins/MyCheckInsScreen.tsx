@@ -15,6 +15,7 @@ import CheckInsList from 'src/features/check-ins/components/CheckInsList';
 import MyCheckInsEmpty from 'src/features/check-ins/components/MyCheckInsEmpty';
 import MyCheckInsLinks from 'src/features/check-ins/components/MyCheckInsLinks';
 import CheckInProviderLogos from 'src/features/check-ins/components/CheckInProviderLogos';
+import CHECK_IN_PROVIDER_LIST from 'src/shared/services/checkInProvidersList';
 
 const MyCheckInsScreen: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
@@ -46,7 +47,11 @@ const MyCheckInsScreen: React.FC = () => {
 
       <Space.V s={20} />
       <TextBox fontWeight="bold">{t('providerListHeader')}</TextBox>
-      <CheckInProviderLogos opacity={1} justifyContent="flex-start" />
+      <CheckInProviderLogos
+        displayCount={CHECK_IN_PROVIDER_LIST.length}
+        opacity={1}
+        justifyContent="flex-start"
+      />
 
       <MyCheckInsLinks />
       <Space.V s={10} />
