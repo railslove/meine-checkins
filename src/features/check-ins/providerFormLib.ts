@@ -1,8 +1,8 @@
 import WebView, {WebViewMessageEvent} from 'react-native-webview';
 
 import User from 'src/shared/models/User';
-import {MessageKey} from 'src/features/scan/constants';
 import {AutoCompleteValues} from 'src/shared/types/autoComplete';
+import {ProviderSiteMessageKey} from 'src/features/check-ins/constants';
 
 declare global {
   interface Window {
@@ -16,7 +16,7 @@ type InjectJSValues = {
 };
 
 export type ProviderFormMessage = {
-  key: MessageKey;
+  key: ProviderSiteMessageKey;
   value?: string;
 };
 
@@ -38,7 +38,7 @@ export function fillFormInWebView(values: InjectJSValues) {
     postMessage('start', JSON.stringify(state));
   }
 
-  function postMessage(key: MessageKey, value?: string) {
+  function postMessage(key: ProviderSiteMessageKey, value?: string) {
     const message = JSON.stringify({key, value});
     window.ReactNativeWebView.postMessage(message);
   }

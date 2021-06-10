@@ -38,11 +38,15 @@ const ScanQRCodeScreen: React.FC = () => {
   };
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
-    NavigationService.fromScanQRScreen();
+    // clear current provider => will also clear the webview
+    dispatch(providerDiscardAction());
 
-    // dispatch action with a bit of delay
-    // otherwise the case where there is a current provider flashes
-    setTimeout(() => dispatch(providerRegisterAction({url})), 0);
+    // dispatch action with a bit of delay so the clear action takes place
+    setTimeout(() => {
+      dispatch(providerRegisterAction({url}));
+
+      NavigationService.fromScanQRScreen();
+    }, 125);
   };
 
   useEffect(() => {
