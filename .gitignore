@@ -52,17 +52,19 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
+vendor
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/report.xml
 
 # Bundle artifact
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
-fastlane/report.xml
+ios/Pods/
 
+# Other stuff
 .husky
 android/*.hprof
 .env.staging
