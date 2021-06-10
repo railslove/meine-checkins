@@ -1,7 +1,8 @@
+import {Alert} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
 import {useDispatch, useSelector} from 'react-redux';
-import React, {useEffect} from 'react';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 import {TEST_PROVIDERS} from 'src/testData';
@@ -54,7 +55,18 @@ const ScanQRCodeScreen: React.FC = () => {
     };
 
     const handleDiscardCheckIn = () => {
-      dispatch(providerDiscardAction());
+      const title = t('checkInProgressTitle');
+      const message = t('checkInProgressDiscardAlertMessage');
+
+      Alert.alert(title, message, [
+        {
+          text: t('yes'),
+          onPress: () => dispatch(providerDiscardAction()),
+        },
+        {
+          text: t('no'),
+        },
+      ]);
     };
 
     return (
