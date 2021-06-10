@@ -1,17 +1,12 @@
-export const normalizeDateNum = (value: number) => {
-  return value < 10 ? `0${value}` : `${value}`;
-};
+import {format} from 'date-fns-tz';
+import {de} from 'date-fns/locale';
 
-export const formatItemDate = (value: number) => {
-  const date = new Date(value);
+const options = {locale: de, timeZone: 'Europe/Berlin'};
 
-  const [day, month, year, hours, minutes] = [
-    date.getDay(),
-    date.getMonth() + 1 /* January is 0 */,
-    date.getFullYear(),
-    date.getHours(),
-    date.getMinutes(),
-  ].map(normalizeDateNum);
+export const formatItemDate = (startTime: number, stopTime?: number) => {
+  const date = format(startTime, 'dd.MM.yyyy', options);
+  const stop = stopTime == null ? null : format(stopTime, 'HH:mm', options);
+  const start = format(startTime, 'HH:mm', options);
 
-  return `${day}.${month}.${year} - ${hours}.${minutes} Uhr`;
+  return `${date} ${start}-${stop || 'aktiv'} ${stop ? 'Uhr' : ''}`;
 };

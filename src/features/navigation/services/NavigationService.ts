@@ -1,11 +1,6 @@
 import {createRef} from 'react';
 import {NavigationContainerRef, StackActions, TabActions} from '@react-navigation/core';
-import {
-  BottomTabsRoutes,
-  MyCheckInsRoutes,
-  RootStackRoutes,
-  ScanQRCodeRoutes,
-} from 'src/features/navigation/routes';
+import {BottomTabsRoutes, MyCheckInsRoutes, RootStackRoutes} from 'src/features/navigation/routes';
 
 import User from 'src/shared/models/User';
 import {StoreState} from 'src/shared/redux/store';
@@ -23,11 +18,10 @@ type NavigateParams = Parameters<NavigationContainerRef['navigate']>;
  *  - BottomTabsNavigator
  *    - ProfileScreen
  *    - ScanQRScreen
+ *    - ProviderFormScreen
  *    - MyCheckInsStackNavigator
  *      - MyCheckInsScreen
- *      - ProviderFormScreen
  *      - FAQScreen
- *      - ImprintScreen
  *
  * NOTE: here we only have to take care navigation that happens after submit of a screen
  * everything else is handled by the navigators
@@ -76,16 +70,19 @@ class NavigationService {
       : this.navigate(BottomTabsRoutes.CheckInsNavigator);
   };
 
-  fromMyCheckIns = (screen: MyCheckInsRoutes | ScanQRCodeRoutes) => {
-    return this.navigate(screen);
+  fromMyCheckIns = (screen: MyCheckInsRoutes | BottomTabsRoutes) => {
+    switch (screen) {
+      case BottomTabsRoutes.ProviderForm: {
+        return this.fromBottomTabs(BottomTabsRoutes.ProviderForm);
+      }
+      default: {
+        return this.navigate(screen);
+      }
+    }
   };
 
   fromScanQRScreen = () => {
-    return this.dispatch(
-      TabActions.jumpTo(BottomTabsRoutes.CheckInsNavigator, {
-        screen: MyCheckInsRoutes.ProviderForm,
-      })
-    );
+    return this.dispatch(TabActions.jumpTo(BottomTabsRoutes.ProviderForm));
   };
 
   fromEmptyProviderForm = () => {

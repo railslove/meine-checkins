@@ -1,106 +1,101 @@
 import React from 'react';
-import {useTheme} from 'react-native-paper';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
-import {ProviderCheckInItem} from 'src/shared/models/Provider';
+import {px2dp} from 'src/shared/styles/createStyles';
+import {CompletedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
-import Image from 'src/shared/components/Image/Image';
 import Space from 'src/shared/components/Layout/Space';
+import CheckInLogo from 'src/features/check-ins/components/CheckInLogo';
 import {formatItemDate} from 'src/shared/format/date';
-import ChevronRightIcon from 'src/shared/components/Icon/ChevronRightIcon';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-
-const logoDimensions = {
-  width: toDpFromPixel(67),
-  height: toDpFromPixel(42),
-};
+import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
 
 const useStyles = () => {
-  const theme = useTheme();
-  const borderRadius = toDpFromPixel(5);
-
   return StyleSheet.create({
     root: {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
+      paddingVertical: px2dp(9),
+      paddingHorizontal: px2dp(10),
 
-      padding: toDpFromPixel(10),
-      borderRadius: toDpFromPixel(5),
+      borderRadius: px2dp(5),
       backgroundColor: '#F0F1F3',
     },
-    companyName: {
+    rootTouchable: {
+      display: 'flex',
+    },
+    nameText: {
       textAlign: 'left',
-      fontSize: toDpFromPixel(12),
+      fontSize: px2dp(12),
 
       fontFamily: 'Inter-Bold',
       fontWeight: '700',
-      lineHeight: toDpFromPixel(14.52),
+      lineHeight: px2dp(15),
     },
-    logoContainer: {
-      borderRadius,
-
-      ...logoDimensions,
-
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.colors.surface,
-    },
-    logoImage: {
-      maxWidth: '60%',
-      maxHeight: '70%',
-      borderRadius,
+    infoText: {
+      textAlign: 'left',
+      fontSize: px2dp(12),
+      lineHeight: px2dp(15),
     },
   });
 };
 
-export type CheckInItemCardProps = Pick<ProviderCheckInItem, 'name' | 'logoUrl' | 'startTime'> & {
-  isActive?: boolean;
+export type CheckInItemCardProps = {
+  item: Pick<CompletedCheckInItem, 'name' | 'location' | 'logoUrl'> &
+    (
+      | {
+          startTime?: CompletedCheckInItem['stopTime'];
+          stopTime?: never;
+        }
+      | {
+          startTime: CompletedCheckInItem['stopTime'];
+          stopTime: CompletedCheckInItem['stopTime'];
+        }
+    );
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
+  const {
+    item: {name, location, logoUrl, startTime, stopTime},
+    onNavigate,
+  } = props;
+
   const styles = useStyles();
 
-  const {name, logoUrl, startTime, isActive, onNavigate} = props;
-  const logoSource =
-    typeof logoUrl === 'string'
-      ? {
-          uri: logoUrl,
-          ...logoDimensions,
-        }
-      : logoUrl;
-
-  return (
+  const cardItem = (
     <View style={styles.root}>
-      <View style={styles.logoContainer}>
-        {logoSource == null ? null : (
-          <Image source={logoSource} style={styles.logoImage} resizeMode="contain" />
-        )}
-      </View>
+      <CheckInLogo src={logoUrl} />
 
-      <Box flex={1} marginLeft={toDpFromPixel(10)}>
-        <Text style={styles.companyName}>{name}</Text>
-        {startTime ? (
+      <Box flex={1} marginLeft={px2dp(10)}>
+        <Text style={styles.nameText}>{location || name}</Text>
+
+        {startTime != null ? (
           <>
-            <Space.V s={4} />
-            <Text>{formatItemDate(startTime)}</Text>
+            <Space.V s={1} />
+            <Text style={styles.infoText}>{formatItemDate(startTime, stopTime)}</Text>
           </>
         ) : null}
       </Box>
 
-      {isActive ? (
-        <Box marginHorizontal={toDpFromPixel(10)}>
-          <TouchableOpacity onPress={onNavigate}>
-            <ChevronRightIcon />
-          </TouchableOpacity>
+      {stopTime == null ? (
+        <Box marginHorizontal={px2dp(10)}>
+          <ChevronRightIcon />
         </Box>
       ) : null}
     </View>
+  );
+
+  if (stopTime) {
+    return cardItem;
+  }
+
+  return (
+    <TouchableOpacity style={styles.rootTouchable} onPress={onNavigate}>
+      {cardItem}
+    </TouchableOpacity>
   );
 };
 

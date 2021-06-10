@@ -2,18 +2,18 @@ import React from 'react';
 import {TextInput as RPTextInput, useTheme} from 'react-native-paper';
 import {StyleSheet, TextInputProps as RNTextInputProps} from 'react-native';
 
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const styles = StyleSheet.create({
   root: {
-    height: toDpFromPixel(20),
-    padding: toDpFromPixel(14),
-    marginBottom: toDpFromPixel(14),
+    height: px2dp(20),
+    padding: px2dp(14),
+    marginBottom: px2dp(10),
 
     textAlign: 'left',
 
-    fontSize: toDpFromPixel(12),
-    lineHeight: toDpFromPixel(14),
+    fontSize: px2dp(13),
+    lineHeight: px2dp(14),
     fontFamily: 'Inter-Regular',
   },
 });
@@ -42,6 +42,7 @@ const TextInput: React.FC<TextInputProps> = props => {
       mode="flat"
       dense={true}
       style={style}
+      autoCorrect={true}
       underlineColor="transparent"
       placeholderTextColor="black"
       underlineColorAndroid="transparent"

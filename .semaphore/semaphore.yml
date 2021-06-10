@@ -8,12 +8,15 @@ blocks:
   - name: Install
     dependencies: []
     task:
+      prologue:
+        commands:
+          - sem-version node 12
       jobs:
-        - name: npm install
+        - name: yarn install
           commands:
-            - checkout --use-cache
+            - checkout
             - cache restore
-            - npm i
+            - yarn
             - cache store
   - name: Tests
     dependencies:
@@ -26,7 +29,7 @@ blocks:
       jobs:
         - name: jest
           commands:
-            - npm test
+            - yarn test
   - name: Static Analysis
     dependencies:
       - Install
@@ -38,17 +41,7 @@ blocks:
       jobs:
         - name: lint
           commands:
-            - npm run lint
+            - yarn lint
         - name: typescript
           commands:
-            - 'npm run check:types'
-
-promotions:
-  - name: Deploy Android
-    pipeline_file: deploy-android.yml
-    auto_promote:
-      when: "result = 'passed' and branch = 'master' and tag =~ '^v'"
-  - name: Deploy iOS
-    pipeline_file: deploy-ios.yml
-    auto_promote:
-      when: "result = 'passed' and branch = 'master' and tag =~ '^v'"
+            - 'yarn check:types'

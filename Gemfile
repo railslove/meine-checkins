@@ -4,9 +4,7 @@
 
 source "https://rubygems.org"
 
-# use same version supported by semaphore
-# https://docs.semaphoreci.com/ci-cd-environment/macos-xcode-12-image/
-gem 'fastlane', '2.172.0'
+gem 'fastlane'
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)

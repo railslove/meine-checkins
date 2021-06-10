@@ -1,21 +1,15 @@
 import React, {Fragment} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
-import SubTitle from 'src/shared/components/Typography/Subtitle';
+import SectionTitle from 'src/shared/components/Typography/SectionTitle';
 import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
-import {ProviderCheckInItem} from 'src/shared/models/Provider';
-import {useTranslation} from 'react-i18next';
-
-const SectionTitle: React.FC<{children: string}> = ({children}) => (
-  <SubTitle textTransform="uppercase" fontWeight="700">
-    {children}
-  </SubTitle>
-);
+import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
 
 export type CheckInsListProps = {
-  items: ProviderCheckInItem[];
-  current?: ProviderCheckInItem;
+  items: CompletedCheckInItem[];
+  current?: PartialCheckInItem;
   handleNavigateToCurrent?: () => void;
 };
 
@@ -32,7 +26,7 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
           <Box>
             <SectionTitle>{t('activeCheckInTitle')}</SectionTitle>
             <Space.V s={10} />
-            <CheckInItemCard {...current} isActive={true} onNavigate={handleNavigateToCurrent} />
+            <CheckInItemCard item={current} onNavigate={handleNavigateToCurrent} />
           </Box>
         </>
       ) : null}
@@ -43,15 +37,12 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
           <Box>
             <SectionTitle>{t('previousCheckInsTitle')}</SectionTitle>
             <Space.V s={10} />
-            {items.map((el, index) => {
-              const key = `${el.id}-${el.startTime || index}`;
-              return (
-                <Fragment key={key}>
-                  {index > 0 ? <Space.V s={5} /> : null}
-                  <CheckInItemCard {...el} />
-                </Fragment>
-              );
-            })}
+            {items.map((el, index) => (
+              <Fragment key={el.id}>
+                {index > 0 ? <Space.V s={5} /> : null}
+                <CheckInItemCard item={el} />
+              </Fragment>
+            ))}
           </Box>
         </>
       ) : null}

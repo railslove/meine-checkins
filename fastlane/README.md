@@ -19,7 +19,7 @@ or alternatively using `brew install fastlane`
 ```
 fastlane app_icon
 ```
-Create App Icon from ./src/shared/assets/App-Icon.png
+Create App Icon from src/shared/assets/App-Icon.jpg
 ### make_badge
 ```
 fastlane make_badge
@@ -34,13 +34,16 @@ Bump and badge iOS and Android.
 ----
 
 ## Android
-### android deploy
+### android deploy_staging
 ```
-fastlane android deploy
+fastlane android deploy_staging
 ```
-Deploy Android
-
-Build with code signing and upload to Google Play Internal
+Build, deploy staging Android.
+### android deploy_production
+```
+fastlane android deploy_production
+```
+Build, deploy production Android.
 ### android bump_badge_deploy_staging
 ```
 fastlane android bump_badge_deploy_staging
@@ -55,13 +58,21 @@ Bump, badge, deploy production Android.
 ----
 
 ## iOS
-### ios deploy
+### ios certificates
 ```
-fastlane ios deploy
+fastlane ios certificates
 ```
-Deploy iOS
-
-Build with code signing and upload to testflight
+Set up certs and profiles for iOS.
+### ios deploy_staging
+```
+fastlane ios deploy_staging
+```
+Sign, build, deploy staging iOS.
+### ios deploy_production
+```
+fastlane ios deploy_production
+```
+Sign, build, deploy production iOS.
 ### ios bump_badge_deploy_staging
 ```
 fastlane ios bump_badge_deploy_staging

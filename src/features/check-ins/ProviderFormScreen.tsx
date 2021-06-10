@@ -1,13 +1,14 @@
 import {useTheme} from 'react-native-paper';
-import {useTranslation} from 'react-i18next';
-import React, {useCallback} from 'react';
-import {WebViewMessageEvent} from 'react-native-webview';
 import {useDispatch, useSelector} from 'react-redux';
+import React, {useCallback, useState, useRef} from 'react';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
+import WebView, {WebViewMessageEvent, WebViewNavigation} from 'react-native-webview';
 
 import {
   providerCheckInAction,
-  providerCheckOutAction,
   providerSetLogoAction,
+  providerCheckOutAction,
+  providerSetLocationAction,
 } from 'src/shared/redux/actions/providerActions';
 
 import {
@@ -15,50 +16,90 @@ import {
   prepareFillFormInWebViewInject,
 } from 'src/features/check-ins/providerFormLib';
 
-import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
-import Title from 'src/shared/components/Typography/Title';
-import Button from 'src/shared/components/Button/Button';
-import MemoWebview from 'src/shared/components/Webview/MemoWebview';
 import NavigationService from 'src/features/navigation/services/NavigationService';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import Description from 'src/shared/components/Typography/Description';
 
-const ProviderFormScreen: React.FC = () => {
-  const {t} = useTranslation('providerFormScreen');
+import Box from 'src/shared/components/Layout/Box';
+import CachedWebView from 'src/shared/components/WebView/CachedWebView';
+import ArrowLeftIcon from 'src/shared/components/Icon/ArrowLeftIcon';
+import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
+
+const ProviderFormScreen = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const webviewRef = useRef<WebView>(null);
 
   const user = useSelector(state => state.user.item);
-  const provider = useSelector(state => state.checkIns.current);
+  const checkIn = useSelector(state => state.checkIns.current);
+  const [canGoBack, setCanGoBack] = useState<boolean>();
+  const [canGoForward, setCanGoForward] = useState<boolean>();
 
-  const handleGoToScanQR = useCallback(() => {
-    NavigationService.fromEmptyProviderForm();
+  const {current: browserWindow} = webviewRef;
+
+  const handleGoBack = useCallback(() => {
+    if (!browserWindow || !canGoBack) {
+      return null;
+    }
+
+    browserWindow.goBack();
+  }, [canGoBack, browserWindow]);
+
+  const handleGoForward = useCallback(() => {
+    if (!browserWindow || !canGoForward) {
+      return null;
+    }
+
+    browserWindow.goForward();
+  }, [canGoForward, browserWindow]);
+
+  const handleNavigationStateChange = useCallback((ev: WebViewNavigation) => {
+    setCanGoBack(ev.canGoBack);
+    setCanGoForward(ev.canGoForward);
   }, []);
 
   const handleMessage = useCallback(
     (ev: WebViewMessageEvent) => {
-      if (provider == null) {
-        console.warn('no provider available');
+      const current = checkIn;
+
+      if (current == null) {
+        console.warn('there is no check-in in progress');
         return;
       }
 
       const message = parseProviderWebviewMessage(ev);
       const {key, value} = message;
 
-      console.info('ProviderForm message', message);
+      console.info('ProviderForm message:', message);
 
       switch (key) {
-        case 'setProviderLogo': {
-          dispatch(providerSetLogoAction({...provider, logoUrl: value}));
+        case 'setLogo': {
+          if (value && current.logoUrl == null) {
+            dispatch(providerSetLogoAction({item: current, logoUrl: value}));
+          }
+          break;
+        }
+        case 'setLocation': {
+          if (value && current.location == null) {
+            dispatch(providerSetLocationAction({item: current, location: value}));
+          }
           break;
         }
         case 'checkInSuccess': {
-          dispatch(providerCheckInAction(provider));
+          if (current.startTime == null) {
+            dispatch(providerCheckInAction(current));
+          } else {
+            console.warn('tried to check-in with startTime');
+          }
           break;
         }
         case 'checkOutSuccess': {
-          dispatch(providerCheckOutAction(provider));
+          const {startTime} = current;
+
+          if (startTime != null) {
+            dispatch(providerCheckOutAction({...current, startTime}));
+          } else {
+            console.warn('tried to check-out without startTime');
+          }
+
           NavigationService.fromProviderFormCheckout();
           break;
         }
@@ -68,33 +109,54 @@ const ProviderFormScreen: React.FC = () => {
         }
       }
     },
-    [dispatch, provider]
+    [checkIn, dispatch]
   );
 
-  if (!provider) {
-    return (
-      <TopLevelView>
-        <Space.V s={10} />
-        <Title split={false}>{t('missingProviderTitle')}</Title>
-        <Space.V s={10} />
-
-        <Description>{t('missingProviderDescription')}</Description>
-        <Space.V s={10} />
-        <Button onPress={handleGoToScanQR}>{t('missingProviderSubmit')}</Button>
-      </TopLevelView>
-    );
+  if (checkIn == null) {
+    return null;
   }
 
-  const injectedJavaScript = user ? prepareFillFormInWebViewInject(user) : undefined;
+  const injectedJavaScript = user ? prepareFillFormInWebViewInject({user, __DEV__}) : undefined;
 
   return (
-    <Box flex={1} backgroundColor={theme.colors.surface}>
-      <MemoWebview
-        url={provider.url}
-        injectedJavaScript={injectedJavaScript}
-        onMessage={handleMessage}
-      />
-    </Box>
+    <SafeAreaView style={{flex: 1}}>
+      <Box flex={1} backgroundColor={theme.colors.surface} flexDirection="column">
+        {canGoBack || canGoForward ? (
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="flex-end"
+            justifyContent="space-between"
+            paddingVertical={10}
+            paddingHorizontal={15}
+          >
+            {canGoBack ? (
+              <TouchableOpacity onPress={handleGoBack}>
+                <ArrowLeftIcon />
+              </TouchableOpacity>
+            ) : (
+              <Box />
+            )}
+
+            {canGoForward ? (
+              <TouchableOpacity onPress={handleGoForward}>
+                <ArrowRightIcon />
+              </TouchableOpacity>
+            ) : (
+              <Box />
+            )}
+          </Box>
+        ) : null}
+        <CachedWebView
+          id={checkIn.id}
+          url={checkIn.url}
+          ref={webviewRef}
+          injectedJavaScript={injectedJavaScript}
+          onMessage={handleMessage}
+          onNavigationStateChange={handleNavigationStateChange}
+        />
+      </Box>
+    </SafeAreaView>
   );
 };
 

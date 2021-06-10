@@ -3,22 +3,22 @@ import {StyleSheet, View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 import {SvgIconProps} from 'src/shared/components/Icon/types';
-import {toDpFromPixel} from 'src/shared/theme/util';
+import {px2dp} from 'src/shared/styles/createStyles';
 
 const styles = StyleSheet.create({
   root: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: toDpFromPixel(10),
-    marginBottom: toDpFromPixel(8),
-    borderRadius: toDpFromPixel(10),
+    padding: px2dp(10),
+    marginBottom: px2dp(8),
+    borderRadius: px2dp(10),
     backgroundColor: 'transparent',
   },
 });
 
-const width = toDpFromPixel(25);
-const height = toDpFromPixel(25);
+const width = px2dp(28);
+const height = px2dp(28);
 const strokeWidth = 2;
 
 const ScanQRIcon: React.FC<SvgIconProps> = ({isSelected}) => {
