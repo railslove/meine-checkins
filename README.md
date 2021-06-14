@@ -1,20 +1,89 @@
-# master-checking-app
+<h1 align="center">Meine Checkins</h1>
 
-[![Build Status](https://railslove.semaphoreci.com/badges/wfd-masterapp/branches/master.svg?key=812e5e71-522b-48e9-9872-40a2c9f7f640)](https://railslove.semaphoreci.com/projects/wfd-masterapp)
+<p align="center" style="border: 1px solid red; border-radius: 10px">
+  <img src="src/shared/assets/App-Icon-Round.png" width="100px" height="100px" alt="">
+</p>
 
-- [Design](https://www.figma.com/file/V3BpuWfcKknRHQIXqc7P9i)
-- [Planning](https://github.com/railslove/wfd-masterapp/projects)
+<p align="center">
+  A product by <a href="https://railslove.com">Railslove</a>
+</p>
 
-# documentation
+<p align="center">
+  <img src="https://railslove.semaphoreci.com/badges/wfd-masterapp/branches/master.svg?key=812e5e71-522b-48e9-9872-40a2c9f7f640" title="Build Status" />
+</p>
 
-# Integration Guideline
+- [Intro](#intro)
+- [Why this App?](#why-this-app)
+- [How does it work?](#how-does-it-work)
+- [Contribute](#contribute)
+- [Reporting Bugs and Feaures](#reporting-bugs-and-feaures)
+- [License](#license)
 
-## Prerequisite
+# Documentation
+
+## Intro
+
+Meine Checkins is a Meta-App which allows you to perform a #covid19-checkin (e.g. in a restaurant) independent of the provider. It was developed, because there was a huge demand on the market for one particular app.
+
+## Why this App?
+
+In times of COVID we have to fill a lot of check-in forms at local businesses in Germany to leave a trace so is possible to prevent the spread. Because of this data filling there is also a concern about data privacy. This app solves both problems by making easier to fill those forms and keeping data safe on the user’s phone.
+
+The way data is traced by local businesses is that they usually provide a QR code sticker at the table that customers can scan. That code redirects the user to a website were they are asked to fill this check-in information (name, address, phone number). 
+
+## How does it work?
+
+The functionality offered by this app is simple. The app will automatically fill these check-in forms for the user. 
+
+First time the app will ask the user to fill its data letting the user know the data will stay private and stored on the phone. After this step the user can scan a QR code and have the check-in form automatically filled within the app. 
+
+Navigation to the current check-in and a journal of check-ins the user filled in with the app.
+
+All this information is stored on the phone.
+
+## Contribute
+
+## Stack
+
+- React Native for rendering
+- TypeScript for typing
+- redux for state management
+- react-i18next for internationalization
+
+## Setup
+
+Follow the environment setup for react native. Some basic knowledge of TypeScript and redux would be useful but you can also have a look at the codebase.
+
+Once you have setup your environment
+
+- install dependencies with `yarn install` and then `cd ios && pod install`
+- run the development server with `yarn start`
+- build the app with `yarn ios` or `yarn android`
+
+## Deployment
+
+For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to google play and TestFlight.
+
+## Testing
+
+For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator). 
+
+If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
+
+## Reporting Bugs and Feaures
+
+<a href="github.com/railslove/wfd-masterapp-backlog/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/wfd-masterapp-backlog"></a> 
+
+To report bugs and features refer to [our backlog](github.com/railslove/wfd-masterapp-backlog).
+
+## Integration Guideline
+
+### Prerequisite
 
 * https://d-64.org/check-in-app/
 * Whitepaper explaining security concept especially how data is stored
 
-## The Flow
+### The Flow
 
 * Data stored in the app only
 * Data copied into the the form of the checkin provider
@@ -22,7 +91,7 @@
 * Storing contact tracing entry on the phone 
 * All data stored locally
 
-## Changes to be done by the provider
+### Changes to be done by the provider
 
 * Check-in form inputs should use [`autocomplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) attributes for
   * `name` (or `given-name` and `family-name` separately)
@@ -38,7 +107,7 @@
 * Other data
   * the `location` name on an element (can be anything) with `data-wfd-location="<restaurant-name>"`
 
-## HTML examples
+### HTML examples
 
 Here is how the check-in form should look like. 
 
@@ -81,7 +150,7 @@ Example check-out page
 
 Other data like the location can be added to any element. In these examples was added to the form for simplicity.
 
-# Submitting the app 
+### Submitting the app 
 
 * Edit the provider-admission.json and make a pull-request
 * The provider-admission.json contains following information:
@@ -93,3 +162,7 @@ Other data like the location can be added to any element. In these examples was 
 
 
 To be done
+
+# License
+
+GNU AGPL (GNU Affero General Public License v3.0)
