@@ -66,10 +66,10 @@ platform :ios do
     # match alias https://docs.fastlane.tools/actions/match/#match
     sync_code_signing(
       type: "appstore",
+      readonly: false,
       username: username,
       storage_mode: "git",
       git_url: "git@github.com:railslove/match.git",
-      git_branch: app_identifier,
       git_full_name: "railslove-ops",
       git_user_email: username,
       app_identifier: [app_identifier]
