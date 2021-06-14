@@ -15,6 +15,7 @@
 - [Intro](#intro)
 - [Why this App?](#why-this-app)
 - [How does it work?](#how-does-it-work)
+- [Security and Privacy Questions](#security-and-privacy-questions)
 - [Integration Guidelines](#integration-guidelines)
 - [Contribute](#contribute)
 - [Reporting Bugs and Feaures](#reporting-bugs-and-feaures)
@@ -71,11 +72,73 @@ For testing different providers you can add the provider check-in url to `src/te
 
 If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
 
-### Reporting Bugs and Feaures
+## Reporting Bugs and Feaures
 
 <a href="github.com/railslove/wfd-masterapp-backlog/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/wfd-masterapp-backlog"></a> 
 
 To report bugs and features refer to [our backlog](github.com/railslove/wfd-masterapp-backlog).
+
+## Security And Privacy Questions
+
+> What customer information gets collected?
+
+No customer information are collected. We only store the Name, Surname, Street, ZIP, City and the Phone number on the phone.
+
+> Who will have access to this information?
+
+Only the user has access to this information. If the user perform a “check in” with an given checkin service (scanning the QR code) the information will be passed locally to the service provider and will be processed by the provider. The provider is then responsible to store the data encrypted and secure and inform the user about his data privacy rules.
+
+> Where will information be stored?
+
+The information will stored on the phone and after a checkin on the servers of the checkin-service-partner.
+
+> When will information be deleted?
+
+The information stored on the phone can be deleted anytime by the user. After a checkin with a service provider the data are stored for max. 4 weeks (according to the german law Coronaschutzverordnung - CoronaSchuVO)
+
+> Will users be informed of a possible COVID infection?
+
+No, the users will not be informed about a possible COVID infection by the app itself.
+
+> How can the Incognito-mode be activated?
+
+Incognito mode is always used on the WebView within the app.
+
+> What permissions does the app ask for (location, bluetooth, contacts, HealthKit, Clinical Health Records etc.) and what are the permissions strings for each? If necessary, please provide English translations of the permission string.
+
+The app asks only about the permission to use the camera to scan the barcode.
+
+> What personal information does the app require? List each separately with reasons why it’s required.
+
+Name, Surname, Street, ZIP, City and the Phone number. The information are required to perform a location checkin in a venue required by the german law (Coronaschutzverordnung - CoronaSchuVO)
+
+> What personal information is optional? List each separately with reasons why the app is requesting it.
+
+All information are mandatory.
+
+> Who in your organization has access to the information you collect?
+
+Nobody at our organization has access to the information because the information is stored on the phone of the user only.
+
+> Is any of this data shared with any other parties? If so, provide details.
+
+The data are shared locally (via Javascript) to third party checkin providers to fullfill the requirement of the german law (Coronaschutzverordnung - CoronaSchuVO). We’re performing checks if third party providers fullfill and follow the german privacy rules (DSGVO - Datenschutz). A list of apps is listed here: https://github.com/railslove/wfd-masterapp-backlog/issues?q=is%3Aissue+is%3Aopen+label%3A"integration+done"
+
+> Beyond the permissions already described, what other disclosures and user consent steps does the app contain?
+
+No other steps are required.
+
+> What jurisdiction(s) (i.e. region, state, country, etc.) is this app intended for?
+
+The app is only usable in Germany.
+
+> Has this app been authorized for use by the government of that jurisdiction?
+
+The app is authorized by the city of Cologne (Stadt Köln): stadt-koeln.de
+
+> Is the jurisdiction this app is intended for use in expected to change or expand?
+
+No.
 
 ## Integration Guidelines
 
