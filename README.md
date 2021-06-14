@@ -15,6 +15,7 @@
 - [Intro](#intro)
 - [Why this App?](#why-this-app)
 - [How does it work?](#how-does-it-work)
+- [Integration Guidelines](#integration-guidelines)
 - [Contribute](#contribute)
 - [Reporting Bugs and Feaures](#reporting-bugs-and-feaures)
 - [License](#license)
@@ -43,14 +44,14 @@ All this information is stored on the phone.
 
 ## Contribute
 
-## Stack
+### Stack
 
 - React Native for rendering
 - TypeScript for typing
 - redux for state management
 - react-i18next for internationalization
 
-## Setup
+### Setup
 
 Follow the environment setup for react native. Some basic knowledge of TypeScript and redux would be useful but you can also have a look at the codebase.
 
@@ -60,23 +61,23 @@ Once you have setup your environment
 - run the development server with `yarn start`
 - build the app with `yarn ios` or `yarn android`
 
-## Deployment
+### Deployment
 
 For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to google play and TestFlight.
 
-## Testing
+### Testing
 
 For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator). 
 
 If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
 
-## Reporting Bugs and Feaures
+### Reporting Bugs and Feaures
 
 <a href="github.com/railslove/wfd-masterapp-backlog/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/wfd-masterapp-backlog"></a> 
 
 To report bugs and features refer to [our backlog](github.com/railslove/wfd-masterapp-backlog).
 
-## Integration Guideline
+## Integration Guidelines
 
 ### Prerequisite
 
@@ -150,7 +151,9 @@ Example check-out page
 
 Other data like the location can be added to any element. In these examples was added to the form for simplicity.
 
-### Submitting the app 
+### Submitting a new provider to the app
+
+> to be done
 
 * Edit the provider-admission.json and make a pull-request
 * The provider-admission.json contains following information:
@@ -160,8 +163,6 @@ Other data like the location can be added to any element. In these examples was 
 ** link to the security paper or open source repository (file) explaining the security concept
 * Pull-request will be reviewed by core commitors
 
-
-To be done
 
 # License
 
