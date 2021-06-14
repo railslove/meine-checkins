@@ -1,49 +1,41 @@
 # For basics, see
 # https://github.com/osamaq/reactnative-fastlane-appcenter
 
+default_platform(:ios)
+
 package = load_json(json_path: "./package.json")
 appJSON = load_json(json_path: "./app.json")
 
+ios_path = "./ios/#{appJSON['name']}"
+app_identifier = "de.railslove.wfdcheckin"
+version_number = package['version']
+appicon_image_file = './src/shared/assets/App-Icon.png'
+
 # -------------Android Build & Deploy-------------#
 platform :android do
-  # For android, you should setup signing for release builds.
-  # Currently, the default debug keystore is used.
-  desc 'Build the staging release APK.'
-  private_lane :build_staging do
-    gradle(task: 'clean', project_dir: 'android/')
-    sh("npm", "run", "make-apk:stagingRelease")
-  end
+  desc "Deploy Android"
+  desc "Build with code signing and upload to Google Play Internal"
+  lane :deploy do |options|
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      project_dir: './android',
+      properties: {
+        "android.injected.signing.store.file" => File.expand_path(ENV["ANDROID_KEYSTORE_PATH"]),
+        "android.injected.signing.store.password" => ENV["ANDROID_STORE_PASSWORD"],
+        "android.injected.signing.key.alias" => ENV["ANDROID_KEY_ALIAS"],
+        "android.injected.signing.key.password" => ENV["ANDROID_KEY_PASSWORD"]
+      }
+    )
 
-  desc 'Build the production release APK.'
-  private_lane :build_production do
-    gradle(task: 'clean', project_dir: 'android/')
-    sh("npm", "run", "make-apk:productionRelease")
-  end
-
-  desc 'Upload the release APK to App Center.'
-  private_lane :upload do |options|
-    release_notes = options[:notes]
-    appcenter_upload(
-        api_token: ENV["APPCENTER_API_TOKEN"],
-        owner_name: ENV["APPCENTER_OWNER_NAME"],
-        app_name: ENV["APPCENTER_APP_NAME"],
-        apk: "./android/app/build/outputs/apk/release/app-release.apk",
-        notify_testers: ENV["NOTIFY_TESTERS"],
-        destinations: ENV["DESTINATIONS"],
-        release_notes: release_notes
-        )
-  end
-
-  desc 'Build, deploy staging Android.'
-  lane :deploy_staging do
-    build_staging
-    upload
-  end
-
-  desc 'Build, deploy production Android.'
-  lane :deploy_production do
-    build_production
-    upload
+    upload_to_play_store(
+      track: "beta",
+      aab: lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH],
+      skip_upload_images: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_screenshots: true
+    )
   end
 
   desc 'Bump, badge, deploy staging Android.'
@@ -61,66 +53,41 @@ end
 
 # -------------iOS Sign, Build & Deploy-------------#
 platform :ios do
-  # You need to configure singing for iOS
-  # https://github.com/osamaq/reactnative-fastlane-appcenter#signing
-  desc 'Set up certs and profiles for iOS.'
-  lane :certificates do
-    register_devices(
-      devices: {
-        }
+  before_all do
+    # installed via the semaphore plugin with `fastlane add_plugin semaphore`
+    setup_semaphore
+  end
+
+  desc "Deploy iOS"
+  desc "Build with code signing and upload to testflight"
+  lane :deploy do |options|
+    username = ENV["FASTLANE_USER"]
+
+    # match alias https://docs.fastlane.tools/actions/match/#match
+    sync_code_signing(
+      type: "appstore",
+      readonly: false,
+      username: username,
+      storage_mode: "git",
+      git_url: "git@github.com:railslove/match.git",
+      git_full_name: "railslove-ops",
+      git_user_email: username,
+      app_identifier: [app_identifier]
     )
-    match(
-      app_identifier: 'com.app.bundle',
-      readonly: true,
-      force_for_new_devices: true,
-      )
-  end
 
-  desc 'Build the staging release iOS application.'
-  private_lane :build_staging do
-    gym(
-      scheme: "STAGING",
-      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
-      export_method: 'ad-hoc'
+    build_ios_app(
+      clean: true,
+      silent: true,
+      scheme: appJSON['name'],
+      workspace: "#{ios_path}.xcworkspace",
+      export_method: "app-store",
+      configuration: "Release"
     )
-  end
 
-  desc 'Build the production release iOS application.'
-  private_lane :build_production do
-    gym(
-      scheme: "PRODUCTION",
-      workspace: './ios/' + appJSON['name'] + '.xcworkspace',
-      export_method: 'ad-hoc'
+    upload_to_testflight(
+      username: username,
+      skip_waiting_for_build_processing: true
     )
-  end
-
-
-  desc 'Upload the release IPA to App Center.'
-  private_lane :upload do |options|
-    release_notes = options[:notes]
-    appcenter_upload(
-        api_token: ENV["APPCENTER_API_TOKEN"],
-        owner_name: ENV["APPCENTER_OWNER_NAME"],
-        app_name: ENV["APPCENTER_APP_NAME"],
-        ipa: "./" + "masterCheckingApp" + ".ipa",
-        notify_testers: ENV["NOTIFY_TESTERS"],
-        destinations: ENV["DESTINATIONS"],
-        release_notes: release_notes
-        )
-  end
-
-  desc 'Sign, build, deploy staging iOS.'
-  lane :deploy_staging do
-    certificates
-    build_staging
-    upload
-  end
-
-  desc 'Sign, build, deploy production iOS.'
-  lane :deploy_production do
-    certificates
-    build_production
-    upload
   end
 
   desc 'Bump, badge, sign, build, deploy staging iOS.'
@@ -138,40 +105,37 @@ end
 
 
 # -------------Icons & Versioning-------------#
-desc 'Create App Icon from src/shared/assets/App-Icon.jpg'
+desc "Create App Icon from #{appicon_image_file}"
 lane :app_icon do
-  file_path = './src/shared/assets/App-Icon.jpg'
-
   appicon(
-    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
+    appicon_path: "#{ios_path}/Images.xcassets",
     appicon_devices: %i[iphone ios_marketing],
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
   )
 
   appicon(
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
     appicon_devices: [:universal],
-    appicon_path: './ios/' + appJSON['name'] + '/Images.xcassets',
+    appicon_path: "#{ios_path}/Images.xcassets",
     appicon_name: 'BootSplashLogo.imageset'
   )
 
   android_appicon(
     appicon_path: 'android/app/src/main/res/mipmap',
     generate_rounded: true,
-    appicon_image_file: file_path,
+    appicon_image_file: appicon_image_file,
   )
 end
 
 desc 'Android: Increment versionCode and set versionName to package.json version.'
-
 private_lane :inc_ver_and do
   increment_version_code(
     gradle_file_path: "./android/app/build.gradle",
   )
 
   increment_version_name(
-    gradle_file_path: "./android/app/build.gradle",
-    version_name: package['version']
+    version_name: version_number,
+    gradle_file_path: "./android/app/build.gradle"
   )
 end
 
@@ -179,11 +143,11 @@ end
 desc 'iOS: Increment build number and set the version to package.json version.'
 private_lane :inc_ver_ios do
   increment_build_number(
-    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj'
+    xcodeproj: "#{ios_path}.xcodeproj"
   )
   increment_version_number(
-    xcodeproj: './ios/' + appJSON['name'] + '.xcodeproj',
-    version_number: package['version']
+    xcodeproj: "#{ios_path}.xcodeproj",
+    version_number: version_number
   )
 end
 
@@ -200,7 +164,7 @@ end
 desc 'Android: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_and do
   add_badge(
-    shield: package['version'] + "-orange",
+    shield: version_number + "-orange",
     no_badge: true,
     shield_scale: "0.5",
     shield_gravity: "Center",
@@ -214,7 +178,7 @@ end
 desc 'iOS: Overwrite the current icon set with a badged version.'
 private_lane :make_badge_ios do
   add_badge(
-    shield: package['version'] + "-orange",
+    shield: version_number + "-orange",
     no_badge: true,
     shield_scale: "0.5",
     shield_gravity: "South",

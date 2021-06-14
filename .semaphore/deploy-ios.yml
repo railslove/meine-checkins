@@ -1,0 +1,37 @@
+version: v1.0
+name: Deploy iOS
+agent:
+  machine:
+    type: a1-standard-4
+    os_image: macos-xcode12
+
+blocks:
+  - name: Build iOS and deploy to Testflight
+    task:
+      env_vars:
+        - name: LANG
+          value: en_US.UTF-8
+      secrets:
+        - name: wfd-checkin
+      prologue:
+        commands:
+          - checkout
+          - cache restore
+
+          - npm i
+          - gem install bundler -v '2.1.4'
+          - bundle config set path 'vendor/bundle'
+          - bundle install
+          - cd ios
+          - pod install
+          - cd ..
+
+          - cache store
+      jobs:
+        - name: fastlane ios deploy
+          commands:
+            # Needs ssh to clone apple-credentials repo for fastlane match
+            - chmod 600 ~/.ssh/apple_certificates_deploy_rsa
+            - ssh-add ~/.ssh/apple_certificates_deploy_rsa
+
+            - bundle exec fastlane ios deploy

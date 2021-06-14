@@ -1,0 +1,23 @@
+##
+# The docs are available on https://docs.fastlane.tools/actions/match
+# --
+#
+# To run this from the command line first setup your credentials
+#
+# then
+#
+#  fastlane match --username "your"
+#
+##
+
+appIdentifier = "de.railslove.wfdcheckin"
+
+storage_mode("git")
+
+# The default type, can be: appstore, adhoc, enterprise or development
+type("appstore")
+
+git_url("git@github.com:railslove/match.git")
+# git_branch(appIdentifier)
+
+app_identifier([appIdentifier])

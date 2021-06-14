@@ -1,0 +1,8 @@
+appIdentifier = "de.railslove.wfdcheckin"
+
+# Android
+package_name(appIdentifier)
+json_key_file("~/service-account-key.json")
+
+# iOS
+app_identifier(appIdentifier)
