@@ -1,8 +1,8 @@
-<h1 align="center">Meine Checkins</h1>
-
 <p align="center" style="border: 1px solid red; border-radius: 10px">
   <img src="src/shared/assets/App-Icon-Round.png" width="100px" height="100px" alt="">
 </p>
+
+<h1 align="center">Meine Checkins</h1>
 
 <p align="center">
   A product by <a href="https://railslove.com">Railslove</a>
