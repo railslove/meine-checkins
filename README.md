@@ -86,7 +86,7 @@ No customer information are collected. We only store the Name, Surname, Street, 
 
 > Who will have access to this information?
 
-Only the user has access to this information. If the user perform a “check in” with an given checkin service (scanning the QR code) the information will be passed locally to the service provider and will be processed by the provider. The provider is then responsible to store the data encrypted and secure and inform the user about his data privacy rules.
+Only the user has access to this information. If the user perform a “check in” with a given checkin service (scanning the QR code) the information will be passed locally to the service provider and will be processed by the provider. The provider is then responsible to store the data encrypted and secure and inform the user about his data privacy rules.
 
 > Where will information be stored?
 
