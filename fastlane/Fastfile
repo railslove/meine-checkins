@@ -78,6 +78,8 @@ platform :ios do
       app_identifier: [app_identifier]
     )
 
+    # for this to work we cannot use Automatic Code Signing
+    # see: https://docs.fastlane.tools/codesigning/getting-started/#using-xcodes-code-signing-feature
     build_ios_app(
       clean: true,
       silent: true,
