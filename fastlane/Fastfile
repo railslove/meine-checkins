@@ -63,6 +63,8 @@ platform :ios do
   desc "Deploy iOS"
   desc "Build with code signing and upload to testflight"
   lane :deploy do |options|
+    setup_ci
+
     username = ENV["FASTLANE_USER"]
 
     # match alias https://docs.fastlane.tools/actions/match/#match
