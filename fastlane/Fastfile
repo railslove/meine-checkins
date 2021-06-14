@@ -53,6 +53,8 @@ end
 
 # -------------iOS Sign, Build & Deploy-------------#
 platform :ios do
+  xcversion(version: "12.5")
+
   before_all do
     # installed via the semaphore plugin with `fastlane add_plugin semaphore`
     setup_semaphore

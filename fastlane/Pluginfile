@@ -1,5 +1,6 @@
 
 # plugins
+gem 'xcode-install'
 gem 'fastlane-plugin-appcenter'
 gem 'fastlane-plugin-badge'
 gem 'fastlane-plugin-increment_version_name'
