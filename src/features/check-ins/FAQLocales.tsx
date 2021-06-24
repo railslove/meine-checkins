@@ -26,6 +26,16 @@ const faqItems: FAQLocaleItem[] = [
       'Ja kannst du. Mit nur einem Klick kannst du deinen QR-Code-Scanner, welcher in den meisten Handykameras integriert ist, nutzen. Dann wirst du allerdings keinen Eintrag im geteilten Tagebuch bekommen.',
   },
   {
+    title: 'Ist MeineCheckins bundesweit einsetzbar?',
+    content:
+      'Ja, du kannst die App in jedem Bundesland benutzen, zusätzlich finden Anbieter von Kontaktdatenerfassungssystemen im Menü "Check-ins" die Option "Als Anbieter mitmachen" - solltet ihr einen Anbieter in eurer Region kennen, der noch nicht dabei ist, schlagt ihm gerne die App vor.',
+  },
+  {
+    title: 'Worin liegt der Unterscheid zu anderen Check-in Apps?',
+    content:
+      'Mit MeineCheckins funktioniert die Kontaktnachverfolgung anbieterunabhängig, d.h. du wirst über das Scannen des QR Codes zu einem der vielen Anbieter weitergeleitet, deine Daten werden nur lokal auf deinem Handy gespeichert. Somit musst du nicht mehrere Apps runterladen und der Gastronom hat Entscheidungsfreiheit, was den Anbieter angeht.',
+  },
+  {
     title: 'Was ist “Wir für Digitalisierung”?',
     content() {
       return (
