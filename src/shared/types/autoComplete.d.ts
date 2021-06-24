@@ -1,5 +1,6 @@
 export type AutoCompleteValues =
   | 'name'
+  | 'email'
   | 'given-name'
   | 'family-name'
   | 'street-address'

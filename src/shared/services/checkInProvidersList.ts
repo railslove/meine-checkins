@@ -2,7 +2,7 @@ import {ImageSourcePropType} from 'react-native';
 
 type CheckInProvider = {
   name: string;
-  logoUrl: ImageSourcePropType;
+  logoUrl?: ImageSourcePropType;
   hostname: RegExp;
 };
 
