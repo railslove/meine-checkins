@@ -7,13 +7,13 @@ import {
 } from 'src/shared/models/Provider';
 
 import {
-  providerRegisterAction,
+  providerStopAction,
+  providersCleardAction,
+  providerSetLogoAction,
   providerCheckInAction,
   providerCheckOutAction,
-  providerSetLogoAction,
-  providerDiscardAction,
+  providerRegisterAction,
   providerSetLocationAction,
-  providersCleardAction,
 } from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsReducerState = {
@@ -94,12 +94,9 @@ const checkInsReducer = createReducer(getCheckInsInitialState())
       current: undefined,
     };
   })
-  .handleAction(providerDiscardAction, state => {
-    const id = state.current?.id;
-
+  .handleAction(providerStopAction, state => {
     return {
       ...state,
-      items: state.items.filter(el => el.id !== id),
       current: undefined,
     };
   });

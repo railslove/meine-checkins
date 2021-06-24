@@ -33,6 +33,13 @@ export const isTrustedProvider = (url: string) => {
   return CHECK_IN_PROVIDER_LIST.some(el => el.hostname.test(hostname));
 };
 
+export const hasCheckInItemTimedOut = (item: PartialCheckInItem) => {
+  const now = Date.now();
+  const limit = now - 24 * 3600 * 1e3;
+
+  return item.scanTime <= limit;
+};
+
 export const createPartialCheckIn = (
   props: Pick<PartialCheckInItem, 'url'>
 ): PartialCheckInItem => {
@@ -53,8 +60,8 @@ export const createPartialCheckIn = (
   return {
     id,
     name,
-    scanTime,
     ...props,
+    scanTime,
   };
 };
 

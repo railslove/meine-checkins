@@ -19,9 +19,9 @@ import {
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
 import Box from 'src/shared/components/Layout/Box';
-import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 import ArrowLeftIcon from 'src/shared/components/Icon/ArrowLeftIcon';
 import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
+import CachedWebView from 'src/shared/components/Webview/CachedWebView';
 
 const ProviderFormScreen = () => {
   const theme = useTheme();

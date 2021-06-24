@@ -1,5 +1,5 @@
 import {createTransform} from 'redux-persist';
-import {hydrateCheckInItem} from 'src/shared/models/Provider';
+import {EXTRACT_HOSTNAME_RE} from 'src/shared/models/Provider';
 import {ReduxPersistTransform} from 'src/shared/redux/persistence/types';
 
 import {
@@ -8,6 +8,7 @@ import {
 } from 'src/shared/redux/reducers/checkInsReducer';
 
 import {getUserInitialState, UserReducerState} from 'src/shared/redux/reducers/userReducer';
+import CHECK_IN_PROVIDER_LIST from 'src/shared/services/checkInProvidersList';
 
 /**
  * user transform
@@ -33,7 +34,22 @@ const checkInsTransform: ReduxPersistTransform<'checkIns', CheckInsReducerState>
   serialize: ({items}) => getCheckInsInitialState({items}),
   rehydrate: value => ({
     ...value,
-    items: value.items.map(hydrateCheckInItem),
+    /**
+     * map existing check-ins for their actualized values (logo, etc.)
+     */
+    items: value.items.map(el => {
+      const name = el.url.replace(EXTRACT_HOSTNAME_RE, '');
+      const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
+
+      if (item) {
+        return {
+          ...el,
+          ...item,
+        };
+      }
+
+      return el;
+    }),
   }),
   config: {
     whitelist: ['checkIns'],

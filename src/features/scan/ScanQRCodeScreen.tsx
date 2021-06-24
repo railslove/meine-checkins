@@ -19,9 +19,9 @@ import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 import {
-  providerDiscardAction,
-  providerRegisterAction,
+  providerStopAction,
   providersCleardAction,
+  providerRegisterAction,
 } from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
@@ -60,7 +60,7 @@ const ScanQRCodeScreen: React.FC = () => {
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
     // clear current provider => will also clear the webview
-    dispatch(providerDiscardAction());
+    dispatch(providerStopAction());
 
     const isTrusted = isTrustedProvider(url);
 
@@ -99,7 +99,7 @@ const ScanQRCodeScreen: React.FC = () => {
       Alert.alert(title, message, [
         {
           text: t('yes'),
-          onPress: () => dispatch(providerDiscardAction()),
+          onPress: () => dispatch(providerStopAction()),
         },
         {
           text: t('no'),

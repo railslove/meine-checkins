@@ -5,18 +5,21 @@ import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
 import SectionTitle from 'src/shared/components/Typography/SectionTitle';
 import CheckInItemCard from 'src/features/check-ins/components/CheckInItemCard';
-import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
+import {PartialCheckInItem, PersitedCheckInItem} from 'src/shared/models/Provider';
 
 export type CheckInsListProps = {
-  items: CompletedCheckInItem[];
+  items: PersitedCheckInItem[];
   current?: PartialCheckInItem;
   handleNavigateToCurrent?: () => void;
 };
 
 const CheckInsList: React.FC<CheckInsListProps> = props => {
-  const {current, items, handleNavigateToCurrent} = props;
+  const {current, handleNavigateToCurrent} = props;
 
   const {t} = useTranslation('myCheckInsScreen');
+
+  const id = current?.id;
+  const items = id != null ? props.items.filter(el => el.id !== id) : props.items;
 
   return (
     <>
@@ -26,7 +29,7 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
           <Box>
             <SectionTitle>{t('activeCheckInTitle')}</SectionTitle>
             <Space.V s={10} />
-            <CheckInItemCard item={current} onNavigate={handleNavigateToCurrent} />
+            <CheckInItemCard item={current} isCurrent={true} onNavigate={handleNavigateToCurrent} />
           </Box>
         </>
       ) : null}
@@ -40,7 +43,7 @@ const CheckInsList: React.FC<CheckInsListProps> = props => {
             {items.map((el, index) => (
               <Fragment key={el.id}>
                 {index > 0 ? <Space.V s={5} /> : null}
-                <CheckInItemCard item={el} />
+                <CheckInItemCard item={el} isCurrent={false} />
               </Fragment>
             ))}
           </Box>

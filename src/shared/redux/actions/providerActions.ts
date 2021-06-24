@@ -27,6 +27,6 @@ export const providerSetLocationAction = createAction(
   '@provider/set-location'
 )<ProviderSetLocationPayload>();
 
-export const providerDiscardAction = createAction('@provider/check-in-discard')();
+export const providerStopAction = createAction('@provider/check-in-stop')();
 
 export const providersCleardAction = createAction('@provider/clear')();

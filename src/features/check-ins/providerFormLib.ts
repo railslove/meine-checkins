@@ -44,7 +44,9 @@ export function fillFormInWebView(values: InjectJSValues) {
   }
 
   function findProviderLogo() {
-    const link = document.querySelector<HTMLLinkElement>('link[type*=image][rel*=icon]');
+    const link = document.querySelector<HTMLLinkElement>(
+      'link[type*=image][rel*=icon], link[rel*=icon]'
+    );
 
     if (link && link.href) {
       postMessage('setLogo', link.href);
@@ -85,10 +87,14 @@ export function fillFormInWebView(values: InjectJSValues) {
     return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
   }
 
-  function fillInputAsync(el: HTMLInputElement, index: number, value: string) {
+  function fillInputAsync(el: HTMLInputElement, index: number, value?: string) {
+    if (value == null) {
+      return;
+    }
+
     setTimeout(() => {
       el.focus();
-      if (el.type === 'number') {
+      if (el.type === 'number' || el.type === 'email') {
         el.value = value;
       } else {
         el.setRangeText(value, 0, value.length);
@@ -121,6 +127,10 @@ export function fillFormInWebView(values: InjectJSValues) {
           case 'name': {
             fillInputAsync(el, index, [user.firstName, user.lastName].join(' '));
             return ['firstName', 'lastName'];
+          }
+          case 'email': {
+            fillInputAsync(el, index, user.email);
+            return ['email'];
           }
           case 'given-name': {
             fillInputAsync(el, index, user.firstName);
@@ -196,14 +206,21 @@ export function fillFormInWebView(values: InjectJSValues) {
         findProviderLocation();
         postMessage('checkInSuccess');
 
-        button.addEventListener('click', function wait() {
+        function waitForCheckOut() {
           if (!state.hasCheckOut) {
             findProviderLocation();
             postMessage('checkOutSuccess');
             state.hasCheckOut = true;
           }
-          button.removeEventListener('click', wait);
-        });
+
+          if (button != null) {
+            button.removeEventListener('click', waitForCheckOut);
+          }
+        }
+
+        window.addEventListener('unload', waitForCheckOut);
+
+        button.addEventListener('click', waitForCheckOut);
       }
     }, 1000);
   } catch (error) {
