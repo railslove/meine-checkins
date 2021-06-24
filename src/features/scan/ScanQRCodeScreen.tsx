@@ -1,4 +1,5 @@
 import {Alert} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
@@ -32,6 +33,7 @@ const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
   const current = useSelector(state => state.checkIns.current);
+  const isFocused = useIsFocused();
 
   const handleTestSubmit = (el: PartialCheckInItem) => () => {
     handleSuccess({data: el.url});
@@ -99,6 +101,10 @@ const ScanQRCodeScreen: React.FC = () => {
         </Button>
       </TopLevelView>
     );
+  }
+
+  if (!isFocused) {
+    return null;
   }
 
   return (
