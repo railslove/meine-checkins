@@ -25,6 +25,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
+          - sem-version node 15
           - cache restore
       jobs:
         - name: jest
@@ -37,6 +38,7 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
+          - sem-version node 15
           - cache restore
       jobs:
         - name: lint
