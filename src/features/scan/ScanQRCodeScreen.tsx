@@ -1,3 +1,4 @@
+import {useCallback} from 'react';
 import {Alert} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -7,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 import {TEST_PROVIDERS} from 'src/testData';
-import {PartialCheckInItem} from 'src/shared/models/Provider';
+import {isTrustedProvider, PartialCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
@@ -20,12 +21,14 @@ import PermissionsService from 'src/shared/services/PermissionsService';
 import {
   providerDiscardAction,
   providerRegisterAction,
+  providersCleardAction,
 } from 'src/shared/redux/actions/providerActions';
 
 import SubTitle from 'src/shared/components/Typography/Subtitle';
 import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
+import OpenLinkService from 'src/shared/services/OpenLinkService';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
@@ -39,16 +42,45 @@ const ScanQRCodeScreen: React.FC = () => {
     handleSuccess({data: el.url});
   };
 
+  const handleClearProvidersData = useCallback(() => {
+    dispatch(providersCleardAction());
+  }, [dispatch]);
+
+  const handleNavigateToProvider = useCallback(
+    (url: string) => {
+      // dispatch action with a bit of delay so the clear action takes place
+      setTimeout(() => {
+        dispatch(providerRegisterAction({url}));
+
+        NavigationService.fromScanQRScreen();
+      }, 125);
+    },
+    [dispatch]
+  );
+
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
     // clear current provider => will also clear the webview
     dispatch(providerDiscardAction());
 
-    // dispatch action with a bit of delay so the clear action takes place
-    setTimeout(() => {
-      dispatch(providerRegisterAction({url}));
+    const isTrusted = isTrustedProvider(url);
 
-      NavigationService.fromScanQRScreen();
-    }, 125);
+    if (!isTrusted) {
+      const title = t('checkInProviderNotSupportedYetTitle');
+      const message = t('checkInProviderNotSupportedYetMessage');
+
+      Alert.alert(title, message, [
+        {
+          text: t('ok'),
+          onPress: () => handleNavigateToProvider(url),
+        },
+        {
+          text: t('sendEmail'),
+          onPress: () => OpenLinkService.openWFDEmail(),
+        },
+      ]);
+    } else {
+      handleNavigateToProvider(url);
+    }
   };
 
   useEffect(() => {
@@ -151,6 +183,7 @@ const ScanQRCodeScreen: React.FC = () => {
                 })}
               </Box>
               <Space.V s={10} />
+              <ButtonLink onPress={handleClearProvidersData}>CLEAR CHECKIN DATA</ButtonLink>
             </>
           ) : null}
         </Box>
