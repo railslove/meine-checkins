@@ -6,7 +6,7 @@ import {hasCheckInItemTimedOut, PersitedCheckInItem} from 'src/shared/models/Pro
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
-import CheckInLogo, {LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
+import CheckInLogo, {CHECKIN_LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
 import {useTranslation} from 'react-i18next';
@@ -14,7 +14,7 @@ import {useTranslation} from 'react-i18next';
 const useStyles = () => {
   return createStyles({
     root: {
-      minHeight: LOGO_DIMENSIONS.height,
+      minHeight: CHECKIN_LOGO_DIMENSIONS.height,
 
       display: 'flex',
       alignItems: 'center',
@@ -60,7 +60,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
 
   const cardItem = (
     <View style={styles.root}>
-      {logoUrl ? <CheckInLogo src={logoUrl} /> : null}
+      <CheckInLogo src={logoUrl} />
 
       <Box flex={1} marginLeft={px2dp(10)}>
         <Text style={styles.nameText}>{location || name}</Text>
