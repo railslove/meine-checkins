@@ -1,23 +1,22 @@
 import React from 'react';
-import {StyleSheet, Text, TextStyle} from 'react-native';
-import {px2dp} from 'src/shared/styles/createStyles';
+import {Text, TextStyle} from 'react-native';
+import createStyles from 'src/shared/styles/createStyles';
 
 const useStyles = ({
   color = '#060606',
   fontWeight = '600',
-  textTransform,
+  ...restTextStyles
 }: Omit<SubtitleProps, 'children'> = {}) =>
-  StyleSheet.create({
+  createStyles({
     root: {
       display: 'flex',
       alignItems: 'flex-start',
       flexDirection: 'column',
-      marginBottom: px2dp(14),
+      marginBottom: 14,
     },
     text: {
       color,
       fontWeight,
-      textTransform,
 
       margin: 0,
       height: 'auto',
@@ -25,12 +24,14 @@ const useStyles = ({
 
       fontFamily: 'Inter-Bold',
 
-      fontSize: px2dp(14),
-      lineHeight: px2dp(18),
+      fontSize: 14,
+      lineHeight: 18,
+
+      ...restTextStyles,
     },
   });
 
-export type SubtitleProps = Pick<TextStyle, 'color' | 'fontWeight' | 'textTransform'> & {
+export type SubtitleProps = TextStyle & {
   children: string;
 };
 
