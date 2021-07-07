@@ -17,12 +17,12 @@ export type CachedWebViewProps = Omit<WebViewProps, 'ref' | 'source'> & {
 };
 
 /**
- * CachedWebview
+ * CachedWebView
  *
  * We need to maintain the website state while we use navigation on the app.
  * We use the id here to make the WebView unique per check-in not per provider.
  */
-const CachedWebview = React.forwardRef<WebView, CachedWebViewProps>(function CachedWebViewWithRef(
+const CachedWebView = React.forwardRef<WebView, CachedWebViewProps>(function CachedWebViewWithRef(
   props,
   ref
 ) {
@@ -41,4 +41,4 @@ const CachedWebview = React.forwardRef<WebView, CachedWebViewProps>(function Cac
   );
 });
 
-export default React.memo(CachedWebview);
+export default React.memo(CachedWebView);

@@ -21,7 +21,7 @@ import NavigationService from 'src/features/navigation/services/NavigationServic
 import Box from 'src/shared/components/Layout/Box';
 import ArrowLeftIcon from 'src/shared/components/Icon/ArrowLeftIcon';
 import ArrowRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
-import CachedWebview from 'src/shared/components/Webview/CachedWebview';
+import CachedWebView from 'src/shared/components/WebView/CachedWebView';
 
 const ProviderFormScreen = () => {
   const theme = useTheme();
@@ -147,7 +147,7 @@ const ProviderFormScreen = () => {
             )}
           </Box>
         ) : null}
-        <CachedWebview
+        <CachedWebView
           id={checkIn.id}
           url={checkIn.url}
           ref={webviewRef}
