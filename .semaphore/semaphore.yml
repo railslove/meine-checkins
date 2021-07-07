@@ -8,9 +8,6 @@ blocks:
   - name: Install
     dependencies: []
     task:
-      prologue:
-        commands:
-          - sem-version node 15
       jobs:
         - name: yarn install
           commands:
@@ -25,7 +22,6 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - sem-version node 15
           - cache restore
       jobs:
         - name: jest
@@ -38,7 +34,6 @@ blocks:
       prologue:
         commands:
           - checkout --use-cache
-          - sem-version node 15
           - cache restore
       jobs:
         - name: lint
