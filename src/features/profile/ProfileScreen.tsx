@@ -42,10 +42,12 @@ const ProfileScreen: React.FC = () => {
   });
 
   const renderTextInput = (name: keyof User, inputProps: TextInputProps = {}) => {
+    const isRequired = name !== 'email';
+
     return (
       <Controller
         name={name}
-        rules={{required: true}}
+        rules={{required: isRequired}}
         control={control}
         render={({field: {onChange, onBlur}}) => {
           const value = getValues(name);
@@ -88,38 +90,48 @@ const ProfileScreen: React.FC = () => {
               autoCompleteType: 'name',
             })}
           </Box>
-          <Box flex={1} marginLeft={px2dp(5)}>
+          <Box flex={1.5} marginLeft={px2dp(5)}>
             {renderTextInput('lastName', {
               autoCompleteType: 'name',
             })}
           </Box>
         </Box>
 
-        {renderTextInput('streetAddress', {
-          autoCompleteType: 'street-address',
-          dataDetectorTypes: 'address',
-        })}
-
         <Box display="flex" flexDirection="row">
-          <Box flex={1}>
+          <Box flex={2}>
+            {renderTextInput('streetAddress', {
+              autoCompleteType: 'street-address',
+              dataDetectorTypes: 'address',
+            })}
+          </Box>
+          <Box flex={1} marginLeft={px2dp(5)}>
             {renderTextInput('postalCode', {
               keyboardType: 'number-pad',
               autoCompleteType: 'postal-code',
               dataDetectorTypes: 'phoneNumber',
             })}
           </Box>
-          <Box flex={1} marginLeft={px2dp(5)}>
+        </Box>
+
+        <Box display="flex" flexDirection="row">
+          <Box flex={1}>
             {renderTextInput('city', {
               autoCompleteType: 'street-address',
               dataDetectorTypes: 'address',
             })}
           </Box>
+          <Box flex={1.5} marginLeft={px2dp(5)}>
+            {renderTextInput('phoneNumber', {
+              keyboardType: 'phone-pad',
+              autoCompleteType: 'tel',
+              dataDetectorTypes: 'phoneNumber',
+            })}
+          </Box>
         </Box>
 
-        {renderTextInput('phoneNumber', {
-          keyboardType: 'phone-pad',
-          autoCompleteType: 'tel',
-          dataDetectorTypes: 'phoneNumber',
+        {renderTextInput('email', {
+          keyboardType: 'email-address',
+          autoCompleteType: 'email',
         })}
 
         <Space.V s={10} />
@@ -135,7 +147,7 @@ const ProfileScreen: React.FC = () => {
               <LockIcon />
             </Box>
             <Box>
-              <TextBox fontSize={13} lineHeight={16.72} fontWeight="600">
+              <TextBox fontSize={12} lineHeight={16.72} fontWeight="600">
                 {t('dataPrivacyInfo')}
               </TextBox>
             </Box>

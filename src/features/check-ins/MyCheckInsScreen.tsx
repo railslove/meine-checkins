@@ -2,8 +2,8 @@ import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import React, {useCallback} from 'react';
 
-import {BottomTabsRoutes} from 'src/features/navigation/routes';
 import NavigationService from 'src/features/navigation/services/NavigationService';
+import {BottomTabsRoutes} from 'src/features/navigation/routes';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';

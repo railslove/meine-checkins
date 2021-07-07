@@ -7,17 +7,18 @@ import {
 } from 'src/shared/models/Provider';
 
 import {
-  providerRegisterAction,
+  providerStopAction,
+  providersCleardAction,
+  providerSetLogoAction,
   providerCheckInAction,
   providerCheckOutAction,
-  providerSetLogoAction,
-  providerDiscardAction,
+  providerRegisterAction,
   providerSetLocationAction,
 } from 'src/shared/redux/actions/providerActions';
 
 export type CheckInsReducerState = {
   error?: Error;
-  items: CompletedCheckInItem[];
+  items: (PartialCheckInItem | CompletedCheckInItem)[];
   current?: PartialCheckInItem;
 };
 
@@ -31,53 +32,69 @@ export const getCheckInsInitialState = (
 });
 
 const checkInsReducer = createReducer(getCheckInsInitialState())
+  .handleAction(providersCleardAction, () => getCheckInsInitialState())
   .handleAction(providerRegisterAction, (state, {payload}) => {
+    const current = createPartialCheckIn(payload);
+
     return {
       ...state,
-      current: createPartialCheckIn(payload),
+      current,
+      items: [current].concat(state.items),
     };
   })
   .handleAction(providerSetLogoAction, (state, {payload: {item, logoUrl}}) => {
+    const id = item.id;
+    const current = {
+      ...item,
+      logoUrl: item?.logoUrl || logoUrl,
+    };
     return {
       ...state,
-      current: {
-        ...item,
-        logoUrl: item?.logoUrl || logoUrl,
-      },
+      current,
+      items: state.items.map(el => (el.id === id ? current : el)),
     };
   })
   .handleAction(providerSetLocationAction, (state, {payload: {item, location}}) => {
+    const id = item.id;
+    const current = {
+      ...item,
+      location: item?.location || location,
+    };
+
     return {
       ...state,
-      current: {
-        ...item,
-        location: item?.location || location,
-      },
+      current,
+      items: state.items.map(el => (el.id === id ? current : el)),
     };
   })
-  .handleAction(providerCheckInAction, (state, {payload}) => {
+  .handleAction(providerCheckInAction, (state, {payload: item}) => {
+    const id = item.id;
+    const current = {
+      ...item,
+      stopTime: undefined,
+      startTime: Date.now(),
+    };
+
     return {
       ...state,
-      current: {
-        ...payload,
-        stopTime: undefined,
-        startTime: Date.now(),
-      },
+      current,
+      items: state.items.map(el => (el.id === id ? current : el)),
     };
   })
   .handleAction(providerCheckOutAction, (state, {payload}) => {
-    const item: CompletedCheckInItem = {
+    const id = payload.id;
+    const current: CompletedCheckInItem = {
       ...payload,
       stopTime: Date.now(),
     };
 
     return {
       ...state,
+      items: state.items.map(el => (el.id === id ? current : el)),
       current: undefined,
-      items: [item].concat(state.items),
     };
   })
-  .handleAction(providerDiscardAction, state => {
+  .handleAction(providerStopAction, state => {
     return {
       ...state,
       current: undefined,

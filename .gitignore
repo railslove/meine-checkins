@@ -67,3 +67,4 @@ fastlane/report.xml
 android/*.hprof
 .env.staging
 android/app/release
+vendor

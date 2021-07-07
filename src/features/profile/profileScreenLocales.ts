@@ -1,4 +1,5 @@
 export default {
+  email: 'E-Mail',
   title: 'Persönliche Daten',
   subtitle: 'Mit deinen Daten kannst du automatisch bei allen Anbietern einchecken.',
   lastName: 'Nachname',

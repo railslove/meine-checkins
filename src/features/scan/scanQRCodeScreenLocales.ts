@@ -13,8 +13,17 @@ export default {
   checkInProgressDiscard: 'Neuer Check-in',
   checkInProgressContinue: 'zum aktuellen Check-in',
 
+  ok: 'Ok',
   no: 'Nein',
   yes: 'Ja',
+  sendEmail: 'E-Email senden',
   checkInProgressDiscardAlertMessage:
     'Willst Du dich neu einchecken ohne dich ausgecheckt zu haben?',
+
+  checkInProviderNotSupportedYetTitle: 'Dieser Anbieter nimmt noch nicht Teil',
+  checkInProviderNotSupportedYetMessage: [
+    '',
+    'Du kannst jedoch deine Daten manuell eingeben und dadurch die App gerne weiternutzen.',
+    'Wenn Du den Betreiber darauf ansprechen möchtest, dass er Meine Checkins unterstützt verweise ihn per E-Mail.',
+  ].join('\n\n'),
 };

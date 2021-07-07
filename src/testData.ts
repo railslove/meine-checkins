@@ -8,6 +8,7 @@ export const TEST_PROVIDERS = [
   'https://app.visito.me/checkin/to/1000',
   'https://checkin.bevent.io/12603/IN/41420/37',
   'https://meldeapp.shapefruit.de/checkin/8a3f8d',
+  'https://checkin.smartmeeting.online/checkin/tenant/da-michele',
   'https://checkin.checkincode.de/enter-data/ObIvTHWDFUx03vI5PKhn',
   'https://visits-dev.perkiot.com/entry/9b2b0c5f-259c-438b-e0bc-08d8de26c0ad',
   'https://rcvr.app/checkin?a=62751e22-84fd-4abc-9c6f-a3dc37587fb2&k=VIUBpH2nsGQeHf4dVEzJiQ4rzYZcHwZhvMxkMWtc9Cc%3D',

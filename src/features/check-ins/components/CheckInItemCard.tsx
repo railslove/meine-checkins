@@ -1,26 +1,29 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 
-import {px2dp} from 'src/shared/styles/createStyles';
-import {CompletedCheckInItem} from 'src/shared/models/Provider';
+import createStyles, {px2dp} from 'src/shared/styles/createStyles';
+import {hasCheckInItemTimedOut, PersitedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
-import CheckInLogo from 'src/features/check-ins/components/CheckInLogo';
+import CheckInLogo, {LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
 import {formatItemDate} from 'src/shared/format/date';
 import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
+import {useTranslation} from 'react-i18next';
 
 const useStyles = () => {
-  return StyleSheet.create({
+  return createStyles({
     root: {
+      minHeight: LOGO_DIMENSIONS.height,
+
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      paddingVertical: px2dp(9),
-      paddingHorizontal: px2dp(10),
+      paddingVertical: 9,
+      paddingHorizontal: 10,
 
-      borderRadius: px2dp(5),
+      borderRadius: 5,
       backgroundColor: '#F0F1F3',
     },
     rootTouchable: {
@@ -28,59 +31,51 @@ const useStyles = () => {
     },
     nameText: {
       textAlign: 'left',
-      fontSize: px2dp(12),
+      fontSize: 12,
 
       fontFamily: 'Inter-Bold',
       fontWeight: '700',
-      lineHeight: px2dp(15),
+      lineHeight: 15,
     },
     infoText: {
       textAlign: 'left',
-      fontSize: px2dp(12),
-      lineHeight: px2dp(15),
+      fontSize: 12,
+      lineHeight: 15,
     },
   });
 };
 
 export type CheckInItemCardProps = {
-  item: Pick<CompletedCheckInItem, 'name' | 'location' | 'logoUrl'> &
-    (
-      | {
-          startTime?: CompletedCheckInItem['stopTime'];
-          stopTime?: never;
-        }
-      | {
-          startTime: CompletedCheckInItem['stopTime'];
-          stopTime: CompletedCheckInItem['stopTime'];
-        }
-    );
+  item: PersitedCheckInItem;
+  isCurrent: boolean;
   onNavigate?: () => void;
 };
 
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
-  const {
-    item: {name, location, logoUrl, startTime, stopTime},
-    onNavigate,
-  } = props;
+  const {t} = useTranslation('myCheckInsScreen');
+  const {item, isCurrent, onNavigate} = props;
+  const {name, location, logoUrl, stopTime} = item;
 
   const styles = useStyles();
 
   const cardItem = (
     <View style={styles.root}>
-      <CheckInLogo src={logoUrl} />
+      {logoUrl ? <CheckInLogo src={logoUrl} /> : null}
 
       <Box flex={1} marginLeft={px2dp(10)}>
         <Text style={styles.nameText}>{location || name}</Text>
 
-        {startTime != null ? (
-          <>
-            <Space.V s={1} />
-            <Text style={styles.infoText}>{formatItemDate(startTime, stopTime)}</Text>
-          </>
+        <Space.V s={1} />
+        <Text style={styles.infoText}>
+          {formatItemDate(item)}
+          {isCurrent ? `-${t('active')}` : ` ${t('hour')}`}
+        </Text>
+        {!isCurrent && !stopTime && hasCheckInItemTimedOut(item) ? (
+          <Text style={styles.infoText}>{t('checkedOutByService')}</Text>
         ) : null}
       </Box>
 
-      {stopTime == null ? (
+      {isCurrent ? (
         <Box marginHorizontal={px2dp(10)}>
           <ChevronRightIcon />
         </Box>
@@ -88,7 +83,7 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
     </View>
   );
 
-  if (stopTime) {
+  if (!isCurrent) {
     return cardItem;
   }
 
