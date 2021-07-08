@@ -1,32 +1,33 @@
 import React from 'react';
-import {StyleSheet, Text, TextStyle, View} from 'react-native';
+import {Text, TextStyle, View} from 'react-native';
 
-import {px2dp} from 'src/shared/styles/createStyles';
+import createStyles from 'src/shared/styles/createStyles';
 
-const useStyles = ({color = '#060606', textTransform}: Omit<TitleProps, 'children'> = {}) =>
-  StyleSheet.create({
+const useStyles = ({color = '#060606', ...restTextStyles}: Omit<TitleProps, 'children'> = {}) =>
+  createStyles({
     root: {
       display: 'flex',
       alignItems: 'flex-start',
       flexDirection: 'column',
-      marginBottom: px2dp(14),
+      marginBottom: 14,
     },
     text: {
       color,
-      textTransform,
 
       margin: 0,
       height: 'auto',
       padding: 0,
 
-      fontSize: px2dp(22),
+      fontSize: 22,
       fontFamily: 'Inter-Bold',
       fontWeight: '700',
-      lineHeight: px2dp(26),
+      lineHeight: 26,
+
+      ...restTextStyles,
     },
   });
 
-export type TitleProps = Pick<TextStyle, 'color' | 'textTransform'> & {
+export type TitleProps = TextStyle & {
   /**
    * split the text in multiple lines
    * @default true
@@ -35,8 +36,8 @@ export type TitleProps = Pick<TextStyle, 'color' | 'textTransform'> & {
   children: string;
 };
 
-const Title: React.FC<TitleProps> = ({children, split = true, color, textTransform}) => {
-  const style = useStyles({color, textTransform});
+const Title: React.FC<TitleProps> = ({children, split = true, ...textStyles}) => {
+  const style = useStyles(textStyles);
 
   if (!split) {
     return <Text style={style.text}>{children}</Text>;

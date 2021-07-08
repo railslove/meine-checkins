@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {Alert} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -6,37 +6,48 @@ import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {px2dp} from 'src/shared/styles/createStyles';
 import {TEST_PROVIDERS} from 'src/testData';
 import {isTrustedProvider, PartialCheckInItem} from 'src/shared/models/Provider';
 
-import Box from 'src/shared/components/Layout/Box';
-import Space from 'src/shared/components/Layout/Space';
-import Title from 'src/shared/components/Typography/Title';
-import Button from 'src/shared/components/Button/Button';
-import QRScanner from 'src/shared/components/Form/QRCodeScanner';
-import Description from 'src/shared/components/Typography/Description';
-import TopLevelView from 'src/shared/components/Layout/TopLevelView';
-import PermissionsService from 'src/shared/services/PermissionsService';
 import {
   providerStopAction,
   providersCleardAction,
   providerRegisterAction,
 } from 'src/shared/redux/actions/providerActions';
-
-import SubTitle from 'src/shared/components/Typography/Subtitle';
-import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import NavigationService from 'src/features/navigation/services/NavigationService';
+
+import Box from 'src/shared/components/Layout/Box';
+import Space from 'src/shared/components/Layout/Space';
+import Title from 'src/shared/components/Typography/Title';
+import QRScanner from 'src/shared/components/Form/QRCodeScanner';
+import Description from 'src/shared/components/Typography/Description';
+import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import PermissionsService from 'src/shared/services/PermissionsService';
+
+import ButtonLink from 'src/shared/components/Button/ButtonLink';
+import NotQRScreen from 'src/features/scan/NotQRScreen';
 import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
-import OpenLinkService from 'src/shared/services/OpenLinkService';
+import UserIsCheckedInScreen from 'src/features/scan/UserIsCheckedInScreen';
+import UnsupportedCheckInScreen from './NotSupportedCheckInScreen';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
+
+export type TempProviderCheckIn = Partial<{
+  url: string;
+  isTrusted: boolean;
+  isQRCodeURL: boolean;
+}>;
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
   const current = useSelector(state => state.checkIns.current);
   const isFocused = useIsFocused();
+  const [tempCheckIn, setTempCheckIn] = useState<TempProviderCheckIn>({});
+
+  const handleResetTempCheckIn = useCallback(() => {
+    setTempCheckIn({});
+  }, []);
 
   const handleTestSubmit = (el: PartialCheckInItem) => () => {
     handleSuccess({data: el.url});
@@ -48,6 +59,10 @@ const ScanQRCodeScreen: React.FC = () => {
 
   const handleNavigateToProvider = useCallback(
     (url: string) => {
+      setTempCheckIn({});
+      // clear current provider => will also clear the webview
+      dispatch(providerStopAction());
+
       // dispatch action with a bit of delay so the clear action takes place
       setTimeout(() => {
         dispatch(providerRegisterAction({url}));
@@ -59,25 +74,13 @@ const ScanQRCodeScreen: React.FC = () => {
   );
 
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
-    // clear current provider => will also clear the webview
-    dispatch(providerStopAction());
-
     const isTrusted = isTrustedProvider(url);
+    const isQRCodeURL = /^https?\:/.test(url);
 
-    if (!isTrusted) {
-      const title = t('checkInProviderNotSupportedYetTitle');
-      const message = t('checkInProviderNotSupportedYetMessage');
+    setTempCheckIn({url, isTrusted, isQRCodeURL});
 
-      Alert.alert(title, message, [
-        {
-          text: t('ok'),
-          onPress: () => handleNavigateToProvider(url),
-        },
-        {
-          text: t('sendEmail'),
-          onPress: () => OpenLinkService.openWFDEmail(),
-        },
-      ]);
+    if (!isTrusted || !isQRCodeURL) {
+      return;
     } else {
       handleNavigateToProvider(url);
     }
@@ -86,6 +89,35 @@ const ScanQRCodeScreen: React.FC = () => {
   useEffect(() => {
     PermissionsService.requestCamera();
   });
+
+  if (!isFocused) {
+    return null;
+  }
+
+  if (tempCheckIn.isQRCodeURL === false) {
+    return (
+      <NotQRScreen
+        backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
+        onRetry={handleResetTempCheckIn}
+      />
+    );
+  }
+
+  if (tempCheckIn.url != null && tempCheckIn.isTrusted === false) {
+    const nextQRUrl = tempCheckIn.url;
+
+    const handleContiue = () => {
+      handleNavigateToProvider(nextQRUrl);
+    };
+
+    return (
+      <UnsupportedCheckInScreen
+        backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
+        onCancel={handleResetTempCheckIn}
+        onContinue={handleContiue}
+      />
+    );
+  }
 
   if (current) {
     const handleGoToCheckout = () => {
@@ -108,35 +140,12 @@ const ScanQRCodeScreen: React.FC = () => {
     };
 
     return (
-      <TopLevelView
-        flex={1}
-        display="flex"
-        flexDirection="column"
-        paddingHorizontal={px2dp(30)}
+      <UserIsCheckedInScreen
         backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
-      >
-        <Space.V s={40} />
-        <Title color="white" split={false}>
-          {t('checkInProgressTitle')}
-        </Title>
-        <Space.V s={15} />
-        <SubTitle color="white">{t('checkInProgressSubTitle')}</SubTitle>
-        <Space.V s={25} />
-
-        <Button fullWidth={true} onPress={handleGoToCheckout}>
-          {t('checkInProgressContinue')}
-        </Button>
-
-        <Space.V s={10} />
-        <Button fullWidth={true} mode="text" onPress={handleDiscardCheckIn}>
-          {t('checkInProgressDiscard')}
-        </Button>
-      </TopLevelView>
+        onGoToCheckOut={handleGoToCheckout}
+        onDiscardCheckIn={handleDiscardCheckIn}
+      />
     );
-  }
-
-  if (!isFocused) {
-    return null;
   }
 
   return (

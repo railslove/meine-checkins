@@ -1,6 +1,7 @@
 import {createPartialCheckIn} from 'src/shared/models/Provider';
 
 export const TEST_PROVIDERS = [
+  'NOT AN URL',
   'https://guest.zzeus.de/#/KQ9C',
   'https://check-in-provider.vercel.app',
   'https://pandasafe.app/15f42fb481fc2d',

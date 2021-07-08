@@ -1,4 +1,11 @@
 export default {
+  ok: 'Ok',
+  no: 'Nein',
+  yes: 'Ja',
+  cancel: 'Abbrechen',
+  continue: 'Fortfahren',
+  sendEmail: 'E-Email senden',
+
   title: 'QR-Code scannen',
   description: 'Indem du den QR-Code scannst, leiten wir dich zur Seite des Anbieters weiter. ',
   submitScanQRCode: 'check-in',
@@ -13,17 +20,15 @@ export default {
   checkInProgressDiscard: 'Neuer Check-in',
   checkInProgressContinue: 'zum aktuellen Check-in',
 
-  ok: 'Ok',
-  no: 'Nein',
-  yes: 'Ja',
-  sendEmail: 'E-Email senden',
+  QRIsNotAnURLTitle: 'QR ist keine URL',
+  QRIsNotAnURLMessage:
+    'Der gescannte QR-Code sieht nicht wie eine URL aus. Bitte versuchen Sie es erneut.',
+  QRIsNotAnURLButton: 'Erneut Scannen',
+
   checkInProgressDiscardAlertMessage:
     'Willst Du dich neu einchecken ohne dich ausgecheckt zu haben?',
 
-  checkInProviderNotSupportedYetTitle: 'Dieser Anbieter nimmt noch nicht Teil',
-  checkInProviderNotSupportedYetMessage: [
-    '',
-    'Du kannst jedoch deine Daten manuell eingeben und dadurch die App gerne weiternutzen.',
-    'Wenn Du den Betreiber darauf ansprechen möchtest, dass er Meine Checkins unterstützt verweise ihn per E-Mail.',
-  ].join('\n\n'),
+  checkInProviderNotSupportedYetTitle: 'Der Anbieter nimmt noch nicht Teil',
+  checkInProviderNotSupportedYetMessage:
+    'Deine Checkin-Daten können eventuell nicht richtig übertragen werden. Du kannst deine Daten aber einfach manuell eingeben.',
 };
