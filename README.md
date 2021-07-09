@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://railslove.semaphoreci.com/badges/wfd-masterapp/branches/master.svg?key=812e5e71-522b-48e9-9872-40a2c9f7f640" title="Build Status" />
+<a href='https://railslove.semaphoreci.com/badges/meine-checkins/branches/master.svg?style=shields&key=812e5e71-522b-48e9-9872-40a2c9f7f640'> <img src='https://railslove.semaphoreci.com/badges/meine-checkins/branches/master.svg?style=shields&key=812e5e71-522b-48e9-9872-40a2c9f7f640' alt='Build Status'></a>
 </p>
 
 - [Intro](#intro)
