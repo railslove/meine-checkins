@@ -35,13 +35,13 @@ The way data is traced by local businesses is that they usually provide a QR cod
 
 ## How does it work?
 
-The functionality offered by this app is simple. The app will automatically fill these check-in forms for the user. 
+The app will automatically fill these check-in forms for the user. 
 
 First time the app will ask the user to fill its data letting the user know the data will stay private and stored on the phone. After this step the user can scan a QR code and have the check-in form automatically filled within the app. 
 
 Navigation to the current check-in and a journal of check-ins the user filled in with the app.
 
-All this information is stored on the phone.
+All this information is stored in the phone.
 
 ## Contribute
 
@@ -54,17 +54,17 @@ All this information is stored on the phone.
 
 ### Setup
 
-Follow the environment setup for react native. Some basic knowledge of TypeScript and redux would be useful but you can also have a look at the codebase.
+Follow the [environment setup](https://reactnative.dev/docs/environment-setup) for react native. Some basic knowledge of TypeScript and redux would be useful but you can also have a look at the codebase.
 
 Once you have setup your environment
 
 - install dependencies with `yarn install` and then `cd ios && pod install`
 - run the development server with `yarn start`
-- build the app with `yarn ios` or `yarn android`
+- build the app and run it on a device with `yarn ios` or `yarn android`
 
 ### Deployment
 
-For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to google play and TestFlight.
+For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to Google Play and TestFlight. After that you will have to follow the steps needed for each platform to publish the app to the Play Store and App Store.
 
 ### Testing
 
@@ -72,11 +72,15 @@ For testing different providers you can add the provider check-in url to `src/te
 
 If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
 
+# License
+
+GNU AGPL (GNU Affero General Public License v3.0)
+
 ## Reporting Bugs and Feaures
 
-<a href="github.com/railslove/wfd-masterapp-backlog/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/wfd-masterapp-backlog"></a> 
+<a href="github.com/railslove/meine-checkins/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/meine-checkins"></a> 
 
-To report bugs and features refer to [our backlog](github.com/railslove/wfd-masterapp-backlog).
+To report bugs and features refer to [our backlog](https://github.com/railslove/meine-checkins/issues).
 
 ## Security And Privacy Questions
 
@@ -122,7 +126,7 @@ Nobody at our organization has access to the information because the information
 
 > Is any of this data shared with any other parties? If so, provide details.
 
-The data are shared locally (via Javascript) to third party checkin providers to fullfill the requirement of the german law (Coronaschutzverordnung - CoronaSchuVO). We’re performing checks if third party providers fullfill and follow the german privacy rules (DSGVO - Datenschutz). A list of apps is listed here: https://github.com/railslove/wfd-masterapp-backlog/issues?q=is%3Aissue+is%3Aopen+label%3A"integration+done"
+The data are shared locally (via Javascript) to third party checkin providers to fullfill the requirement of the german law (Coronaschutzverordnung - CoronaSchuVO). We’re performing checks if third party providers fullfill and follow the german privacy rules (DSGVO - Datenschutz). A list of apps is listed here: https://github.com/railslove/meine-checkins/issues?q=is%3Aissue+is%3Aopen+label%3A%22integration+done%22"
 
 > Beyond the permissions already described, what other disclosures and user consent steps does the app contain?
 
@@ -144,8 +148,10 @@ No.
 
 ### Prerequisite
 
-* https://d-64.org/check-in-app/
-* Whitepaper explaining security concept especially how data is stored
+* Fünf Forderungen an eine bundesweite Check-In-App zur Kontaktnachverfolgung - https://d-64.org/check-in-app/ 
+* 10 Prüfsteine für die Beurteilung von „Contact Tracing“-Apps - https://www.ccc.de/de/updates/2020/contact-tracing-requirements
+* Gemeinsame Stellungnahme zur digitalen Kontaktnachverfolgung - https://digikoletter.github.io/
+
 
 ### The Flow
 
@@ -225,8 +231,3 @@ Other data like the location can be added to any element. In these examples was 
 ** checkin-page url
 ** link to the security paper or open source repository (file) explaining the security concept
 * Pull-request will be reviewed by core commitors
-
-
-# License
-
-GNU AGPL (GNU Affero General Public License v3.0)
