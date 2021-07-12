@@ -7,6 +7,7 @@ export const TEST_PROVIDERS = [
   'https://pandasafe.app/15f42fb481fc2d',
   'https://gastident.de/check-in/spotar',
   'https://app.visito.me/checkin/to/1000',
+  'https://app.in-trada.de/in/testcode2/',
   'https://checkin.bevent.io/12603/IN/41420/37',
   'https://meldeapp.shapefruit.de/checkin/8a3f8d',
   'https://c.darfichrein.de/checkin/5eddd61036d39a0ff8b11fdb',
