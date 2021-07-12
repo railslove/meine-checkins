@@ -3,6 +3,7 @@ import {ImageSourcePropType} from 'react-native';
 type CheckInProvider = {
   name: string;
   logoUrl?: ImageSourcePropType;
+  logoLarge?: ImageSourcePropType;
   hostname: RegExp;
 };
 
@@ -55,6 +56,7 @@ const CHECK_IN_PROVIDER_LIST = Object.freeze<CheckInProvider>([
   {
     name: 'ZzEuS',
     logoUrl: require('./img/zzeus-logo.png'),
+    logoLarge: require('./img/zzeus-logo-large.png'),
     hostname: /zzeus\.de$/,
   },
   {
