@@ -5,7 +5,9 @@ import {StoreDispatch, StoreState} from 'src/shared/redux/store';
 import {APP_ID, RELEASE_VERSION} from 'src/config';
 
 Sentry.init({
-  dsn: 'https://c6306569f95245278cec328a3558a04e@o914340.ingest.sentry.io/5853066',
+  dsn: __DEV__
+    ? 'https://c6306569f95245278cec328a3558a04e@o914340.ingest.sentry.io/5853066'
+    : 'https://20318db7bfd04dffbc0125cf582958e2@o914340.ingest.sentry.io/5860687',
   release: `${APP_ID}@${RELEASE_VERSION}`,
 });
 
