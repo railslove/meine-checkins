@@ -9,6 +9,7 @@ export const TEST_PROVIDERS = [
   'https://app.visito.me/checkin/to/1000',
   'https://checkin.bevent.io/12603/IN/41420/37',
   'https://meldeapp.shapefruit.de/checkin/8a3f8d',
+  'https://c.darfichrein.de/checkin/5eddd61036d39a0ff8b11fdb',
   'https://checkin.smartmeeting.online/checkin/tenant/da-michele',
   'https://checkin.checkincode.de/enter-data/ObIvTHWDFUx03vI5PKhn',
   'https://visits-dev.perkiot.com/entry/9b2b0c5f-259c-438b-e0bc-08d8de26c0ad',
