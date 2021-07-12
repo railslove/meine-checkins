@@ -14,6 +14,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import {AppAction} from 'src/shared/redux/actions/types';
 import {ReduxPersistConfig} from 'src/shared/redux/persistence/types';
 import rootReducer, {reducers} from 'src/shared/redux/reducers';
+import {createSentryMiddleware} from 'src/shared/redux/middleware/sentry-middleware';
 
 // type exports
 export type StoreState = ReturnType<typeof rootReducer>;
@@ -21,7 +22,7 @@ export type StoreStateKey = keyof typeof reducers;
 export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 
 // middleware
-const middleware = [thunkMiddleware];
+const middleware = [thunkMiddleware, createSentryMiddleware()];
 
 // development middleware
 if (__DEV__ && process.env.NODE_ENV != 'test') {
