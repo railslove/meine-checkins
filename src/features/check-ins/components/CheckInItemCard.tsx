@@ -54,13 +54,13 @@ export type CheckInItemCardProps = {
 const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
   const {t} = useTranslation('myCheckInsScreen');
   const {item, isCurrent, onNavigate} = props;
-  const {name, location, logoUrl, stopTime} = item;
+  const {name, location, logoUrl, logoLarge, stopTime} = item;
 
   const styles = useStyles();
 
   const cardItem = (
     <View style={styles.root}>
-      <CheckInLogo src={logoUrl} />
+      <CheckInLogo src={logoLarge || logoUrl} />
 
       <Box flex={1} marginLeft={px2dp(10)}>
         <Text style={styles.nameText}>{location || name}</Text>
