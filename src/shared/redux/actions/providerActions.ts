@@ -1,6 +1,12 @@
 import {createAction} from 'typesafe-actions';
 
-import {CompletedCheckInItem, PartialCheckInItem} from 'src/shared/models/Provider';
+import {
+  CompletedCheckInItem,
+  PartialCheckInItem,
+  TempProviderCheckIn,
+} from 'src/shared/models/Provider';
+
+export const providerScanQRAction = createAction('@provider/scan-qr')<TempProviderCheckIn>();
 
 export const providerRegisterAction = createAction('@provider/register')<
   Pick<PartialCheckInItem, 'url'>

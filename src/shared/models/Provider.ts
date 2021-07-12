@@ -3,6 +3,12 @@ import {ImageSourcePropType} from 'react-native';
 import {getUUID} from 'src/shared/models/util';
 import CHECK_IN_PROVIDER_LIST from 'src/shared/services/checkInProvidersList';
 
+export type TempProviderCheckIn = Partial<{
+  url: string;
+  isTrusted: boolean;
+  isQRCodeURL: boolean;
+}>;
+
 export type CheckInProvider = {
   name: string;
   logoUrl: string | ImageSourcePropType;

@@ -19,7 +19,8 @@ import {rootNavigationRef} from 'src/features/navigation/services/NavigationServ
 
 (function setup() {
   if (process.env.NODE_ENV !== 'test') {
-    console.log('BuildConfig', BuildConfig);
+    console.info('BuildConfig', BuildConfig);
+
     // React Navigation, optimize memory usage.
     enableScreens();
   }

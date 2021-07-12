@@ -7,12 +7,17 @@ import {BarCodeReadEvent} from 'react-native-camera';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {TEST_PROVIDERS} from 'src/testData';
-import {isTrustedProvider, PartialCheckInItem} from 'src/shared/models/Provider';
+import {
+  isTrustedProvider,
+  PartialCheckInItem,
+  TempProviderCheckIn,
+} from 'src/shared/models/Provider';
 
 import {
   providerStopAction,
   providersCleardAction,
   providerRegisterAction,
+  providerScanQRAction,
 } from 'src/shared/redux/actions/providerActions';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
@@ -31,12 +36,6 @@ import UserIsCheckedInScreen from 'src/features/scan/UserIsCheckedInScreen';
 import UnsupportedCheckInScreen from './NotSupportedCheckInScreen';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
-
-export type TempProviderCheckIn = Partial<{
-  url: string;
-  isTrusted: boolean;
-  isQRCodeURL: boolean;
-}>;
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
@@ -76,8 +75,11 @@ const ScanQRCodeScreen: React.FC = () => {
   const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
     const isTrusted = isTrustedProvider(url);
     const isQRCodeURL = /^https?\:/.test(url);
+    const currentValue = {url, isTrusted, isQRCodeURL};
 
-    setTempCheckIn({url, isTrusted, isQRCodeURL});
+    setTempCheckIn(currentValue);
+
+    dispatch(providerScanQRAction(currentValue));
 
     if (!isTrusted || !isQRCodeURL) {
       return;

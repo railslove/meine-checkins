@@ -31,13 +31,13 @@ Meine Checkins is a Meta-App which allows you to perform a #covid19-checkin (e.g
 
 In times of COVID we have to fill a lot of check-in forms at local businesses in Germany to leave a trace so is possible to prevent the spread. Because of this data filling there is also a concern about data privacy. This app solves both problems by making easier to fill those forms and keeping data safe on the user’s phone.
 
-The way data is traced by local businesses is that they usually provide a QR code sticker at the table that customers can scan. That code redirects the user to a website were they are asked to fill this check-in information (name, address, phone number). 
+The way data is traced by local businesses is that they usually provide a QR code sticker at the table that customers can scan. That code redirects the user to a website were they are asked to fill this check-in information (name, address, phone number).
 
 ## How does it work?
 
-The app will automatically fill these check-in forms for the user. 
+The app will automatically fill these check-in forms for the user.
 
-First time the app will ask the user to fill its data letting the user know the data will stay private and stored on the phone. After this step the user can scan a QR code and have the check-in form automatically filled within the app. 
+First time the app will ask the user to fill its data letting the user know the data will stay private and stored on the phone. After this step the user can scan a QR code and have the check-in form automatically filled within the app.
 
 Navigation to the current check-in and a journal of check-ins the user filled in with the app.
 
@@ -58,6 +58,7 @@ Follow the [environment setup](https://reactnative.dev/docs/environment-setup) f
 
 Once you have setup your environment
 
+- add an `.env` file with the values at `.env.sample` (app can run without but sentry will not work)
 - install dependencies with `yarn install` and then `cd ios && pod install`
 - run the development server with `yarn start`
 - build the app and run it on a device with `yarn ios` or `yarn android`
@@ -68,7 +69,7 @@ For deployment we have Semaphore CI setup. Once a release is ready create a bran
 
 ### Testing
 
-For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator). 
+For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator).
 
 If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
 
@@ -78,7 +79,7 @@ GNU AGPL (GNU Affero General Public License v3.0)
 
 ## Reporting Bugs and Feaures
 
-<a href="github.com/railslove/meine-checkins/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/meine-checkins"></a> 
+<a href="github.com/railslove/meine-checkins/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/railslove/meine-checkins"></a>
 
 To report bugs and features refer to [our backlog](https://github.com/railslove/meine-checkins/issues).
 
@@ -148,7 +149,7 @@ No.
 
 ### Prerequisite
 
-* Fünf Forderungen an eine bundesweite Check-In-App zur Kontaktnachverfolgung - https://d-64.org/check-in-app/ 
+* Fünf Forderungen an eine bundesweite Check-In-App zur Kontaktnachverfolgung - https://d-64.org/check-in-app/
 * 10 Prüfsteine für die Beurteilung von „Contact Tracing“-Apps - https://www.ccc.de/de/updates/2020/contact-tracing-requirements
 * Gemeinsame Stellungnahme zur digitalen Kontaktnachverfolgung - https://digikoletter.github.io/
 
@@ -158,7 +159,7 @@ No.
 * Data stored in the app only
 * Data copied into the the form of the checkin provider
 * Reading data from the checkin-page (name of the place, confirmation information)
-* Storing contact tracing entry on the phone 
+* Storing contact tracing entry on the phone
 * All data stored locally
 
 ### Changes to be done by the provider
@@ -179,7 +180,7 @@ No.
 
 ### HTML examples
 
-Here is how the check-in form should look like. 
+Here is how the check-in form should look like.
 
 The order of the fields doesn't matter.
 
