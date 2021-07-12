@@ -69,6 +69,12 @@ const CHECK_IN_PROVIDER_LIST = Object.freeze<CheckInProvider>([
     logoUrl: require('./img/darfichrein-logo.png'),
     hostname: /darfichrein\.de$/,
   },
+  {
+    name: 'intrada',
+    logoUrl: require('./img/intrada-logo.png'),
+    logoLarge: require('./img/intrada-logo-large.png'),
+    hostname: /in-trada\.de$/,
+  },
 ]);
 
 export default CHECK_IN_PROVIDER_LIST;
