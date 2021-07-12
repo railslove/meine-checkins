@@ -57,6 +57,11 @@ const CHECK_IN_PROVIDER_LIST = Object.freeze<CheckInProvider>([
     logoUrl: require('./img/zzeus-logo.png'),
     hostname: /zzeus\.de$/,
   },
+  {
+    name: 'darfichrein',
+    logoUrl: require('./img/darfichrein-logo.png'),
+    hostname: /darfichrein\.de$/,
+  },
 ]);
 
 export default CHECK_IN_PROVIDER_LIST;
