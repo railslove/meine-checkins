@@ -3,6 +3,8 @@ import * as Sentry from '@sentry/react-native';
 
 import {StoreDispatch, StoreState} from 'src/shared/redux/store';
 import {APP_ID, RELEASE_VERSION} from 'src/config';
+import {getType} from 'typesafe-actions';
+import {providerScanQRAction} from 'src/shared/redux/actions/providerActions';
 
 Sentry.init({
   dsn: 'https://c6306569f95245278cec328a3558a04e@o914340.ingest.sentry.io/5853066',
@@ -29,9 +31,17 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
     });
 
     return next => action => {
-      Sentry.captureMessage(action.type, {
-        level: Sentry.Severity.Info,
-      });
+      switch (action.type) {
+        case getType(providerScanQRAction): {
+          Sentry.captureMessage(action.type, {
+            tags: {
+              action: action.type,
+              ...action.payload,
+            },
+            level: Sentry.Severity.Info,
+          });
+        }
+      }
 
       lastAction = action.type;
       return next(action);
