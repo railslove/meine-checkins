@@ -1,3 +1,4 @@
+import Config from 'react-native-config';
 import {Middleware} from 'redux';
 import * as Sentry from '@sentry/react-native';
 
@@ -7,7 +8,7 @@ import {getType} from 'typesafe-actions';
 import {providerScanQRAction} from 'src/shared/redux/actions/providerActions';
 
 Sentry.init({
-  dsn: 'https://c6306569f95245278cec328a3558a04e@o914340.ingest.sentry.io/5853066',
+  dsn: Config.SENTRY_DSN,
   release: `${APP_ID}-${__DEV__ ? 'dev' : 'prod'}@${RELEASE_VERSION}`,
 });
 
