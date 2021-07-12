@@ -37,7 +37,7 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
           const {payload}: ReturnType<typeof providerScanQRAction> = action;
 
           if (!payload.isQRCodeURL) {
-            Sentry.captureMessage(`not QR ${action.type}`, {
+            Sentry.captureMessage(`${action.type}: not a QR`, {
               tags: {
                 action: action.type,
                 ...payload,
@@ -45,7 +45,7 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
               level: Sentry.Severity.Info,
             });
           } else if (!payload.isTrusted) {
-            Sentry.captureMessage(`unknown ${action.type}`, {
+            Sentry.captureMessage(`${action.type}: unknown`, {
               tags: {
                 action: action.type,
                 ...payload,

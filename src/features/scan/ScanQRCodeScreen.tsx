@@ -72,10 +72,10 @@ const ScanQRCodeScreen: React.FC = () => {
     [dispatch]
   );
 
-  const handleSuccess = ({data: url}: Pick<BarCodeReadEvent, 'data'>) => {
-    const isTrusted = isTrustedProvider(url);
-    const isQRCodeURL = /^https?\:/.test(url);
-    const currentValue = {url, isTrusted, isQRCodeURL};
+  const handleSuccess = ({data}: Pick<BarCodeReadEvent, 'data'>) => {
+    const isTrusted = isTrustedProvider(data);
+    const isQRCodeURL = /^https?\:/.test(data);
+    const currentValue = {data, isTrusted, isQRCodeURL};
 
     setTempCheckIn(currentValue);
 
@@ -84,7 +84,7 @@ const ScanQRCodeScreen: React.FC = () => {
     if (!isTrusted || !isQRCodeURL) {
       return;
     } else {
-      handleNavigateToProvider(url);
+      handleNavigateToProvider(data);
     }
   };
 
@@ -105,8 +105,8 @@ const ScanQRCodeScreen: React.FC = () => {
     );
   }
 
-  if (tempCheckIn.url != null && tempCheckIn.isTrusted === false) {
-    const nextQRUrl = tempCheckIn.url;
+  if (tempCheckIn.data != null && tempCheckIn.isTrusted === false) {
+    const nextQRUrl = tempCheckIn.data;
 
     const handleContiue = () => {
       handleNavigateToProvider(nextQRUrl);
