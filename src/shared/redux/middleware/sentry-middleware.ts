@@ -23,7 +23,6 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
       scope.addEventProcessor(event => {
         event.extra = {
           ...event.extra,
-          env: SENTRY_ENV,
           previousAction,
         };
 
@@ -35,23 +34,19 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
       switch (action.type) {
         case getType(providerScanQRAction): {
           const {payload}: ReturnType<typeof providerScanQRAction> = action;
+          const options = {
+            tags: {
+              env: SENTRY_ENV,
+              action: action.type,
+              ...payload,
+            },
+            level: Sentry.Severity.Info,
+          };
 
           if (!payload.isQRCodeURL) {
-            Sentry.captureMessage(`${action.type}: not a QR`, {
-              tags: {
-                action: action.type,
-                ...payload,
-              },
-              level: Sentry.Severity.Info,
-            });
+            Sentry.captureMessage(`${action.type}: not QR`, options);
           } else if (!payload.isTrusted) {
-            Sentry.captureMessage(`${action.type}: unknown`, {
-              tags: {
-                action: action.type,
-                ...payload,
-              },
-              level: Sentry.Severity.Info,
-            });
+            Sentry.captureMessage(`${action.type}: unknown`, options);
           }
         }
       }
