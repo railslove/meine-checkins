@@ -58,6 +58,11 @@ const CHECK_IN_PROVIDER_LIST = Object.freeze<CheckInProvider>([
     hostname: /zzeus\.de$/,
   },
   {
+    name: 'SmartMeeting',
+    logoUrl: require('./img/smartmeeting-logo.png'),
+    hostname: /smartmeeting\.online$/,
+  },
+  {
     name: 'darfichrein',
     logoUrl: require('./img/darfichrein-logo.png'),
     hostname: /darfichrein\.de$/,
