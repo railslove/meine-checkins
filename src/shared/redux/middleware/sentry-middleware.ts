@@ -19,17 +19,6 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
     // assigning null is a workaround since sentry api normalizes the store data and converts undefined to '[undefined]'
     let previousAction: string | null = null;
 
-    Sentry.configureScope(scope => {
-      scope.addEventProcessor(event => {
-        event.extra = {
-          ...event.extra,
-          previousAction,
-        };
-
-        return event;
-      });
-    });
-
     return next => action => {
       switch (action.type) {
         case getType(providerScanQRAction): {
@@ -41,6 +30,7 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
               ...payload,
             },
             level: Sentry.Severity.Info,
+            previousAction,
           };
 
           if (!payload.isQRCodeURL) {
