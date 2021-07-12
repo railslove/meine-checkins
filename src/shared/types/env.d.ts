@@ -1,12 +1,12 @@
 declare module 'react-native-config' {
-  interface Env {
+  type EnvValues = {
     ENV: 'DEVELOPMENT' | 'STAGING' | 'PRODUCTION';
-    MOCK_EXAMPLE_API: 'NO' | 'YES';
-    GITHUB_API_BASE_URL: 'https://api.github.com';
+    SENTRY_URL: '';
     SENTRY_DSN: '';
-  }
+    SENTRY_AUTH_TOKEN: '';
+  };
 
-  const Config: Env;
+  const Config: EnvValues;
 
   export default Config;
 }

@@ -58,10 +58,7 @@ Follow the [environment setup](https://reactnative.dev/docs/environment-setup) f
 
 Once you have setup your environment
 
-- add an `.env` file with
-
-![image](https://user-images.githubusercontent.com/7457705/125314780-cb17b600-e336-11eb-9756-77d4b978aada.png)
-
+- add an `.env` file with the values at `.env.sample` (app can run without but sentry will not work)
 - install dependencies with `yarn install` and then `cd ios && pod install`
 - run the development server with `yarn start`
 - build the app and run it on a device with `yarn ios` or `yarn android`

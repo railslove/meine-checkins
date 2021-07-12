@@ -1,14 +1,14 @@
-import Config from 'react-native-config';
+import {getType} from 'typesafe-actions';
+import BuildConfig from 'react-native-config';
 import {Middleware} from 'redux';
 import * as Sentry from '@sentry/react-native';
 
-import {StoreDispatch, StoreState} from 'src/shared/redux/store';
-import {APP_ID, RELEASE_VERSION} from 'src/config';
-import {getType} from 'typesafe-actions';
 import {providerScanQRAction} from 'src/shared/redux/actions/providerActions';
+import {APP_ID, RELEASE_VERSION} from 'src/config';
+import {StoreDispatch, StoreState} from 'src/shared/redux/store';
 
 Sentry.init({
-  dsn: Config.SENTRY_DSN,
+  dsn: BuildConfig.SENTRY_DSN,
   release: `${APP_ID}-${__DEV__ ? 'dev' : 'prod'}@${RELEASE_VERSION}`,
 });
 
