@@ -12,39 +12,36 @@ Sentry.init({
   release: `${APP_ID}-${__DEV__ ? 'dev' : 'prod'}@${RELEASE_VERSION}`,
 });
 
+export const SENTRY_ENV = __DEV__ ? 'development' : 'production';
+
 export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispatch> = () => {
-  return ({getState}) => {
+  return () => {
     // assigning null is a workaround since sentry api normalizes the store data and converts undefined to '[undefined]'
-    let lastAction: string | null = null;
-
-    Sentry.configureScope(scope => {
-      scope.addEventProcessor(event => {
-        const state = getState();
-
-        event.extra = {
-          ...event.extra,
-          state,
-          lastAction,
-        };
-
-        return event;
-      });
-    });
+    let previousAction: string | null = null;
 
     return next => action => {
       switch (action.type) {
         case getType(providerScanQRAction): {
-          Sentry.captureMessage(action.type, {
+          const {payload}: ReturnType<typeof providerScanQRAction> = action;
+          const options = {
             tags: {
+              env: SENTRY_ENV,
               action: action.type,
-              ...action.payload,
+              ...payload,
             },
             level: Sentry.Severity.Info,
-          });
+            previousAction,
+          };
+
+          if (!payload.isQRCodeURL) {
+            Sentry.captureMessage(`${action.type}: not QR`, options);
+          } else if (!payload.isTrusted) {
+            Sentry.captureMessage(`${action.type}: unknown`, options);
+          }
         }
       }
 
-      lastAction = action.type;
+      previousAction = action.type;
       return next(action);
     };
   };

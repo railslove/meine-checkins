@@ -4,7 +4,7 @@ import {getUUID} from 'src/shared/models/util';
 import CHECK_IN_PROVIDER_LIST from 'src/shared/services/checkInProvidersList';
 
 export type TempProviderCheckIn = Partial<{
-  url: string;
+  data: string;
   isTrusted: boolean;
   isQRCodeURL: boolean;
 }>;

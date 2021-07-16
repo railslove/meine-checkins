@@ -266,8 +266,8 @@ PODS:
     - react-native-config/App (= 1.4.2)
   - react-native-config/App (1.4.2):
     - React-Core
-  - react-native-flipper (0.91.2):
-    - React-Core
+  - react-native-flipper (0.52.1):
+    - React
   - react-native-get-random-values (1.6.0):
     - React-Core
   - react-native-safe-area-context (3.2.0):
@@ -589,7 +589,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-camera: 7aeaef71f5c13a4940fe4767b9814664f02de986
   react-native-config: c98128a72bc2c3a1ca72caec0b021f0fa944aa29
-  react-native-flipper: d4e19fb1ffc5b69481efd46ab1fca275395bd569
+  react-native-flipper: 18787435d229e4fcf6a23017b81d556715194950
   react-native-get-random-values: f0fc24a5887a3341589515a86282a574407b59e4
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-webview: 71567b6bf3d4e55914e580d720cc8f7df64af817
