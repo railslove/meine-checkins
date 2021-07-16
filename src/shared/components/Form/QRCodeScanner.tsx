@@ -1,4 +1,5 @@
 import React from 'react';
+import {RNCamera} from 'react-native-camera';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';
 import {Platform, StyleSheet, View, ViewStyle} from 'react-native';
 
@@ -74,13 +75,13 @@ const useStyles = () => {
 };
 
 export type QRScannerProps = RNQRCodeScannerProps & {
+  isTorchOn?: boolean;
   backgroundColor?: string;
 };
 
-// eslint-disable-next-line react/display-name
 const QRScanner: React.FC<QRScannerProps> = props => {
   const styles = useStyles();
-  const {backgroundColor, ...restProps} = props;
+  const {isTorchOn, cameraProps, backgroundColor, ...restProps} = props;
 
   return (
     <QRCodeScanner
@@ -124,6 +125,15 @@ const QRScanner: React.FC<QRScannerProps> = props => {
       cameraStyle={styles.dimensions}
       topViewStyle={styles.dimensions}
       containerStyle={styles.dimensions}
+      cameraProps={{
+        ...cameraProps,
+        flashMode:
+          isTorchOn == null
+            ? undefined
+            : isTorchOn
+            ? RNCamera.Constants.FlashMode.torch
+            : RNCamera.Constants.FlashMode.off,
+      }}
       {...restProps}
     />
   );
