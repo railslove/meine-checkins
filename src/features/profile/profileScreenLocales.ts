@@ -8,7 +8,7 @@ export default {
 
   city: 'Ort',
   postalCode: 'Postleitzahl',
-  streetAddress: 'Anschrift (Straße und Hausnummer)',
+  streetAddress: 'Straße und Hausnummer',
 
   dataPrivacyInfo:
     'Deine Daten werden sicher lokal auf deinem Gerät gespeichert und nur zum Checkin an den jeweiligen Anbieter übertragen.',

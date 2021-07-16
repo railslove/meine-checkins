@@ -7,8 +7,8 @@ import {px2dp} from 'src/shared/styles/createStyles';
 const styles = StyleSheet.create({
   root: {
     height: px2dp(20),
-    padding: px2dp(14),
     marginBottom: px2dp(10),
+    paddingVertical: px2dp(14),
 
     textAlign: 'left',
 

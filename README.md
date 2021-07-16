@@ -59,8 +59,9 @@ Follow the [environment setup](https://reactnative.dev/docs/environment-setup) f
 Once you have setup your environment
 
 - install `node` version `15` through [`nvm`](https://github.com/nvm-sh/nvm#install--update-script) (needed this app Xcode build)
-- add an `.env` file with the values at `.env.sample` (app can run without but sentry will not work)
 - install dependencies with `yarn install` and then `cd ios && pod install`
+- run `yarn sentry-wizard`
+- add an `.env` file with the values at `.env.sample`
 - run the development server with `yarn start`
 - build the app and run it on a device with `yarn ios` or `yarn android`
 
