@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react';
-import {Alert} from 'react-native';
+import {Alert, TouchableOpacity} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import {useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import React, {useEffect} from 'react';
@@ -30,19 +31,28 @@ import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 
 import ButtonLink from 'src/shared/components/Button/ButtonLink';
-import NotQRScreen from 'src/features/scan/NotQRScreen';
-import NotAuthorizedView from 'src/features/scan/NotAutorizedView';
-import UserIsCheckedInScreen from 'src/features/scan/UserIsCheckedInScreen';
-import UnsupportedCheckInScreen from './NotSupportedCheckInScreen';
+import NotQRScreen from 'src/features/scan/components/NotQRScreen';
+import NotAuthorizedView from 'src/features/scan/components/NotAutorizedView';
+import UserIsCheckedInScreen from 'src/features/scan/components/UserIsCheckedInScreen';
+import UnsupportedCheckInScreen from './components/NotSupportedCheckInScreen';
+import FlashlightIcon from 'src/shared/components/Icon/FlashlightIcon';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
 const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
+
+  const theme = useTheme();
   const current = useSelector(state => state.checkIns.current);
   const isFocused = useIsFocused();
+
+  const [isTorchOn, setTorchOn] = useState<boolean>();
   const [tempCheckIn, setTempCheckIn] = useState<TempProviderCheckIn>({});
+
+  const handleToggleTorch = useCallback(() => {
+    setTorchOn(!isTorchOn);
+  }, [isTorchOn]);
 
   const handleResetTempCheckIn = useCallback(() => {
     setTempCheckIn({});
@@ -108,7 +118,7 @@ const ScanQRCodeScreen: React.FC = () => {
   if (tempCheckIn.data != null && tempCheckIn.isTrusted === false) {
     const nextQRUrl = tempCheckIn.data;
 
-    const handleContiue = () => {
+    const handleContinue = () => {
       handleNavigateToProvider(nextQRUrl);
     };
 
@@ -116,7 +126,7 @@ const ScanQRCodeScreen: React.FC = () => {
       <UnsupportedCheckInScreen
         backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
         onCancel={handleResetTempCheckIn}
-        onContinue={handleContiue}
+        onContinue={handleContinue}
       />
     );
   }
@@ -159,7 +169,15 @@ const ScanQRCodeScreen: React.FC = () => {
       justifyContent="center"
       backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
     >
-      <Box marginHorizontal="10%">
+      <Box position="relative" width="100%">
+        <Box top={20} right={0} position="absolute" opacity={isTorchOn ? 1 : 0.5}>
+          <TouchableOpacity onPress={handleToggleTorch}>
+            <FlashlightIcon />
+          </TouchableOpacity>
+        </Box>
+      </Box>
+
+      <Box marginHorizontal="10%" position="relative">
         <Box display="flex" alignItems="center" justifyContent="center">
           <Space.V s={10} />
           <Title color="white">{t('title')}</Title>
@@ -168,6 +186,7 @@ const ScanQRCodeScreen: React.FC = () => {
 
         <Box flex={1} display="flex" alignItems="center" justifyContent="center">
           <QRScanner
+            isTorchOn={isTorchOn}
             backgroundColor={SCAN_SCREEN_BACKGROUND_COLOR}
             notAuthorizedView={<NotAuthorizedView />}
             onRead={handleSuccess}
@@ -181,7 +200,7 @@ const ScanQRCodeScreen: React.FC = () => {
           </Description>
           <Space.V s={10} />
 
-          {__DEV__ ? (
+          {false ? (
             <>
               <Space.V s={10} />
               <Box display="flex" flexDirection="row" maxWidth="100%" flexWrap="wrap">
