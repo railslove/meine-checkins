@@ -20,10 +20,10 @@ export default {
   checkInProgressDiscard: 'Neuer Check-in',
   checkInProgressContinue: 'zum aktuellen Check-in',
 
-  QRIsNotAnURLTitle: 'QR ist keine URL',
+  QRIsNotAnURLTitle: 'Leider hat das nicht funktioniert.',
   QRIsNotAnURLMessage:
-    'Der gescannte QR-Code sieht nicht wie eine URL aus. Bitte versuchen Sie es erneut.',
-  QRIsNotAnURLButton: 'Erneut Scannen',
+    'Dein gescannter QR-Code führt leider zu keiner gültigen Webadresse. Vergewissere dich, dass du einen gültigen QR-Code scannst.',
+  QRIsNotAnURLButton: 'OKAY',
 
   checkInProgressDiscardAlertMessage:
     'Willst Du dich neu einchecken ohne dich ausgecheckt zu haben?',
