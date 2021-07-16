@@ -7,9 +7,11 @@ import {providerScanQRAction} from 'src/shared/redux/actions/providerActions';
 import {APP_ID, RELEASE_VERSION} from 'src/config';
 import {StoreDispatch, StoreState} from 'src/shared/redux/store';
 
+export const SENTRY_RELEASE = `${APP_ID}-${__DEV__ ? 'dev' : 'prod'}@${RELEASE_VERSION}`;
+
 Sentry.init({
   dsn: BuildConfig.SENTRY_DSN,
-  release: `${APP_ID}-${__DEV__ ? 'dev' : 'prod'}@${RELEASE_VERSION}`,
+  release: SENTRY_RELEASE,
 });
 
 export const SENTRY_ENV = __DEV__ ? 'development' : 'production';
@@ -27,6 +29,7 @@ export const createSentryMiddleware: () => Middleware<{}, StoreState, StoreDispa
             tags: {
               env: SENTRY_ENV,
               action: action.type,
+              release: SENTRY_RELEASE,
               ...payload,
             },
             level: Sentry.Severity.Info,
