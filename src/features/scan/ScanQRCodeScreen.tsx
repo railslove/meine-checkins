@@ -198,7 +198,7 @@ const ScanQRCodeScreen: React.FC = () => {
           </Description>
           <Space.V s={10} />
 
-          {false ? (
+          {__DEV__ ? (
             <>
               <Space.V s={10} />
               <Box display="flex" flexDirection="row" maxWidth="100%" flexWrap="wrap">
