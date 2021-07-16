@@ -1,6 +1,5 @@
 import {useCallback, useState} from 'react';
 import {Alert, TouchableOpacity} from 'react-native';
-import {useTheme} from 'react-native-paper';
 import {useIsFocused} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import React, {useEffect} from 'react';
@@ -43,7 +42,6 @@ const ScanQRCodeScreen: React.FC = () => {
   const {t} = useTranslation('scanQRCodeScreen');
   const dispatch = useDispatch();
 
-  const theme = useTheme();
   const current = useSelector(state => state.checkIns.current);
   const isFocused = useIsFocused();
 
