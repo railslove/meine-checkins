@@ -20,7 +20,11 @@ export type ParagraphProps = {
 };
 
 const Paragraph: React.FC<ParagraphProps> = ({children}) => {
-  return <RPParagraph style={paragraphStyle.root}>{children}</RPParagraph>;
+  return (
+    <RPParagraph style={paragraphStyle.root} allowFontScaling={false}>
+      {children}
+    </RPParagraph>
+  );
 };
 
 export default Paragraph;

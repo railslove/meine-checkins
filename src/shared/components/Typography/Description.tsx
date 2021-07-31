@@ -27,7 +27,11 @@ export type DescriptionProps = {
 
 const Description: React.FC<DescriptionProps> = ({children, ...styleProps}) => {
   const style = useStyles(styleProps);
-  return <RPParagraph style={style.root}>{children}</RPParagraph>;
+  return (
+    <RPParagraph style={style.root} allowFontScaling={false}>
+      {children}
+    </RPParagraph>
+  );
 };
 
 export default Description;

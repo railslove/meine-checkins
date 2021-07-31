@@ -1,11 +1,12 @@
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StyleSheet, Text, View} from 'react-native';
 
 import {px2dp} from 'src/shared/styles/createStyles';
 
 import Space from 'src/shared/components/Layout/Space';
 import PlusIcon from 'src/shared/components/Icon/PlusIcon';
+import BaseText from 'src/shared/components/Typography/BaseText';
 
 export type AccordionProps = {
   open?: boolean;
@@ -50,7 +51,7 @@ const Accordion: React.FC<AccordionProps> = ({open, title, content, onOpen}) => 
     <View style={styles.root}>
       <TouchableOpacity style={styles.header} onPress={onOpen} activeOpacity={1}>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>{title}</Text>
+          <BaseText style={styles.headerText}>{title}</BaseText>
         </View>
         <View style={styles.center}>
           <PlusIcon isSelected={!open} />

@@ -24,8 +24,8 @@ const StartScreen: React.FC = () => {
 
   return (
     <TopLevelView>
-      <Box flex={1} display="flex" alignItems="center" justifyContent="center" height={height}>
-        <Box marginHorizontal="10%">
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <Box margin="10%">
           <Box display="flex" alignItems="center" justifyContent="center">
             <LargeHeadline>{t('title')}</LargeHeadline>
             <Space.V s={5} />

@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
-import {
-  Alert,
-  Clipboard,
-  Linking,
-  NativeModules,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Alert, Clipboard, Linking, NativeModules, StatusBar, View} from 'react-native';
+
+import BaseText from './shared/components/Typography/BaseText';
+import createStyles from './shared/styles/createStyles';
 
 /**
  * Example UI to show in the case of a JavaScript error.
@@ -68,14 +62,17 @@ export default class RootErrorBoundary extends Component {
         <View style={styles.container}>
           <StatusBar barStyle="light-content" />
           <View style={styles.subContainer}>
-            <Text style={styles.bigBoldText}>App couldn{"'"}t keep going...</Text>
-            <Text style={[styles.text, styles.bold]} onPress={this.showError}>
+            <BaseText style={styles.bigBoldText}>App couldn{"'"}t keep going...</BaseText>
+            <BaseText style={[styles.text, styles.bold]} onPress={this.showError}>
               SHOW ERROR
-            </Text>
+            </BaseText>
             {__DEV__ && (
-              <Text style={[styles.text, styles.bold, {marginTop: 50}]} onPress={this.reloadApp}>
+              <BaseText
+                style={[styles.text, styles.bold, {marginTop: 50}]}
+                onPress={this.reloadApp}
+              >
                 RESTART APP
-              </Text>
+              </BaseText>
             )}
           </View>
         </View>
@@ -86,7 +83,7 @@ export default class RootErrorBoundary extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = createStyles({
   container: {
     flex: 1,
     justifyContent: 'flex-start',

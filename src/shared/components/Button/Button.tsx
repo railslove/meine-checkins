@@ -1,19 +1,30 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Button as RPButton, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
+import {TouchableOpacity, View, ViewStyle} from 'react-native';
+
 import createStyles from 'src/shared/styles/createStyles';
+import BaseText from '../Typography/BaseText';
 
 const useStyles = (props: ButtonProps) => {
   const theme = useTheme();
 
-  const common =
-    props.mode === 'outlined'
-      ? {
-          borderWidth: 3,
-          borderRadius: 7,
-          borderColor: theme.colors.primary,
-        }
-      : undefined;
+  const common: ViewStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+
+    shadowColor: 'black',
+    shadowRadius: 5,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.15,
+
+    borderWidth: 3,
+    borderRadius: 7,
+    borderColor: props.mode === 'text' ? 'transparent' : theme.colors.primary,
+    backgroundColor: props.mode === 'text' ? 'transparent' : theme.colors.primary,
+  };
 
   return createStyles({
     root: {
@@ -34,13 +45,11 @@ const useStyles = (props: ButtonProps) => {
       color: 'white',
       fontWeight: '700',
       fontFamily: 'Inter-Bold',
+      textTransform: 'uppercase',
 
       fontSize: 13,
       lineHeight: 17,
       letterSpacing: 16 * 0.075,
-    },
-    content: {
-      paddingVertical: 5,
     },
   });
 };
@@ -55,17 +64,13 @@ export type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = props => {
   const styles = useStyles(props);
-  const {fullWidth, ...restProps} = props;
+  const {children, fullWidth, ...restProps} = props;
 
   return (
     <View style={styles.root}>
-      <RPButton
-        mode="contained"
-        style={fullWidth ? styles.fullWidth : styles.main}
-        labelStyle={styles.label}
-        contentStyle={styles.content}
-        {...restProps}
-      />
+      <TouchableOpacity style={fullWidth ? styles.fullWidth : styles.main} {...restProps}>
+        <BaseText style={styles.label}>{children}</BaseText>
+      </TouchableOpacity>
     </View>
   );
 };

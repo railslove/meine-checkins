@@ -1,13 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {px2dp} from 'src/shared/styles/createStyles';
+import {View} from 'react-native';
 
-const style = StyleSheet.create({
+import createStyles, {px2dp} from 'src/shared/styles/createStyles';
+import BaseText from './BaseText';
+
+const style = createStyles({
   root: {
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
-    marginBottom: px2dp(14),
+    marginBottom: 14,
   },
   text: {
     color: '#060606',
@@ -15,8 +17,8 @@ const style = StyleSheet.create({
     height: 'auto',
     padding: 0,
 
-    fontSize: px2dp(36),
-    lineHeight: px2dp(44),
+    fontSize: 36,
+    lineHeight: 44,
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
   },
@@ -34,9 +36,9 @@ const Headline: React.FC<LargeTitleProps> = ({children}) => {
         .split(/\s+/)
         .map(el => {
           return (
-            <Text key={el} style={style.text}>
+            <BaseText key={el} style={style.text} allowFontScaling={false}>
               {el}
-            </Text>
+            </BaseText>
           );
         })}
     </View>
