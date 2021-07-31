@@ -29,13 +29,13 @@ import Description from 'src/shared/components/Typography/Description';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import PermissionsService from 'src/shared/services/PermissionsService';
 
-import ButtonLink from 'src/shared/components/Button/ButtonLink';
 import NotQRScreen from 'src/features/scan/components/NotQRScreen';
+import FlashlightIcon from 'src/shared/components/Icon/FlashlightIcon';
 import NotAuthorizedView from 'src/features/scan/components/NotAutorizedView';
 import UserIsCheckedInScreen from 'src/features/scan/components/UserIsCheckedInScreen';
+
+import DebugProvidersList from './components/DebugProvidersList';
 import UnsupportedCheckInScreen from './components/NotSupportedCheckInScreen';
-import FlashlightIcon from 'src/shared/components/Icon/FlashlightIcon';
-import DebugProvidersList from './DebugProvidersList';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
