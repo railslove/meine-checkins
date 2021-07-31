@@ -35,6 +35,7 @@ import NotAuthorizedView from 'src/features/scan/components/NotAutorizedView';
 import UserIsCheckedInScreen from 'src/features/scan/components/UserIsCheckedInScreen';
 import UnsupportedCheckInScreen from './components/NotSupportedCheckInScreen';
 import FlashlightIcon from 'src/shared/components/Icon/FlashlightIcon';
+import DebugProvidersList from './DebugProvidersList';
 
 export const SCAN_SCREEN_BACKGROUND_COLOR = 'rgba(18, 22, 32, 1)';
 
@@ -199,20 +200,7 @@ const ScanQRCodeScreen: React.FC = () => {
           <Space.V s={10} />
 
           {__DEV__ ? (
-            <>
-              <Space.V s={10} />
-              <Box display="flex" flexDirection="row" maxWidth="100%" flexWrap="wrap">
-                {TEST_PROVIDERS.map(el => {
-                  return (
-                    <ButtonLink key={el.id} onPress={handleTestSubmit(el)}>
-                      {'  ' + el.name + '  '}
-                    </ButtonLink>
-                  );
-                })}
-              </Box>
-              <Space.V s={10} />
-              <ButtonLink onPress={handleClearProvidersData}>CLEAR CHECKIN DATA</ButtonLink>
-            </>
+            <DebugProvidersList onSubmit={handleTestSubmit} onClear={handleClearProvidersData} />
           ) : null}
         </Box>
       </Box>
