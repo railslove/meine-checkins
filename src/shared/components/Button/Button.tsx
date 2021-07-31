@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {useTheme} from 'react-native-paper';
 import {TouchableOpacity, View, ViewStyle} from 'react-native';
 
@@ -68,7 +68,17 @@ const Button: React.FC<ButtonProps> = props => {
   return (
     <View style={styles.root}>
       <TouchableOpacity style={fullWidth ? styles.fullWidth : styles.main} {...restProps}>
-        <BaseText style={styles.label}>{children}</BaseText>
+        {React.Children.map(children, (child, index) => {
+          return (
+            <Fragment key={index}>
+              {typeof child === 'string' ? (
+                <BaseText style={styles.label}>{children}</BaseText>
+              ) : (
+                child
+              )}
+            </Fragment>
+          );
+        })}
       </TouchableOpacity>
     </View>
   );
