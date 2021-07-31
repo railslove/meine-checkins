@@ -11,7 +11,7 @@ export type TextBoxProps = TextStyle;
 const TextBox: React.FC<TextBoxProps> = ({children, testID, ...styleProps}) => {
   const style = transformStyleRules({fontFamily: FONT_FAMILY_REGULAR, ...styleProps});
   return (
-    <BaseText style={style} testID={testID} allowFontScaling={false}>
+    <BaseText style={style} testID={testID}>
       {children}
     </BaseText>
   );

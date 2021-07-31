@@ -51,7 +51,7 @@ const Title: React.FC<TitleProps> = ({children, split = true, ...textStyles}) =>
         .split(/\s+/)
         .map(el => {
           return (
-            <BaseText key={el} style={style.text} allowFontScaling={false}>
+            <BaseText key={el} style={style.text}>
               {el}
             </BaseText>
           );

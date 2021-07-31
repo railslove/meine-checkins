@@ -1,16 +1,16 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {View, TouchableOpacity} from 'react-native';
 
+import {formatItemDate} from 'src/shared/format/date';
 import createStyles, {px2dp} from 'src/shared/styles/createStyles';
 import {hasCheckInItemTimedOut, PersitedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
-import CheckInLogo, {CHECKIN_LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
-import {formatItemDate} from 'src/shared/format/date';
-import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
-import {useTranslation} from 'react-i18next';
 import BaseText from 'src/shared/components/Typography/BaseText';
+import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
+import CheckInLogo, {CHECKIN_LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
 
 const useStyles = () => {
   return createStyles({

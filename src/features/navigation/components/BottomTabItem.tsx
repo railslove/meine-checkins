@@ -60,9 +60,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
         <View style={styles.root}>
           <ProfileIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <BaseText style={textStyle} allowFontScaling={false}>
-            {t('profile')}
-          </BaseText>
+          <BaseText style={textStyle}>{t('profile')}</BaseText>
         </View>
       );
     }
@@ -92,9 +90,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
 
           <MyCheckInsIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <BaseText style={textStyle} allowFontScaling={false}>
-            {t('checkIns')}
-          </BaseText>
+          <BaseText style={textStyle}>{t('checkIns')}</BaseText>
         </View>
       );
     }

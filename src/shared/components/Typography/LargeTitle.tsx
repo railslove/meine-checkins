@@ -36,7 +36,7 @@ const Headline: React.FC<LargeTitleProps> = ({children}) => {
         .split(/\s+/)
         .map(el => {
           return (
-            <BaseText key={el} style={style.text} allowFontScaling={false}>
+            <BaseText key={el} style={style.text}>
               {el}
             </BaseText>
           );

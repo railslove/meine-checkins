@@ -38,9 +38,7 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({onPress, children}) => {
   return (
     <View style={styles.root}>
       <TouchableOpacity onPress={onPress}>
-        <BaseText style={styles.text} allowFontScaling={false}>
-          {children}
-        </BaseText>
+        <BaseText style={styles.text}>{children}</BaseText>
       </TouchableOpacity>
     </View>
   );
