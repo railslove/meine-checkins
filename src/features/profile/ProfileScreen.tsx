@@ -1,6 +1,6 @@
-import {Animated} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
+import {Animated, Easing} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,7 +20,6 @@ import Subtitle from 'src/shared/components/Typography/Subtitle';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
 import CircledCheckIcon from 'src/shared/components/Icon/CircledCheckIcon';
 import TextInput, {TextInputProps} from 'src/shared/components/Form/TextInput';
-import {Easing} from 'react-native-reanimated';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
