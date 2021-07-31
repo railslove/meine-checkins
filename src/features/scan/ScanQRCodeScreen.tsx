@@ -160,7 +160,6 @@ const ScanQRCodeScreen: React.FC = () => {
 
   return (
     <TopLevelView
-      flex={1}
       display="flex"
       alignItems="center"
       flexDirection="column"

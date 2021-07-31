@@ -21,7 +21,6 @@ const NotQRScreen: React.FC<NotQRScreenProps> = ({backgroundColor, onRetry}) => 
 
   return (
     <TopLevelView
-      flex={1}
       display="flex"
       flexDirection="column"
       paddingHorizontal={px2dp(30)}
