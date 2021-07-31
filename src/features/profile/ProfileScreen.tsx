@@ -1,7 +1,8 @@
-import React from 'react';
+import {Animated} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import {Controller, useForm} from 'react-hook-form';
+import React, {useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import User from 'src/shared/models/User';
@@ -17,15 +18,21 @@ import TextBox from 'src/shared/components/Typography/TextBox';
 import LockIcon from 'src/shared/components/Icon/LockIcon';
 import Subtitle from 'src/shared/components/Typography/Subtitle';
 import TopLevelView from 'src/shared/components/Layout/TopLevelView';
+import CircledCheckIcon from 'src/shared/components/Icon/CircledCheckIcon';
 import TextInput, {TextInputProps} from 'src/shared/components/Form/TextInput';
+import {Easing} from 'react-native-reanimated';
 
 const ProfileScreen: React.FC = () => {
   const {t} = useTranslation('profileScreen');
-  const user = useSelector(state => state.user.item);
   const theme = useTheme();
+
+  const user = useSelector(state => state.user.item);
   const checkIns = useSelector(state => state.checkIns);
 
   const dispatch = useDispatch();
+
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+  const [isAnimated, setIsAnimated] = useState(false);
 
   const {
     control,
@@ -38,7 +45,20 @@ const ProfileScreen: React.FC = () => {
 
   const handleSave = handleSubmit(user => {
     dispatch(saveUserAction(user));
-    NavigationService.fromProfileScreen(checkIns);
+
+    setIsAnimated(true);
+
+    Animated.timing(fadeAnim, {
+      easing: Easing.cubic,
+      toValue: 100,
+      duration: 750,
+      useNativeDriver: false,
+    }).start(() => {
+      setTimeout(() => {
+        NavigationService.fromProfileScreen(checkIns);
+        setIsAnimated(false);
+      }, 150);
+    });
   });
 
   const renderTextInput = (name: keyof User, inputProps: TextInputProps = {}) => {
@@ -134,7 +154,7 @@ const ProfileScreen: React.FC = () => {
           autoCompleteType: 'email',
         })}
 
-        <Space.V s={10} />
+        <Space.V s={5} />
         <Box
           display="flex"
           alignItems="center"
@@ -153,9 +173,43 @@ const ProfileScreen: React.FC = () => {
             </Box>
           </Box>
 
-          <Space.V s={15} />
+          <Space.V s={10} />
           <Button fullWidth onPress={handleSave}>
-            {t('submit')}
+            <Box
+              height={20}
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              flexDirection="row"
+            >
+              <Animated.View
+                style={
+                  isAnimated
+                    ? {
+                        opacity: Animated.divide(fadeAnim, 100),
+                        marginRight: 10,
+                      }
+                    : {
+                        display: 'none',
+                      }
+                }
+              >
+                <CircledCheckIcon />
+              </Animated.View>
+              <Animated.View
+                style={
+                  isAnimated
+                    ? {
+                        opacity: Animated.divide(fadeAnim, 100),
+                      }
+                    : undefined
+                }
+              >
+                <TextBox color="white" fontSize={13} textTransform="uppercase" fontWeight="bold">
+                  {isAnimated ? t('saved') : t('save')}
+                </TextBox>
+              </Animated.View>
+            </Box>
           </Button>
         </Box>
       </Box>
