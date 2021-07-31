@@ -13,7 +13,6 @@ const useStyles = (props: ButtonProps) => {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 12,
 
     shadowColor: 'black',
     shadowRadius: 5,
