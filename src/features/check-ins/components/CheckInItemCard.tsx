@@ -1,15 +1,16 @@
 import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {View, TouchableOpacity} from 'react-native';
 
+import {formatItemDate} from 'src/shared/format/date';
 import createStyles, {px2dp} from 'src/shared/styles/createStyles';
 import {hasCheckInItemTimedOut, PersitedCheckInItem} from 'src/shared/models/Provider';
 
 import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
-import CheckInLogo, {CHECKIN_LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
-import {formatItemDate} from 'src/shared/format/date';
+import BaseText from 'src/shared/components/Typography/BaseText';
 import ChevronRightIcon from 'src/shared/components/Icon/ArrowRightIcon';
-import {useTranslation} from 'react-i18next';
+import CheckInLogo, {CHECKIN_LOGO_DIMENSIONS} from 'src/features/check-ins/components/CheckInLogo';
 
 const useStyles = () => {
   return createStyles({
@@ -63,15 +64,15 @@ const CheckInItemCard: React.FC<CheckInItemCardProps> = props => {
       <CheckInLogo src={logoLarge || logoUrl} />
 
       <Box flex={1} marginLeft={px2dp(10)}>
-        <Text style={styles.nameText}>{location || name}</Text>
+        <BaseText style={styles.nameText}>{location || name}</BaseText>
 
         <Space.V s={1} />
-        <Text style={styles.infoText}>
+        <BaseText style={styles.infoText}>
           {formatItemDate(item)}
           {isCurrent ? `-${t('active')}` : ` ${t('hour')}`}
-        </Text>
+        </BaseText>
         {!isCurrent && !stopTime && hasCheckInItemTimedOut(item) ? (
-          <Text style={styles.infoText}>{t('checkedOutByService')}</Text>
+          <BaseText style={styles.infoText}>{t('checkedOutByService')}</BaseText>
         ) : null}
       </Box>
 

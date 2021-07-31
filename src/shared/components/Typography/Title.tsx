@@ -1,7 +1,8 @@
 import React from 'react';
-import {Text, TextStyle, View} from 'react-native';
+import {TextStyle, View} from 'react-native';
 
 import createStyles from 'src/shared/styles/createStyles';
+import BaseText from './BaseText';
 
 const useStyles = ({color = '#060606', ...restTextStyles}: Omit<TitleProps, 'children'> = {}) =>
   createStyles({
@@ -40,7 +41,7 @@ const Title: React.FC<TitleProps> = ({children, split = true, ...textStyles}) =>
   const style = useStyles(textStyles);
 
   if (!split) {
-    return <Text style={style.text}>{children}</Text>;
+    return <BaseText style={style.text}>{children}</BaseText>;
   }
 
   return (
@@ -50,9 +51,9 @@ const Title: React.FC<TitleProps> = ({children, split = true, ...textStyles}) =>
         .split(/\s+/)
         .map(el => {
           return (
-            <Text key={el} style={style.text}>
+            <BaseText key={el} style={style.text}>
               {el}
-            </Text>
+            </BaseText>
           );
         })}
     </View>

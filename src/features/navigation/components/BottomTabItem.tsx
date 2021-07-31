@@ -1,15 +1,17 @@
 import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
+import createStyles from 'src/shared/styles/createStyles';
+
+import Box from 'src/shared/components/Layout/Box';
 import Space from 'src/shared/components/Layout/Space';
+import BaseText from 'src/shared/components/Typography/BaseText';
 import ScanQRIcon from 'src/shared/components/Icon/ScanQRIcon';
 import ProfileIcon from 'src/shared/components/Icon/ProfileIcon';
 import MyCheckInsIcon from 'src/shared/components/Icon/MyCheckInsIcon';
-import {px2dp} from 'src/shared/styles/createStyles';
 import {BottomTabsRoutes} from 'src/features/navigation/routes';
-import Box from 'src/shared/components/Layout/Box';
 
 export type BottomTabItemProps = {
   route: BottomTabsRoutes;
@@ -17,7 +19,7 @@ export type BottomTabItemProps = {
   hasNewCheckIn: boolean;
 };
 
-const styles = StyleSheet.create({
+const styles = createStyles({
   root: {
     display: 'flex',
     alignItems: 'center',
@@ -34,8 +36,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     fontWeight: '700',
 
-    fontSize: px2dp(12),
-    lineHeight: px2dp(14),
+    fontSize: 12,
+    lineHeight: 14,
   },
 });
 
@@ -58,7 +60,7 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
         <View style={styles.root}>
           <ProfileIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <Text style={textStyle}>{t('profile')}</Text>
+          <BaseText style={textStyle}>{t('profile')}</BaseText>
         </View>
       );
     }
@@ -77,18 +79,18 @@ const BottomTabItem: React.FC<BottomTabItemProps> = props => {
           {hasNewCheckIn ? (
             <Box
               position="absolute"
-              top={px2dp(-5)}
-              right={px2dp(25)}
-              width={px2dp(6)}
-              height={px2dp(6)}
-              borderRadius={px2dp(3)}
+              top={-5}
+              right={25}
+              width={6}
+              height={6}
+              borderRadius={3}
               backgroundColor="#3772FF"
             />
           ) : undefined}
 
           <MyCheckInsIcon isSelected={isSelected} />
           <Space.V s={5} />
-          <Text style={textStyle}>{t('checkIns')}</Text>
+          <BaseText style={textStyle}>{t('checkIns')}</BaseText>
         </View>
       );
     }

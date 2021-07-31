@@ -1,9 +1,10 @@
 import React from 'react';
 import {useTheme} from 'react-native-paper';
-import {Text, TextStyle} from 'react-native';
+import {TextStyle} from 'react-native';
 
 import OpenLinkService from 'src/shared/services/OpenLinkService';
 import {paragraphStyle} from 'src/shared/components/Typography/Paragraph';
+import BaseText from '../Typography/BaseText';
 
 export type WFDIndexButtonLinkProps = {
   styleProps?: TextStyle;
@@ -19,9 +20,9 @@ const WFDIndexButtonLink: React.FC<WFDIndexButtonLinkProps> = ({children, styleP
   };
 
   return (
-    <Text style={textStyle} onPress={OpenLinkService.openWFDIndex}>
+    <BaseText style={textStyle} onPress={OpenLinkService.openWFDIndex}>
       {children}
-    </Text>
+    </BaseText>
   );
 };
 

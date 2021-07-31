@@ -26,6 +26,7 @@ const MultilineText = ({children}: MultilineTextProps): JSX.Element => {
         .join('\n')}
       style={styles.text}
       scrollEnabled={false}
+      allowFontScaling={false}
     />
   );
 };

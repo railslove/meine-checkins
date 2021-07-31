@@ -1,5 +1,7 @@
 import React from 'react';
-import {Text, TextStyle} from 'react-native';
+import {TextStyle} from 'react-native';
+
+import BaseText from 'src/shared/components/Typography/BaseText';
 import createStyles from 'src/shared/styles/createStyles';
 
 const useStyles = ({
@@ -38,7 +40,7 @@ export type SubtitleProps = TextStyle & {
 const SubTitle: React.FC<SubtitleProps> = ({children, ...styleProps}) => {
   const style = useStyles(styleProps);
 
-  return <Text style={style.text}>{children}</Text>;
+  return <BaseText style={style.text}>{children}</BaseText>;
 };
 
 export default SubTitle;

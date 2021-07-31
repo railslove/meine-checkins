@@ -1,22 +1,23 @@
 import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
 
-import {px2dp} from 'src/shared/styles/createStyles';
+import createStyles from 'src/shared/styles/createStyles';
+import BaseText from '../Typography/BaseText';
 
 const useStyles = () => {
   const theme = useTheme();
 
-  return StyleSheet.create({
+  return createStyles({
     root: {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'row',
     },
     text: {
-      fontSize: px2dp(13),
-      lineHeight: px2dp(16),
+      fontSize: 13,
+      lineHeight: 16,
 
       color: theme.colors.primary,
       fontWeight: '600',
@@ -37,7 +38,7 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({onPress, children}) => {
   return (
     <View style={styles.root}>
       <TouchableOpacity onPress={onPress}>
-        <Text style={styles.text}>{children}</Text>
+        <BaseText style={styles.text}>{children}</BaseText>
       </TouchableOpacity>
     </View>
   );

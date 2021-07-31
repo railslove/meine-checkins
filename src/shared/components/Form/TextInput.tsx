@@ -44,6 +44,7 @@ const TextInput: React.FC<TextInputProps> = props => {
       style={style}
       autoCorrect={true}
       underlineColor="transparent"
+      allowFontScaling={false}
       placeholderTextColor="black"
       underlineColorAndroid="transparent"
     />
