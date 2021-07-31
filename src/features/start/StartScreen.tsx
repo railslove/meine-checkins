@@ -23,7 +23,7 @@ const StartScreen: React.FC = () => {
   };
 
   return (
-    <TopLevelView flex={1}>
+    <TopLevelView>
       <Box flex={1} display="flex" alignItems="center" justifyContent="center" height={height}>
         <Box marginHorizontal="10%">
           <Box display="flex" alignItems="center" justifyContent="center">

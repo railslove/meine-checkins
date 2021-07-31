@@ -24,7 +24,6 @@ const UserIsCheckedInScreen: React.FC<UserIsCheckedInScreenProps> = ({
 
   return (
     <TopLevelView
-      flex={1}
       display="flex"
       flexDirection="column"
       paddingHorizontal={px2dp(30)}

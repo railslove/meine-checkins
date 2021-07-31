@@ -12,7 +12,7 @@ const MyCheckInsEmpty: React.FC = () => {
   const {t} = useTranslation('myCheckInsScreen');
 
   return (
-    <TopLevelView flex={1}>
+    <TopLevelView>
       <Space.V s={10} />
       <Title>{t('title')}</Title>
       <Space.V s={5} />
