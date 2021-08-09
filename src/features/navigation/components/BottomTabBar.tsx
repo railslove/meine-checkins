@@ -58,9 +58,7 @@ const BottomTabBar: React.FC<BottomTabBarProps> = ({
   return (
     <View style={styles.root}>
       {BOTTOM_TAB_ITEMS.map(route => {
-        const isSelected = shouldHighlightScan
-          ? route === BottomTabsRoutes.ScanQRCode
-          : currentRoute.name === route;
+        const isSelected = currentRoute.name === route;
 
         const shouldShowCheckInActive =
           checkInActive && route === BottomTabsRoutes.CheckInsNavigator;
