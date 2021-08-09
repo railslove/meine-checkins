@@ -37,19 +37,21 @@ const checkInsTransform: ReduxPersistTransform<'checkIns', CheckInsReducerState>
     /**
      * map existing check-ins for their actualized values (logo, etc.)
      */
-    items: value.items.map(el => {
-      const name = el.url.replace(EXTRACT_HOSTNAME_RE, '');
-      const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
+    items: value.items
+      .filter(el => el && typeof el.url === 'string')
+      .map(el => {
+        const name = el.url.replace(EXTRACT_HOSTNAME_RE, '');
+        const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
 
-      if (item) {
-        return {
-          ...el,
-          ...item,
-        };
-      }
+        if (item) {
+          return {
+            ...el,
+            ...item,
+          };
+        }
 
-      return el;
-    }),
+        return el;
+      }),
   }),
   config: {
     whitelist: ['checkIns'],

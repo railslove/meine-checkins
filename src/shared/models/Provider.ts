@@ -35,7 +35,7 @@ export type CompletedCheckInItem = PartialCheckInItem & {
 
 export const EXTRACT_HOSTNAME_RE = /^https?\:\/\/|\/[^\s]+$/g;
 
-export const isTrustedProvider = (url: string) => {
+export const isTrustedProvider = (url = '') => {
   const hostname = url.replace(EXTRACT_HOSTNAME_RE, '');
   return CHECK_IN_PROVIDER_LIST.some(el => el.hostname.test(hostname));
 };
@@ -48,10 +48,10 @@ export const hasCheckInItemTimedOut = (item: PartialCheckInItem) => {
 };
 
 export const createPartialCheckIn = (
-  props: Pick<PartialCheckInItem, 'url'>
+  props: Pick<PartialCheckInItem, 'url'> = {url: ''}
 ): PartialCheckInItem => {
   const id = getUUID();
-  const name = props.url.replace(EXTRACT_HOSTNAME_RE, '');
+  const name = typeof props.url === 'string' ? props.url.replace(EXTRACT_HOSTNAME_RE, '') : '';
   const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
   const scanTime = Date.now();
 
@@ -78,8 +78,11 @@ export type PersitedCheckInItem = PartialCheckInItem | CompletedCheckInItem;
  * map existing check-ins for their actualized values (logo, etc.)
  */
 export const hydrateCheckInItem = (props: PersitedCheckInItem): PersitedCheckInItem => {
-  const name = props.url.replace(EXTRACT_HOSTNAME_RE, '');
-  const item = CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name));
+  const name =
+    props != null && typeof props.url === 'string'
+      ? props.url.replace(EXTRACT_HOSTNAME_RE, '')
+      : '';
+  const item = name ? CHECK_IN_PROVIDER_LIST.find(el => name && el.hostname.test(name)) : null;
 
   if (item) {
     return {
