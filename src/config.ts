@@ -1,6 +1,10 @@
+import {Platform} from 'react-native';
 import {version} from '../package.json';
 
-export const APP_ID = 'de.railslove.wfdcheckin';
+export const APP_ID = Platform.select({
+  android: 'de.railslove.meinecheckins',
+  default: 'de.railslove.wfdcheckin',
+});
 
 export const RELEASE_VERSION = version;
 

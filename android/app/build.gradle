@@ -136,7 +136,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.railslove.wfdcheckin"
+        applicationId "de.railslove.meinecheckins"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 36
