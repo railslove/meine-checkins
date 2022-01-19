@@ -24,12 +24,6 @@ export type StoreDispatch = ThunkDispatch<StoreState, undefined, AppAction>;
 // middleware
 const middleware = [thunkMiddleware, createSentryMiddleware()];
 
-// development middleware
-if (__DEV__ && process.env.NODE_ENV != 'test') {
-  const createDebugger = require('redux-flipper').default;
-  middleware.push(createDebugger());
-}
-
 // persistence config
 const persistRootReducerConfig: ReduxPersistConfig = {
   key: 'root',
