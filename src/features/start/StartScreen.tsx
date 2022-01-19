@@ -1,6 +1,5 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {Dimensions} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import Box from 'src/shared/components/Layout/Box';
@@ -13,8 +12,6 @@ import LargeHeadline from 'src/shared/components/Typography/LargeTitle';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
 const StartScreen: React.FC = () => {
-  const {height} = Dimensions.get('screen');
-
   const {t} = useTranslation('startScreen');
   const user = useSelector(state => state.user.item);
 

@@ -6,7 +6,6 @@ import React, {useEffect} from 'react';
 import {BarCodeReadEvent} from 'react-native-camera';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {TEST_PROVIDERS} from 'src/testData';
 import {
   isTrustedProvider,
   PartialCheckInItem,
