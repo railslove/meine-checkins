@@ -5,10 +5,10 @@ import {BottomTabsRoutes, MyCheckInsRoutes, RootStackRoutes} from 'src/features/
 import User from 'src/shared/models/User';
 import {StoreState} from 'src/shared/redux/store';
 
-export const rootNavigationRef = createRef<NavigationContainerRef>();
+export const rootNavigationRef = createRef<NavigationContainerRef<any>>();
 
-type DispatchArgs = Parameters<NavigationContainerRef['dispatch']>;
-type NavigateParams = Parameters<NavigationContainerRef['navigate']>;
+type DispatchArgs = Parameters<NavigationContainerRef<any>['dispatch']>;
+type NavigateParams = Parameters<NavigationContainerRef<any>['navigate']>;
 
 /**
  * Routing on the app goes

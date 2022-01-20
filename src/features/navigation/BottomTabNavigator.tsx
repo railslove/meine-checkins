@@ -25,16 +25,18 @@ const BottomNavigator: React.FC = () => {
 
   return (
     <Navigator
-      tabBar={props => (
-        <BottomTabBar
-          {...props}
-          theme={theme}
-          checkInActive={checkInActive}
-          highlightScanButton={highlightScanButton}
-        />
-      )}
+      tabBar={props =>
+        tabBarVisible ? (
+          <BottomTabBar
+            {...props}
+            theme={theme}
+            checkInActive={checkInActive}
+            highlightScanButton={highlightScanButton}
+          />
+        ) : null
+      }
       backBehavior="none"
-      screenOptions={{tabBarVisible, unmountOnBlur: false}}
+      screenOptions={{unmountOnBlur: false}}
       initialRouteName={initialRouteName}
     >
       <Screen name={BottomTabsRoutes.Profile} component={ProfileScreen} />

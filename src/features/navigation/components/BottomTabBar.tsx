@@ -1,9 +1,6 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {
-  BottomTabBarOptions,
-  BottomTabBarProps as RNBottomTabBarProps,
-} from '@react-navigation/bottom-tabs';
+import {BottomTabBarProps as RNBottomTabBarProps} from '@react-navigation/bottom-tabs';
 
 import {useTheme} from 'react-native-paper';
 import {px2dp} from 'src/shared/styles/createStyles';
@@ -13,7 +10,7 @@ import ScanHighlight from 'src/features/navigation/components/ScanHighlight';
 import BottomTabItem from 'src/features/navigation/components/BottomTabItem';
 import NavigationService from 'src/features/navigation/services/NavigationService';
 
-export type BottomTabBarProps = RNBottomTabBarProps<BottomTabBarOptions> & {
+export type BottomTabBarProps = RNBottomTabBarProps & {
   theme: ReturnType<typeof useTheme>;
   checkInActive: boolean;
   highlightScanButton: boolean;
@@ -41,16 +38,10 @@ export const BOTTOM_TAB_ITEMS = Object.values(BottomTabsRoutes).filter(
 const BottomTabBar: React.FC<BottomTabBarProps> = ({
   theme,
   state,
-  descriptors,
   checkInActive,
   highlightScanButton,
 }) => {
   const currentRoute = state.routes[state.index];
-  const focusedOptions = descriptors[currentRoute.key].options;
-
-  if (focusedOptions.tabBarVisible === false) {
-    return null;
-  }
 
   const shouldHighlightScan =
     highlightScanButton && currentRoute.name === BottomTabsRoutes.CheckInsNavigator;
