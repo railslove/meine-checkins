@@ -1,4 +1,4 @@
-package de.railslove.wfdcheckin;
+package de.railslove.meinecheckins;
 
 import com.facebook.react.ReactActivity;
 
