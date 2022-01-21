@@ -69,6 +69,8 @@ Once you have setup your environment
 
 For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to Google Play and TestFlight. After that you will have to follow the steps needed for each platform to publish the app to the Play Store and App Store.
 
+To increment the `patch` version simply do `npm version patch` for the minor version `npm version minor`. The code is setup in a way that it will automatically change the build number and ios / android versions according to this (through the `postversion` script that runs after `npm version` see `package.json`).
+
 ### Testing
 
 For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator).
