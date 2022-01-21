@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import createStyles, {px2dp} from 'src/shared/styles/createStyles';
+import createStyles from 'src/shared/styles/createStyles';
 import BaseText from './BaseText';
 
 const style = createStyles({

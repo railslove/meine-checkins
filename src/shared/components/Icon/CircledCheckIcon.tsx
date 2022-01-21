@@ -5,7 +5,7 @@ import {px2dp} from 'src/shared/styles/createStyles';
 
 const size = px2dp(19);
 
-const CircledCheckIcon: React.FC<SvgProps> = props => {
+const CircledCheckIcon: React.FC<SvgProps> = () => {
   return (
     <Svg width={size} height={size} viewBox="0 0 22 22" fill="none">
       <Path
