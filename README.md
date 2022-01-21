@@ -73,9 +73,11 @@ To increment the `patch` version simply do `npm version patch` for the minor ver
 
 ### Testing
 
-For testing different providers you can add the provider check-in url to `src/testData.ts`.
+For testing different providers, in development mode, you can add the provider check-in url to `src/testData.ts`. This list will appear on the Scan QR screen and you can tap on them instead of scanning them while working on the simulator.
 
-You can also have a look at the [test wiki](https://github.com/railslove/meine-checkins/wiki/Testing) for more information.
+You can also have a look at the [test wiki](https://github.com/railslove/meine-checkins/wiki/Testing) for more information on how to test real QRs.
+
+If you have an `android` phone you can test the app connecting the phone through `USB` and then running `yarn android`. Here more information: https://reactnative.dev/docs/running-on-device
 
 # License
 
