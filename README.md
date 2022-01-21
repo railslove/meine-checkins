@@ -73,9 +73,9 @@ To increment the `patch` version simply do `npm version patch` for the minor ver
 
 ### Testing
 
-For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator).
+For testing different providers you can add the provider check-in url to `src/testData.ts`.
 
-If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
+You can also have a look at the [test wiki](https://github.com/railslove/meine-checkins/wiki/Testing) for more information.
 
 # License
 
