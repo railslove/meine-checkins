@@ -25,7 +25,8 @@
     "detox-test:androidRelease": "detox test -c android.emu.release",
     "detox-build:androidRelease": "detox build -c android.emu.release",
     "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
-    "android:clean": "cd android && ./gradlew clean"
+    "android:clean": "cd android && ./gradlew clean",
+    "postversion": "react-native-version"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -61,6 +62,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "typesafe-actions": "^5.1.0",
+    "react-native-version": "^4.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
