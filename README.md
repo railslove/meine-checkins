@@ -5,7 +5,7 @@
 <h1 align="center">Meine Checkins</h1>
 
 <p align="center">
-  A product by <a href="https://railslove.com">Railslove</a>
+  A product by <a href="https://railslove.com">Railslove</a> for the [City of Cologne](./src/shared/assets/android-proof-of-permission.pdf).
 </p>
 
 <p align="center">
