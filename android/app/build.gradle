@@ -131,11 +131,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.railslove.wfdcheckin"
+        applicationId "de.railslove.meinecheckins"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 35
-        versionName "1.12.2"
+        versionCode 39
+        versionName "1.12.3"
 
         // Detox
         testBuildType System.getProperty('testBuildType', 'debug')  // This will later be used to control the test apk build type

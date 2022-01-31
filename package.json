@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "1.12.2",
+  "version": "1.12.3",
   "scripts": {
     "ios": "ENVFILE=.env react-native run-ios",
     "start": "react-native start",
@@ -25,7 +25,8 @@
     "detox-test:androidRelease": "detox test -c android.emu.release",
     "detox-build:androidRelease": "detox build -c android.emu.release",
     "ios:reset": "yarn ios:rm && cd ios && pod deintegrate && pod install",
-    "android:clean": "cd android && ./gradlew clean"
+    "android:clean": "cd android && ./gradlew clean",
+    "postversion": "react-native-version"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
@@ -55,6 +56,7 @@
     "react-native-screens": "^3.1.0",
     "react-native-svg": "^12.1.0",
     "react-native-url-polyfill": "^1.3.0",
+    "react-native-version": "^4.0.0",
     "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",

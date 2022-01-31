@@ -5,7 +5,7 @@
 <h1 align="center">Meine Checkins</h1>
 
 <p align="center">
-  A product by <a href="https://railslove.com">Railslove</a>
+  A product by <a href="https://railslove.com">Railslove</a> for the <a href="./src/shared/assets/android-proof-of-permission.pdf">City of Cologne</a>.
 </p>
 
 <p align="center">
@@ -69,11 +69,15 @@ Once you have setup your environment
 
 For deployment we have Semaphore CI setup. Once a release is ready create a branch with that release name. Test it and once is ready tag it. After that go to Semaphore and start the builds for promoting the app to Google Play and TestFlight. After that you will have to follow the steps needed for each platform to publish the app to the Play Store and App Store.
 
+To increment the `patch` version simply do `npm version patch` for the minor version `npm version minor`. The code is setup in a way that it will automatically change the build number and ios / android versions according to this (through the `postversion` script that runs after `npm version` see `package.json`).
+
 ### Testing
 
-For testing different providers you can add the provider check-in url to `src/testData.ts`. In development mode that URL will be listed under the Scan QR screen so you don’t need to scan the QR code (since that would be cumbersome with a device or impossible with the simulator).
+For testing different providers, in development mode, you can add the provider check-in url to `src/testData.ts`. This list will appear on the Scan QR screen and you can tap on them instead of scanning them while working on the simulator.
 
-If you need to transform a QR code image to an url you can use a tool [like this one](https://qreader.online/).
+You can also have a look at the [test wiki](https://github.com/railslove/meine-checkins/wiki/Testing) for more information on how to test real QRs.
+
+If you have an `android` phone you can test the app connecting the phone through `USB` and then running `yarn android`. Here more information: https://reactnative.dev/docs/running-on-device
 
 # License
 
